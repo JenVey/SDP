@@ -56,6 +56,7 @@ CREATE TABLE `chart` (
 -- Table structure for table `chatuser`
 --
 
+
 DROP TABLE IF EXISTS `chatuser`;
 CREATE TABLE `chatuser` (
   `id_pengirim` varchar(6) NOT NULL,
