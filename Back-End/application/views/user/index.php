@@ -1,6 +1,4 @@
 <body class="hold-transition sidebar-mini">
-<div class="wrapper">
-
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -21,13 +19,14 @@
     </section>
 
     <?php var_dump($user) ?>
+
     <!-- Main content -->
     <section class="content">
       <div class="row">
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              <button type="button" class="btn btn-block btn-primary col-md-1 float-right">Insert User</button>
+              <a type="button" href="<?=base_url();?>user/insertUser" class="btn btn-block btn-primary col-md-1 float-right">Insert User</a>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -476,16 +475,16 @@
 <!-- ./wrapper -->
 
 <!-- jQuery -->
-<script src="plugins/jquery/jquery.min.js"></script>
+<script src="<?php echo base_url();?>/asset/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
-<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="<?php echo base_url();?>/asset/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- DataTables -->
-<script src="plugins/datatables/jquery.dataTables.js"></script>
-<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+<script src="<?php echo base_url();?>/asset/plugins/datatables/jquery.dataTables.js"></script>
+<script src="<?php echo base_url();?>/asset/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
 <!-- AdminLTE App -->
-<script src="dist/js/adminlte.min.js"></script>
+<script src="<?php echo base_url();?>/asset/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="dist/js/demo.js"></script>
+<script src="<?php echo base_url();?>/asset/dist/js/demo.js"></script>
 <!-- page script -->
 <script>
   $(function () {

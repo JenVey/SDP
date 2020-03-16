@@ -32,7 +32,21 @@ class User extends CI_Controller {
 		$this->load->view('templates/header',$data);
 		$this->load->view('templates/navbar',$data);
 		$this->load->view('templates/sidebar',$data);
-        $this->load->view('user',$data);
+        $this->load->view('user/index',$data);
         //$this->load->view('templates/footer');
+	}
+
+	public function insertUser()
+	{
+	
+		$this->load->model('User_model');
+		$data['judul'] = 'Insert Data User';
+		
+		$this->load->view('templates/header',$data);
+		$this->load->view('templates/navbar',$data);
+		$this->load->view('templates/sidebar',$data);
+		$this->load->view('user/insertUser',$data);
+		//$this->load->view('templates/footer',$data);
+		
 	}
 }
