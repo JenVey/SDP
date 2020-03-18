@@ -29,29 +29,29 @@
                 </div>
             <!-- /.card-header -->
             <!-- form start -->
-                <form role="form">
+                <form method="post" action="<?=base_url();?>User/InsertUser/insert">
                 <div class="card-body">
                     <div class="form-group">
-                    <label for="nameUser">Name</label>
-                    <input type="text" class="form-control" id="nameUser" placeholder="Enter Your Name">
+                    <label>Name</label>
+                    <input type="text" class="form-control" id="nameUser" name="nameUser" placeholder="Enter Your Name">
                     </div>
                     <div class="form-group">
-                    <label for="nickUser">Nickname</label>
-                    <input type="text" class="form-control" id="nickUser" placeholder="Enter Your Nickname">
+                    <label>Nickname</label>
+                    <input type="text" class="form-control" id="nickUser" name="nickUser" placeholder="Enter Your Nickname">
                     </div>
                     <div class="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                    <label >Email address</label>
+                    <input type="email" class="form-control" id="emailUser" name="emailUser" placeholder="Enter email">
                     </div>
                     <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    <label>Password</label>
+                    <input type="password" class="form-control" id="passUser" name="passUser" placeholder="Password">
                     </div>
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary float-left" style="margin-right:10px;">Submit</button>
-                    <a type="submit" href="<?=base_url();?>user" class="btn btn-danger float-right">Cancel</a>
+                    <a type="submit" href="<?=base_url();?>user/listuser" class="btn btn-danger float-right">Cancel</a>
                 </div>
                 </form>
             </div>
