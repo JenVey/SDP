@@ -2,7 +2,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class InsertUser extends CI_Controller {
+class EditUser extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -26,48 +26,37 @@ class InsertUser extends CI_Controller {
 		$this->load->library('form_validation');
     }
     
-	public function index()
+	public function index($id)
 	{
 		$this->load->model('User_model');
-		//$data['judul'] = 'Insert Data User';
-		$this->load->view('templates/header');
+		$data['user'] = $this->User_model->getUserById($id);
+
+		$this->load->view('templates/header',$data);
 		$this->load->view('templates/navbar');
 		$this->load->view('templates/sidebar');
-		$this->load->view('user/insertUser'	);
-		//$this->load->view('templates/footer',$data);
+		$this->load->view('user/editUser',$data);
 	
 	}
 
-	public function insert()
+	public function edit($id)
 	{
-		//var_dump($this->input->post('nameUser'));
-
+		
+		$data['user'] = $this->User_model->getUserById($id);
 		$this->form_validation->set_rules('nameUser','Nama','required');
 		$this->form_validation->set_rules('nickUser','Nickname','required');
 		//$this->form_validation->set_rules('emailUser','Email','required|valid_email');
 		$this->form_validation->set_rules('passUser','Password','required');
 
 		if( $this->form_validation->run() == FALSE){
-			$this->load->view('templates/header');
+			$this->load->view('templates/header',$data);
 			$this->load->view('templates/navbar');
 			$this->load->view('templates/sidebar');
-			$this->load->view('user/insertUser'	);
+			$this->load->view('user/editUser',$data);
 		}else{
-			$this->User_model->insertUser();
-
-			$this->session->set_flashdata('flash','Success insert User !!!');
-
+			$this->User_model->editUser($id);
+			$this->session->set_flashdata('flash','Edited');
 			redirect('user/listUser');
 		}	
-    
-	}
-
-	public function delete($id)
-	{
-		$this->User_model->deleteUser($id);
-		$this->session->set_flashdata('flash','Deleted');
-
-		redirect('user/listUser');
 	}
 
 	

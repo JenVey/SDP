@@ -33,6 +33,7 @@ USE `db_owl`;
 DROP TABLE IF EXISTS `channel`;
 CREATE TABLE `channel` (
   `id_channel` varchar(6) NOT NULL,
+  `id_user` varchar(6) NOT NULL,
   `nama_channel` varchar(20) NOT NULL,
   `foto_channel` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -40,13 +41,14 @@ CREATE TABLE `channel` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `chart`
+-- Table structure for table `cart`
 --
 
-DROP TABLE IF EXISTS `chart`;
-CREATE TABLE `chart` (
-  `id_chart` varchar(6) NOT NULL,
+DROP TABLE IF EXISTS `cart`;
+CREATE TABLE `cart` (
+  `id_cart` varchar(6) NOT NULL,
   `id_user` varchar(6) NOT NULL,
+  'id_item' varchar(6) NOT NULL,
   `jumlah` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -66,15 +68,12 @@ CREATE TABLE `chatuser` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `customer`
+-- Table structure for table `user`
 --
 
-DROP TABLE IF EXISTS `customer`;
-CREATE TABLE `customer` (
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
   `id_user` varchar(6) NOT NULL,
-  `id_channel` varchar(6) NOT NULL,
-  `id_chart` varchar(6) NOT NULL,
-  `id_merchant` varchar(6) NOT NULL,
   `nama_user` varchar(25) NOT NULL,
   `pass_user` varchar(25) NOT NULL,
   `email_user` varchar(30) NOT NULL,
@@ -122,8 +121,6 @@ CREATE TABLE `gamingteam` (
 DROP TABLE IF EXISTS `item`;
 CREATE TABLE `item` (
   `id_item` varchar(6) NOT NULL,
-  `id_chart` varchar(6) NOT NULL,
-  `id_promo` varchar(6) NOT NULL,
   `id_merchant` varchar(6) NOT NULL,
   `nama_item` varchar(20) NOT NULL,
   `harga_item` decimal(8,2) NOT NULL,
@@ -143,11 +140,11 @@ CREATE TABLE `item` (
 DROP TABLE IF EXISTS `merchant`;
 CREATE TABLE `merchant` (
   `id_merchant` varchar(6) NOT NULL,
-  `id_sub` varchar(6) NOT NULL,
+  `id_sub` varchar(6),
   `id_user` varchar(6) NOT NULL,
   `nama_merchant` varchar(20) NOT NULL,
-  `foto_profil` varchar(20) NOT NULL,
-  `bio` varchar(25) NOT NULL
+  `foto_profil` varchar(20),
+  `bio` varchar(25)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -292,11 +289,12 @@ ALTER TABLE `channel`
   ADD PRIMARY KEY (`id_channel`);
 
 --
--- Indexes for table `chart`
+-- Indexes for table `cart`
 --
-ALTER TABLE `chart`
-  ADD PRIMARY KEY (`id_chart`),
+ALTER TABLE `cart`
+  ADD PRIMARY KEY (`id_cart`),
   ADD KEY `id_user` (`id_user`);
+  ADD KEY 'id_item' (`id_item`),
 
 --
 -- Indexes for table `chatuser`
@@ -306,13 +304,10 @@ ALTER TABLE `chatuser`
   ADD KEY `id_pesan` (`id_pesan`);
 
 --
--- Indexes for table `customer`
+-- Indexes for table `user`
 --
-ALTER TABLE `customer`
-  ADD PRIMARY KEY (`id_user`),
-  ADD KEY `id_channel` (`id_channel`),
-  ADD KEY `id_chart` (`id_chart`),
-  ADD KEY `id_merchant` (`id_merchant`);
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id_user`);
 
 --
 -- Indexes for table `eventtab`
@@ -332,8 +327,6 @@ ALTER TABLE `gamingteam`
 --
 ALTER TABLE `item`
   ADD PRIMARY KEY (`id_item`),
-  ADD KEY `id_chart` (`id_chart`),
-  ADD KEY `id_promo` (`id_promo`),
   ADD KEY `id_merchant` (`id_merchant`);
 
 --
@@ -411,9 +404,9 @@ ALTER TABLE `tournament`
 --
 
 --
--- Constraints for table `chart`
+-- Constraints for table `cart`
 --
-ALTER TABLE `chart`
+ALTER TABLE `cart`
   ADD CONSTRAINT `chart_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `customer` (`id_user`);
 
 --
@@ -427,7 +420,7 @@ ALTER TABLE `chatuser`
 --
 ALTER TABLE `customer`
   ADD CONSTRAINT `customer_ibfk_1` FOREIGN KEY (`id_channel`) REFERENCES `channel` (`id_channel`),
-  ADD CONSTRAINT `customer_ibfk_2` FOREIGN KEY (`id_chart`) REFERENCES `chart` (`id_chart`),
+  ADD CONSTRAINT `customer_ibfk_2` FOREIGN KEY (`id_cart`) REFERENCES `cart` (`id_cart`),
   ADD CONSTRAINT `customer_ibfk_3` FOREIGN KEY (`id_merchant`) REFERENCES `merchant` (`id_merchant`);
 
 --
@@ -440,7 +433,7 @@ ALTER TABLE `eventtab`
 -- Constraints for table `item`
 --
 ALTER TABLE `item`
-  ADD CONSTRAINT `item_ibfk_1` FOREIGN KEY (`id_chart`) REFERENCES `chart` (`id_chart`),
+  ADD CONSTRAINT `item_ibfk_1` FOREIGN KEY (`id_cart`) REFERENCES `cart` (`id_cart`),
   ADD CONSTRAINT `item_ibfk_2` FOREIGN KEY (`id_promo`) REFERENCES `promo` (`id_promo`),
   ADD CONSTRAINT `item_ibfk_3` FOREIGN KEY (`id_merchant`) REFERENCES `merchant` (`id_merchant`);
 

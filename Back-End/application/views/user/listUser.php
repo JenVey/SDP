@@ -17,11 +17,16 @@
         </div>
       </div><!-- /.container-fluid -->
     </section>
-
-    <?php var_dump($user) ?>
-
+    
     <!-- Main content -->
     <section class="content">
+    <?php if( $this->session->flashdata('flash') ) : ?>
+    <div class="alert alert-success alert-dismissible">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+      <h5><i class="icon fas fa-check"></i>SUCCESS</h5>
+      <?= $this->session->flashdata('flash'); ?>
+    </div>
+    <?php endif; ?>
       <div class="row">
         <div class="col-12">
           <div class="card">
@@ -37,6 +42,7 @@
                   <th>Nama User</th>
                   <th>Nickname User</th>
                   <th>Email User</th>
+                  <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -46,6 +52,10 @@
                       <td> <?= $usr['nama_user'] ?> </td>
                       <td> <?= $usr['nickname_user'] ?> </td>
                       <td> <?= $usr['email_user'] ?> </td>
+                      <td>
+                        <a type="button" href="<?=base_url();?>User/EditUser/index/<?= $usr['id_user']; ?>" class="btn btn-block btn-warning col-md-6 float-left mt-2">Edit</a>
+                        <a type="button" href="<?=base_url();?>User/InsertUser/delete/<?= $usr['id_user']; ?>" class="btn btn-block btn-danger col-md-6 float-left" onclick="return confirm('Yakin?'); ">Delete</a>
+                      </td>
                     </tr>
                   <?php endforeach; ?>
                 </tbody>

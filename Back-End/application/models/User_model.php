@@ -10,12 +10,9 @@ class User_model extends CI_model{
 
     public function insertUser()
     {
+        //ID ??????
         $data = [
-            "id_user" => '',
-            // "nama_user" => 'robby',
-            // "nickname_user" => 'kenenbot',
-			// "pass_user" => '123',
-            // "email_user" => 'robby@gmail.com',
+            "id_user" => '2',
             "nama_user" => $this->input->post('nameUser'),
             "nickname_user" => $this->input->post('nickUser'),
 			"pass_user" => $this->input->post('passUser'),
@@ -27,8 +24,32 @@ class User_model extends CI_model{
         $this->db->insert('user',$data);
     }
 
+    public function deleteUser($id)
+    {
+        $this->db->where('id_user',$id);
+        $this->db->delete('user');
+    }
 
+    public function getUserById($id)
+    {
+        return $this->db->get_where('user', ['id_user' => $id])->row_array();
+    }
 
-    
+    public function editUser($id)
+    {
+        //ID ??????
+        $data = [
+            "nama_user" => $this->input->post('nameUser'),
+            "nickname_user" => $this->input->post('nickUser'),
+			"pass_user" => $this->input->post('passUser'),
+			"email_user" => $this->input->post('emailUser'),
+			"trade_link" => '',
+			"foto" => '',
+			"saldo" => 0
+        ];
+
+        $this->db->where('id_user',$id);
+        $this->db->update('user',$data);
+    }
 
 }

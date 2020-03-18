@@ -1,5 +1,5 @@
 <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+<div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
@@ -29,7 +29,7 @@
                 </div>
             <!-- /.card-header -->
             <!-- form start --> 
-                <form method="post" action="<?=base_url();?>User/InsertUser/insert">
+                <form method="post" action="<?=base_url();?>User/EditUser/edit/<?= $user['id_user']?> ">
                 <div class="card-body">
                     <?php if(validation_errors()) : ?>
                     <div class="alert alert-danger alert-dismissible">
@@ -40,15 +40,15 @@
                     <?php endif; ?>
                     <div class="form-group">
                     <label>Name</label>
-                    <input type="text" class="form-control" id="nameUser" name="nameUser" placeholder="Enter Your Name">
+                    <input type="text" class="form-control" id="nameUser" name="nameUser" placeholder="Enter Your Name" value="<?php echo $user['nama_user']; ?>">
                     </div>
                     <div class="form-group">
                     <label>Nickname</label>
-                    <input type="text" class="form-control" id="nickUser" name="nickUser" placeholder="Enter Your Nickname">
+                    <input type="text" class="form-control" id="nickUser" name="nickUser" placeholder="Enter Your Nickname" value="<?php echo $user['nickname_user']; ?>">
                     </div>
                     <div class="form-group">
                     <label >Email address</label>
-                    <input type="email" class="form-control" id="emailUser" name="emailUser" placeholder="Enter email">
+                    <input type="email" class="form-control" id="emailUser" name="emailUser" placeholder="Enter email" value="<?php echo $user['email_user']; ?>">
                     </div>
                     <div class="form-group">
                     <label>Password</label>
@@ -57,7 +57,7 @@
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-primary float-left" style="margin-right:10px;">Submit</button>
+                    <button type="submit" class="btn btn-primary float-left" style="margin-right:10px;">Edit</button>
                     <a type="submit" href="<?=base_url();?>user/listuser" class="btn btn-danger float-right">Cancel</a>
                 </div>
                 </form>
