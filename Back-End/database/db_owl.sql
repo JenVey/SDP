@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 19, 2020 at 10:18 AM
+-- Generation Time: Mar 19, 2020 at 04:51 PM
 -- Server version: 10.3.15-MariaDB
 -- PHP Version: 7.3.6
 
@@ -89,11 +89,11 @@ CREATE TABLE `channel` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Table structure for table `customer`
 --
 
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user` (
+DROP TABLE IF EXISTS `customer`;
+CREATE TABLE `customer` (
   `id_user` varchar(6) NOT NULL,
   `nama_user` text NOT NULL,
   `pass_user` text NOT NULL,
@@ -325,7 +325,6 @@ CREATE TABLE `roomchat` (
 DROP TABLE IF EXISTS `subscription`;
 CREATE TABLE `subscription` (
   `id_sub` varchar(6) NOT NULL,
-  `id_merchant` varchar(6) NOT NULL,
   `keterangan` text NOT NULL,
   `tipe_sub` varchar(15) NOT NULL,
   `tgl_kadaluwarsa` date NOT NULL
@@ -388,9 +387,9 @@ ALTER TABLE `channel`
   ADD PRIMARY KEY (`id_channel`);
 
 --
--- Indexes for table `user`
+-- Indexes for table `customer`
 --
-ALTER TABLE `user`
+ALTER TABLE `customer`
   ADD PRIMARY KEY (`id_user`);
 
 --
@@ -502,8 +501,7 @@ ALTER TABLE `roomchat`
 -- Indexes for table `subscription`
 --
 ALTER TABLE `subscription`
-  ADD PRIMARY KEY (`id_sub`),
-  ADD KEY `id_merchant` (`id_merchant`);
+  ADD PRIMARY KEY (`id_sub`);
 
 --
 -- Indexes for table `tournament`
@@ -542,14 +540,14 @@ ALTER TABLE `berlangganan`
 --
 ALTER TABLE `berpartisipasi`
   ADD CONSTRAINT `fk_id_match` FOREIGN KEY (`id_match`) REFERENCES `pertandingan` (`id_match`),
-  ADD CONSTRAINT `fk_id_userr` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`);
+  ADD CONSTRAINT `fk_id_userr` FOREIGN KEY (`id_user`) REFERENCES `customer` (`id_user`);
 
 --
 -- Constraints for table `diikuti`
 --
 ALTER TABLE `diikuti`
   ADD CONSTRAINT `fk_id_channel` FOREIGN KEY (`id_channel`) REFERENCES `channel` (`id_channel`),
-  ADD CONSTRAINT `fk_id_user1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`);
+  ADD CONSTRAINT `fk_id_user1` FOREIGN KEY (`id_user`) REFERENCES `customer` (`id_user`);
 
 --
 -- Constraints for table `eventtab`
@@ -575,27 +573,27 @@ ALTER TABLE `mengikuti`
 --
 ALTER TABLE `menjadi_bagian`
   ADD CONSTRAINT `fk_id_teamm` FOREIGN KEY (`id_team`) REFERENCES `gamingteam` (`id_team`),
-  ADD CONSTRAINT `fk_id_userrr` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`);
+  ADD CONSTRAINT `fk_id_userrr` FOREIGN KEY (`id_user`) REFERENCES `customer` (`id_user`);
 
 --
 -- Constraints for table `menyimpan`
 --
 ALTER TABLE `menyimpan`
   ADD CONSTRAINT `fk_id_pesan` FOREIGN KEY (`id_pesan`) REFERENCES `pesan` (`id_pesan`),
-  ADD CONSTRAINT `fk_id_userrrr` FOREIGN KEY (`id_pengirim`) REFERENCES `user` (`id_user`);
+  ADD CONSTRAINT `fk_id_userrrr` FOREIGN KEY (`id_pengirim`) REFERENCES `customer` (`id_user`);
 
 --
 -- Constraints for table `merchant`
 --
 ALTER TABLE `merchant`
-  ADD CONSTRAINT `merchant_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`);
+  ADD CONSTRAINT `merchant_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `customer` (`id_user`);
 
 --
 -- Constraints for table `orderan`
 --
 ALTER TABLE `orderan`
   ADD CONSTRAINT `fk_id_item` FOREIGN KEY (`id_item`) REFERENCES `item` (`id_item`),
-  ADD CONSTRAINT `fk_id_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`);
+  ADD CONSTRAINT `fk_id_user` FOREIGN KEY (`id_user`) REFERENCES `customer` (`id_user`);
 
 --
 -- Constraints for table `pertandingan`
@@ -614,7 +612,7 @@ ALTER TABLE `promo`
 --
 ALTER TABLE `rating`
   ADD CONSTRAINT `rating_ibfk_1` FOREIGN KEY (`id_merchant`) REFERENCES `merchant` (`id_merchant`),
-  ADD CONSTRAINT `rating_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`);
+  ADD CONSTRAINT `rating_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `customer` (`id_user`);
 
 --
 -- Constraints for table `reminder`
@@ -627,12 +625,6 @@ ALTER TABLE `reminder`
 --
 ALTER TABLE `roomchat`
   ADD CONSTRAINT `roomchat_ibfk_1` FOREIGN KEY (`id_channel`) REFERENCES `channel` (`id_channel`);
-
---
--- Constraints for table `subscription`
---
-ALTER TABLE `subscription`
-  ADD CONSTRAINT `subscription_ibfk_1` FOREIGN KEY (`id_merchant`) REFERENCES `merchant` (`id_merchant`);
 
 --
 -- Constraints for table `tournament`
