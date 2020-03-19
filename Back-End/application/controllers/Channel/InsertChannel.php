@@ -2,7 +2,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class EditUser extends CI_Controller {
+class InsertChannel extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -22,40 +22,46 @@ class EditUser extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-		$this->load->model('User_model');
+		$this->load->model('Channel_model');
 		$this->load->library('form_validation');
     }
     
-	public function index($id)
+	public function index()
 	{
-		$this->load->model('User_model');
-		$data['user'] = $this->User_model->getUserById($id);
-
-		$this->load->view('templates/header',$data);
+		$this->load->model('Channel_model');
+		$this->load->view('templates/header');
 		$this->load->view('templates/navbar');
 		$this->load->view('templates/sidebar');
-		$this->load->view('user/editUser',$data);
+		$this->load->view('channel/insertChannel'	);
+		//$this->load->view('templates/footer',$data);
 	
 	}
 
-	public function edit($id)
+	public function insert()
 	{
 		
-		$data['user'] = $this->User_model->getUserById($id);
-		$this->form_validation->set_rules('nameUser','Nama','required');
-		$this->form_validation->set_rules('passUser','Password','required');
-		$this->form_validation->set_rules('emailUser','Email','required|valid_email');
+		$this->load->model('Channel_model');
+		$this->form_validation->set_rules('nameChannel','Nama','required');
 
 		if( $this->form_validation->run() == FALSE){
-			$this->load->view('templates/header',$data);
+			$this->load->view('templates/header');
 			$this->load->view('templates/navbar');
 			$this->load->view('templates/sidebar');
-			$this->load->view('user/editUser',$data);
+			$this->load->view('channel/insertChannel');
 		}else{
-			$this->User_model->editUser($id);
-			$this->session->set_flashdata('flash','Edited');
-			redirect('user/listUser');
+			$this->Channel_model->insertChannel();
+			$this->session->set_flashdata('flash','Success Insert Channel !!!');
+			redirect('channel/listChannel');
 		}	
+    
+	}
+
+	public function delete($id)
+	{
+		$this->Channel_model->deleteChannel($id);
+		$this->session->set_flashdata('flash','Success Deleted');
+
+		redirect('channel/listChannel');
 	}
 
 	

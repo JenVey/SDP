@@ -1,16 +1,16 @@
 <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+<div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Form Insert User</h1>
+            <h1>Form Insert Channel</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">ListUser</a></li>
-              <li class="breadcrumb-item active">InsertUser</li>
+              <li class="breadcrumb-item"><a href="#">ListChannel</a></li>
+              <li class="breadcrumb-item active">InsertChannel</li>
             </ol>
           </div>
         </div>
@@ -25,11 +25,11 @@
         <!-- general form elements -->
                 <div class="card card-primary">
                 <div class="card-header">
-                <h3 class="card-title">Insert User</h3>
+                <h3 class="card-title">Insert Channel</h3>
                 </div>
             <!-- /.card-header -->
             <!-- form start --> 
-                <form method="post" action="<?=base_url();?>User/InsertUser/insert">
+                <form method="post" action="<?=base_url();?>Channel/InsertChannel/insert">
                 <div class="card-body">
                     <?php if(validation_errors()) : ?>
                     <div class="alert alert-danger alert-dismissible">
@@ -39,35 +39,23 @@
                     </div>
                     <?php endif; ?>
                     <div class="form-group">
-                    <label>Username</label>
-                    <input type="text" class="form-control" id="nickUser" name="username" placeholder="Enter Your Username">
+                    <label>Channel Name</label>
+                    <input type="text" class="form-control" name="nameChannel" placeholder="Enter Your Channel Name">
                     </div>
                     <div class="form-group">
-                    <label>Name</label>
-                    <input type="text" class="form-control" id="nameUser" name="nameUser" placeholder="Enter Your Name">
-                    </div>
-                    <div class="form-group">
-                    <label >Email address</label>
-                    <input type="text" class="form-control" id="emailUser" name="emailUser" placeholder="Enter email">
-                    </div>
-                    <div class="form-group">
-                    <label for="exampleInputFile">Profil Picture</label>
+                    <label for="exampleInputFile">Channel Picture</label>
                     <div class="input-group">
                       <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="exampleInputFile" name="photoUser">
+                        <input type="file" class="custom-file-input" id="exampleInputFile" name="photoChannel">
                         <label class="custom-file-label" for="exampleInputFile">Choose Photo</label>
                       </div>
                     </div>
-                    </div>
-                    <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" class="form-control" id="passUser" name="passUser" placeholder="Password">
                     </div>
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary float-left" style="margin-right:10px;">Submit</button>
-                    <a type="submit" href="<?=base_url();?>user/listuser" class="btn btn-danger float-right">Cancel</a>
+                    <a type="submit" href="<?=base_url();?>channel/listChannel" class="btn btn-danger float-right">Cancel</a>
                 </div>
                 </form>
             </div>

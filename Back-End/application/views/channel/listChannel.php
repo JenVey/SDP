@@ -6,12 +6,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>List User</h1>
+            <h1>List Channel</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">ListUser</li>
+              <li class="breadcrumb-item active">ListChannel</li>
             </ol>
           </div>
         </div>
@@ -31,34 +31,30 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              <a type="button" href="<?=base_url();?>User/InsertUser/" class="btn btn-block btn-primary col-md-1 float-right">Insert User</a>
+              <a type="button" href="<?=base_url();?>Channel/InsertChannel/" class="btn btn-block btn-primary col-md-1 float-right">Insert Channel</a>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>ID User</th>
-                  <th>Username</th>
-                  <th>Nama User</th>
-                  <th>Email User</th>
+                  <th>ID Channel</th>
+                  <th>Nama Channel</th>
                   <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                  <?php foreach ($user as $usr) : ?>
+                  <?php foreach ($channel as $chn) : ?>
                     <tr>
-                      <td> <?= $usr['id_user'] ?> </td>
-                      <td> <?= $usr['username'] ?> </td>
-                      <td> <?= $usr['nama_user'] ?> </td>
-                      <td> <?= $usr['email_user'] ?> </td>
+                      <td> <?= $chn['id_channel'] ?> </td>
+                      <td> <?= $chn['nama_channel'] ?> </td>
                       <td>
-                      <a href="<?=base_url();?>User/EditUser/index/<?= $usr['id_user']; ?>" class="btn btn-info btn-sm">
+                      <a href="<?=base_url();?>Channel/EditChannel/index/<?= $chn['id_channel']; ?>" class="btn btn-info btn-sm">
                               <i class="fas fa-pencil-alt">
                               </i>
                               Edit
                         </a>
-                      <a  href="<?=base_url();?>User/InsertUser/delete/<?= $usr['id_user']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin?'); ">
+                      <a  href="<?=base_url();?>Channel/InsertChannel/delete/<?= $chn['id_channel']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin?'); ">
                               <i class="fas fa-trash">
                               </i>
                               Delete
