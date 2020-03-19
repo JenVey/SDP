@@ -39,6 +39,10 @@
                     </div>
                     <?php endif; ?>
                     <div class="form-group">
+                    <label>Channel ID</label>
+                    <input readonly type="text" class="form-control" name="nameChannel" placeholder="Enter Your Name" value="<?= $channel['id_channel']; ?>">
+                    </div>
+                    <div class="form-group">
                     <label>Channel Name</label>
                     <input type="text" class="form-control" name="nameChannel" placeholder="Enter Your Name" value="<?= $channel['nama_channel']; ?>">
                     </div>

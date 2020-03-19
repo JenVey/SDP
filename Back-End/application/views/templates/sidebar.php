@@ -50,7 +50,7 @@
     <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <li class="nav-item">
-            <a href="pages/gallery.html" class="nav-link">
+            <a  href="<?=base_url();?>Subs/ListSubs"  class="nav-link">
               <i class="nav-icon fa fa-bookmark"></i>
               <p>
                 List Subscription
@@ -63,7 +63,7 @@
     <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <li class="nav-item">
-            <a href="pages/gallery.html" class="nav-link">
+            <a  href="<?=base_url();?>Team/ListTeam"  class="nav-link">
               <i class="nav-icon fa fa-user-friends"></i>
               <p>
                 List Gaming Team
