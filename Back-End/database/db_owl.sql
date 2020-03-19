@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 19, 2020 at 09:51 AM
+-- Generation Time: Mar 19, 2020 at 10:05 AM
 -- Server version: 10.3.15-MariaDB
 -- PHP Version: 7.3.6
 
@@ -82,7 +82,7 @@ CREATE TABLE `berpartisipasi` (
 DROP TABLE IF EXISTS `channel`;
 CREATE TABLE `channel` (
   `id_channel` varchar(6) NOT NULL,
-  `nama_channel` varchar(20) NOT NULL,
+  `nama_channel` varchar(100) NOT NULL,
   `foto_channel` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -96,7 +96,7 @@ DROP TABLE IF EXISTS `customer`;
 CREATE TABLE `customer` (
   `id_user` varchar(6) NOT NULL,
   `nama_user` text NOT NULL,
-  `pass_user` varchar(25) NOT NULL,
+  `pass_user` text NOT NULL,
   `email_user` text NOT NULL,
   `nickname_user` text NOT NULL,
   `trade_link` text NOT NULL,
@@ -127,9 +127,9 @@ DROP TABLE IF EXISTS `eventtab`;
 CREATE TABLE `eventtab` (
   `id_event` varchar(6) NOT NULL,
   `id_channel` varchar(6) NOT NULL,
-  `pesan` varchar(100) NOT NULL,
+  `pesan` text NOT NULL,
   `tanggal` datetime NOT NULL,
-  `foto` varchar(25) NOT NULL
+  `foto` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -143,7 +143,7 @@ CREATE TABLE `gamingteam` (
   `id_team` varchar(6) NOT NULL,
   `nama_team` varchar(20) NOT NULL,
   `tanggal_pembuatan` date NOT NULL,
-  `bio` varchar(30) NOT NULL
+  `bio` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -212,9 +212,9 @@ DROP TABLE IF EXISTS `merchant`;
 CREATE TABLE `merchant` (
   `id_merchant` varchar(6) NOT NULL,
   `id_user` varchar(6) NOT NULL,
-  `nama_merchant` varchar(20) NOT NULL,
-  `foto_profil` varchar(20) NOT NULL,
-  `bio` varchar(25) NOT NULL
+  `nama_merchant` varchar(100) NOT NULL,
+  `foto_profil` text NOT NULL,
+  `bio` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -284,7 +284,7 @@ CREATE TABLE `rating` (
   `id_rating` varchar(6) NOT NULL,
   `id_merchant` varchar(6) NOT NULL,
   `id_user` varchar(6) NOT NULL,
-  `komentar` varchar(100) NOT NULL,
+  `komentar` text NOT NULL,
   `bintang` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -299,7 +299,7 @@ CREATE TABLE `reminder` (
   `id_reminder` varchar(6) NOT NULL,
   `id_team` varchar(6) NOT NULL,
   `waktu` datetime NOT NULL,
-  `keterangan` varchar(25) NOT NULL
+  `keterangan` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -325,8 +325,7 @@ DROP TABLE IF EXISTS `subscription`;
 CREATE TABLE `subscription` (
   `id_sub` varchar(6) NOT NULL,
   `id_merchant` varchar(6) NOT NULL,
-  `keterangan` varchar(25) NOT NULL,
-  `banner` varchar(25) NOT NULL,
+  `keterangan` text NOT NULL,
   `tipe_sub` varchar(15) NOT NULL,
   `tgl_kadaluwarsa` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -340,12 +339,13 @@ CREATE TABLE `subscription` (
 DROP TABLE IF EXISTS `tournament`;
 CREATE TABLE `tournament` (
   `id_turnament` varchar(6) NOT NULL,
-  `nama_turnament` varchar(20) NOT NULL,
-  `jenis_game` varchar(20) NOT NULL,
+  `id_channel` varchar(6) NOT NULL,
+  `nama_turnament` varchar(100) NOT NULL,
+  `jenis_game` varchar(50) NOT NULL,
   `jumlah_pemain` int(2) NOT NULL,
   `tanggal_mulai` date NOT NULL,
-  `foto_bg` varchar(30) NOT NULL,
-  `foto` varchar(25) NOT NULL
+  `foto_bg` text NOT NULL,
+  `foto` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -508,7 +508,8 @@ ALTER TABLE `subscription`
 -- Indexes for table `tournament`
 --
 ALTER TABLE `tournament`
-  ADD PRIMARY KEY (`id_turnament`);
+  ADD PRIMARY KEY (`id_turnament`),
+  ADD KEY `fk_id_channell` (`id_channel`);
 
 --
 -- Constraints for dumped tables
@@ -631,6 +632,12 @@ ALTER TABLE `roomchat`
 --
 ALTER TABLE `subscription`
   ADD CONSTRAINT `subscription_ibfk_1` FOREIGN KEY (`id_merchant`) REFERENCES `merchant` (`id_merchant`);
+
+--
+-- Constraints for table `tournament`
+--
+ALTER TABLE `tournament`
+  ADD CONSTRAINT `fk_id_channell` FOREIGN KEY (`id_channel`) REFERENCES `channel` (`id_channel`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
