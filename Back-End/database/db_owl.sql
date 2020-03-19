@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 13, 2020 at 01:02 PM
+-- Generation Time: Mar 19, 2020 at 09:51 AM
 -- Server version: 10.3.15-MariaDB
 -- PHP Version: 7.3.6
 
@@ -27,60 +27,94 @@ USE `db_owl`;
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `berisi`
+--
+
+DROP TABLE IF EXISTS `berisi`;
+CREATE TABLE `berisi` (
+  `id_room` varchar(6) NOT NULL,
+  `id_pesan` varchar(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `berlaku_untuk`
+--
+
+DROP TABLE IF EXISTS `berlaku_untuk`;
+CREATE TABLE `berlaku_untuk` (
+  `id_promo` varchar(6) NOT NULL,
+  `id_item` varchar(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `berlangganan`
+--
+
+DROP TABLE IF EXISTS `berlangganan`;
+CREATE TABLE `berlangganan` (
+  `id_sub` varchar(6) NOT NULL,
+  `id_merchant` varchar(6) NOT NULL,
+  `banner` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `berpartisipasi`
+--
+
+DROP TABLE IF EXISTS `berpartisipasi`;
+CREATE TABLE `berpartisipasi` (
+  `id_user` varchar(6) NOT NULL,
+  `id_match` varchar(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `channel`
 --
 
 DROP TABLE IF EXISTS `channel`;
 CREATE TABLE `channel` (
   `id_channel` varchar(6) NOT NULL,
-  `id_user` varchar(6) NOT NULL,
   `nama_channel` varchar(20) NOT NULL,
-  `foto_channel` varchar(25) NOT NULL
+  `foto_channel` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cart`
+-- Table structure for table `customer`
 --
 
-DROP TABLE IF EXISTS `cart`;
-CREATE TABLE `cart` (
-  `id_cart` varchar(6) NOT NULL,
+DROP TABLE IF EXISTS `customer`;
+CREATE TABLE `customer` (
   `id_user` varchar(6) NOT NULL,
-  'id_item' varchar(6) NOT NULL,
-  `jumlah` int(5) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `chatuser`
---
-
-DROP TABLE IF EXISTS `chatuser`;
-CREATE TABLE `chatuser` (
-  `id_pengirim` varchar(6) NOT NULL,
-  `id_pesan` varchar(6) NOT NULL,
-  `id_penerima` varchar(6) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `user`
---
-
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user` (
-  `id_user` varchar(6) NOT NULL,
-  `nama_user` varchar(25) NOT NULL,
+  `nama_user` text NOT NULL,
   `pass_user` varchar(25) NOT NULL,
-  `email_user` varchar(30) NOT NULL,
-  `nickname_user` varchar(30) NOT NULL,
-  `trade_link` varchar(100) NOT NULL,
-  `foto` varchar(25) NOT NULL,
+  `email_user` text NOT NULL,
+  `nickname_user` text NOT NULL,
+  `trade_link` text NOT NULL,
+  `foto` text NOT NULL,
   `saldo` decimal(10,0) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `diikuti`
+--
+
+DROP TABLE IF EXISTS `diikuti`;
+CREATE TABLE `diikuti` (
+  `id_channel` varchar(6) NOT NULL,
+  `id_user` varchar(6) NOT NULL,
+  `jenis` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -122,13 +156,50 @@ DROP TABLE IF EXISTS `item`;
 CREATE TABLE `item` (
   `id_item` varchar(6) NOT NULL,
   `id_merchant` varchar(6) NOT NULL,
-  `nama_item` varchar(20) NOT NULL,
+  `nama_item` text NOT NULL,
   `harga_item` decimal(8,2) NOT NULL,
-  `foto_item` varchar(25) NOT NULL,
-  `link_item` varchar(25) NOT NULL,
+  `foto_item` text NOT NULL,
+  `link_item` text NOT NULL,
   `tanggal_upload` datetime NOT NULL,
-  `jenis_game` varchar(20) NOT NULL,
+  `jenis_game` text NOT NULL,
   `jumlah_item` int(3) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `mengikuti`
+--
+
+DROP TABLE IF EXISTS `mengikuti`;
+CREATE TABLE `mengikuti` (
+  `id_team` varchar(6) NOT NULL,
+  `id_match` varchar(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `menjadi_bagian`
+--
+
+DROP TABLE IF EXISTS `menjadi_bagian`;
+CREATE TABLE `menjadi_bagian` (
+  `id_user` varchar(6) NOT NULL,
+  `id_team` varchar(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `menyimpan`
+--
+
+DROP TABLE IF EXISTS `menyimpan`;
+CREATE TABLE `menyimpan` (
+  `id_pengirim` varchar(6) NOT NULL,
+  `id_pesan` varchar(6) NOT NULL,
+  `id_penerima` varchar(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -140,11 +211,23 @@ CREATE TABLE `item` (
 DROP TABLE IF EXISTS `merchant`;
 CREATE TABLE `merchant` (
   `id_merchant` varchar(6) NOT NULL,
-  `id_sub` varchar(6),
   `id_user` varchar(6) NOT NULL,
   `nama_merchant` varchar(20) NOT NULL,
-  `foto_profil` varchar(20),
-  `bio` varchar(25)
+  `foto_profil` varchar(20) NOT NULL,
+  `bio` varchar(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orderan`
+--
+
+DROP TABLE IF EXISTS `orderan`;
+CREATE TABLE `orderan` (
+  `id_user` varchar(6) NOT NULL,
+  `id_item` varchar(6) NOT NULL,
+  `tgl_transaksi` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -170,7 +253,7 @@ CREATE TABLE `pertandingan` (
 DROP TABLE IF EXISTS `pesan`;
 CREATE TABLE `pesan` (
   `id_pesan` varchar(6) NOT NULL,
-  `pesan` varchar(100) NOT NULL,
+  `pesan` text NOT NULL,
   `tanggal` date NOT NULL,
   `status` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -251,19 +334,6 @@ CREATE TABLE `subscription` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `teammatch`
---
-
-DROP TABLE IF EXISTS `teammatch`;
-CREATE TABLE `teammatch` (
-  `id_team2` varchar(12) NOT NULL,
-  `id_team` varchar(6) NOT NULL,
-  `id_match` varchar(6) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `tournament`
 --
 
@@ -283,31 +353,51 @@ CREATE TABLE `tournament` (
 --
 
 --
+-- Indexes for table `berisi`
+--
+ALTER TABLE `berisi`
+  ADD KEY `fk_id_room` (`id_room`),
+  ADD KEY `fk_id_pesann` (`id_pesan`);
+
+--
+-- Indexes for table `berlaku_untuk`
+--
+ALTER TABLE `berlaku_untuk`
+  ADD KEY `fk_id_promo` (`id_promo`) USING BTREE,
+  ADD KEY `fk_id_itemm` (`id_item`) USING BTREE;
+
+--
+-- Indexes for table `berlangganan`
+--
+ALTER TABLE `berlangganan`
+  ADD KEY `fk_id_sub` (`id_sub`),
+  ADD KEY `fk_id_merchant` (`id_merchant`);
+
+--
+-- Indexes for table `berpartisipasi`
+--
+ALTER TABLE `berpartisipasi`
+  ADD KEY `fk_id_userr` (`id_user`),
+  ADD KEY `fk_id_match` (`id_match`);
+
+--
 -- Indexes for table `channel`
 --
 ALTER TABLE `channel`
   ADD PRIMARY KEY (`id_channel`);
 
 --
--- Indexes for table `cart`
+-- Indexes for table `customer`
 --
-ALTER TABLE `cart`
-  ADD PRIMARY KEY (`id_cart`),
-  ADD KEY `id_user` (`id_user`);
-  ADD KEY 'id_item' (`id_item`),
-
---
--- Indexes for table `chatuser`
---
-ALTER TABLE `chatuser`
-  ADD PRIMARY KEY (`id_pengirim`,`id_pesan`),
-  ADD KEY `id_pesan` (`id_pesan`);
-
---
--- Indexes for table `user`
---
-ALTER TABLE `user`
+ALTER TABLE `customer`
   ADD PRIMARY KEY (`id_user`);
+
+--
+-- Indexes for table `diikuti`
+--
+ALTER TABLE `diikuti`
+  ADD KEY `fk_id_user1` (`id_user`),
+  ADD KEY `fk_id_channel` (`id_channel`);
 
 --
 -- Indexes for table `eventtab`
@@ -330,12 +420,40 @@ ALTER TABLE `item`
   ADD KEY `id_merchant` (`id_merchant`);
 
 --
+-- Indexes for table `mengikuti`
+--
+ALTER TABLE `mengikuti`
+  ADD KEY `fk_id_team` (`id_team`),
+  ADD KEY `fk_id_matchh` (`id_match`);
+
+--
+-- Indexes for table `menjadi_bagian`
+--
+ALTER TABLE `menjadi_bagian`
+  ADD KEY `fk_id_teamm` (`id_team`),
+  ADD KEY `fk_id_userrr` (`id_user`) USING BTREE;
+
+--
+-- Indexes for table `menyimpan`
+--
+ALTER TABLE `menyimpan`
+  ADD PRIMARY KEY (`id_penerima`),
+  ADD KEY `fk_id_pesan` (`id_pesan`),
+  ADD KEY `fk_id_userrrr` (`id_pengirim`);
+
+--
 -- Indexes for table `merchant`
 --
 ALTER TABLE `merchant`
   ADD PRIMARY KEY (`id_merchant`),
-  ADD KEY `id_sub` (`id_sub`),
   ADD KEY `id_user` (`id_user`);
+
+--
+-- Indexes for table `orderan`
+--
+ALTER TABLE `orderan`
+  ADD KEY `fk_id_user` (`id_user`),
+  ADD KEY `fk_id_item` (`id_item`);
 
 --
 -- Indexes for table `pertandingan`
@@ -387,13 +505,6 @@ ALTER TABLE `subscription`
   ADD KEY `id_merchant` (`id_merchant`);
 
 --
--- Indexes for table `teammatch`
---
-ALTER TABLE `teammatch`
-  ADD PRIMARY KEY (`id_team`,`id_match`),
-  ADD KEY `id_match` (`id_match`);
-
---
 -- Indexes for table `tournament`
 --
 ALTER TABLE `tournament`
@@ -404,24 +515,39 @@ ALTER TABLE `tournament`
 --
 
 --
--- Constraints for table `cart`
+-- Constraints for table `berisi`
 --
-ALTER TABLE `cart`
-  ADD CONSTRAINT `chart_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `customer` (`id_user`);
+ALTER TABLE `berisi`
+  ADD CONSTRAINT `fk_id_pesann` FOREIGN KEY (`id_pesan`) REFERENCES `pesan` (`id_pesan`),
+  ADD CONSTRAINT `fk_id_room` FOREIGN KEY (`id_room`) REFERENCES `roomchat` (`id_room`);
 
 --
--- Constraints for table `chatuser`
+-- Constraints for table `berlaku_untuk`
 --
-ALTER TABLE `chatuser`
-  ADD CONSTRAINT `chatuser_ibfk_1` FOREIGN KEY (`id_pesan`) REFERENCES `pesan` (`id_pesan`);
+ALTER TABLE `berlaku_untuk`
+  ADD CONSTRAINT `fk_id_itemm` FOREIGN KEY (`id_item`) REFERENCES `item` (`id_item`),
+  ADD CONSTRAINT `fk_id_promo` FOREIGN KEY (`id_promo`) REFERENCES `promo` (`id_promo`);
 
 --
--- Constraints for table `customer`
+-- Constraints for table `berlangganan`
 --
-ALTER TABLE `customer`
-  ADD CONSTRAINT `customer_ibfk_1` FOREIGN KEY (`id_channel`) REFERENCES `channel` (`id_channel`),
-  ADD CONSTRAINT `customer_ibfk_2` FOREIGN KEY (`id_cart`) REFERENCES `cart` (`id_cart`),
-  ADD CONSTRAINT `customer_ibfk_3` FOREIGN KEY (`id_merchant`) REFERENCES `merchant` (`id_merchant`);
+ALTER TABLE `berlangganan`
+  ADD CONSTRAINT `fk_id_merchant` FOREIGN KEY (`id_merchant`) REFERENCES `merchant` (`id_merchant`),
+  ADD CONSTRAINT `fk_id_sub` FOREIGN KEY (`id_sub`) REFERENCES `subscription` (`id_sub`);
+
+--
+-- Constraints for table `berpartisipasi`
+--
+ALTER TABLE `berpartisipasi`
+  ADD CONSTRAINT `fk_id_match` FOREIGN KEY (`id_match`) REFERENCES `pertandingan` (`id_match`),
+  ADD CONSTRAINT `fk_id_userr` FOREIGN KEY (`id_user`) REFERENCES `customer` (`id_user`);
+
+--
+-- Constraints for table `diikuti`
+--
+ALTER TABLE `diikuti`
+  ADD CONSTRAINT `fk_id_channel` FOREIGN KEY (`id_channel`) REFERENCES `channel` (`id_channel`),
+  ADD CONSTRAINT `fk_id_user1` FOREIGN KEY (`id_user`) REFERENCES `customer` (`id_user`);
 
 --
 -- Constraints for table `eventtab`
@@ -433,16 +559,41 @@ ALTER TABLE `eventtab`
 -- Constraints for table `item`
 --
 ALTER TABLE `item`
-  ADD CONSTRAINT `item_ibfk_1` FOREIGN KEY (`id_cart`) REFERENCES `cart` (`id_cart`),
-  ADD CONSTRAINT `item_ibfk_2` FOREIGN KEY (`id_promo`) REFERENCES `promo` (`id_promo`),
   ADD CONSTRAINT `item_ibfk_3` FOREIGN KEY (`id_merchant`) REFERENCES `merchant` (`id_merchant`);
+
+--
+-- Constraints for table `mengikuti`
+--
+ALTER TABLE `mengikuti`
+  ADD CONSTRAINT `fk_id_matchh` FOREIGN KEY (`id_match`) REFERENCES `pertandingan` (`id_match`),
+  ADD CONSTRAINT `fk_id_team` FOREIGN KEY (`id_team`) REFERENCES `gamingteam` (`id_team`);
+
+--
+-- Constraints for table `menjadi_bagian`
+--
+ALTER TABLE `menjadi_bagian`
+  ADD CONSTRAINT `fk_id_teamm` FOREIGN KEY (`id_team`) REFERENCES `gamingteam` (`id_team`),
+  ADD CONSTRAINT `fk_id_userrr` FOREIGN KEY (`id_user`) REFERENCES `customer` (`id_user`);
+
+--
+-- Constraints for table `menyimpan`
+--
+ALTER TABLE `menyimpan`
+  ADD CONSTRAINT `fk_id_pesan` FOREIGN KEY (`id_pesan`) REFERENCES `pesan` (`id_pesan`),
+  ADD CONSTRAINT `fk_id_userrrr` FOREIGN KEY (`id_pengirim`) REFERENCES `customer` (`id_user`);
 
 --
 -- Constraints for table `merchant`
 --
 ALTER TABLE `merchant`
-  ADD CONSTRAINT `merchant_ibfk_1` FOREIGN KEY (`id_sub`) REFERENCES `subscription` (`id_sub`),
   ADD CONSTRAINT `merchant_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `customer` (`id_user`);
+
+--
+-- Constraints for table `orderan`
+--
+ALTER TABLE `orderan`
+  ADD CONSTRAINT `fk_id_item` FOREIGN KEY (`id_item`) REFERENCES `item` (`id_item`),
+  ADD CONSTRAINT `fk_id_user` FOREIGN KEY (`id_user`) REFERENCES `customer` (`id_user`);
 
 --
 -- Constraints for table `pertandingan`
@@ -480,15 +631,6 @@ ALTER TABLE `roomchat`
 --
 ALTER TABLE `subscription`
   ADD CONSTRAINT `subscription_ibfk_1` FOREIGN KEY (`id_merchant`) REFERENCES `merchant` (`id_merchant`);
-
---
--- Constraints for table `teammatch`
---
-ALTER TABLE `teammatch`
-  ADD CONSTRAINT `teammatch_ibfk_1` FOREIGN KEY (`id_team`) REFERENCES `gamingteam` (`id_team`),
-  ADD CONSTRAINT `teammatch_ibfk_2` FOREIGN KEY (`id_match`) REFERENCES `pertandingan` (`id_match`),
-  ADD CONSTRAINT `teammatch_ibfk_3` FOREIGN KEY (`id_team`) REFERENCES `gamingteam` (`id_team`),
-  ADD CONSTRAINT `teammatch_ibfk_4` FOREIGN KEY (`id_team`) REFERENCES `gamingteam` (`id_team`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
