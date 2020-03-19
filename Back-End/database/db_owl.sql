@@ -89,11 +89,11 @@ CREATE TABLE `channel` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `customer`
+-- Table structure for table `user`
 --
 
-DROP TABLE IF EXISTS `customer`;
-CREATE TABLE `customer` (
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
   `id_user` varchar(6) NOT NULL,
   `nama_user` text NOT NULL,
   `pass_user` text NOT NULL,
@@ -388,9 +388,9 @@ ALTER TABLE `channel`
   ADD PRIMARY KEY (`id_channel`);
 
 --
--- Indexes for table `customer`
+-- Indexes for table `user`
 --
-ALTER TABLE `customer`
+ALTER TABLE `user`
   ADD PRIMARY KEY (`id_user`);
 
 --
@@ -542,14 +542,14 @@ ALTER TABLE `berlangganan`
 --
 ALTER TABLE `berpartisipasi`
   ADD CONSTRAINT `fk_id_match` FOREIGN KEY (`id_match`) REFERENCES `pertandingan` (`id_match`),
-  ADD CONSTRAINT `fk_id_userr` FOREIGN KEY (`id_user`) REFERENCES `customer` (`id_user`);
+  ADD CONSTRAINT `fk_id_userr` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`);
 
 --
 -- Constraints for table `diikuti`
 --
 ALTER TABLE `diikuti`
   ADD CONSTRAINT `fk_id_channel` FOREIGN KEY (`id_channel`) REFERENCES `channel` (`id_channel`),
-  ADD CONSTRAINT `fk_id_user1` FOREIGN KEY (`id_user`) REFERENCES `customer` (`id_user`);
+  ADD CONSTRAINT `fk_id_user1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`);
 
 --
 -- Constraints for table `eventtab`
@@ -575,27 +575,27 @@ ALTER TABLE `mengikuti`
 --
 ALTER TABLE `menjadi_bagian`
   ADD CONSTRAINT `fk_id_teamm` FOREIGN KEY (`id_team`) REFERENCES `gamingteam` (`id_team`),
-  ADD CONSTRAINT `fk_id_userrr` FOREIGN KEY (`id_user`) REFERENCES `customer` (`id_user`);
+  ADD CONSTRAINT `fk_id_userrr` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`);
 
 --
 -- Constraints for table `menyimpan`
 --
 ALTER TABLE `menyimpan`
   ADD CONSTRAINT `fk_id_pesan` FOREIGN KEY (`id_pesan`) REFERENCES `pesan` (`id_pesan`),
-  ADD CONSTRAINT `fk_id_userrrr` FOREIGN KEY (`id_pengirim`) REFERENCES `customer` (`id_user`);
+  ADD CONSTRAINT `fk_id_userrrr` FOREIGN KEY (`id_pengirim`) REFERENCES `user` (`id_user`);
 
 --
 -- Constraints for table `merchant`
 --
 ALTER TABLE `merchant`
-  ADD CONSTRAINT `merchant_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `customer` (`id_user`);
+  ADD CONSTRAINT `merchant_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`);
 
 --
 -- Constraints for table `orderan`
 --
 ALTER TABLE `orderan`
   ADD CONSTRAINT `fk_id_item` FOREIGN KEY (`id_item`) REFERENCES `item` (`id_item`),
-  ADD CONSTRAINT `fk_id_user` FOREIGN KEY (`id_user`) REFERENCES `customer` (`id_user`);
+  ADD CONSTRAINT `fk_id_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`);
 
 --
 -- Constraints for table `pertandingan`
@@ -614,7 +614,7 @@ ALTER TABLE `promo`
 --
 ALTER TABLE `rating`
   ADD CONSTRAINT `rating_ibfk_1` FOREIGN KEY (`id_merchant`) REFERENCES `merchant` (`id_merchant`),
-  ADD CONSTRAINT `rating_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `customer` (`id_user`);
+  ADD CONSTRAINT `rating_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`);
 
 --
 -- Constraints for table `reminder`
