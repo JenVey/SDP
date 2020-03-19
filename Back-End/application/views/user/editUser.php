@@ -5,12 +5,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Form Insert User</h1>
+            <h1>Form Edit User</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">ListUser</a></li>
-              <li class="breadcrumb-item active">InsertUser</li>
+              <li class="breadcrumb-item"><a href="#">EditUser</a></li>
+              <li class="breadcrumb-item active">EditUser</li>
             </ol>
           </div>
         </div>
@@ -25,7 +25,7 @@
         <!-- general form elements -->
                 <div class="card card-primary">
                 <div class="card-header">
-                <h3 class="card-title">Insert User</h3>
+                <h3 class="card-title">Edit User</h3>
                 </div>
             <!-- /.card-header -->
             <!-- form start --> 
@@ -43,12 +43,17 @@
                     <input type="text" class="form-control" id="nameUser" name="nameUser" placeholder="Enter Your Name" value="<?php echo $user['nama_user']; ?>">
                     </div>
                     <div class="form-group">
-                    <label>Nickname</label>
-                    <input type="text" class="form-control" id="nickUser" name="nickUser" placeholder="Enter Your Nickname" value="<?php echo $user['nickname_user']; ?>">
+                    <label >Email address</label>
+                    <input type="text" class="form-control" id="emailUser" name="emailUser" placeholder="Enter email" value="<?php echo $user['email_user']; ?>">
                     </div>
                     <div class="form-group">
-                    <label >Email address</label>
-                    <input type="email" class="form-control" id="emailUser" name="emailUser" placeholder="Enter email" value="<?php echo $user['email_user']; ?>">
+                    <label for="exampleInputFile">Profil Picture</label>
+                    <div class="input-group">
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="exampleInputFile" name="photoUser">
+                        <label class="custom-file-label" for="exampleInputFile"><?= $user['foto'] ?> </label>
+                      </div>
+                    </div>
                     </div>
                     <div class="form-group">
                     <label>Password</label>

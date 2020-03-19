@@ -40,12 +40,15 @@ class InsertUser extends CI_Controller {
 
 	public function insert()
 	{
-		//var_dump($this->input->post('nameUser'));
+		
+		$this->load->model('User_model');
 
 		$this->form_validation->set_rules('nameUser','Nama','required');
-		$this->form_validation->set_rules('nickUser','Nickname','required');
-		//$this->form_validation->set_rules('emailUser','Email','required|valid_email');
+		$this->form_validation->set_rules('username','Username','required');
+		$this->form_validation->set_rules('username','Username','callback_username_check');
+		$this->form_validation->set_rules('emailUser','Email','required|valid_email');
 		$this->form_validation->set_rules('passUser','Password','required');
+
 
 		if( $this->form_validation->run() == FALSE){
 			$this->load->view('templates/header');
@@ -54,18 +57,35 @@ class InsertUser extends CI_Controller {
 			$this->load->view('user/insertUser'	);
 		}else{
 			$this->User_model->insertUser();
-
-			$this->session->set_flashdata('flash','Success insert User !!!');
-
+			$this->session->set_flashdata('flash','Success Insert User !!!');
 			redirect('user/listUser');
 		}	
     
 	}
 
+	public function username_check()
+	{
+		$ada = false;
+		$query = $this->db->query("select * from user");
+		foreach($query->result_array() as $row)
+		{
+			 if($row['username'] == $this->input->post('username')){
+                $ada = true;
+             }
+		}
+		
+		if($ada == true){
+			$this->form_validation->set_message('username_check','Usename sudah ada !!!');
+			return false;
+		}else{
+			return true;
+		}
+	}
+
 	public function delete($id)
 	{
 		$this->User_model->deleteUser($id);
-		$this->session->set_flashdata('flash','Deleted');
+		$this->session->set_flashdata('flash','Success Deleted');
 
 		redirect('user/listUser');
 	}

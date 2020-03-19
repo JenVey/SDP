@@ -2,7 +2,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class EditUser extends CI_Controller {
+class EditChannel extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -22,39 +22,37 @@ class EditUser extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-		$this->load->model('User_model');
+		$this->load->model('Channel_model');
 		$this->load->library('form_validation');
     }
     
 	public function index($id)
 	{
-		$this->load->model('User_model');
-		$data['user'] = $this->User_model->getUserById($id);
+		$this->load->model('Channel_model');
+		$data['channel'] = $this->Channel_model->getChannelById($id);
 
 		$this->load->view('templates/header',$data);
 		$this->load->view('templates/navbar');
 		$this->load->view('templates/sidebar');
-		$this->load->view('user/editUser',$data);
+		$this->load->view('channel/editChannel',$data);
 	
 	}
 
 	public function edit($id)
 	{
 		
-		$data['user'] = $this->User_model->getUserById($id);
-		$this->form_validation->set_rules('nameUser','Nama','required');
-		$this->form_validation->set_rules('passUser','Password','required');
-		$this->form_validation->set_rules('emailUser','Email','required|valid_email');
+		$data['channel'] = $this->Channel_model->getChannelById($id);
+		$this->form_validation->set_rules('nameChannel','Nama','required');
 
 		if( $this->form_validation->run() == FALSE){
 			$this->load->view('templates/header',$data);
 			$this->load->view('templates/navbar');
 			$this->load->view('templates/sidebar');
-			$this->load->view('user/editUser',$data);
+			$this->load->view('channel/editChannel',$data);
 		}else{
-			$this->User_model->editUser($id);
+			$this->Channel_model->editChannel($id);
 			$this->session->set_flashdata('flash','Edited');
-			redirect('user/listUser');
+			redirect('channel/listChannel');
 		}	
 	}
 

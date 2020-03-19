@@ -1,6 +1,4 @@
 <?php
-
-
 class User_model extends CI_model{
 
     public function getAllUser()
@@ -10,19 +8,47 @@ class User_model extends CI_model{
 
     public function insertUser()
     {
-        //ID ??????
+        //GENERATE ID
+        $ctr = 1;
+        $query = $this->db->query("select * from user");
+        $newId = $this->input->post('username');
+        $cekNewId= substr(strtoupper($newId),0,1);
+        foreach($query->result_array() as $row)
+        {
+            $cekId = substr(strtoupper($row['id_user']),0,1);
+            if($cekId == $cekNewId){
+                $ctr++;
+            }
+        }
+        if($ctr < 10){
+            $generateId = $cekNewId .'00'. $ctr;
+        }else if($ctr < 100){
+            $generateId = $cekNewId.'0'. $ctr;
+        }else if($ctr < 1000){
+            $generateId = $cekNewId . $ctr;
+        }
+
+        //default.jpg
+        $foto = $this->input->post('photoUser');
+        if($foto == ''){
+            $foto = 'default.jpg';
+        }
+    
         $data = [
-            "id_user" => '2',
+            "id_user" => $generateId,
             "nama_user" => $this->input->post('nameUser'),
-            "nickname_user" => $this->input->post('nickUser'),
-			"pass_user" => $this->input->post('passUser'),
-			"email_user" => $this->input->post('emailUser'),
-			"trade_link" => '',
-			"foto" => '',
-			"saldo" => 0
+            "username" => $this->input->post('username'),
+            "pass_user" => $this->input->post('passUser'),
+            "email_user" => $this->input->post('emailUser'),
+            "trade_link" => '',
+            "foto" =>  $foto,
+            "saldo" => 0
         ];
         $this->db->insert('user',$data);
+    
+      
     }
+
 
     public function deleteUser($id)
     {
@@ -37,15 +63,18 @@ class User_model extends CI_model{
 
     public function editUser($id)
     {
-        //ID ??????
+        
+         //default.jpg
+         $foto = $this->input->post('photoUser');
+         if($foto == ''){
+             $foto = 'default.jpg';
+         }
+
         $data = [
             "nama_user" => $this->input->post('nameUser'),
-            "nickname_user" => $this->input->post('nickUser'),
 			"pass_user" => $this->input->post('passUser'),
 			"email_user" => $this->input->post('emailUser'),
-			"trade_link" => '',
-			"foto" => '',
-			"saldo" => 0
+			"foto" => $foto,
         ];
 
         $this->db->where('id_user',$id);
