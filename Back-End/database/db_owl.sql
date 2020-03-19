@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 19, 2020 at 10:05 AM
+-- Generation Time: Mar 19, 2020 at 10:18 AM
 -- Server version: 10.3.15-MariaDB
 -- PHP Version: 7.3.6
 
@@ -199,7 +199,8 @@ DROP TABLE IF EXISTS `menyimpan`;
 CREATE TABLE `menyimpan` (
   `id_pengirim` varchar(6) NOT NULL,
   `id_pesan` varchar(6) NOT NULL,
-  `id_penerima` varchar(6) NOT NULL
+  `id_penerima` varchar(6) NOT NULL,
+  `tipe_penerima` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
