@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 19, 2020 at 04:51 PM
+-- Generation Time: Mar 20, 2020 at 05:53 PM
 -- Server version: 10.3.15-MariaDB
 -- PHP Version: 7.3.6
 
@@ -82,7 +82,7 @@ CREATE TABLE `berpartisipasi` (
 DROP TABLE IF EXISTS `channel`;
 CREATE TABLE `channel` (
   `id_channel` varchar(6) NOT NULL,
-  `nama_channel` varchar(25) NOT NULL,
+  `nama_channel` varchar(100) NOT NULL,
   `foto_channel` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -95,13 +95,14 @@ CREATE TABLE `channel` (
 DROP TABLE IF EXISTS `customer`;
 CREATE TABLE `customer` (
   `id_user` varchar(6) NOT NULL,
-  `username` text NOT NULL,
   `nama_user` text NOT NULL,
   `pass_user` text NOT NULL,
   `email_user` text NOT NULL,
+  `nickname_user` text NOT NULL,
   `trade_link` text NOT NULL,
   `foto` text NOT NULL,
-  `saldo` decimal(10,0) NOT NULL
+  `saldo` decimal(10,0) NOT NULL,
+  `status` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -340,7 +341,7 @@ DROP TABLE IF EXISTS `tournament`;
 CREATE TABLE `tournament` (
   `id_turnament` varchar(6) NOT NULL,
   `id_channel` varchar(6) NOT NULL,
-  `nama_turnament` varchar(50) NOT NULL,
+  `nama_turnament` varchar(100) NOT NULL,
   `jenis_game` varchar(50) NOT NULL,
   `jumlah_pemain` int(2) NOT NULL,
   `tanggal_mulai` date NOT NULL,
