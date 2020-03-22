@@ -42,7 +42,7 @@ class EditSub extends CI_Controller {
 	{
 		
 		$data['Sub'] = $this->Sub_model->getSubById($id);
-		$this->form_validation->set_rules('nameSub','Nama','required');
+		//$this->form_validation->set_rules('nameSub','Nama','required');
 
 		if( $this->form_validation->run() == FALSE){
 			$this->load->view('templates/header',$data);

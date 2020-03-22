@@ -3,14 +3,14 @@ class Team_model extends CI_model{
 
     public function getAllTeam()
     {
-       return $this->db->get('gamingteam')->result_array();
+       return $this->db->get('team')->result_array();
     }
 
     public function insertTeam()
     {
          //GENERATE ID
          $ctr = 1;
-         $query = $this->db->query("select * from gamingteam");
+         $query = $this->db->query("select * from team");
          $newId = $this->input->post('nameTeam');
          $cekNewId= substr(strtoupper($newId),0,1);
          foreach($query->result_array() as $row)
@@ -29,25 +29,24 @@ class Team_model extends CI_model{
          }
          
         $tgl = date("Y-m-d H:i:s");
-
         $data = [
             "id_team" => $generateId,
             "nama_team" => $this->input->post('nameTeam'),
             "tanggal_pembuatan" => $tgl,
             "bio" =>  $this->input->post('bioTeam')
         ];
-        $this->db->insert('gamingteam',$data);
+        $this->db->insert('team',$data);
     }
 
     public function deleteTeam($id)
     {
         $this->db->where('id_team',$id);
-        $this->db->delete('gamingteam');
+        $this->db->delete('team');
     }
 
     public function getTeamById($id)
     {
-        return $this->db->get_where('gamingteam', ['id_team' => $id])->row_array();
+        return $this->db->get_where('team', ['id_team' => $id])->row_array();
     }
 
     public function editTeam($id)
@@ -59,7 +58,7 @@ class Team_model extends CI_model{
        ];
 
         $this->db->where('id_team',$id);
-        $this->db->update('gamingteam',$data);
+        $this->db->update('team',$data);
     }
 
 }

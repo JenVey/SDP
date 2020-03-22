@@ -44,7 +44,7 @@
                     </div>
                     <div class="form-group">
                     <label>Username</label>
-                    <input readonly type="text" class="form-control" id="nameUser" name="nameUser" placeholder="Enter Your Name" value="<?php echo $user['username']; ?>">
+                    <input readonly type="text" class="form-control" id="nameUser" name="nameUser" placeholder="Enter Your Name" value="<?php echo $user['nickname_user']; ?>">
                     </div>
                     <div class="form-group">
                     <label>Name</label>

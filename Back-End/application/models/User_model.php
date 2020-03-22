@@ -3,14 +3,14 @@ class User_model extends CI_model{
 
     public function getAllUser()
     {
-       return $this->db->get('user')->result_array();
+       return $this->db->get('customer')->result_array();
     }
 
     public function insertUser()
     {
         //GENERATE ID
         $ctr = 1;
-        $query = $this->db->query("select * from user");
+        $query = $this->db->query("select * from customer");
         $newId = $this->input->post('username');
         $cekNewId= substr(strtoupper($newId),0,1);
         foreach($query->result_array() as $row)
@@ -37,14 +37,14 @@ class User_model extends CI_model{
         $data = [
             "id_user" => $generateId,
             "nama_user" => $this->input->post('nameUser'),
-            "username" => $this->input->post('username'),
+            "nickname_user" => $this->input->post('username'),
             "pass_user" => $this->input->post('passUser'),
             "email_user" => $this->input->post('emailUser'),
             "trade_link" => '',
             "foto" =>  $foto,
             "saldo" => 0
         ];
-        $this->db->insert('user',$data);
+        $this->db->insert('customer',$data);
     
       
     }
@@ -53,12 +53,12 @@ class User_model extends CI_model{
     public function deleteUser($id)
     {
         $this->db->where('id_user',$id);
-        $this->db->delete('user');
+        $this->db->delete('customer');
     }
 
     public function getUserById($id)
     {
-        return $this->db->get_where('user', ['id_user' => $id])->row_array();
+        return $this->db->get_where('customer', ['id_user' => $id])->row_array();
     }
 
     public function editUser($id)
@@ -78,7 +78,7 @@ class User_model extends CI_model{
         ];
 
         $this->db->where('id_user',$id);
-        $this->db->update('user',$data);
+        $this->db->update('customer',$data);
     }
 
 }
