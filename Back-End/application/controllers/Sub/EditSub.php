@@ -1,4 +1,3 @@
-	
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
@@ -40,9 +39,8 @@ class EditSub extends CI_Controller {
 
 	public function edit($id)
 	{
-		
-		$data['Sub'] = $this->Sub_model->getSubById($id);
-		//$this->form_validation->set_rules('nameSub','Nama','required');
+		$data['sub'] = $this->Sub_model->getSubById($id);
+		$this->form_validation->set_rules('tipeSub','Nama','required');
 
 		if( $this->form_validation->run() == FALSE){
 			$this->load->view('templates/header',$data);

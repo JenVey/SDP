@@ -1,4 +1,3 @@
-	
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
@@ -51,12 +50,10 @@ class EditTeam extends CI_Controller {
 			$this->load->view('team/editTeam',$data);
 		}else{
 			$this->Team_model->editTeam($id);
-			$this->session->set_flashdata('flash','Edited');
+			$this->session->set_flashdata('flash','Susccess Edited');
 			redirect('team/listTeam');
 		}	
 	}
-
 	
-		
 }
  
