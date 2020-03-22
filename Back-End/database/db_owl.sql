@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 21, 2020 at 04:04 PM
--- Server version: 10.3.15-MariaDB
--- PHP Version: 7.3.6
+-- Generation Time: Mar 22, 2020 at 06:57 PM
+-- Server version: 10.4.8-MariaDB
+-- PHP Version: 7.3.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -47,6 +47,8 @@ DROP TABLE IF EXISTS `channel_event`;
 CREATE TABLE `channel_event` (
   `id_event` varchar(6) NOT NULL,
   `id_channel` varchar(6) NOT NULL,
+  `id_user` varchar(6) NOT NULL,
+  `judul` varchar(25) NOT NULL,
   `pesan` text NOT NULL,
   `tanggal` datetime NOT NULL,
   `foto` text NOT NULL
@@ -76,25 +78,6 @@ CREATE TABLE `channel_user` (
   `id_channel` varchar(6) NOT NULL,
   `id_user` varchar(6) NOT NULL,
   `jenis` varchar(15) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `customer`
---
-
-DROP TABLE IF EXISTS `customer`;
-CREATE TABLE `customer` (
-  `id_user` varchar(6) NOT NULL,
-  `nama_user` text NOT NULL,
-  `pass_user` text NOT NULL,
-  `email_user` text NOT NULL,
-  `nickname_user` text NOT NULL,
-  `trade_link` text NOT NULL,
-  `foto` text NOT NULL,
-  `saldo` decimal(10,0) NOT NULL,
-  `status` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -131,6 +114,33 @@ CREATE TABLE `item` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `item_komentar`
+--
+
+DROP TABLE IF EXISTS `item_komentar`;
+CREATE TABLE `item_komentar` (
+  `id_komentar` varchar(6) NOT NULL,
+  `id_item` varchar(6) NOT NULL,
+  `id_user` varchar(6) NOT NULL,
+  `pesan` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `item_reply`
+--
+
+DROP TABLE IF EXISTS `item_reply`;
+CREATE TABLE `item_reply` (
+  `id_reply` varchar(6) NOT NULL,
+  `id_komentar` varchar(6) NOT NULL,
+  `pesan` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `merchant`
 --
 
@@ -141,6 +151,21 @@ CREATE TABLE `merchant` (
   `nama_merchant` varchar(100) NOT NULL,
   `foto_profil` text NOT NULL,
   `bio` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `merchant_rating`
+--
+
+DROP TABLE IF EXISTS `merchant_rating`;
+CREATE TABLE `merchant_rating` (
+  `id_rating` varchar(6) NOT NULL,
+  `id_merchant` varchar(6) NOT NULL,
+  `id_user` varchar(6) NOT NULL,
+  `komentar` text NOT NULL,
+  `bintang` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -244,21 +269,6 @@ CREATE TABLE `promo_katalog` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `rating`
---
-
-DROP TABLE IF EXISTS `rating`;
-CREATE TABLE `rating` (
-  `id_rating` varchar(6) NOT NULL,
-  `id_merchant` varchar(6) NOT NULL,
-  `id_user` varchar(6) NOT NULL,
-  `komentar` text NOT NULL,
-  `bintang` int(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `subscribers`
 --
 
@@ -337,8 +347,7 @@ CREATE TABLE `tournament` (
   `jenis_game` varchar(50) NOT NULL,
   `jumlah_pemain` int(3) NOT NULL,
   `tanggal_mulai` date NOT NULL,
-  `jumlah_slot` int(3) NOT NULL,
-  `tipe_tournament` varchar(50) NOT NULL
+  `jumlah_slot` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -352,6 +361,25 @@ CREATE TABLE `tournament_standing` (
   `juara_1` varchar(50) NOT NULL,
   `juara_2` varchar(50) NOT NULL,
   `juara_3` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
+  `id_user` varchar(6) NOT NULL,
+  `nama_user` text NOT NULL,
+  `pass_user` text NOT NULL,
+  `email_user` text NOT NULL,
+  `nickname_user` text NOT NULL,
+  `trade_link` text NOT NULL,
+  `foto` text NOT NULL,
+  `saldo` decimal(10,0) NOT NULL,
+  `status` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -369,7 +397,8 @@ ALTER TABLE `channel`
 --
 ALTER TABLE `channel_event`
   ADD PRIMARY KEY (`id_event`),
-  ADD KEY `id_channel` (`id_channel`);
+  ADD KEY `id_channel` (`id_channel`),
+  ADD KEY `id_user` (`id_user`) USING BTREE;
 
 --
 -- Indexes for table `channel_roomchat`
@@ -386,12 +415,6 @@ ALTER TABLE `channel_user`
   ADD KEY `fk_id_channel` (`id_channel`);
 
 --
--- Indexes for table `customer`
---
-ALTER TABLE `customer`
-  ADD PRIMARY KEY (`id_user`);
-
---
 -- Indexes for table `friend`
 --
 ALTER TABLE `friend`
@@ -406,10 +429,33 @@ ALTER TABLE `item`
   ADD KEY `id_merchant` (`id_merchant`);
 
 --
+-- Indexes for table `item_komentar`
+--
+ALTER TABLE `item_komentar`
+  ADD PRIMARY KEY (`id_komentar`),
+  ADD KEY `FK_item` (`id_item`),
+  ADD KEY `Fk_user` (`id_user`);
+
+--
+-- Indexes for table `item_reply`
+--
+ALTER TABLE `item_reply`
+  ADD PRIMARY KEY (`id_reply`),
+  ADD KEY `FK_komentar` (`id_komentar`);
+
+--
 -- Indexes for table `merchant`
 --
 ALTER TABLE `merchant`
   ADD PRIMARY KEY (`id_merchant`),
+  ADD KEY `id_user` (`id_user`);
+
+--
+-- Indexes for table `merchant_rating`
+--
+ALTER TABLE `merchant_rating`
+  ADD PRIMARY KEY (`id_rating`),
+  ADD KEY `id_merchant` (`id_merchant`),
   ADD KEY `id_user` (`id_user`);
 
 --
@@ -462,14 +508,6 @@ ALTER TABLE `promo_katalog`
   ADD KEY `fk_id_itemm` (`id_item`) USING BTREE;
 
 --
--- Indexes for table `rating`
---
-ALTER TABLE `rating`
-  ADD PRIMARY KEY (`id_rating`),
-  ADD KEY `id_merchant` (`id_merchant`),
-  ADD KEY `id_user` (`id_user`);
-
---
 -- Indexes for table `subscribers`
 --
 ALTER TABLE `subscribers`
@@ -510,6 +548,12 @@ ALTER TABLE `tournament`
   ADD KEY `fk_id_channell` (`id_channel`);
 
 --
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id_user`);
+
+--
 -- Constraints for dumped tables
 --
 
@@ -517,7 +561,8 @@ ALTER TABLE `tournament`
 -- Constraints for table `channel_event`
 --
 ALTER TABLE `channel_event`
-  ADD CONSTRAINT `channel_event_ibfk_1` FOREIGN KEY (`id_channel`) REFERENCES `channel` (`id_channel`);
+  ADD CONSTRAINT `channel_event_ibfk_1` FOREIGN KEY (`id_channel`) REFERENCES `channel` (`id_channel`),
+  ADD CONSTRAINT `channel_event_userFK` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`);
 
 --
 -- Constraints for table `channel_roomchat`
@@ -530,14 +575,14 @@ ALTER TABLE `channel_roomchat`
 --
 ALTER TABLE `channel_user`
   ADD CONSTRAINT `fk_id_channel` FOREIGN KEY (`id_channel`) REFERENCES `channel` (`id_channel`),
-  ADD CONSTRAINT `fk_id_user1` FOREIGN KEY (`id_user`) REFERENCES `customer` (`id_user`);
+  ADD CONSTRAINT `fk_id_user1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`);
 
 --
 -- Constraints for table `friend`
 --
 ALTER TABLE `friend`
-  ADD CONSTRAINT `fk_id_friend1` FOREIGN KEY (`id_user1`) REFERENCES `customer` (`id_user`),
-  ADD CONSTRAINT `fk_id_friend2` FOREIGN KEY (`id_user2`) REFERENCES `customer` (`id_user`);
+  ADD CONSTRAINT `fk_id_friend1` FOREIGN KEY (`id_user1`) REFERENCES `user` (`id_user`),
+  ADD CONSTRAINT `fk_id_friend2` FOREIGN KEY (`id_user2`) REFERENCES `user` (`id_user`);
 
 --
 -- Constraints for table `item`
@@ -546,17 +591,37 @@ ALTER TABLE `item`
   ADD CONSTRAINT `item_ibfk_3` FOREIGN KEY (`id_merchant`) REFERENCES `merchant` (`id_merchant`);
 
 --
+-- Constraints for table `item_komentar`
+--
+ALTER TABLE `item_komentar`
+  ADD CONSTRAINT `FK_item` FOREIGN KEY (`id_item`) REFERENCES `item` (`id_item`),
+  ADD CONSTRAINT `Fk_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`);
+
+--
+-- Constraints for table `item_reply`
+--
+ALTER TABLE `item_reply`
+  ADD CONSTRAINT `FK_komentar` FOREIGN KEY (`id_komentar`) REFERENCES `item_komentar` (`id_komentar`);
+
+--
 -- Constraints for table `merchant`
 --
 ALTER TABLE `merchant`
-  ADD CONSTRAINT `merchant_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `customer` (`id_user`);
+  ADD CONSTRAINT `merchant_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`);
+
+--
+-- Constraints for table `merchant_rating`
+--
+ALTER TABLE `merchant_rating`
+  ADD CONSTRAINT `merchant_rating_ibfk_1` FOREIGN KEY (`id_merchant`) REFERENCES `merchant` (`id_merchant`),
+  ADD CONSTRAINT `merchant_rating_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`);
 
 --
 -- Constraints for table `pembelian_item`
 --
 ALTER TABLE `pembelian_item`
   ADD CONSTRAINT `fk_id_item` FOREIGN KEY (`id_item`) REFERENCES `item` (`id_item`),
-  ADD CONSTRAINT `fk_id_user` FOREIGN KEY (`id_user`) REFERENCES `customer` (`id_user`);
+  ADD CONSTRAINT `fk_id_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`);
 
 --
 -- Constraints for table `pertandingan`
@@ -576,13 +641,13 @@ ALTER TABLE `pertandingan_team`
 --
 ALTER TABLE `pertandingan_user`
   ADD CONSTRAINT `fk_id_match` FOREIGN KEY (`id_match`) REFERENCES `pertandingan` (`id_match`),
-  ADD CONSTRAINT `fk_id_userr` FOREIGN KEY (`id_user`) REFERENCES `customer` (`id_user`);
+  ADD CONSTRAINT `fk_id_userr` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`);
 
 --
 -- Constraints for table `pesan`
 --
 ALTER TABLE `pesan`
-  ADD CONSTRAINT `fk_id_pengirim` FOREIGN KEY (`id_pengirim`) REFERENCES `customer` (`id_user`);
+  ADD CONSTRAINT `fk_id_pengirim` FOREIGN KEY (`id_pengirim`) REFERENCES `user` (`id_user`);
 
 --
 -- Constraints for table `promo`
@@ -598,13 +663,6 @@ ALTER TABLE `promo_katalog`
   ADD CONSTRAINT `fk_id_promo` FOREIGN KEY (`id_promo`) REFERENCES `promo` (`id_promo`);
 
 --
--- Constraints for table `rating`
---
-ALTER TABLE `rating`
-  ADD CONSTRAINT `rating_ibfk_1` FOREIGN KEY (`id_merchant`) REFERENCES `merchant` (`id_merchant`),
-  ADD CONSTRAINT `rating_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `customer` (`id_user`);
-
---
 -- Constraints for table `subscribers`
 --
 ALTER TABLE `subscribers`
@@ -616,7 +674,7 @@ ALTER TABLE `subscribers`
 --
 ALTER TABLE `team_members`
   ADD CONSTRAINT `fk_id_teamm` FOREIGN KEY (`id_team`) REFERENCES `team` (`id_team`),
-  ADD CONSTRAINT `fk_id_userrr` FOREIGN KEY (`id_user`) REFERENCES `customer` (`id_user`);
+  ADD CONSTRAINT `fk_id_userrr` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`);
 
 --
 -- Constraints for table `team_reminder`
