@@ -1,0 +1,110 @@
+@charset "utf-8";
+/* CSS Document */
+@font-face {
+  font-family: Varela;
+  src: url("../Fonts/VarelaRound-Regular.ttf");
+}
+body{
+	background-color: #353B48;
+	overflow-x: hidden;
+}
+.navbar{
+	background-color: #4A505D;
+}
+.logo{
+	font-family: 'Varela';
+	display: inline-block;
+	font-size: 37px;
+	line-height: inherit;
+	white-space: nowrap;
+	margin-left: 38px;
+}
+.form-control{
+	background-color: #585D68;
+	border: none;
+	border-radius: 10px;
+	color: #FFFFFF;
+}
+.Login-btn{
+	background-color: #D7C13F;
+	border-radius: 10px;
+}
+.Login-btn:hover{
+	background-color: transparent;
+	border-color: #D7C13F;
+	color: #D7C13F;
+}
+.Title{
+	font-family: Verdana;
+	font-weight: bold;
+	font-size: 83px;
+	position: absolute;
+	color: #FFF;
+}
+.Title em{
+	color: #D7C13F;
+	font-style: normal;
+}
+.SubTitle{
+	font-family: Roboto;
+	font-weight: 200;
+	font-size: 42px;
+	color:#FFFFFF;
+	position: absolute;
+	left: 86px;
+	top: 489px;
+}
+.RegButton{
+	width: 489px;
+	height: 74px;
+	background-color: #D7C13F;
+	border: solid 5px;
+	border-radius: 37px;
+	border-color: #D7C13F;
+	position: absolute;
+	left: 86px;
+	top: 667px;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 64px;
+	font-family: Varela;
+	font-size: 40px;
+	color: #FFFFFF;
+	cursor: pointer;
+	transition: 0.3s;
+}
+.RegButton:hover{
+	background-color: transparent;
+	border-color: #D7C13F;
+	transition: 0.3s;
+}
+.svgLanding{
+	position: absolute;
+	left: 1141px;
+	top: 297px;
+}
+.square,.elips,.X,.triangle{
+	position: absolute;
+}
+.square{
+	left: 1718px;
+	top: 832px;
+}
+.elips{
+	left: 1705px;
+	top: 155px;
+}
+.X{
+	left: 1118.41px;
+	top: 819.23px;
+}
+.triangle{
+	left: 1079.44px;
+	top: 142.33px;
+}
+.svgRegister{
+	position: absolute;
+	left: 1237.17px;
+	top: 282.84px;
+	transform: scaleX(-1);
+}
