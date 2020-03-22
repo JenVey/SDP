@@ -29,7 +29,7 @@
                 </div>
             <!-- /.card-header -->
             <!-- form start --> 
-            <form method="post" action="<?=base_url();?>Sub/EditSub/edit">
+            <form method="post" action="<?=base_url();?>Sub/EditSub/edit/">
                 <div class="card-body">
                     <?php if(validation_errors()) : ?>
                     <div class="alert alert-danger alert-dismissible">
@@ -40,7 +40,7 @@
                     <?php endif; ?>
                     <div class="form-group">
                     <label>ID Subscription</label>
-                    <input readonly type="text" class="form-control" name="tipeSub" placeholder="Enter Your Tipe Subscription"  value="<?= $sub['id_sub']; ?>">
+                    <input readonly type="text" class="form-control" name="idSub" placeholder="Enter Your Tipe Subscription"  value="<?= $sub['id_sub']; ?>">
                     </div>
                     <div class="form-group">
                     <label>Tipe Subscription</label>

@@ -3,14 +3,14 @@ class Sub_model extends CI_model{
 
     public function getAllSub()
     {
-       return $this->db->get('subscription')->result_array();
+       return $this->db->get('subscription_detail')->result_array();
     }
 
     public function insertSub()
     {
          //GENERATE ID
          $ctr = 1;
-         $query = $this->db->query("select * from subscription");
+         $query = $this->db->query("select * from subscription_detail");
          $newId = $this->input->post('tipeSub');
          $cekNewId= substr(strtoupper($newId),0,1);
          foreach($query->result_array() as $row)
@@ -36,31 +36,33 @@ class Sub_model extends CI_model{
             "keterangan" => $this->input->post('keterangan'),
             "tgl_kadaluwarsa" => $newTgl
         ];
-        $this->db->insert('subscription',$data);
+        $this->db->insert('subscription_detail',$data);
     }
 
     public function deleteSub($id)
     {
         $this->db->where('id_sub',$id);
-        $this->db->delete('subscription');
+        $this->db->delete('subscription_detail');
     }
 
     public function getSubById($id)
     {
-        return $this->db->get_where('subscription', ['id_sub' => $id])->row_array();
+        return $this->db->get_where('subscription_detail', ['id_sub' => $id])->row_array();
     }
 
     public function editSub($id)
     {
-
+        
+        $tgl = $this->input->post('tglKadaluwarsa');
+        $newTgl = date("Y-m-d H:i:s", strtotime($tgl));
         $data = [
-            "tipe_sub" => $this->input->post('tipeSub') ,
+            "tipe_sub" => $this->input->post('tipeSub'),
             "keterangan" => $this->input->post('keterangan'),
-            "tgl_kadaluawarsa" => $this->input->post('tglKadaluwarsa'),
+            "tgl_kadaluawarsa" =>  $newTgl
         ];
 
         $this->db->where('id_sub',$id);
-        $this->db->update('subscription',$data);
+        $this->db->update('subscription_detail',$data);
     }
 
 }

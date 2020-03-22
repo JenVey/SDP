@@ -49,7 +49,7 @@
                   <?php foreach ($user as $usr) : ?>
                     <tr>
                       <td> <?= $usr['id_user'] ?> </td>
-                      <td> <?= $usr['username'] ?> </td>
+                      <td> <?= $usr['nickname_user'] ?> </td>
                       <td> <?= $usr['nama_user'] ?> </td>
                       <td> <?= $usr['email_user'] ?> </td>
                       <td>
