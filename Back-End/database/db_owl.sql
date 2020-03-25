@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 22, 2020 at 06:57 PM
+-- Generation Time: Mar 25, 2020 at 09:14 PM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.11
 
@@ -372,10 +372,10 @@ CREATE TABLE `tournament_standing` (
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `id_user` varchar(6) NOT NULL,
-  `nama_user` text NOT NULL,
-  `pass_user` text NOT NULL,
-  `email_user` text NOT NULL,
-  `nickname_user` text NOT NULL,
+  `nama_user` varchar(24) NOT NULL,
+  `pass_user` varchar(12) NOT NULL,
+  `email_user` varchar(64) NOT NULL,
+  `username_user` varchar(12) NOT NULL,
   `trade_link` text NOT NULL,
   `foto` text NOT NULL,
   `saldo` decimal(10,0) NOT NULL,
