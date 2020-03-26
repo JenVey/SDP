@@ -116,7 +116,7 @@ body{
 	top: 282.84px;
 	transform: scaleX(-1);
 }
-.grid {
+.gridRegister {
     display: grid;
 	position: absolute;
 	left: 85px;
@@ -127,6 +127,50 @@ body{
 	grid-row-gap: 20px;
     grid-template-columns: repeat(2, 1fr);
     max-width: 1187px;
+}
+.gridConMainMenu {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+	height: 100vh;
+}
+.gridShopMainMenu,.gridCommMainMenu{
+	display: grid;
+    grid-template-columns: repeat(1, 1fr);
+}
+.gridCommMainMenu:hover,.gridShopMainMenu:hover{
+	cursor: pointer;
+	background-color: #2B2F39;
+}
+.CommMenu,.ShopMenu{
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+	height: 100%;
+}
+.CommMenuText,.ShopMenuText{
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	height: 100%;
+}
+.MainMenutitle{
+	position: absolute;
+	width: 100vw;
+	margin-top: 5vh;
+	text-align: center;
+	font-family: Varela;
+	font-size: 40px;
+	color: white;
+	z-index: 3;
+}
+.logout{
+	position: absolute;
+	left: 1798px;
+	top: 41px;
+	z-index: 3;
+}
+.logout:hover{
+	cursor: pointer;
 }
 .Form-Title{
 	font-family: Roboto;
