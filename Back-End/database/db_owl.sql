@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.1
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 25, 2020 at 09:14 PM
--- Server version: 10.4.8-MariaDB
--- PHP Version: 7.3.11
+-- Generation Time: Mar 27, 2020 at 07:54 AM
+-- Server version: 10.3.15-MariaDB
+-- PHP Version: 7.3.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -34,7 +34,7 @@ DROP TABLE IF EXISTS `channel`;
 CREATE TABLE `channel` (
   `id_channel` varchar(6) NOT NULL,
   `nama_channel` varchar(100) NOT NULL,
-  `foto_channel` text NOT NULL
+  `foto_channel` blob NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -51,7 +51,7 @@ CREATE TABLE `channel_event` (
   `judul` varchar(25) NOT NULL,
   `pesan` text NOT NULL,
   `tanggal` datetime NOT NULL,
-  `foto` text NOT NULL
+  `foto` blob NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -95,6 +95,18 @@ CREATE TABLE `friend` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `game`
+--
+
+DROP TABLE IF EXISTS `game`;
+CREATE TABLE `game` (
+  `id_game` varchar(6) NOT NULL,
+  `nama_game` varchar(64) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `item`
 --
 
@@ -102,12 +114,12 @@ DROP TABLE IF EXISTS `item`;
 CREATE TABLE `item` (
   `id_item` varchar(6) NOT NULL,
   `id_merchant` varchar(6) NOT NULL,
+  `id_game` varchar(6) NOT NULL,
   `nama_item` text NOT NULL,
   `harga_item` decimal(8,2) NOT NULL,
-  `foto_item` text NOT NULL,
+  `foto_item` blob NOT NULL,
   `link_item` text NOT NULL,
   `tanggal_upload` datetime NOT NULL,
-  `jenis_game` text NOT NULL,
   `jumlah_item` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -149,7 +161,7 @@ CREATE TABLE `merchant` (
   `id_merchant` varchar(6) NOT NULL,
   `id_user` varchar(6) NOT NULL,
   `nama_merchant` varchar(100) NOT NULL,
-  `foto_profil` text NOT NULL,
+  `foto_profil` blob NOT NULL,
   `bio` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -343,8 +355,8 @@ DROP TABLE IF EXISTS `tournament`;
 CREATE TABLE `tournament` (
   `id_turnament` varchar(6) NOT NULL,
   `id_channel` varchar(6) NOT NULL,
+  `id_game` varchar(6) NOT NULL,
   `nama_turnament` varchar(100) NOT NULL,
-  `jenis_game` varchar(50) NOT NULL,
   `jumlah_pemain` int(3) NOT NULL,
   `tanggal_mulai` date NOT NULL,
   `jumlah_slot` int(3) NOT NULL
@@ -377,7 +389,7 @@ CREATE TABLE `user` (
   `email_user` varchar(64) NOT NULL,
   `username_user` varchar(12) NOT NULL,
   `trade_link` text NOT NULL,
-  `foto` text NOT NULL,
+  `foto` blob NOT NULL,
   `saldo` decimal(10,0) NOT NULL,
   `status` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -422,11 +434,18 @@ ALTER TABLE `friend`
   ADD KEY `fk_id_friend2` (`id_user2`);
 
 --
+-- Indexes for table `game`
+--
+ALTER TABLE `game`
+  ADD PRIMARY KEY (`id_game`);
+
+--
 -- Indexes for table `item`
 --
 ALTER TABLE `item`
   ADD PRIMARY KEY (`id_item`),
-  ADD KEY `id_merchant` (`id_merchant`);
+  ADD KEY `id_merchant` (`id_merchant`),
+  ADD KEY `fk_id_game` (`id_game`);
 
 --
 -- Indexes for table `item_komentar`
@@ -545,7 +564,8 @@ ALTER TABLE `team_reminder`
 --
 ALTER TABLE `tournament`
   ADD PRIMARY KEY (`id_turnament`),
-  ADD KEY `fk_id_channell` (`id_channel`);
+  ADD KEY `fk_id_channell` (`id_channel`),
+  ADD KEY `fk_id_game1` (`id_game`);
 
 --
 -- Indexes for table `user`
@@ -588,6 +608,7 @@ ALTER TABLE `friend`
 -- Constraints for table `item`
 --
 ALTER TABLE `item`
+  ADD CONSTRAINT `fk_id_game` FOREIGN KEY (`id_game`) REFERENCES `game` (`id_game`),
   ADD CONSTRAINT `item_ibfk_3` FOREIGN KEY (`id_merchant`) REFERENCES `merchant` (`id_merchant`);
 
 --
@@ -686,7 +707,8 @@ ALTER TABLE `team_reminder`
 -- Constraints for table `tournament`
 --
 ALTER TABLE `tournament`
-  ADD CONSTRAINT `fk_id_channell` FOREIGN KEY (`id_channel`) REFERENCES `channel` (`id_channel`);
+  ADD CONSTRAINT `fk_id_channell` FOREIGN KEY (`id_channel`) REFERENCES `channel` (`id_channel`),
+  ADD CONSTRAINT `fk_id_game1` FOREIGN KEY (`id_game`) REFERENCES `game` (`id_game`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
