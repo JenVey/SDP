@@ -12,7 +12,7 @@ class Sub_model extends CI_model{
          $ctr = 1;
          $query = $this->db->query("select * from subscription_detail");
          $newId = $this->input->post('tipeSub');
-         $cekNewId= substr(strtoupper($newId),0,1);
+         $cekNewId= 'S' . substr(strtoupper($newId),0,1);
          foreach($query->result_array() as $row)
          {
              $cekId = substr(strtoupper($row['id_sub']),0,1);
@@ -52,13 +52,14 @@ class Sub_model extends CI_model{
 
     public function editSub($id)
     {
-        
+        var_dump($id);
+
         $tgl = $this->input->post('tglKadaluwarsa');
         $newTgl = date("Y-m-d H:i:s", strtotime($tgl));
         $data = [
             "tipe_sub" => $this->input->post('tipeSub'),
             "keterangan" => $this->input->post('keterangan'),
-            "tgl_kadaluawarsa" =>  $newTgl
+            "tgl_kadaluwarsa" =>  $newTgl
         ];
 
         $this->db->where('id_sub',$id);

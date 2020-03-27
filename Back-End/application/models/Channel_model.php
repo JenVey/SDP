@@ -12,7 +12,7 @@ class Channel_model extends CI_model{
          $ctr = 1;
          $query = $this->db->query("select * from channel");
          $newId = $this->input->post('nameChannel');
-         $cekNewId= substr(strtoupper($newId),0,1);
+         $cekNewId= 'C' . substr(strtoupper($newId),0,1);
          foreach($query->result_array() as $row)
          {
              $cekId = substr(strtoupper($row['id_channel']),0,1);

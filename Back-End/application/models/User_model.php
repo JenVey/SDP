@@ -12,7 +12,7 @@ class User_model extends CI_model{
         $ctr = 1;
         $query = $this->db->query("select * from customer");
         $newId = $this->input->post('username');
-        $cekNewId= substr(strtoupper($newId),0,1);
+        $cekNewId= 'U' . substr(strtoupper($newId),0,1);
         foreach($query->result_array() as $row)
         {
             $cekId = substr(strtoupper($row['id_user']),0,1);

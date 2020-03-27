@@ -53,7 +53,7 @@ class EditUser extends CI_Controller {
 			$this->load->view('user/editUser',$data);
 		}else{
 			$this->User_model->editUser($id);
-			$this->session->set_flashdata('flash','Edited');
+			$this->session->set_flashdata('flash','Susccess Edited');
 			redirect('user/listUser');
 		}	
 	}

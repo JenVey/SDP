@@ -39,8 +39,9 @@ class EditSub extends CI_Controller {
 
 	public function edit($id)
 	{
+		
 		$data['sub'] = $this->Sub_model->getSubById($id);
-		$this->form_validation->set_rules('tipeSub','Nama','required');
+		$this->form_validation->set_rules('tglKadaluwarsa','Tanggal Kadaluawarsa','required');
 
 		if( $this->form_validation->run() == FALSE){
 			$this->load->view('templates/header',$data);
@@ -53,8 +54,6 @@ class EditSub extends CI_Controller {
 			redirect('sub/listSub');
 		}	
 	}
-
 	
-		
 }
  

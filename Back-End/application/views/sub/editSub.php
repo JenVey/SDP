@@ -29,7 +29,7 @@
                 </div>
             <!-- /.card-header -->
             <!-- form start --> 
-            <form method="post" action="<?=base_url();?>Sub/EditSub/edit/">
+            <form method="post" action="<?=base_url();?>Sub/EditSub/edit/<?= $sub['id_sub']?>" >
                 <div class="card-body">
                     <?php if(validation_errors()) : ?>
                     <div class="alert alert-danger alert-dismissible">
