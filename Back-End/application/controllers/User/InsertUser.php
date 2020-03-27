@@ -69,7 +69,7 @@ class InsertUser extends CI_Controller {
 		$query = $this->db->query("select * from user");
 		foreach($query->result_array() as $row)
 		{
-			 if($row['username'] == $this->input->post('username')){
+			 if($row['username_user'] == $this->input->post('username')){
                 $ada = true;
              }
 		}

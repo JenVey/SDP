@@ -15,7 +15,7 @@ class User_model extends CI_model{
         $cekNewId= 'U' . substr(strtoupper($newId),0,1);
         foreach($query->result_array() as $row)
         {
-            $cekId = substr(strtoupper($row['id_user']),0,1);
+            $cekId = substr(strtoupper($row['id_user']),0,2);
             if($cekId == $cekNewId){
                 $ctr++;
             }

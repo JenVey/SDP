@@ -15,18 +15,20 @@ class Team_model extends CI_model{
          $cekNewId= 'T' . substr(strtoupper($newId),0,1);
          foreach($query->result_array() as $row)
          {
-             $cekId = substr(strtoupper($row['id_team']),0,1);
+             $cekId = substr(strtoupper($row['id_team']),0,2);
              if($cekId == $cekNewId){
                  $ctr++;
              }
          }
          if($ctr < 10){
-             $generateId = $cekNewId .'00'. $ctr;
-         }else if($ctr < 100){
-             $generateId = $cekNewId.'0'. $ctr;
-         }else if($ctr < 1000){
-             $generateId = $cekNewId . $ctr;
-         }
+            $generateId = $cekNewId .'000'. $ctr;
+        }else if($ctr < 100){
+            $generateId = $cekNewId.'00'. $ctr;
+        }else if($ctr < 1000){
+            $generateId = $cekNewId. '0'. $ctr;
+        }else{
+            $generateId = $cekNewId . $ctr;
+        }
          
         $tgl = date("Y-m-d H:i:s");
         $data = [
