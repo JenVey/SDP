@@ -85,6 +85,21 @@
         </li>
         </ul>   
       </nav>
+
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <li class="nav-item">
+            <a href="<?=base_url();?>Game/ListGame" class="nav-link">
+              <i class="nav-icon fa fa-gamepad"></i>
+              <p>
+                List Game
+              </p>
+            </a>
+        </li>
+        </ul>   
+      </nav>
+
+
     </div>
     <!-- /.sidebar -->
 </aside>
