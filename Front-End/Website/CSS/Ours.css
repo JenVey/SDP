@@ -1,0 +1,234 @@
+@charset "utf-8";
+/* CSS Document */
+@font-face {
+  font-family: Varela;
+  src: url("../Fonts/VarelaRound-Regular.ttf");
+}
+body{
+	background-color: #353B48;
+	overflow-x: hidden;
+}
+.navbar{
+	background-color: #4A505D;
+}
+.logo{
+	font-family: 'Varela';
+	display: inline-block;
+	font-size: 37px;
+	line-height: inherit;
+	white-space: nowrap;
+	margin-left: 38px;
+}
+.logo:hover{
+	cursor: pointer;
+}
+.form-control{
+	background-color: #585D68;
+	border: none;
+	border-radius: 10px;
+	color: #FFFFFF;
+}
+.form-control:focus{
+	background-color: #585D68;
+	color: #FFFFFF;
+	box-shadow: none;
+}
+.Login-btn{
+	background-color: #D7C13F;
+	border-radius: 10px;
+}
+.Login-btn:hover{
+	background-color: transparent;
+	border-color: #D7C13F;
+	color: #D7C13F;
+}
+.Title{
+	font-family: Verdana;
+	font-weight: bold;
+	font-size: 83px;
+	position: absolute;
+	color: #FFF;
+}
+.Title em{
+	color: #D7C13F;
+	font-style: normal;
+}
+.SubTitle{
+	font-family: Roboto;
+	font-weight: 200;
+	font-size: 42px;
+	color:#FFFFFF;
+	position: absolute;
+	left: 86px;
+	top: 489px;
+}
+.RegButton{
+	width: 489px;
+	height: 74px;
+	background-color: #D7C13F;
+	border: solid 5px;
+	border-radius: 37px;
+	border-color: #D7C13F;
+	position: absolute;
+	left: 86px;
+	top: 667px;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 64px;
+	font-family: Varela;
+	font-size: 40px;
+	color: #FFFFFF;
+	cursor: pointer;
+	transition: 0.3s;
+}
+.RegButton:hover{
+	background-color: transparent;
+	border-color: #D7C13F;
+	transition: 0.3s;
+}
+.svgLanding{
+	position: absolute;
+	left: 1141px;
+	top: 297px;
+}
+.square,.elips,.X,.triangle{
+	position: absolute;
+}
+.square{
+	left: 1718px;
+	top: 832px;
+}
+.elips{
+	left: 1705px;
+	top: 155px;
+}
+.X{
+	left: 1118.41px;
+	top: 819.23px;
+}
+.triangle{
+	left: 1079.44px;
+	top: 142.33px;
+}
+.svgRegister{
+	position: absolute;
+	left: 1237.17px;
+	top: 282.84px;
+	transform: scaleX(-1);
+}
+.gridRegister {
+    display: grid;
+	position: absolute;
+	left: 85px;
+	top: 364px;
+	width: 1000px;
+	justify-items:stretch;
+	grid-column-gap: 100px;
+	grid-row-gap: 20px;
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 1187px;
+}
+.gridConMainMenu {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+	height: 100vh;
+}
+.gridShopMainMenu,.gridCommMainMenu{
+	display: grid;
+    grid-template-columns: repeat(1, 1fr);
+}
+.gridCommMainMenu:hover,.gridShopMainMenu:hover{
+	cursor: pointer;
+	background-color: #2B2F39;
+}
+.CommMenu,.ShopMenu{
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+	height: 100%;
+}
+.CommMenuText,.ShopMenuText{
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	height: 100%;
+}
+.MainMenutitle{
+	position: absolute;
+	width: 100vw;
+	margin-top: 5vh;
+	text-align: center;
+	font-family: Varela;
+	font-size: 40px;
+	color: white;
+	z-index: 3;
+}
+.logout{
+	position: absolute;
+	left: 1798px;
+	top: 41px;
+	z-index: 3;
+}
+.logout:hover{
+	cursor: pointer;
+}
+.Form-Title{
+	font-family: Roboto;
+	font-weight: 300;
+	font-size: 52px;
+	color: #FFFFFF;
+}
+input[type=date]::-webkit-calendar-picker-indicator {
+    -webkit-appearance: none;
+    display: none;
+}
+input[type=date]::-webkit-inner-spin-button,input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    display: none;
+}
+.Gender{
+	display: flex;
+	justify-content: space-around;
+}
+#Group_116:hover{
+	opacity: 1;
+	cursor: pointer;
+}
+#Group_64:hover{
+	opacity: 1;
+	cursor: pointer;
+}
+#register{
+	width: 346px;
+	height: 74px;
+	background-color: #D7C13F;
+	border: solid 5px;
+	border-radius: 37px;
+	border-color: #D7C13F;
+	position: absolute;
+	left: 410px;
+	top: 822px;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 64px;
+	font-family: Varela;
+	font-size: 40px;
+	color: #FFFFFF;
+	cursor: pointer;
+	transition: 0.3s;
+}
+#register:hover{
+	background-color: transparent;
+	border-color: #D7C13F;
+	transition: 0.3s;
+}
+rect.boy,rect.girl {
+  stroke:#fff;
+  fill:#fff;
+  fill-opacity:0;
+  stroke-opacity:0;
+}
+rect.boy:hover,rect.girl:hover{
+	cursor: pointer;
+}
+
