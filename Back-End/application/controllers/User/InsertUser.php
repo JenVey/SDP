@@ -66,7 +66,7 @@ class InsertUser extends CI_Controller {
 	public function username_check()
 	{
 		$ada = false;
-		$query = $this->db->query("select * from customer");
+		$query = $this->db->query("select * from user");
 		foreach($query->result_array() as $row)
 		{
 			 if($row['username'] == $this->input->post('username')){

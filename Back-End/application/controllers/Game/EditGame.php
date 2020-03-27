@@ -50,7 +50,7 @@ class EditGame extends CI_Controller {
 			$this->load->view('templates/sidebar');
 			$this->load->view('game/editGame',$data);
 		}else{
-			$this->Channel_model->editGame($id);
+			$this->Game_model->editGame($id);
 			$this->session->set_flashdata('flash','Edited');
 			redirect('game/listGame');
 		}	

@@ -31,7 +31,7 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              <a type="button" href="<?=base_url();?>Game/InsertGame/" class="btn btn-block btn-primary col-md-1 float-right">Insert Channel</a>
+              <a type="button" href="<?=base_url();?>Game/InsertGame/" class="btn btn-block btn-primary col-md-1 float-right">Insert Game</a>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -49,12 +49,12 @@
                       <td> <?= $gem['id_game'] ?> </td>
                       <td> <?= $gem['nama_game'] ?> </td>
                       <td>
-                      <a href="<?=base_url();?>Channel/EditChannel/index/<?= $gem['id_channel']; ?>" class="btn btn-info btn-sm">
+                      <a href="<?=base_url();?>Game/EditGame/index/<?= $gem['id_game']; ?>" class="btn btn-info btn-sm">
                               <i class="fas fa-pencil-alt">
                               </i>
                               Edit
                         </a>
-                      <a  href="<?=base_url();?>Channel/InsertChannel/delete/<?= $gem['id_channel']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin?'); ">
+                      <a  href="<?=base_url();?>Game/InsertGame/delete/<?= $gem['id_game']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin?'); ">
                               <i class="fas fa-trash">
                               </i>
                               Delete

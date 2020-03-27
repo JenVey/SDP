@@ -42,6 +42,9 @@
                   <th>Username</th>
                   <th>Nama User</th>
                   <th>Email User</th>
+                  <th>Trade Link</th>
+                  <th>Saldo</th>
+                  <th>Status</th>
                   <th>Action</th>
                 </tr>
                 </thead>
@@ -49,9 +52,12 @@
                   <?php foreach ($user as $usr) : ?>
                     <tr>
                       <td> <?= $usr['id_user'] ?> </td>
-                      <td> <?= $usr['nickname_user'] ?> </td>
+                      <td> <?= $usr['username_user'] ?> </td>
                       <td> <?= $usr['nama_user'] ?> </td>
                       <td> <?= $usr['email_user'] ?> </td>
+                      <td> <?= $usr['trade_link'] ?> </td>
+                      <td> <?= $usr['saldo'] ?> </td>
+                      <td> <?= $usr['status'] ?> </td>
                       <td>
                       <a href="<?=base_url();?>User/EditUser/index/<?= $usr['id_user']; ?>" class="btn btn-info btn-sm">
                               <i class="fas fa-pencil-alt">

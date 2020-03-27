@@ -37,7 +37,7 @@ class Game_model extends CI_model{
         $data = [
             "id_game" => $generateId,
             "nama_game" => $this->input->post('nameGame')
-           // "foto_channel" => $foto
+            //"foto_channel" => $foto
         ];
         $this->db->insert('game',$data);
 

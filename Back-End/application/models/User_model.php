@@ -3,14 +3,14 @@ class User_model extends CI_model{
 
     public function getAllUser()
     {
-       return $this->db->get('customer')->result_array();
+       return $this->db->get('user')->result_array();
     }
 
     public function insertUser()
     {
         //GENERATE ID
         $ctr = 1;
-        $query = $this->db->query("select * from customer");
+        $query = $this->db->query("select * from user");
         $newId = $this->input->post('username');
         $cekNewId= 'U' . substr(strtoupper($newId),0,1);
         foreach($query->result_array() as $row)
@@ -37,14 +37,15 @@ class User_model extends CI_model{
         $data = [
             "id_user" => $generateId,
             "nama_user" => $this->input->post('nameUser'),
-            "nickname_user" => $this->input->post('username'),
+            "username_user" => $this->input->post('username'),
             "pass_user" => $this->input->post('passUser'),
             "email_user" => $this->input->post('emailUser'),
             "trade_link" => '',
             "foto" =>  $foto,
-            "saldo" => 0
+            "saldo" => 0,
+            "status" => 0
         ];
-        $this->db->insert('customer',$data);
+        $this->db->insert('user',$data);
     
       
     }
@@ -53,12 +54,12 @@ class User_model extends CI_model{
     public function deleteUser($id)
     {
         $this->db->where('id_user',$id);
-        $this->db->delete('customer');
+        $this->db->delete('user');
     }
 
     public function getUserById($id)
     {
-        return $this->db->get_where('customer', ['id_user' => $id])->row_array();
+        return $this->db->get_where('user', ['id_user' => $id])->row_array();
     }
 
     public function editUser($id)
@@ -74,11 +75,14 @@ class User_model extends CI_model{
             "nama_user" => $this->input->post('nameUser'),
 			"pass_user" => $this->input->post('passUser'),
 			"email_user" => $this->input->post('emailUser'),
-			"foto" => $foto,
+            "foto" => $foto,
+            "trade_link" => $this->input->post('tradeUser'),
+            "saldo" => $this->input->post('saldoUser'),
+            "status" =>$this->input->post('statusUser')
         ];
 
         $this->db->where('id_user',$id);
-        $this->db->update('customer',$data);
+        $this->db->update('user',$data);
     }
 
 }

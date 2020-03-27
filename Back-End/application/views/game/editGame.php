@@ -5,12 +5,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Form Insert Game</h1>
+            <h1>Form Edit Game</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">ListGame</a></li>
-              <li class="breadcrumb-item active">InsertGame</li>
+              <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+              <li class="breadcrumb-item active">EditGame</li>
             </ol>
           </div>
         </div>
@@ -25,11 +25,11 @@
         <!-- general form elements -->
                 <div class="card card-primary">
                 <div class="card-header">
-                <h3 class="card-title">Insert Game</h3>
+                <h3 class="card-title">Edit Game</h3>
                 </div>
             <!-- /.card-header -->
             <!-- form start --> 
-                <form method="post" action="<?=base_url();?>Game/InsertGame/insert">
+                <form method="post" action="<?=base_url();?>Game/EditGame/edit/<?= $game['id_game']?> ">
                 <div class="card-body">
                     <?php if(validation_errors()) : ?>
                     <div class="alert alert-danger alert-dismissible">
@@ -39,16 +39,20 @@
                     </div>
                     <?php endif; ?>
                     <div class="form-group">
+                    <label>Channel ID</label>
+                    <input readonly type="text" class="form-control" name="idChannel" placeholder="" value="<?= $game['id_game']; ?>">
+                    </div>
+                    <div class="form-group">
                     <label>Game Name</label>
-                    <input type="text" class="form-control" name="nameGame" placeholder="Enter Your Game Name">
+                    <input type="text" class="form-control" name="nameGame" placeholder="Enter Your Name Game" value="<?= $game['nama_game']; ?>">
                     </div>
 
                     <!-- <div class="form-group">
                     <label for="exampleInputFile">Game Picture</label>
                     <div class="input-group">
                       <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="exampleInputFile" name="photoGame">
-                        <label class="custom-file-label" for="exampleInputFile">Choose Photo</label>
+                        <input type="file" class="custom-file-input" id="exampleInputFile" name="photoChannel">
+                        <label class="custom-file-label" for="exampleInputFile">     </label>
                       </div>
                     </div> -->
 
@@ -56,7 +60,7 @@
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-primary float-left" style="margin-right:10px;">Submit</button>
+                    <button type="submit" class="btn btn-primary float-left" style="margin-right:10px;">Edit</button>
                     <a type="submit" href="<?=base_url();?>game/listGame" class="btn btn-danger float-right">Cancel</a>
                 </div>
                 </form>

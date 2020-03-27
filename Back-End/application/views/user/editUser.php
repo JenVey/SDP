@@ -44,7 +44,7 @@
                     </div>
                     <div class="form-group">
                     <label>Username</label>
-                    <input readonly type="text" class="form-control" id="nameUser" name="nameUser" placeholder="Enter Your Name" value="<?php echo $user['nickname_user']; ?>">
+                    <input readonly type="text" class="form-control" id="nameUser" name="nameUser" placeholder="Enter Your Name" value="<?php echo $user['username_user']; ?>">
                     </div>
                     <div class="form-group">
                     <label>Name</label>
@@ -65,7 +65,19 @@
                     </div>
                     <div class="form-group">
                     <label>Password</label>
-                    <input type="password" class="form-control" id="passUser" name="passUser" placeholder="Password">
+                    <input type="password" class="form-control" id="passUser" name="passUser" placeholder="Password" value="<?php echo $user['pass_user']; ?>">
+                    </div>
+                    <div class="form-group">
+                    <label>Trade Link</label>
+                    <input type="text" class="form-control" id="passUser" name="tradeUser" placeholder="Trade Link" value="<?php echo $user['trade_link']; ?>">
+                    </div>
+                    <div class="form-group">
+                    <label>Saldo</label>
+                    <input type="text" class="form-control" id="passUser" name="saldoUser" placeholder="Password" value="<?php echo $user['saldo']; ?>">
+                    </div>
+                    <div class="form-group">
+                    <label>Status (0/1)</label>
+                    <input type="text" class="form-control" id="passUser" name="statusUser" placeholder="Status" value="<?php echo $user['status']; ?>">
                     </div>
                 </div>
                 <!-- /.card-body -->
