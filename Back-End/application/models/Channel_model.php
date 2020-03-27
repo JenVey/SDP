@@ -20,13 +20,15 @@ class Channel_model extends CI_model{
                  $ctr++;
              }
          }
-         if($ctr < 10){
-             $generateId = $cekNewId .'00'. $ctr;
-         }else if($ctr < 100){
-             $generateId = $cekNewId.'0'. $ctr;
-         }else if($ctr < 1000){
-             $generateId = $cekNewId . $ctr;
-         }
+        if($ctr < 10){
+            $generateId = $cekNewId .'000'. $ctr;
+        }else if($ctr < 100){
+            $generateId = $cekNewId.'00'. $ctr;
+        }else if($ctr < 1000){
+            $generateId = $cekNewId. '0'. $ctr;
+        }else{
+            $generateId = $cekNewId . $ctr;
+        }
 
 
          $foto = $this->input->post('photoChannel');

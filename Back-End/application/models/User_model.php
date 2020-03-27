@@ -21,10 +21,12 @@ class User_model extends CI_model{
             }
         }
         if($ctr < 10){
-            $generateId = $cekNewId .'00'. $ctr;
+            $generateId = $cekNewId .'000'. $ctr;
         }else if($ctr < 100){
-            $generateId = $cekNewId.'0'. $ctr;
+            $generateId = $cekNewId.'00'. $ctr;
         }else if($ctr < 1000){
+            $generateId = $cekNewId. '0'. $ctr;
+        }else{
             $generateId = $cekNewId . $ctr;
         }
 
@@ -41,9 +43,11 @@ class User_model extends CI_model{
             "pass_user" => $this->input->post('passUser'),
             "email_user" => $this->input->post('emailUser'),
             "trade_link" => '',
+            "jenis_kelamin" =>  $this->input->post('jkUser'),
             "foto" =>  $foto,
             "saldo" => 0,
             "status" => 0
+           
         ];
         $this->db->insert('user',$data);
     
@@ -77,6 +81,7 @@ class User_model extends CI_model{
 			"email_user" => $this->input->post('emailUser'),
             "foto" => $foto,
             "trade_link" => $this->input->post('tradeUser'),
+            "jenis_kelamin" =>  $this->input->post('jkUser'),
             "saldo" => $this->input->post('saldoUser'),
             "status" =>$this->input->post('statusUser')
         ];

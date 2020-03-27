@@ -55,6 +55,10 @@
                     <input type="text" class="form-control" id="emailUser" name="emailUser" placeholder="Enter email" value="<?php echo $user['email_user']; ?>">
                     </div>
                     <div class="form-group">
+                    <label>Jenis Kelamin</label>
+                    <input type="text" class="form-control" readonly id="nameUser" name="nameUser" placeholder="JK" value="<?php echo $user['jenis_kelamin']; ?>">
+                    </div>
+                    <div class="form-group">
                     <label for="exampleInputFile">Profil Picture</label>
                     <div class="input-group">
                       <div class="custom-file">

@@ -51,6 +51,13 @@
                     <input type="text" class="form-control" id="emailUser" name="emailUser" placeholder="Enter email">
                     </div>
                     <div class="form-group">
+                    <label>Jenis Kelamin</label>
+                        <select class="form-control" name ="jkUser">
+                                <option>L</option>
+                                <option>P</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
                     <label for="exampleInputFile">Profil Picture</label>
                     <div class="input-group">
                       <div class="custom-file">
