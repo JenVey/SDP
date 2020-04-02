@@ -52,8 +52,8 @@
                       <td> <?= $subs['id_sub'] ?> </td>
                       <td> <?= $subs['tipe_sub'] ?> </td>
                       <td> <?= $subs['keterangan'] ?> </td>
-                      <td> <?= $subs['tgl_kadaluwarsa'] ?> </td>
-                      <td> <?= $subs['tgl_kadaluwarsa'] ?> </td>
+                      <td> <?= $subs['tgl_awal'] ?> </td>
+                      <td> <?= $subs['tgl_akhir'] ?> </td>
                       <td>
                       <a href="<?=base_url();?>Sub/EditSub/index/<?= $subs['id_sub']; ?>" class="btn btn-info btn-sm">
                               <i class="fas fa-pencil-alt">

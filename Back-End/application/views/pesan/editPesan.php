@@ -67,8 +67,24 @@
                         <input type="text" class="form-control" readonly name="tglPesan"  value="<?= $pesan['tanggal']; ?>">
                     </div>
                     <div class="form-group">
-                        <label>Status Pesan</label>
-                        <input type="text" class="form-control"  name="statusPesan"  value="<?= $pesan['status']; ?>">
+                    <label>Status Pesan</label>
+                        <select class="form-control" name ="statusPesan">
+                              <?php
+                                if($pesan['status'] == 0) {
+                                  echo '<option>Delivered</option>';
+                                  echo '<option>Read</option>';
+                                  echo '<option>Deleted</option>';
+                                }else if($pesan['status'] == 1){
+                                  echo '<option>Read</option>';
+                                  echo '<option>Delivered</option>';
+                                  echo '<option>Deleted</option>';
+                                }else{
+                                  echo '<option>Deleted</option>';
+                                  echo '<option>Read</option>';
+                                  echo '<option>Delivered</option>';
+                                }
+                              ?>
+                        </select>
                     </div>
                 </div>
                 <!-- /.card-body -->

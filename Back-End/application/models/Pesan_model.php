@@ -56,14 +56,22 @@ class Pesan_model extends CI_model{
 
     public function editPesan($id)
     {
-    
+        $status;
+        if($this->input->post('statusPesan') == "Delivered"){
+           $status = 0;
+        }else if($this->input->post('statusPesan') == "Read" ){
+            $status = 1;
+        }else{
+            $status = 2;
+        }
+
        $data = [
             "id_pengirim" =>  $this->input->post('idPengirim'),
             "id_penerima" =>  $this->input->post('idPenerima'),
             "tipe_penerima" => $this->input->post('tipePenerima'),
             "pesan" => $this->input->post('isiPesan'),
             "tanggal" => $this->input->post('tglPesan'),
-            "status" => $this->input->post('statusPesan')
+            "status" => $status
        ];
 
         $this->db->where('id_pesan',$id);

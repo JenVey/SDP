@@ -57,7 +57,17 @@
                       <td> <?= $psn['tipe_penerima'] ?> </td>
                       <td> <?= $psn['pesan'] ?> </td>
                       <td> <?= $psn['tanggal'] ?> </td>
-                      <td> <?= $psn['status'] ?> </td>
+                      <td>   
+                        <?php 
+                          if($psn['status'] == 0){
+                            echo '<span class="badge bg-primary">Delivered</span>';
+                          }else if($psn['status'] == 1) {
+                            echo '<span class="badge bg-success">Read</span>';
+                          }else {
+                            echo '<span class="badge bg-danger">Deleted</span>';
+                          }
+                        ?> 
+                      </td>
                       <td>
                       <a href="<?=base_url();?>Pesan/EditPesan/index/<?= $psn['id_pesan']; ?>" class="btn btn-info btn-sm">
                               <i class="fas fa-pencil-alt">

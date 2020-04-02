@@ -46,7 +46,10 @@ class InsertUser extends CI_Controller {
 		$this->form_validation->set_rules('nameUser','Nama','required');
 		$this->form_validation->set_rules('username','Username','required');
 		$this->form_validation->set_rules('username','Username','callback_username_check');
+
+		$this->form_validation->set_rules('emailUser','Email','callback_email_check');
 		$this->form_validation->set_rules('emailUser','Email','required|valid_email');
+		
 		$this->form_validation->set_rules('passUser','Password','required');
 
 
@@ -76,6 +79,25 @@ class InsertUser extends CI_Controller {
 		
 		if($ada == true){
 			$this->form_validation->set_message('username_check','Usename sudah ada !!!');
+			return false;
+		}else{
+			return true;
+		}
+	}
+
+	public function email_check()
+	{
+		$ada = false;
+		$query = $this->db->query("select * from user");
+		foreach($query->result_array() as $row)
+		{
+			 if($row['email_user'] == $this->input->post('emailUser')){
+                $ada = true;
+             }
+		}
+		
+		if($ada == true){
+			$this->form_validation->set_message('email_check','Email telah dipakai !!!');
 			return false;
 		}else{
 			return true;
