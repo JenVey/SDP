@@ -40,15 +40,15 @@
                     <?php endif; ?>
                     <div class="form-group">
                     <label>ID User</label>
-                    <input readonly type="text" class="form-control" id="nameUser" name="nameUser" placeholder="Enter Your Name" value="<?php echo $user['id_user']; ?>">
+                    <input readonly type="text" class="form-control"  name="idUser" placeholder="Enter Your Name" value="<?php echo $user['id_user']; ?>">
                     </div>
                     <div class="form-group">
                     <label>Username</label>
-                    <input readonly type="text" class="form-control" id="nameUser" name="nameUser" placeholder="Enter Your Name" value="<?php echo $user['username_user']; ?>">
+                    <input readonly type="text" class="form-control" name="username" placeholder="Enter Your Name" value="<?php echo $user['username_user']; ?>">
                     </div>
                     <div class="form-group">
                     <label>Name</label>
-                    <input type="text" class="form-control" id="nameUser" name="nameUser" placeholder="Enter Your Name" value="<?php echo $user['nama_user']; ?>">
+                    <input type="text" class="form-control"  name="nameUser" placeholder="Enter Your Name" value="<?php echo $user['nama_user']; ?>">
                     </div>
                     <div class="form-group">
                     <label >Email address</label>
@@ -56,7 +56,7 @@
                     </div>
                     <div class="form-group">
                     <label>Jenis Kelamin</label>
-                    <input type="text" class="form-control" readonly id="nameUser" name="nameUser" placeholder="JK" value="<?php echo $user['jenis_kelamin']; ?>">
+                    <input type="text" class="form-control" readonly name="jkUser" value="<?php echo $user['jenis_kelamin']; ?>">
                     </div>
                     <div class="form-group">
                     <label for="exampleInputFile">Profil Picture</label>
@@ -80,8 +80,18 @@
                     <input type="text" class="form-control" id="passUser" name="saldoUser" placeholder="Password" value="<?php echo $user['saldo']; ?>">
                     </div>
                     <div class="form-group">
-                    <label>Status (0/1)</label>
-                    <input type="text" class="form-control" id="passUser" name="statusUser" placeholder="Status" value="<?php echo $user['status']; ?>">
+                    <label>Status</label>
+                        <select class="form-control" name ="statusUser">
+                              <?php
+                                if($user['status'] == 1) {
+                                  echo '<option>Online</option>';
+                                  echo '<option>Offline</option>';
+                                }else{
+                                  echo '<option>Offline</option>';
+                                  echo '<option>Online</option>';
+                                }
+                              ?>
+                        </select>
                     </div>
                 </div>
                 <!-- /.card-body -->

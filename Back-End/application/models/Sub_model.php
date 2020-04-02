@@ -29,14 +29,18 @@ class Sub_model extends CI_model{
         }else{
             $generateId = $cekNewId . $ctr;
         }
-
+        
         $tgl = $this->input->post('tglKadaluwarsa');
-        $newTgl = date("Y-m-d H:i:s", strtotime($tgl));
+        $tglAwal = substr($tgl,0,10);
+        $tglAkhir= substr($tgl,14);
+        $newTglAwal = date("Y-m-d H:i:s", strtotime($tglAwal));
+        $newTglAkhir = date("Y-m-d H:i:s", strtotime($tglAkhir));
         $data = [
             "id_sub" => $generateId,
             "tipe_sub" => $this->input->post('tipeSub') ,
             "keterangan" => $this->input->post('keterangan'),
-            "tgl_kadaluwarsa" => $newTgl
+            "tgl_awal" => $newTglAwal,
+            "tgl_akhir" =>$newTglAkhir
         ];
         $this->db->insert('subscription_detail',$data);
     }

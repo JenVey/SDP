@@ -47,21 +47,26 @@
                         <textarea class="form-control" name="keterangan" rows="6" placeholder="Enter ..."></textarea>
                     </div>
                     <div class="form-group">
-                    <label>Tanggal Kadaluwarsa</label>
-                    <div class="input-group date" id="timepicker" data-target-input="nearest">
-                      <input type="text" class="form-control datetimepicker-input" name="tglKadaluwarsa" data-target="#timepicker">
-                      <div class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
-                          <div class="input-group-text"><i class="fa fa-calendar-alt"></i></div>
+                    <label>Tanggal Awal - Tanggal Akhir</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="far fa-calendar-alt"></i>
+                        </span>
                       </div>
-                      </div>
-                    <!-- /.input group -->
+                      <input type="text" class="form-control float-right" id="reservation">
                     </div>
+                    <!-- /.input group -->
+                  </div>
+                    <!-- /.input group -->
                 </div>
                 <!-- /.card-body -->
+
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary float-left" style="margin-right:10px;">Submit</button>
                     <a type="submit" href="<?=base_url();?>sub/listSub" class="btn btn-danger float-right">Cancel</a>
                 </div>
+
                 </form>
             </div>
         <!-- /.card -->
@@ -95,11 +100,7 @@
 <!-- Page script -->
 <script>
   $(function () {
-    //Timepicker
-    $('#timepicker').datetimepicker({
-
-    })
-
+    $('#reservation').daterangepicker()
   })
 </script>
 </body>

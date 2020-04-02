@@ -45,6 +45,7 @@ class EditUser extends CI_Controller {
 		$this->form_validation->set_rules('nameUser','Nama','required');
 		$this->form_validation->set_rules('passUser','Password','required');
 		$this->form_validation->set_rules('emailUser','Email','required|valid_email');
+		$this->form_validation->set_rules('passUser','Password','required');
 
 		if( $this->form_validation->run() == FALSE){
 			$this->load->view('templates/header',$data);

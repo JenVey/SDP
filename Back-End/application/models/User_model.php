@@ -47,7 +47,6 @@ class User_model extends CI_model{
             "foto" =>  $foto,
             "saldo" => 0,
             "status" => 0
-           
         ];
         $this->db->insert('user',$data);
     
@@ -74,6 +73,12 @@ class User_model extends CI_model{
          if($foto == ''){
              $foto = 'default.jpg';
          }
+         $status;
+         if($this->input->post('statusUser') == "Online"){
+            $status = 1;
+         }else{
+             $status = 0;
+         }
 
         $data = [
             "nama_user" => $this->input->post('nameUser'),
@@ -83,7 +88,7 @@ class User_model extends CI_model{
             "trade_link" => $this->input->post('tradeUser'),
             "jenis_kelamin" =>  $this->input->post('jkUser'),
             "saldo" => $this->input->post('saldoUser'),
-            "status" =>$this->input->post('statusUser')
+            "status" => $status
         ];
 
         $this->db->where('id_user',$id);

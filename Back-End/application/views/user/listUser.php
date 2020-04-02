@@ -57,7 +57,14 @@
                       <td> <?= $usr['email_user'] ?> </td>
                       <td> <?= $usr['trade_link'] ?> </td>
                       <td> <?= $usr['saldo'] ?> </td>
-                      <td> <?= $usr['status'] ?> </td>
+                      <td> 
+                      <?php if($usr['status'] == 0 ){
+                            echo '<span class="badge bg-danger">Offline</span>';
+                          }else{
+                            echo '<span class="badge bg-success">Online</span>';
+                          }
+                      ?> 
+                      </td>
                       <td>
                       <a href="<?=base_url();?>User/EditUser/index/<?= $usr['id_user']; ?>" class="btn btn-info btn-sm">
                               <i class="fas fa-pencil-alt">
