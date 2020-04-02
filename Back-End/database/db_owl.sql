@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 27, 2020 at 08:25 AM
+-- Generation Time: Apr 02, 2020 at 03:33 PM
 -- Server version: 10.3.15-MariaDB
 -- PHP Version: 7.3.6
 
@@ -302,7 +302,8 @@ CREATE TABLE `subscription_detail` (
   `id_sub` varchar(6) NOT NULL,
   `keterangan` text NOT NULL,
   `tipe_sub` varchar(15) NOT NULL,
-  `tgl_kadaluwarsa` date NOT NULL
+  `tgl_awal` date NOT NULL,
+  `tgl_akhir` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -391,9 +392,17 @@ CREATE TABLE `user` (
   `trade_link` text NOT NULL,
   `jenis_kelamin` varchar(1) NOT NULL,
   `foto` blob NOT NULL,
+  `phone` int(13) NOT NULL,
   `saldo` decimal(10,0) NOT NULL,
   `status` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id_user`, `nama_user`, `pass_user`, `email_user`, `username_user`, `trade_link`, `jenis_kelamin`, `foto`, `phone`, `saldo`, `status`) VALUES
+('UM0001', 'Marvel', 'aaa', 'marvelbp30@gmail.com', 'marv', 'aa', 'L', '', 908123897, '0', 0);
 
 --
 -- Indexes for dumped tables
