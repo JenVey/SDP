@@ -20,6 +20,7 @@ class Team_model extends CI_model{
                  $ctr++;
              }
          }
+         
          if($ctr < 10){
             $generateId = $cekNewId .'000'. $ctr;
         }else if($ctr < 100){
