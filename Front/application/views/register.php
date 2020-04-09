@@ -3,9 +3,11 @@
 <head>
 <meta charset="utf-8">
 <title>gather.owl - Register</title>
-<link rel="icon" href="<?php echo base_url();?>/asset/Images/android-chrome-512x512.png">
-<link rel="stylesheet" href="<?php echo base_url();?>/asset/CSS/bootstrap.css">
-<link rel="stylesheet" href="<?php echo base_url();?>/asset/CSS/Ours.css">
+<link rel="icon" href="<?php echo base_url();?>asset/Images/android-chrome-512x512.png">
+<link rel="stylesheet" href="<?php echo base_url();?>asset/CSS/bootstrap.css">
+<link rel="stylesheet" href="<?php echo base_url();?>asset/CSS/Ours.css">
+
+<script src="<?php echo base_url();?>asset/Js/jquery-min.js"></script>
 </head>
 
 <body bgcolor="#353B48">
