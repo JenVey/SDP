@@ -128,6 +128,9 @@ body{
     grid-template-columns: repeat(2, 1fr);
     max-width: 1187px;
 }
+
+
+
 .gridConMainMenu {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -231,4 +234,72 @@ rect.boy,rect.girl {
 rect.boy:hover,rect.girl:hover{
 	cursor: pointer;
 }
+
+.svgForgot{
+	position: absolute;
+	left: 45vw;
+	top: 16vh;
+}
+
+.gridForgot{
+    display: grid;
+	position: absolute;
+	left: 85px;
+	top: 364px;
+	width: 450px;
+	justify-items:stretch;
+	grid-column-gap: 100px;
+	grid-row-gap: 20px;
+    grid-template-columns: repeat(1, 1fr);
+    max-width: 1187px;
+}
+
+.reset{
+	position: absolute;
+	left: 85px;
+	top: 550px;
+	background-color: #D7C13F;
+	border-color: #D7C13F;
+	font-weight: bold;
+}
+.reset:hover{
+	background-color: transparent;
+	border-color: #D7C13F;
+	transition: 0.3s;	
+}
+
+.forgot{
+	z-index: 1;  
+	position: absolute;
+	left: 27vw;
+	top: 20vh;
+	width: 900px;
+	height: 650px;
+	background-color: #585D68;	
+}
+
+#email{
+	top: 10px;
+	left: 10px;
+	padding-top: 280px;
+	padding-left: 160px;
+	z-index: 2;  
+	position: absolute;
+	background-color: #353B48;
+	width: 440px;
+	height: 630px;
+}
+
+#phone{
+	top: 10px;
+	left: 460px;
+	padding-top: 170px;
+	padding-left: 140px;
+	z-index: 2;  
+	position: absolute;
+	background-color: #353B48;
+	width: 430px;
+	height: 630px;
+}
+
 

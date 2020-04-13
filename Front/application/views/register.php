@@ -16,7 +16,9 @@
 	</nav>
 	<p class="Title" style="left: 87px; top: 214px;">Register <em>Your Account</em></p>
 	
-	<img class="svgRegister" width="863.36" height="545.16" src="Images/SVG/RegisterPage.svg" alt="" />
+
+		
+	<img class="svgRegister" width="863.36" height="545.16" src="<?php echo base_url();?>asset/Images/SVG/RegisterPage.svg" alt="" />
 	<form action="" class="register">
 	  <div class="gridRegister">
 		  <div class="Form-Title"> Account Info<hr style="border: 1px solid #D7C13F" width="100%"></div>
@@ -119,9 +121,11 @@
 			  </g>
 				<rect class="boy" x="0" y="0" width="100%" height="100%"/>
 			</svg>
+
 		  </div>
 		</div>
 	</form>
+
 	<div id="register">Register</div>
 	<script>
 		$('.boy').click(function(){
