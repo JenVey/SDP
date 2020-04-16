@@ -10,6 +10,7 @@ body{
 }
 .navbar{
 	background-color: #4A505D;
+	height: 80px;
 }
 .logo{
 	font-family: 'Varela';
@@ -290,6 +291,13 @@ rect.boy:hover,rect.girl:hover{
 	height: 630px;
 }
 
+#textEmail{
+	margin-left: -40px;
+	margin-top: 150px;
+	font-size: 20pt;
+	font-family: 'Varela';
+}
+
 #phone{
 	top: 10px;
 	left: 460px;
@@ -301,5 +309,68 @@ rect.boy:hover,rect.girl:hover{
 	width: 430px;
 	height: 630px;
 }
+
+#textPhone{
+	
+	margin-left: -80px;
+	margin-top: 50px;
+	font-size: 20pt;
+	font-family: 'Varela';
+}
+
+#email:hover{
+	color: white;
+	top: 10px;
+	left: 10px;
+	padding-top: 280px;
+	padding-left: 160px;
+	z-index: 2;  
+	position: absolute;
+	background-color: rgb(71, 77, 90);
+	width: 440px;
+	height: 630px;
+}
+
+#phone:hover{
+	color: white;
+	top: 10px;
+	left: 460px;
+	padding-top: 170px;
+	padding-left: 140px;
+	z-index: 2;  
+	position: absolute;
+	background-color:rgb(71, 77, 90);
+	width: 430px;
+	height: 630px;
+}
+
+.forgotClick{
+	font-family: 'Varela';
+	position: absolute;
+	font-size: 10pt;
+	left: 1435px;
+	bottom: 0px;
+}
+
+.forgotClick2{
+	font-family: 'Varela';
+	position: absolute;
+	font-size: 10pt;
+	left: 1555px;
+	bottom: 0px;
+	text-decoration: underline;
+}
+
+.forgotClick2:hover{
+	font-family: 'Varela';
+	position: absolute;
+	font-size: 10pt;
+	left: 1555px;
+	bottom: 0px;
+	text-decoration: underline;
+	cursor: pointer;
+	color: rgb(78, 78, 226);
+}
+
 
 
