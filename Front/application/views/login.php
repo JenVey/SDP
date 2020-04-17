@@ -12,7 +12,7 @@
 <body>
 <nav class="navbar">
 	  <a class="logo" style="color: #D7C13F;" onclick="location.href='index.html';">gather.owl</a>
-	  <form class="form-inline">
+	  <form class="form-inline" method="POST">
 		<input name="LogUsername" class="form-control mr-sm-2" type="text" placeholder="Username / Email" aria-label="Username / Email" maxlength="24">
 		<input name="LogPass" class="form-control mr-sm-2" type="password" placeholder="Password" aria-label="Password" maxlength="12">
     <button class="btn Login-btn" type="submit">Login</button>
@@ -28,8 +28,8 @@
 <div class="RegButton" onclick="location.href='<?= base_url(); ?>register'"> Register now</div>
 
 <div class="forgot">
-
-<div id="email">
+<button type="button" id="forgotExit" class="btn btn-primary btn-sm">X</button>
+<div id="email" href="">
   <svg xmlns="http://www.w3.org/2000/svg" width="120.948" height="74.6" viewBox="0 0 120.948 74.6">
   <path id="Icon_zocial-email" data-name="Icon zocial-email" d="M.072,72.061V10.675q0-.107.35-2.025L39.96,39.556.539,74.192a8.345,8.345,0,0,1-.467-2.131ZM5.32,4.388A5.449,5.449,0,0,1,7.3,4.068H113.789a7.173,7.173,0,0,1,2.1.32L76.233,35.4l-5.248,3.837L60.6,47.016l-10.38-7.78L44.976,35.4Zm.117,73.961L45.209,43.5,60.6,54.9,76,43.5l39.772,34.849a6.075,6.075,0,0,1-1.983.32H7.3a5.726,5.726,0,0,1-1.866-.32ZM81.248,39.556,120.67,8.651a5.862,5.862,0,0,1,.35,2.025V72.061a7.517,7.517,0,0,1-.35,2.131Z" transform="translate(-0.072 -4.068)" fill="#d7c13f"/>
 </svg>
@@ -43,6 +43,20 @@
   <div id="textPhone">Send via Phone Number</div>
 </div>
 
+</div>
+
+
+<div class="success">
+  <div class="check">
+    <div class="textVeri">Verification Has Been Sent</div>
+    <div class="textExp">The mail will expire in 24 hours</div>
+    <svg id=centang1 xmlns="http://www.w3.org/2000/svg" width="215" height="215" viewBox="0 0 215 215">
+    <ellipse id="Ellipse_58" data-name="Ellipse 58" cx="107.5" cy="107.5" rx="107.5" ry="107.5" fill="#69f0ae"/>
+  </svg>
+  <svg id="centang2" xmlns="http://www.w3.org/2000/svg" width="134.385" height="117.583" viewBox="0 0 134.385 117.583">
+  <path id="Path_1265" data-name="Path 1265" d="M319.351,289.686l40.308,36.955,57.109-83.981,20.167,16.8L359.659,360.243,302.55,296.416Z" transform="translate(-302.55 -242.66)" fill="#fff"/>
+  </svg>
+  </div>
 </div>
 
 <img class="svgLanding" width="625.83" height="466.15" src="<?= base_url(); ?>asset/Images/SVG/LandingPage.svg" alt=""/>
@@ -80,9 +94,24 @@
   $( document ).ready(function() {
 
     $('.forgot').hide();
+    $('.success').hide();
 
     $('.forgotClick2').click(function(){
       $(".forgot").fadeIn("slow");
+    });
+
+    
+    $('#forgotExit').click(function(){
+      $(".forgot").fadeOut("slow");
+    });
+
+
+
+    $('#email').click(function(){
+      window.location.href = '<?= base_url(); ?>Email';
+      $(".forgot").fadeOut("slow");
+      $(".success").fadeIn("slow");
+
     });
 
   });

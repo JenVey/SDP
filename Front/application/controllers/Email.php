@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Login extends CI_Controller {
+class Email extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -20,11 +20,6 @@ class Login extends CI_Controller {
 	 */
 	public function index()
 	{
-        $this->load->view('templates/header');
-		$this->load->view('login');
-	}
-
-	public function email(){
         $config['protocol']    = 'smtp';
         $config['smtp_host']    = 'ssl://smtp.gmail.com';
         $config['smtp_port']    = '465';
@@ -44,9 +39,9 @@ class Login extends CI_Controller {
         $this->email->message('http://localhost/Github/SDP_Proyek/Front/Forgot');
 
         $this->email->send();
-		echo $this->email->print_debugger();
-		
+
+        echo $this->email->print_debugger();
+        
+        
 	}
-
-
 }
