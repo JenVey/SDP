@@ -105,13 +105,10 @@
       $(".forgot").fadeOut("slow");
     });
 
-
-
     $('#email').click(function(){
       window.location.href = '<?= base_url(); ?>Email';
       $(".forgot").fadeOut("slow");
       $(".success").fadeIn("slow");
-
     });
 
   });

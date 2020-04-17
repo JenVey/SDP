@@ -18,6 +18,7 @@ class Email extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
+
 	public function index()
 	{
         $config['protocol']    = 'smtp';
@@ -39,9 +40,7 @@ class Email extends CI_Controller {
         $this->email->message('http://localhost/Github/SDP_Proyek/Front/Forgot');
 
         $this->email->send();
-
-        echo $this->email->print_debugger();
-        
-        
+        $this->email->print_debugger();
+        redirect('login');
 	}
 }

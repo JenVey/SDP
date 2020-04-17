@@ -24,7 +24,9 @@ class Login extends CI_Controller {
 		$this->load->view('login');
 	}
 
-	public function email(){
+	public function email($data){
+		$this->load->view('templates/header');
+		$this->load->view('login');
         $config['protocol']    = 'smtp';
         $config['smtp_host']    = 'ssl://smtp.gmail.com';
         $config['smtp_port']    = '465';
@@ -44,9 +46,10 @@ class Login extends CI_Controller {
         $this->email->message('http://localhost/Github/SDP_Proyek/Front/Forgot');
 
         $this->email->send();
-		echo $this->email->print_debugger();
-		
+		$this->email->print_debugger();
 	}
 
 
 }
+
+//http://localhost/Github/SDP_Proyek/Front/Email/robbygiovanni@gmail.com
