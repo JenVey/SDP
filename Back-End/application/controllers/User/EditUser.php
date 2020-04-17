@@ -1,8 +1,9 @@
 	
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class EditUser extends CI_Controller {
+class EditUser extends CI_Controller
+{
 
 	/**
 	 * Index Page for this controller.
@@ -19,47 +20,43 @@ class EditUser extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
-    public function __construct()
-    {
-        parent::__construct();
+	public function __construct()
+	{
+		parent::__construct();
 		$this->load->model('User_model');
 		$this->load->library('form_validation');
-    }
-    
+	}
+
 	public function index($id)
 	{
 		$this->load->model('User_model');
 		$data['user'] = $this->User_model->getUserById($id);
 
-		$this->load->view('templates/header',$data);
+		$this->load->view('templates/header', $data);
 		$this->load->view('templates/navbar');
 		$this->load->view('templates/sidebar');
-		$this->load->view('user/editUser',$data);
-	
+		$this->load->view('user/editUser', $data);
 	}
+
 
 	public function edit($id)
 	{
-		
-		$data['user'] = $this->User_model->getUserById($id);
-		$this->form_validation->set_rules('nameUser','Nama','required');
-		$this->form_validation->set_rules('passUser','Password','required');
-		$this->form_validation->set_rules('emailUser','Email','required|valid_email');
-		$this->form_validation->set_rules('passUser','Password','required');
 
-		if( $this->form_validation->run() == FALSE){
-			$this->load->view('templates/header',$data);
+		$data['user'] = $this->User_model->getUserById($id);
+		$this->form_validation->set_rules('nameUser', 'Nama', 'required');
+		$this->form_validation->set_rules('passUser', 'Password', 'required');
+		$this->form_validation->set_rules('emailUser', 'Email', 'required|valid_email');
+		$this->form_validation->set_rules('passUser', 'Password', 'required');
+
+		if ($this->form_validation->run() == FALSE) {
+			$this->load->view('templates/header', $data);
 			$this->load->view('templates/navbar');
 			$this->load->view('templates/sidebar');
-			$this->load->view('user/editUser',$data);
-		}else{
+			$this->load->view('user/editUser', $data);
+		} else {
 			$this->User_model->editUser($id);
-			$this->session->set_flashdata('flash','Susccess Edited');
+			$this->session->set_flashdata('flash', 'Susccess Edited');
 			redirect('user/listUser');
-		}	
+		}
 	}
-
-	
-		
 }
- 

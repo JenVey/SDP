@@ -270,97 +270,46 @@ rect.boy:hover,rect.girl:hover{
 }
 
 .forgot{
-	z-index: 1;  
+	z-index: 1;
 	position: absolute;
+    width: 880px; 
+    height: 650px;  
+    background-color: #585D68; 
+    padding: 10px; 
+	box-sizing: border-box;
 	left: 27vw;
 	top: 20vh;
-	width: 900px;
-	height: 680px;
-	background-color: #585D68;	
+}
+.chooseDivs{
+    width: 50%; 
+    height: 100%; 
+    background-color: #353B48; 
+    float: left; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center;
+}
+.chooseDivs:hover{
+    background-color: #1F222A;
 }
 
-#email{
-	top: 40px;
-	left: 10px;
-	padding-top: 280px;
-	padding-left: 160px;
-	z-index: 2;  
-	position: absolute;
-	background-color: #353B48;
-	width: 440px;
-	height: 630px;
-}
-
-#textEmail{
-	margin-left: -40px;
-	margin-top: 150px;
-	font-size: 20pt;
-	font-family: 'Varela';
-}
-
-#phone{
-	top: 40px;
-	left: 460px;
-	padding-top: 170px;
-	padding-left: 140px;
-	z-index: 2;  
-	position: absolute;
-	background-color: #353B48;
-	width: 430px;
-	height: 630px;
-}
-
-#textPhone{
-	
-	margin-left: -80px;
-	margin-top: 50px;
-	font-size: 20pt;
-	font-family: 'Varela';
-}
-
-#email:hover{
-	color: white;
-	top: 40px;
-	left: 10px;
-	padding-top: 280px;
-	padding-left: 160px;
-	z-index: 2;  
-	position: absolute;
-	background-color: rgb(71, 77, 90);
-	width: 440px;
-	height: 630px;
-	border-color: #D7C13F;
-	transition: 0.3s;
-}
-
-#phone:hover{
-	color: white;
-	top: 40px;
-	left: 460px;
-	padding-top: 170px;
-	padding-left: 140px;
-	z-index: 2;  
-	position: absolute;
-	background-color:rgb(71, 77, 90);
-	width: 430px;
-	height: 630px;
-	border-color: #D7C13F;
-	transition: 0.3s;
-}
 
 .forgotClick{
+	color: white;
 	font-family: 'Varela';
 	position: absolute;
 	font-size: 10pt;
-	left: 1435px;
+	left: 1640px;
 	bottom: 0px;
 }
 
 .forgotClick2{
+	color: #D7C13F;
 	font-family: 'Varela';
 	position: absolute;
 	font-size: 10pt;
-	left: 1555px;
+	left: 1760px;
 	bottom: 0px;
 	text-decoration: underline;
 }
@@ -369,7 +318,7 @@ rect.boy:hover,rect.girl:hover{
 	font-family: 'Varela';
 	position: absolute;
 	font-size: 10pt;
-	left: 1555px;
+	left: 1760px;
 	bottom: 0px;
 	text-decoration: underline;
 	cursor: pointer;
@@ -447,6 +396,119 @@ rect.boy:hover,rect.girl:hover{
 	color:white;
 	font-weight: lighter;
 	font-size: 30pt;
+}
+
+.yourEmail{
+	position: absolute;
+	z-index: 1;
+	left: 27vw;
+	top: 20vh;
+}
+
+.btnEmail{
+	width: 300px;
+	height: 50px;
+	background-color: #D7C13F;
+	border: solid 5px;
+	border-radius: 37px;
+	border-color: #D7C13F;
+	position: absolute;
+	left: 295px;
+	top: 380px;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 25px;
+	font-family: Varela;
+	font-size: 20px;
+	color: #FFFFFF;
+	cursor: pointer;
+	transition: 0.3s;
+}
+
+.btnEmail:hover{
+	width: 300px;
+	height: 50px;
+	background-color: transparent;
+	border: solid 5px;
+	border-radius: 37px;
+	border-color: #D7C13F;
+	position: absolute;
+	left: 295px;
+	top: 380px;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 25px;
+	font-family: Varela;
+	font-size: 20px;
+	color: #FFFFFF;
+	cursor: pointer;
+	transition: 0.3s;
+}
+
+#ttlEmail{
+	left: 100px;
+	top: 100px;
+	font-size: 45pt;
+}
+
+
+.yourPhone{
+	position: absolute;
+	z-index: 1;
+	left: 27vw;
+	top: 20vh;
+}
+
+.btnPhone{
+	width: 300px;
+	height: 50px;
+	background-color: #D7C13F;
+	border: solid 5px;
+	border-radius: 37px;
+	border-color: #D7C13F;
+	position: absolute;
+	left: 295px;
+	top: 380px;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 25px;
+	font-family: Varela;
+	font-size: 20px;
+	color: #FFFFFF;
+	cursor: pointer;
+	transition: 0.3s;
+}
+
+.btnPhone:hover{
+	width: 300px;
+	height: 50px;
+	background-color: transparent;
+	border: solid 5px;
+	border-radius: 37px;
+	border-color: #D7C13F;
+	position: absolute;
+	left: 295px;
+	top: 380px;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 25px;
+	font-family: Varela;
+	font-size: 20px;
+	color: #FFFFFF;
+	cursor: pointer;
+	transition: 0.3s;
+}
+
+#ttlPhonel{
+	left: 100px;
+	top: 100px;
+	font-size: 45pt;
+}
+
+#wrong{
+	left: 1430px;
+	color: red;
+	font-weight: lighter;
 }
 
 

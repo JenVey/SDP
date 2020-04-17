@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Login extends CI_Controller {
+class Login extends CI_Controller
+{
 
 	/**
 	 * Index Page for this controller.
@@ -18,38 +19,46 @@ class Login extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->model('User_model');
+		$this->load->library('form_validation');
+	}
+
 	public function index()
 	{
-        $this->load->view('templates/header');
-		$this->load->view('login');
-	}
-
-	public function email($data){
 		$this->load->view('templates/header');
 		$this->load->view('login');
-        $config['protocol']    = 'smtp';
-        $config['smtp_host']    = 'ssl://smtp.gmail.com';
-        $config['smtp_port']    = '465';
-        $config['smtp_timeout'] = '7';
-        $config['smtp_user']    = 'canonbot69@gmail.com';
-        $config['smtp_pass']    = 'namikaze31';
-        $config['charset']    = 'utf-8';
-        $config['newline']    = "\r\n";
-        $config['mailtype'] = 'text'; // or html
-        $config['validation'] = TRUE; // bool whether to validate email or not      
-
-        $this->load->library('email', $config); 
-        $this->email->set_newline("\r\n");
-        $this->email->from('canonbot69@gmail.com','ADMIN');
-        $this->email->to('robbygiovanni@gmail.com');
-        $this->email->subject('FORGOT PASSWORD');
-        $this->email->message('http://localhost/Github/SDP_Proyek/Front/Forgot');
-
-        $this->email->send();
-		$this->email->print_debugger();
 	}
 
 
+	public function cekUser()
+	{
+		$ada = false;
+		$query = $this->db->query("select * from user");
+		$user = $this->input->post('LogUsername');
+		$pass = $this->input->post('LogPass');
+
+		foreach ($query->result_array() as $row) {
+			if ($row['email_user'] == $user && $row['pass_user'] == $pass) {
+				$ada = true;
+				$data['user'] = $this->User_model->getAllUser($row['id_user']);
+			}
+			if ($row['username_user'] == $user && $row['pass_user'] == $pass) {
+				$ada = true;
+				$data['user'] = $this->User_model->getAllUser($row['id_user']);
+			}
+
+			if ($ada == true) {
+				$this->load->view('templates/header', $data);
+				$this->load->view('mainMenu', $data);
+			} else {
+				$this->session->set_flashdata('flash', 'Wrong Username/Password !!!');
+				redirect('login');
+			}
+		}
+	}
 }
 
 //http://localhost/Github/SDP_Proyek/Front/Email/robbygiovanni@gmail.com
