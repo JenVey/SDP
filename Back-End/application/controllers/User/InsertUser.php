@@ -1,8 +1,9 @@
 	
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class InsertUser extends CI_Controller {
+class InsertUser extends CI_Controller
+{
 
 	/**
 	 * Index Page for this controller.
@@ -19,13 +20,13 @@ class InsertUser extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
-    public function __construct()
-    {
-        parent::__construct();
+	public function __construct()
+	{
+		parent::__construct();
 		$this->load->model('User_model');
 		$this->load->library('form_validation');
-    }
-    
+	}
+
 	public function index()
 	{
 		$this->load->model('User_model');
@@ -33,54 +34,52 @@ class InsertUser extends CI_Controller {
 		$this->load->view('templates/header');
 		$this->load->view('templates/navbar');
 		$this->load->view('templates/sidebar');
-		$this->load->view('user/insertUser'	);
+		$this->load->view('user/insertUser');
 		//$this->load->view('templates/footer',$data);
-	
+
 	}
 
 	public function insert()
 	{
-		
+
 		$this->load->model('User_model');
 
-		$this->form_validation->set_rules('nameUser','Nama','required');
-		$this->form_validation->set_rules('username','Username','required');
-		$this->form_validation->set_rules('username','Username','callback_username_check');
+		$this->form_validation->set_rules('nameUser', 'Nama', 'required');
+		$this->form_validation->set_rules('username', 'Username', 'required');
+		$this->form_validation->set_rules('username', 'Username', 'callback_username_check');
 
-		$this->form_validation->set_rules('emailUser','Email','callback_email_check');
-		$this->form_validation->set_rules('emailUser','Email','required|valid_email');
-		
-		$this->form_validation->set_rules('passUser','Password','required');
+		$this->form_validation->set_rules('emailUser', 'Email', 'callback_email_check');
+		$this->form_validation->set_rules('emailUser', 'Email', 'required|valid_email');
+
+		$this->form_validation->set_rules('passUser', 'Password', 'required');
 
 
-		if( $this->form_validation->run() == FALSE){
+		if ($this->form_validation->run() == FALSE) {
 			$this->load->view('templates/header');
 			$this->load->view('templates/navbar');
 			$this->load->view('templates/sidebar');
-			$this->load->view('user/insertUser'	);
-		}else{
+			$this->load->view('user/insertUser');
+		} else {
 			$this->User_model->insertUser();
-			$this->session->set_flashdata('flash','Success Insert User !!!');
+			$this->session->set_flashdata('flash', 'Success Insert User !!!');
 			redirect('user/listUser');
-		}	
-    
+		}
 	}
 
 	public function username_check()
 	{
 		$ada = false;
 		$query = $this->db->query("select * from user");
-		foreach($query->result_array() as $row)
-		{
-			 if($row['username_user'] == $this->input->post('username')){
-                $ada = true;
-             }
+		foreach ($query->result_array() as $row) {
+			if ($row['username_user'] == $this->input->post('username')) {
+				$ada = true;
+			}
 		}
-		
-		if($ada == true){
-			$this->form_validation->set_message('username_check','Usename sudah ada !!!');
+
+		if ($ada == true) {
+			$this->form_validation->set_message('username_check', 'Usename sudah ada !!!');
 			return false;
-		}else{
+		} else {
 			return true;
 		}
 	}
@@ -89,17 +88,17 @@ class InsertUser extends CI_Controller {
 	{
 		$ada = false;
 		$query = $this->db->query("select * from user");
-		foreach($query->result_array() as $row)
-		{
-			 if($row['email_user'] == $this->input->post('emailUser')){
-                $ada = true;
-             }
+
+		foreach ($query->result_array() as $row) {
+			if ($row['email_user'] == $this->input->post('LogUsername')) {
+				$ada = true;
+			}
 		}
-		
-		if($ada == true){
-			$this->form_validation->set_message('email_check','Email telah dipakai !!!');
+
+		if ($ada == true) {
+			$this->form_validation->set_message('email_check', 'Email telah dipakai !!!');
 			return false;
-		}else{
+		} else {
 			return true;
 		}
 	}
@@ -107,12 +106,8 @@ class InsertUser extends CI_Controller {
 	public function delete($id)
 	{
 		$this->User_model->deleteUser($id);
-		$this->session->set_flashdata('flash','Success Deleted');
+		$this->session->set_flashdata('flash', 'Success Deleted');
 
 		redirect('user/listUser');
 	}
-
-	
-		
 }
- 

@@ -1,9 +1,10 @@
 <?php
-class User_model extends CI_model{
+class User_model extends CI_model
+{
 
     public function getAllUser()
     {
-       return $this->db->get('user')->result_array();
+        return $this->db->get('user')->result_array();
     }
 
     public function insertUser()
@@ -12,30 +13,29 @@ class User_model extends CI_model{
         $ctr = 1;
         $query = $this->db->query("select * from user");
         $newId = $this->input->post('username');
-        $cekNewId= 'U' . substr(strtoupper($newId),0,1);
-        foreach($query->result_array() as $row)
-        {
-            $cekId = substr(strtoupper($row['id_user']),0,2);
-            if($cekId == $cekNewId){
+        $cekNewId = 'U' . substr(strtoupper($newId), 0, 1);
+        foreach ($query->result_array() as $row) {
+            $cekId = substr(strtoupper($row['id_user']), 0, 2);
+            if ($cekId == $cekNewId) {
                 $ctr++;
             }
         }
-        if($ctr < 10){
-            $generateId = $cekNewId .'000'. $ctr;
-        }else if($ctr < 100){
-            $generateId = $cekNewId.'00'. $ctr;
-        }else if($ctr < 1000){
-            $generateId = $cekNewId. '0'. $ctr;
-        }else{
+        if ($ctr < 10) {
+            $generateId = $cekNewId . '000' . $ctr;
+        } else if ($ctr < 100) {
+            $generateId = $cekNewId . '00' . $ctr;
+        } else if ($ctr < 1000) {
+            $generateId = $cekNewId . '0' . $ctr;
+        } else {
             $generateId = $cekNewId . $ctr;
         }
 
         //default.jpg
         $foto = $this->input->post('photoUser');
-        if($foto == ''){
+        if ($foto == '') {
             $foto = 'default.jpg';
         }
-    
+
         $data = [
             "id_user" => $generateId,
             "nama_user" => $this->input->post('nameUser'),
@@ -48,15 +48,13 @@ class User_model extends CI_model{
             "saldo" => 0,
             "status" => 0
         ];
-        $this->db->insert('user',$data);
-    
-      
+        $this->db->insert('user', $data);
     }
 
 
     public function deleteUser($id)
     {
-        $this->db->where('id_user',$id);
+        $this->db->where('id_user', $id);
         $this->db->delete('user');
     }
 
@@ -67,24 +65,24 @@ class User_model extends CI_model{
 
     public function editUser($id)
     {
-        
-         //default.jpg
-         $foto = $this->input->post('photoUser');
-         if($foto == ''){
-             $foto = 'default.jpg';
-         }
-         
-         $status;
-         if($this->input->post('statusUser') == "Online"){
+
+        //default.jpg
+        $foto = $this->input->post('photoUser');
+        if ($foto == '') {
+            $foto = 'default.jpg';
+        }
+
+        $status;
+        if ($this->input->post('statusUser') == "Online") {
             $status = 1;
-         }else{
-             $status = 0;
-         }
+        } else {
+            $status = 0;
+        }
 
         $data = [
             "nama_user" => $this->input->post('nameUser'),
-			"pass_user" => $this->input->post('passUser'),
-			"email_user" => $this->input->post('emailUser'),
+            "pass_user" => $this->input->post('passUser'),
+            "email_user" => $this->input->post('emailUser'),
             "foto" => $foto,
             "trade_link" => $this->input->post('tradeUser'),
             "jenis_kelamin" =>  $this->input->post('jkUser'),
@@ -92,8 +90,7 @@ class User_model extends CI_model{
             "status" => $status
         ];
 
-        $this->db->where('id_user',$id);
-        $this->db->update('user',$data);
+        $this->db->where('id_user', $id);
+        $this->db->update('user', $data);
     }
-
 }
