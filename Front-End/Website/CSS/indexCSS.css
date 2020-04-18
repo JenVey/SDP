@@ -1,0 +1,67 @@
+.Login-btn{
+	background-color: #D7C13F;
+	border-radius: 10px;
+}
+.Login-btn:hover{
+	background-color: transparent;
+	border-color: #D7C13F;
+	color: #D7C13F;
+}
+.SubTitle{
+	font-family: Roboto;
+	font-weight: 200;
+	font-size: 3vh;
+	color:#FFFFFF;
+	position: absolute;
+	left: 15vh;
+	top: 30vh;
+}
+.RegButton{
+	width: 489px;
+	height: 74px;
+	background-color: #D7C13F;
+	border: solid 5px;
+	border-radius: 37px;
+	border-color: #D7C13F;
+	position: absolute;
+	left: 86px;
+	top: 667px;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 64px;
+	font-family: Varela;
+	font-size: 40px;
+	color: #FFFFFF;
+	cursor: pointer;
+	transition: 0.3s;
+}
+.RegButton:hover{
+	background-color: transparent;
+	border-color: #D7C13F;
+	transition: 0.3s;
+}
+
+.svgLanding{
+	position: absolute;
+	left: 1141px;
+	top: 297px;
+}
+.square,.elips,.X,.triangle{
+	position: absolute;
+}
+.square{
+	left: 1718px;
+	top: 832px;
+}
+.elips{
+	left: 1705px;
+	top: 155px;
+}
+.X{
+	left: 1118.41px;
+	top: 819.23px;
+}
+.triangle{
+	left: 1079.44px;
+	top: 142.33px;
+}

@@ -5,12 +5,21 @@
   src: url("../Fonts/VarelaRound-Regular.ttf");
 }
 body{
+	font-family: 'Open Sans', sans-serif;
 	background-color: #353B48;
 	overflow-x: hidden;
+	margin: 0;
+	padding: 0;
+	height: 100%;
 }
 .navbar{
 	background-color: #4A505D;
 }
+
+.yellow{
+	color: #D7C13F;
+}
+
 .logo{
 	font-family: 'Varela';
 	display: inline-block;
@@ -33,202 +42,179 @@ body{
 	color: #FFFFFF;
 	box-shadow: none;
 }
-.Login-btn{
-	background-color: #D7C13F;
-	border-radius: 10px;
-}
-.Login-btn:hover{
-	background-color: transparent;
-	border-color: #D7C13F;
-	color: #D7C13F;
-}
+
 .Title{
 	font-family: Verdana;
 	font-weight: bold;
-	font-size: 83px;
+	font-size: 5vh;
 	position: absolute;
 	color: #FFF;
+	left: 23vh; 
+	top: 25vh;
 }
 .Title em{
 	color: #D7C13F;
 	font-style: normal;
 }
-.SubTitle{
-	font-family: Roboto;
-	font-weight: 200;
-	font-size: 42px;
-	color:#FFFFFF;
-	position: absolute;
-	left: 86px;
-	top: 489px;
-}
-.RegButton{
-	width: 489px;
-	height: 74px;
-	background-color: #D7C13F;
-	border: solid 5px;
-	border-radius: 37px;
-	border-color: #D7C13F;
-	position: absolute;
-	left: 86px;
-	top: 667px;
+
+.span-col-6{grid-column: span 6 / auto;background:#5B5F66;}
+
+.span-col-2{grid-column: span 2 / auto;background: #5B5F66;}
+
+.span-row-11{grid-row: span 11 / auto;background: #5B5F66;}
+
+.span-row-12{grid-row: span 12 / auto;background: #5B5F66;}
+
+.span-row-3{grid-row: span 3 / auto;}
+
+.span-row-9{grid-row: span 9 / auto;}
+
+.accList{
+	width: 18vw;
+	height: 85vh;
+	position: fixed;
+	background-color: #585D68;
+	margin-top: 2vh;
+	margin-left: 2vh;
 	text-align: center;
-	vertical-align: middle;
-	line-height: 64px;
-	font-family: Varela;
-	font-size: 40px;
-	color: #FFFFFF;
-	cursor: pointer;
-	transition: 0.3s;
-}
-.RegButton:hover{
-	background-color: transparent;
-	border-color: #D7C13F;
-	transition: 0.3s;
-}
-.svgLanding{
-	position: absolute;
-	left: 1141px;
-	top: 297px;
-}
-.square,.elips,.X,.triangle{
-	position: absolute;
-}
-.square{
-	left: 1718px;
-	top: 832px;
-}
-.elips{
-	left: 1705px;
-	top: 155px;
-}
-.X{
-	left: 1118.41px;
-	top: 819.23px;
-}
-.triangle{
-	left: 1079.44px;
-	top: 142.33px;
-}
-.svgRegister{
-	position: absolute;
-	left: 1237.17px;
-	top: 282.84px;
-	transform: scaleX(-1);
-}
-.gridRegister {
-    display: grid;
-	position: absolute;
-	left: 85px;
-	top: 364px;
-	width: 1000px;
-	justify-items:stretch;
-	grid-column-gap: 100px;
-	grid-row-gap: 20px;
-    grid-template-columns: repeat(2, 1fr);
-    max-width: 1187px;
-}
-.gridConMainMenu {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-	height: 100vh;
-}
-.gridShopMainMenu,.gridCommMainMenu{
-	display: grid;
-    grid-template-columns: repeat(1, 1fr);
-}
-.gridCommMainMenu:hover,.gridShopMainMenu:hover{
-	cursor: pointer;
-	background-color: #2B2F39;
-}
-.CommMenu,.ShopMenu{
+	border-radius: 15px;
 	display: flex;
-	align-items: flex-end;
-	justify-content: center;
-	height: 100%;
+	flex-direction: column;
+	z-index: 2;
 }
-.CommMenuText,.ShopMenuText{
-	display: flex;
-	align-items: flex-start;
-	justify-content: center;
-	height: 100%;
-}
-.MainMenutitle{
-	position: absolute;
-	width: 100vw;
-	margin-top: 5vh;
-	text-align: center;
+
+.titleAccList{
 	font-family: Varela;
-	font-size: 40px;
-	color: white;
-	z-index: 3;
-}
-.logout{
-	position: absolute;
-	left: 1798px;
-	top: 41px;
-	z-index: 3;
-}
-.logout:hover{
-	cursor: pointer;
-}
-.Form-Title{
-	font-family: Roboto;
-	font-weight: 300;
-	font-size: 52px;
-	color: #FFFFFF;
-}
-input[type=date]::-webkit-calendar-picker-indicator {
-    -webkit-appearance: none;
-    display: none;
-}
-input[type=date]::-webkit-inner-spin-button,input[type=number]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    display: none;
-}
-.Gender{
+	width: 100%;
+	height: 10%;
 	display: flex;
 	justify-content: space-around;
+	align-items: center;
 }
-#Group_116:hover{
-	opacity: 1;
-	cursor: pointer;
+
+.hl{
+	width: 70px;
+	height: 3px;
+	border-radius: 100%;
+	background-color: #353B48;
 }
-#Group_64:hover{
-	opacity: 1;
-	cursor: pointer;
+
+.noAccItem{
+	margin-top: 250px;
+	opacity: 0.3;
 }
-#register{
-	width: 346px;
-	height: 74px;
-	background-color: #D7C13F;
-	border: solid 5px;
-	border-radius: 37px;
-	border-color: #D7C13F;
+
+.profile{
+	width: 18vw;
+	height: 10vh;
+	position: fixed;
+	background-color: #585D68;
+	margin-top: 88vh;
+	margin-left: 2vh;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	border-radius: 15px;
+	overflow: hidden;
+	z-index: 2;
+}
+
+.profileImg{
+	border-radius: 100px;
+	margin-left: 10px;
+	width: 50px;
+	height: 50px;
+}
+
+.profileStats{
+	margin-left: 30px;
+	width: 200px;
+	height: 50%;
+}
+
+.profileName{
+	margin-bottom: 0;
+	color: #ecf0f1;
+	white-space: nowrap;
+}
+
+.profileBalance{
+	color:#d7c13f;
+}
+
+.bodyContainer{
+	width: 84%;
+	height: auto;
 	position: absolute;
-	left: 410px;
-	top: 822px;
+	margin-left: 16vw;
 	text-align: center;
-	vertical-align: middle;
-	line-height: 64px;
-	font-family: Varela;
-	font-size: 40px;
-	color: #FFFFFF;
-	cursor: pointer;
-	transition: 0.3s;
+	padding:3vh 3vh 0 3vh;
 }
-#register:hover{
-	background-color: transparent;
-	border-color: #D7C13F;
-	transition: 0.3s;
+
+.accList{
+	display: flex;
+	overflow: hidden;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
 }
-rect.boy,rect.girl {
-  stroke:#fff;
-  fill:#fff;
-  fill-opacity:0;
-  stroke-opacity:0;
+
+.accItemContainer{
+	width: 100%;
+	height: 80%;
+	overflow: auto;
+	display: grid;
+	grid-gap: 10px;
 }
-rect.boy:hover,rect.girl:hover{
+
+.accItem{
+	width: 100%;
+	height: 80px;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	border-radius: 15px;
+	text-align: left;
+}
+
+.accItem:hover{
+	background-color:rgba(76,82,93,0.44);
 	cursor: pointer;
 }
 
+.accItemContainer::-webkit-scrollbar {
+    width: 5px;
+	height: 5px;
+}
+ 
+.accItemContainer::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+ 
+.accItemContainer::-webkit-scrollbar-thumb {
+  	background-color: #D7C13F;
+  	outline: 1px solid slategrey;
+  	border-radius: 100px;
+}
+
+input:focus{
+	outline:none;
+	box-shadow: 0 0 3px #D7C13F;
+}
+body::-webkit-scrollbar {
+    width: 10px;
+    
+}
+
+body::-webkit-scrollbar:hover{
+	width: 10px;
+}
+body::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+ 
+body::-webkit-scrollbar-thumb {
+  	background-color: #D7C13F;
+  	outline: 1px solid slategrey;
+  	border-radius: 100px;
+}
