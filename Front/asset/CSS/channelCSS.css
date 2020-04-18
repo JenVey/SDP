@@ -1,0 +1,17 @@
+.gridConChannel {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-gap: 8px;
+	height: 98vh;
+	margin: 1vh;
+}
+.sectListChannel{
+	display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 1px;
+}
+.navChannel{
+	margin: 0.5vw;
+	height: 15vh;
+	background: #D7C13F;
+}

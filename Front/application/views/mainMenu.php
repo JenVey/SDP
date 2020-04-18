@@ -7,10 +7,12 @@
 	<link rel="icon" href="<?php echo base_url(); ?>asset/Images/android-chrome-512x512.png">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/bootstrap.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/Ours.css">
+	<script src="<?php echo base_url(); ?>asset/Js/jquery-min.js"></script>
 </head>
-
+<?php
+$id = $user['id_user'];
+?>
 <p class="MainMenutitle">Hello! Where do you want to go?</p>
-<p class="MainMenutitle"><?= $user['nama_user'] ?></p>
 <div class="gridConMainMenu">
 	<div class="gridCommMainMenu">
 		<div class="CommMenu">
@@ -193,13 +195,17 @@
 		</div>
 	</div>
 </div>
-<div class="logout">
+<div class="logout" href="<?= base_url(); ?>login">
 	<svg xmlns="http://www.w3.org/2000/svg" width="70" height="60.314" viewBox="0 0 70 60.314">
 		<path id="Icon_open-account-logout" data-name="Icon open-account-logout" d="M26.25,0V8.616h35V51.7h-35v8.616H70V0ZM17.5,17.233,0,30.157,17.5,43.082V34.465h35V25.849h-35Z" fill="#f25757" />
 	</svg>
 
 </div>
-
+<script>
+	$('.gridShopMainMenu').click(function() {
+		window.location.href = '<?= base_url(); ?>Shop/index/'.concat('<?= $id ?>');
+	});
+</script>
 </body>
 
 </html>

@@ -1,0 +1,45 @@
+.gridConMainMenu {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+	height: 100vh;
+	width: 100%;
+}
+.gridShopMainMenu,.gridCommMainMenu{
+	display: grid;
+    grid-template-columns: repeat(1, 1fr);
+}
+.gridCommMainMenu:hover,.gridShopMainMenu:hover{
+	cursor: pointer;
+	background-color: #2B2F39;
+}
+.CommMenu,.ShopMenu{
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+	height: 100%;
+}
+.CommMenuText,.ShopMenuText{
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	height: 100%;
+}
+.MainMenutitle{
+	position: absolute;
+	width: 100%;
+	margin-top: 5vh;
+	text-align: center;
+	font-family: Varela;
+	font-size: 40px;
+	color: white;
+	z-index: 3;
+}
+.logout{
+	position: absolute;
+	left: 93vw;
+	top: 41px;
+	z-index: 3;
+}
+.logout:hover{
+	cursor: pointer;
+}

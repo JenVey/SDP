@@ -43,16 +43,15 @@ class Login extends CI_Controller
 		foreach ($query->result_array() as $row) {
 			if ($row['email_user'] == $user && $row['pass_user'] == $pass) {
 				$ada = true;
-				$data['user'] = $this->User_model->getAllUser($row['id_user']);
+				$id = $row['id_user'];
 			}
 			if ($row['username_user'] == $user && $row['pass_user'] == $pass) {
 				$ada = true;
-				$data['user'] = $this->User_model->getAllUser($row['id_user']);
+				$id = $row['id_user'];
 			}
 
 			if ($ada == true) {
-				$this->load->view('templates/header', $data);
-				$this->load->view('mainMenu', $data);
+				redirect('MainMenu/index/' . $id);
 			} else {
 				$this->session->set_flashdata('flash', 'Wrong Username/Password !!!');
 				redirect('Login');

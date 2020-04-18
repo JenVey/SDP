@@ -26,9 +26,10 @@ class MainMenu extends CI_Controller
 		$this->load->library('form_validation');
 	}
 
-	public function index()
+	public function index($id)
 	{
-		$this->load->view('templates/header');
-		$this->load->view('mainMenu');
+		$data['user'] = $this->User_model->getUserById($id);
+		$this->load->view('templates/header', $data);
+		$this->load->view('mainMenu', $data);
 	}
 }
