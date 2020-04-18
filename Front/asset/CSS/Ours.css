@@ -182,10 +182,12 @@ body{
 	font-size: 52px;
 	color: #FFFFFF;
 }
-input[type=date]::-webkit-calendar-picker-indicator {
+
+/* input[type=date]::-webkit-calendar-picker-indicator {
     -webkit-appearance: none;
     display: none;
-}
+} */
+
 input[type=date]::-webkit-inner-spin-button,input[type=number]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     display: none;

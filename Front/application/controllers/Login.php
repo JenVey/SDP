@@ -55,10 +55,8 @@ class Login extends CI_Controller
 				$this->load->view('mainMenu', $data);
 			} else {
 				$this->session->set_flashdata('flash', 'Wrong Username/Password !!!');
-				redirect('login');
+				redirect('Login');
 			}
 		}
 	}
 }
-
-//http://localhost/Github/SDP_Proyek/Front/Email/robbygiovanni@gmail.com
