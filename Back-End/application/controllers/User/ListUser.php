@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class ListUser extends CI_Controller {
+class ListUser extends CI_Controller
+{
 
 	/**
 	 * Index Page for this controller.
@@ -18,21 +19,20 @@ class ListUser extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
-    public function __construct()
-    {
-        parent::__construct();
-        $this->load->model('User_model');
-    }
-    
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->model('User_model');
+	}
+
 	public function index()
-	{   
-        $this->load->model('User_model');
+	{
 		$data['user'] = $this->User_model->getAllUser();
-		
-		$this->load->view('templates/header',$data);
-		$this->load->view('templates/navbar',$data);
-		$this->load->view('templates/sidebar',$data);
-		$this->load->view('user/listUser',$data);
-        //$this->load->view('templates/footer');
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('templates/navbar', $data);
+		$this->load->view('templates/sidebar', $data);
+		$this->load->view('user/listUser', $data);
+		//$this->load->view('templates/footer');
 	}
 }

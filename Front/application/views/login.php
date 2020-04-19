@@ -154,7 +154,6 @@
 
       $('.btnEmail').click(function() {
         var email = $('#iptEmail').val();
-        alert(email);
         window.location.href = '<?= base_url(); ?>Email/index/'.concat(email);
         $('.forgot').fadeOut("slow");
         $('.yourEmail').fadeOut("slow");

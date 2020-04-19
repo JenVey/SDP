@@ -43,6 +43,6 @@ class Email extends CI_Controller
 
         $this->email->send();
         $this->email->print_debugger();
-        //redirect('login');
+        redirect('login');
     }
 }

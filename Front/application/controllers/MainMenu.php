@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class MainMenu extends CI_Controller {
+class MainMenu extends CI_Controller
+{
 
 	/**
 	 * Index Page for this controller.
@@ -18,9 +19,17 @@ class MainMenu extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
-	public function index()
+	public function __construct()
 	{
-        $this->load->view('templates/header');
-        $this->load->view('mainMenu');
+		parent::__construct();
+		$this->load->model('User_model');
+		$this->load->library('form_validation');
+	}
+
+	public function index($id)
+	{
+		$data['user'] = $this->User_model->getUserById($id);
+		$this->load->view('templates/header', $data);
+		$this->load->view('mainMenu', $data);
 	}
 }

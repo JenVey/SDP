@@ -182,10 +182,12 @@ body{
 	font-size: 52px;
 	color: #FFFFFF;
 }
-input[type=date]::-webkit-calendar-picker-indicator {
+
+/* input[type=date]::-webkit-calendar-picker-indicator {
     -webkit-appearance: none;
     display: none;
-}
+} */
+
 input[type=date]::-webkit-inner-spin-button,input[type=number]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     display: none;
@@ -510,5 +512,28 @@ rect.boy:hover,rect.girl:hover{
 	color: red;
 	font-weight: lighter;
 }
+
+input:focus{
+	outline:none;
+	box-shadow: 0 0 3px #D7C13F;
+}
+body::-webkit-scrollbar {
+    width: 10px;
+    
+}
+
+body::-webkit-scrollbar:hover{
+	width: 10px;
+}
+body::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+ 
+body::-webkit-scrollbar-thumb {
+  	background-color: #D7C13F;
+  	outline: 1px solid slategrey;
+  	border-radius: 100px;
+}
+
 
 
