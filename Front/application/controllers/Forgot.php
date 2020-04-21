@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Forgot extends CI_Controller {
+class Forgot extends CI_Controller
+{
 
 	/**
 	 * Index Page for this controller.
@@ -18,9 +19,34 @@ class Forgot extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
-	public function index()
+	public function __construct()
 	{
-        $this->load->view('templates/header');
-        $this->load->view('forgot');
+		parent::__construct();
+		$this->load->model('User_model');
+		$this->load->library('form_validation');
+	}
+
+	public function index($id)
+	{
+		$data['user'] = $this->User_model->getUserById($id);
+		$this->load->view('templates/header', $data);
+		$this->load->view('forgot', $data);
+	}
+
+
+	public function changePass($id)
+	{
+		$this->form_validation->set_rules('forPass', 'Password', 'required');
+		$this->form_validation->set_rules('forCPass', 'Password Confirmation', 'required|matches[forPass]');
+
+		if ($this->form_validation->run() == FALSE) {
+			echo "<script>alert('gagal')</script>";
+			$data['user'] = $this->User_model->getUserById($id);
+			$this->load->view('templates/header', $data);
+			$this->load->view('forgot', $data);
+		} else {
+			$this->User_model->changePass($id);
+			redirect('login');
+		}
 	}
 }

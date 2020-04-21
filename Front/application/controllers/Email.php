@@ -19,10 +19,23 @@ class Email extends CI_Controller
      * map to /index.php/welcome/<method_name>
      * @see https://codeigniter.com/user_guide/general/urls.html
      */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('User_model');
+    }
 
     public function index()
     {
         $data = $this->uri->segment('3');
+
+        $query = $this->db->query("select * from user");
+        foreach ($query->result_array() as $row) {
+            if ($row['email_user'] == $data) {
+                $id = $row['id_user'];
+            }
+        }
+
         $config['protocol']    = 'smtp';
         $config['smtp_host']    = 'ssl://smtp.gmail.com';
         $config['smtp_port']    = '465';
@@ -39,7 +52,7 @@ class Email extends CI_Controller
         $this->email->from('canonbot69@gmail.com', 'ADMIN');
         $this->email->to($data);
         $this->email->subject('FORGOT PASSWORD');
-        $this->email->message('http://localhost/Github/SDP_Proyek/Front/Forgot/');
+        $this->email->message('http://localhost/Github/SDP_Proyek/Front/Forgot/Index/' . $id);
 
         $this->email->send();
         $this->email->print_debugger();

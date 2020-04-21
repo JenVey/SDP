@@ -1,27 +1,49 @@
 <!doctype html>
 <html>
+
 <head>
-<meta charset="utf-8">
-<title>gather.owl</title>
-<link rel="icon" href="<?php echo base_url();?>asset/Images/android-chrome-512x512.png">
-<link rel="stylesheet" href="<?php echo base_url();?>asset/CSS/bootstrap.css">
-<link rel="stylesheet" href="<?php echo base_url();?>asset/CSS/Ours.css">
+    <meta charset="utf-8">
+    <title>gather.owl</title>
+    <link rel="icon" href="<?php echo base_url(); ?>asset/Images/android-chrome-512x512.png">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/bootstrap.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/Ours.css">
+    <script src="<?php echo base_url(); ?>asset/Js/jquery-min.js"></script>
+
 </head>
 
 <body bgcolor="#353B48">
     <nav class="navbar">
-	  <a class="logo" style="color: #D7C13F;" onclick="location.href='<?= base_url(); ?>login';">gather.owl</a>
-	</nav>
+        <a class="logo" style="color: #D7C13F;" onclick="location.href='<?= base_url(); ?>Login'">gather.owl</a>
+    </nav>
     <p class="Title" style="left: 87px; top: 214px;">Forgot <em>Password</em></p>
-    <form action="" class="register">
-    <div class="gridForgot">
-        <div><input name="forUsername" class="form-control mr-sm-2" type="text" placeholder="Username" aria-label="Username" maxlength="12"></div>
-        <div><input name="forPass" class="form-control mr-sm-2" type="password" placeholder="New Password" aria-label="Password" maxlength="12"></div>
-        <div><input name="forPass2" class="form-control mr-sm-2" type="password" placeholder="Retype New Password" aria-label="Password" maxlength="12"></div>
-    </div>
-    <input type="submit" class="btn btn-primary reset" value="Reset">
+    <form method="post" class="register" action="<?= base_url(); ?>Forgot/changePass/<?= $user['id_user'] ?>">
+        <div class="gridForgot">
+            <div><input name="forUsername" class="form-control mr-sm-2" type="text" placeholder="Username" style="color: black" readonly aria-label="Username" maxlength="12" value="<?= $user['username_user'] ?>"></div>
+            <div><input name="forPass" class="form-control mr-sm-2" type="password" placeholder="New Password" aria-label="Password" maxlength="12"></div>
+            <div><input name="forCPass" class="form-control mr-sm-2" type="password" placeholder="Retype New Password" aria-label="Password" maxlength="12"></div>
+        </div>
+        <input type="submit" class="btn btn-primary reset" value="Reset">
     </form>
 
-    <img class="svgForgot" width="1097.1" height="811.84" src="<?php echo base_url();?>asset/Images/SVG/ForgotPage.svg" alt="" />
-   
+    <div class="success">
+        <div class="check">
+            <div class="textVeri" style="left: 250px">Password Updated</div>
+            <div class="textExp" style="top: 500px; font-size: 20pt;">Your password has been changed successfully</div>
+            <div class="textExp" style="left:240px; top: 535px; font-size: 20pt;">Use your new password to login.</div>
+            <svg id=centang1 xmlns="http://www.w3.org/2000/svg" width="215" height="215" viewBox="0 0 215 215">
+                <ellipse id="Ellipse_58" data-name="Ellipse 58" cx="107.5" cy="107.5" rx="107.5" ry="107.5" fill="#69f0ae" />
+            </svg>
+            <svg id="centang2" xmlns="http://www.w3.org/2000/svg" width="134.385" height="117.583" viewBox="0 0 134.385 117.583">
+                <path id="Path_1265" data-name="Path 1265" d="M319.351,289.686l40.308,36.955,57.109-83.981,20.167,16.8L359.659,360.243,302.55,296.416Z" transform="translate(-302.55 -242.66)" fill="#fff" />
+            </svg>
+        </div>
+    </div>
+
+    <img class="svgForgot" width="1097.1" height="811.84" src="<?php echo base_url(); ?>asset/Images/SVG/ForgotPage.svg" alt="" />
+    <script>
+        $('.success').hide();
+        $('.reset').click(function() {
+            $('.success').fadeIn("fast");
+        });
+    </script>
 </body>
