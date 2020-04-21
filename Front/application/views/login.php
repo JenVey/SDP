@@ -7,6 +7,7 @@
   <link rel="icon" href="<?php echo base_url(); ?>asset/Images/android-chrome-512x512.png">
   <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/bootstrap.css">
   <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/Ours.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/indexCSS.css">
   <script src="<?php echo base_url(); ?>asset/Js/jquery-min.js"></script>
 </head>
 
@@ -26,7 +27,7 @@
     </form>
   </nav>
 
-  <p class="Title" style="left: 86px; top: 364px;">LET'S <em>CONNECT</em></p>
+  <p class="Title" style="left: 90px; top: 350px;">LET'S <em>CONNECT</em></p>
   <p class="SubTitle">A place where we can gather and shop items.
     <br />Same time, same place.</p>
   <div class="RegButton" onclick="location.href='<?= base_url(); ?>register'"> Register now</div>

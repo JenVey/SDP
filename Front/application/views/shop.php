@@ -6,12 +6,12 @@
     <title>gather.owl - Shop</title>
     <link rel="icon" href="<?php echo base_url(); ?>asset/Images/android-chrome-512x512.png">
     <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/bootstrap.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/shopCSS.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/Ours.css">
     <script src="<?php echo base_url(); ?>asset/Js/jquery-min.js"></script>
     <script src="<?php echo base_url(); ?>asset/Js/bootstrap.js"></script>
     <script src="<?php echo base_url(); ?>asset/Js/textFit.js"></script>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!--  -->
 </head>
 
 <body>
@@ -36,7 +36,7 @@
 			</div>
 -->
             <div class="accItem">
-                <div class="profileImg" style="margin-left: 0;"><img class="profileImg" src="../R6.jpg" width="50" height="50" alt="" /></div>
+                <div class="profileImg" style="margin-left: 0;"><img class="profileImg" src="<?php base_url(); ?>asset/Images/R6.jpg" width="50" height="50" alt="" /></div>
                 <div class="profileStats">
                     <h6 class="profileName">Untrail.ID</h6>
                     <h6 class="profileBalance" style="float: left;">4.8</h6>
