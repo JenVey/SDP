@@ -30,132 +30,18 @@
             <div class="hl"></div>
         </div>
         <div class="accItemContainer">
-            <!--
-			<div class="noAccItem">
-				<h5>This is where all of your beloved merchants will be displayed</h5>
-			</div>
--->
-            <div class="accItem">
-                <div class="profileImg" style="margin-left: 0;"><img class="profileImg" src="<?php base_url(); ?>asset/Images/R6.jpg" width="50" height="50" alt="" /></div>
-                <div class="profileStats">
-                    <h6 class="profileName">Untrail.ID</h6>
-                    <h6 class="profileBalance" style="float: left;">4.8</h6>
-                    <svg style="float: left;margin-top: 5px;" xmlns="http://www.w3.org/2000/svg" width="10.125" height="8.62" viewBox="0 0 35.125 33.62">
-                        <path class="solid_star" data-name="solid star" d="M36.178,1.157,31.891,9.85l-9.592,1.4a2.1,2.1,0,0,0-1.162,3.585l6.94,6.762-1.641,9.553a2.1,2.1,0,0,0,3.046,2.213l8.581-4.51,8.581,4.51a2.1,2.1,0,0,0,3.046-2.213L48.048,21.6l6.94-6.762a2.1,2.1,0,0,0-1.162-3.585l-9.592-1.4L39.947,1.157a2.1,2.1,0,0,0-3.769,0Z" transform="translate(-20.5 0.013)" fill="#d7c13f" />
-                    </svg>
+            <?php foreach ($merchant as $mch) : ?>
+                <div class="accItem">
+                    <div class="profileImg" style="margin-left: 0;"><img class="profileImg" src="<?php base_url(); ?>asset/Images/R6.jpg" width="50" height="50" alt="" /></div>
+                    <div class="profileStats">
+                        <h6 class="profileName"> <?= $mch['nama_merchant'] ?> </h6>
+                        <h6 class="profileBalance" style="float: left;">4.8</h6>
+                        <svg style="float: left;margin-top: 5px;" xmlns="http://www.w3.org/2000/svg" width="10.125" height="8.62" viewBox="0 0 35.125 33.62">
+                            <path class="solid_star" data-name="solid star" d="M36.178,1.157,31.891,9.85l-9.592,1.4a2.1,2.1,0,0,0-1.162,3.585l6.94,6.762-1.641,9.553a2.1,2.1,0,0,0,3.046,2.213l8.581-4.51,8.581,4.51a2.1,2.1,0,0,0,3.046-2.213L48.048,21.6l6.94-6.762a2.1,2.1,0,0,0-1.162-3.585l-9.592-1.4L39.947,1.157a2.1,2.1,0,0,0-3.769,0Z" transform="translate(-20.5 0.013)" fill="#d7c13f" />
+                        </svg>
+                    </div>
                 </div>
-            </div>
-            <div class="accItem">
-                <div class="profileImg" style="margin-left: 0;"><img class="profileImg" src="../R6.jpg" width="50" height="50" alt="" /></div>
-                <div class="profileStats">
-                    <h6 class="profileName">Untrail.ID</h6>
-                    <h6 class="profileBalance" style="float: left;">4.8</h6>
-                    <svg style="float: left;margin-top: 5px;" xmlns="http://www.w3.org/2000/svg" width="10.125" height="8.62" viewBox="0 0 35.125 33.62">
-                        <path class="solid_star" data-name="solid star" d="M36.178,1.157,31.891,9.85l-9.592,1.4a2.1,2.1,0,0,0-1.162,3.585l6.94,6.762-1.641,9.553a2.1,2.1,0,0,0,3.046,2.213l8.581-4.51,8.581,4.51a2.1,2.1,0,0,0,3.046-2.213L48.048,21.6l6.94-6.762a2.1,2.1,0,0,0-1.162-3.585l-9.592-1.4L39.947,1.157a2.1,2.1,0,0,0-3.769,0Z" transform="translate(-20.5 0.013)" fill="#d7c13f" />
-                    </svg>
-                </div>
-            </div>
-            <div class="accItem">
-                <div class="profileImg" style="margin-left: 0;"><img class="profileImg" src="../R6.jpg" width="50" height="50" alt="" /></div>
-                <div class="profileStats">
-                    <h6 class="profileName">Untrail.ID</h6>
-                    <h6 class="profileBalance" style="float: left;">4.8</h6>
-                    <svg style="float: left;margin-top: 5px;" xmlns="http://www.w3.org/2000/svg" width="10.125" height="8.62" viewBox="0 0 35.125 33.62">
-                        <path class="solid_star" data-name="solid star" d="M36.178,1.157,31.891,9.85l-9.592,1.4a2.1,2.1,0,0,0-1.162,3.585l6.94,6.762-1.641,9.553a2.1,2.1,0,0,0,3.046,2.213l8.581-4.51,8.581,4.51a2.1,2.1,0,0,0,3.046-2.213L48.048,21.6l6.94-6.762a2.1,2.1,0,0,0-1.162-3.585l-9.592-1.4L39.947,1.157a2.1,2.1,0,0,0-3.769,0Z" transform="translate(-20.5 0.013)" fill="#d7c13f" />
-                    </svg>
-                </div>
-            </div>
-            <div class="accItem">
-                <div class="profileImg" style="margin-left: 0;"><img class="profileImg" src="../R6.jpg" width="50" height="50" alt="" /></div>
-                <div class="profileStats">
-                    <h6 class="profileName">Untrail.ID</h6>
-                    <h6 class="profileBalance" style="float: left;">4.8</h6>
-                    <svg style="float: left;margin-top: 5px;" xmlns="http://www.w3.org/2000/svg" width="10.125" height="8.62" viewBox="0 0 35.125 33.62">
-                        <path class="solid_star" data-name="solid star" d="M36.178,1.157,31.891,9.85l-9.592,1.4a2.1,2.1,0,0,0-1.162,3.585l6.94,6.762-1.641,9.553a2.1,2.1,0,0,0,3.046,2.213l8.581-4.51,8.581,4.51a2.1,2.1,0,0,0,3.046-2.213L48.048,21.6l6.94-6.762a2.1,2.1,0,0,0-1.162-3.585l-9.592-1.4L39.947,1.157a2.1,2.1,0,0,0-3.769,0Z" transform="translate(-20.5 0.013)" fill="#d7c13f" />
-                    </svg>
-                </div>
-            </div>
-            <div class="accItem">
-                <div class="profileImg" style="margin-left: 0;"><img class="profileImg" src="../R6.jpg" width="50" height="50" alt="" /></div>
-                <div class="profileStats">
-                    <h6 class="profileName">Untrail.ID</h6>
-                    <h6 class="profileBalance" style="float: left;">4.8</h6>
-                    <svg style="float: left;margin-top: 5px;" xmlns="http://www.w3.org/2000/svg" width="10.125" height="8.62" viewBox="0 0 35.125 33.62">
-                        <path class="solid_star" data-name="solid star" d="M36.178,1.157,31.891,9.85l-9.592,1.4a2.1,2.1,0,0,0-1.162,3.585l6.94,6.762-1.641,9.553a2.1,2.1,0,0,0,3.046,2.213l8.581-4.51,8.581,4.51a2.1,2.1,0,0,0,3.046-2.213L48.048,21.6l6.94-6.762a2.1,2.1,0,0,0-1.162-3.585l-9.592-1.4L39.947,1.157a2.1,2.1,0,0,0-3.769,0Z" transform="translate(-20.5 0.013)" fill="#d7c13f" />
-                    </svg>
-                </div>
-            </div>
-            <div class="accItem">
-                <div class="profileImg" style="margin-left: 0;"><img class="profileImg" src="../R6.jpg" width="50" height="50" alt="" /></div>
-                <div class="profileStats">
-                    <h6 class="profileName">Untrail.ID</h6>
-                    <h6 class="profileBalance" style="float: left;">4.8</h6>
-                    <svg style="float: left;margin-top: 5px;" xmlns="http://www.w3.org/2000/svg" width="10.125" height="8.62" viewBox="0 0 35.125 33.62">
-                        <path class="solid_star" data-name="solid star" d="M36.178,1.157,31.891,9.85l-9.592,1.4a2.1,2.1,0,0,0-1.162,3.585l6.94,6.762-1.641,9.553a2.1,2.1,0,0,0,3.046,2.213l8.581-4.51,8.581,4.51a2.1,2.1,0,0,0,3.046-2.213L48.048,21.6l6.94-6.762a2.1,2.1,0,0,0-1.162-3.585l-9.592-1.4L39.947,1.157a2.1,2.1,0,0,0-3.769,0Z" transform="translate(-20.5 0.013)" fill="#d7c13f" />
-                    </svg>
-                </div>
-            </div>
-            <div class="accItem">
-                <div class="profileImg" style="margin-left: 0;"><img class="profileImg" src="../R6.jpg" width="50" height="50" alt="" /></div>
-                <div class="profileStats">
-                    <h6 class="profileName">Untrail.ID</h6>
-                    <h6 class="profileBalance" style="float: left;">4.8</h6>
-                    <svg style="float: left;margin-top: 5px;" xmlns="http://www.w3.org/2000/svg" width="10.125" height="8.62" viewBox="0 0 35.125 33.62">
-                        <path class="solid_star" data-name="solid star" d="M36.178,1.157,31.891,9.85l-9.592,1.4a2.1,2.1,0,0,0-1.162,3.585l6.94,6.762-1.641,9.553a2.1,2.1,0,0,0,3.046,2.213l8.581-4.51,8.581,4.51a2.1,2.1,0,0,0,3.046-2.213L48.048,21.6l6.94-6.762a2.1,2.1,0,0,0-1.162-3.585l-9.592-1.4L39.947,1.157a2.1,2.1,0,0,0-3.769,0Z" transform="translate(-20.5 0.013)" fill="#d7c13f" />
-                    </svg>
-                </div>
-            </div>
-            <div class="accItem">
-                <div class="profileImg" style="margin-left: 0;"><img class="profileImg" src="../R6.jpg" width="50" height="50" alt="" /></div>
-                <div class="profileStats">
-                    <h6 class="profileName">Untrail.ID</h6>
-                    <h6 class="profileBalance" style="float: left;">4.8</h6>
-                    <svg style="float: left;margin-top: 5px;" xmlns="http://www.w3.org/2000/svg" width="10.125" height="8.62" viewBox="0 0 35.125 33.62">
-                        <path class="solid_star" data-name="solid star" d="M36.178,1.157,31.891,9.85l-9.592,1.4a2.1,2.1,0,0,0-1.162,3.585l6.94,6.762-1.641,9.553a2.1,2.1,0,0,0,3.046,2.213l8.581-4.51,8.581,4.51a2.1,2.1,0,0,0,3.046-2.213L48.048,21.6l6.94-6.762a2.1,2.1,0,0,0-1.162-3.585l-9.592-1.4L39.947,1.157a2.1,2.1,0,0,0-3.769,0Z" transform="translate(-20.5 0.013)" fill="#d7c13f" />
-                    </svg>
-                </div>
-            </div>
-            <div class="accItem">
-                <div class="profileImg" style="margin-left: 0;"><img class="profileImg" src="../R6.jpg" width="50" height="50" alt="" /></div>
-                <div class="profileStats">
-                    <h6 class="profileName">Untrail.ID</h6>
-                    <h6 class="profileBalance" style="float: left;">4.8</h6>
-                    <svg style="float: left;margin-top: 5px;" xmlns="http://www.w3.org/2000/svg" width="10.125" height="8.62" viewBox="0 0 35.125 33.62">
-                        <path class="solid_star" data-name="solid star" d="M36.178,1.157,31.891,9.85l-9.592,1.4a2.1,2.1,0,0,0-1.162,3.585l6.94,6.762-1.641,9.553a2.1,2.1,0,0,0,3.046,2.213l8.581-4.51,8.581,4.51a2.1,2.1,0,0,0,3.046-2.213L48.048,21.6l6.94-6.762a2.1,2.1,0,0,0-1.162-3.585l-9.592-1.4L39.947,1.157a2.1,2.1,0,0,0-3.769,0Z" transform="translate(-20.5 0.013)" fill="#d7c13f" />
-                    </svg>
-                </div>
-            </div>
-            <div class="accItem">
-                <div class="profileImg" style="margin-left: 0;"><img class="profileImg" src="../R6.jpg" width="50" height="50" alt="" /></div>
-                <div class="profileStats">
-                    <h6 class="profileName">Untrail.ID</h6>
-                    <h6 class="profileBalance" style="float: left;">4.8</h6>
-                    <svg style="float: left;margin-top: 5px;" xmlns="http://www.w3.org/2000/svg" width="10.125" height="8.62" viewBox="0 0 35.125 33.62">
-                        <path class="solid_star" data-name="solid star" d="M36.178,1.157,31.891,9.85l-9.592,1.4a2.1,2.1,0,0,0-1.162,3.585l6.94,6.762-1.641,9.553a2.1,2.1,0,0,0,3.046,2.213l8.581-4.51,8.581,4.51a2.1,2.1,0,0,0,3.046-2.213L48.048,21.6l6.94-6.762a2.1,2.1,0,0,0-1.162-3.585l-9.592-1.4L39.947,1.157a2.1,2.1,0,0,0-3.769,0Z" transform="translate(-20.5 0.013)" fill="#d7c13f" />
-                    </svg>
-                </div>
-            </div>
-            <div class="accItem">
-                <div class="profileImg" style="margin-left: 0;"><img class="profileImg" src="../R6.jpg" width="50" height="50" alt="" /></div>
-                <div class="profileStats">
-                    <!-- Max Line 10 -->
-                    <h6 class="profileName">Untrail.ID</h6>
-                    <h6 class="profileBalance" style="float: left;">4.8</h6>
-                    <svg style="float: left;margin-top: 5px;" xmlns="http://www.w3.org/2000/svg" width="10.125" height="8.62" viewBox="0 0 35.125 33.62">
-                        <path class="solid_star" data-name="solid star" d="M36.178,1.157,31.891,9.85l-9.592,1.4a2.1,2.1,0,0,0-1.162,3.585l6.94,6.762-1.641,9.553a2.1,2.1,0,0,0,3.046,2.213l8.581-4.51,8.581,4.51a2.1,2.1,0,0,0,3.046-2.213L48.048,21.6l6.94-6.762a2.1,2.1,0,0,0-1.162-3.585l-9.592-1.4L39.947,1.157a2.1,2.1,0,0,0-3.769,0Z" transform="translate(-20.5 0.013)" fill="#d7c13f" />
-                    </svg>
-                </div>
-            </div>
-            <div class="accItem">
-                <div class="profileImg" style="margin-left: 0;"><img class="profileImg" src="../R6.jpg" width="50" height="50" alt="" /></div>
-                <div class="profileStats">
-                    <h6 class="profileName">Untrail.ID</h6>
-                    <h6 class="profileBalance" style="float: left;">4.8</h6>
-                    <svg style="float: left;margin-top: 5px;" xmlns="http://www.w3.org/2000/svg" width="10.125" height="8.62" viewBox="0 0 35.125 33.62">
-                        <path class="solid_star" data-name="solid star" d="M36.178,1.157,31.891,9.85l-9.592,1.4a2.1,2.1,0,0,0-1.162,3.585l6.94,6.762-1.641,9.553a2.1,2.1,0,0,0,3.046,2.213l8.581-4.51,8.581,4.51a2.1,2.1,0,0,0,3.046-2.213L48.048,21.6l6.94-6.762a2.1,2.1,0,0,0-1.162-3.585l-9.592-1.4L39.947,1.157a2.1,2.1,0,0,0-3.769,0Z" transform="translate(-20.5 0.013)" fill="#d7c13f" />
-                    </svg>
-                </div>
-            </div>
+            <?php endforeach; ?>
         </div>
     </div>
 
@@ -238,69 +124,14 @@
         <div class="gamesContainer">
             <div class="gamescollection">
                 <!--			contoh kalau mau nambah game-->
-                <div class="itemGame">
-                    <div class="img" style=" background: white; width: 50px; height: 50px; transform: skewX(5deg);"><img src="Images/csgoLogo.png" width="50" height="50" alt="" /></div>
-                    <h5 class="titleGame" style="color: #ecf0f1; transform: skewX(5deg);">Counter Strike : Global
-                        Offensive</h5>
-                </div>
-                <div class="itemGame">
-                    <div class="img" style=" background: white; width: 50px; height: 50px; transform: skewX(5deg);"><img src="Images/csgoLogo.png" width="50" height="50" alt="" /></div>
-                    <h5 class="titleGame" style="color: #ecf0f1; transform: skewX(5deg);">Counter Strike : Global
-                        Offensive</h5>
-                </div>
-                <div class="itemGame">
-                    <div class="img" style=" background: white; width: 50px; height: 50px; transform: skewX(5deg);"><img src="Images/csgoLogo.png" width="50" height="50" alt="" /></div>
-                    <h5 class="titleGame" style="color: #ecf0f1; transform: skewX(5deg);">Counter Strike : Global
-                        Offensive</h5>
-                </div>
-                <div class="itemGame">
-                    <div class="img" style=" background: white; width: 50px; height: 50px; transform: skewX(5deg);"><img src="Images/csgoLogo.png" width="50" height="50" alt="" /></div>
-                    <h5 class="titleGame" style="color: #ecf0f1; transform: skewX(5deg);">Counter Strike : Global
-                        Offensive</h5>
-                </div>
-                <div class="itemGame">
-                    <div class="img" style=" background: white; width: 50px; height: 50px; transform: skewX(5deg);"><img src="Images/csgoLogo.png" width="50" height="50" alt="" /></div>
-                    <h5 class="titleGame" style="color: #ecf0f1; transform: skewX(5deg);">Counter Strike : Global
-                        Offensive</h5>
-                </div>
-                <div class="itemGame">
-                    <div class="img" style=" background: white; width: 50px; height: 50px; transform: skewX(5deg);"><img src="Images/csgoLogo.png" width="50" height="50" alt="" /></div>
-                    <h5 class="titleGame" style="color: #ecf0f1; transform: skewX(5deg);">Counter Strike : Global
-                        Offensive</h5>
-                </div>
-                <div class="itemGame">
-                    <div class="img" style=" background: white; width: 50px; height: 50px; transform: skewX(5deg);"><img src="Images/csgoLogo.png" width="50" height="50" alt="" /></div>
-                    <h5 class="titleGame" style="color: #ecf0f1; transform: skewX(5deg);">Counter Strike : Global
-                        Offensive</h5>
-                </div>
-                <div class="itemGame">
-                    <div class="img" style=" background: white; width: 50px; height: 50px; transform: skewX(5deg);"><img src="Images/csgoLogo.png" width="50" height="50" alt="" /></div>
-                    <h5 class="titleGame" style="color: #ecf0f1; transform: skewX(5deg);">Counter Strike : Global
-                        Offensive</h5>
-                </div>
-                <div class="itemGame">
-                    <div class="img" style=" background: white; width: 50px; height: 50px; transform: skewX(5deg);"><img src="Images/csgoLogo.png" width="50" height="50" alt="" /></div>
-                    <h5 class="titleGame" style="color: #ecf0f1; transform: skewX(5deg);">Counter Strike : Global
-                        Offensive</h5>
-                </div>
-                <div class="itemGame">
-                    <div class="img" style=" background: white; width: 50px; height: 50px; transform: skewX(5deg);"><img src="Images/csgoLogo.png" width="50" height="50" alt="" /></div>
-                    <h5 class="titleGame" style="color: #ecf0f1; transform: skewX(5deg);">Counter Strike : Global
-                        Offensive</h5>
-                </div>
-                <div class="itemGame">
-                    <div class="img" style=" background: white; width: 50px; height: 50px; transform: skewX(5deg);"><img src="Images/csgoLogo.png" width="50" height="50" alt="" /></div>
-                    <h5 class="titleGame" style="color: #ecf0f1; transform: skewX(5deg);">Counter Strike : Global
-                        Offensive</h5>
-                </div>
-                <div class="itemGame">
-                    <div class="img" style=" background: white; width: 50px; height: 50px; transform: skewX(5deg);"><img src="Images/csgoLogo.png" width="50" height="50" alt="" /></div>
-                    <h5 class="titleGame" style="color: #ecf0f1; transform: skewX(5deg);">Counter Strike : Global
-                        Offensive</h5>
-                </div>
+                <?php foreach ($games as $game) : ?>
+                    <div class="itemGame">
+                        <div class="img" style=" background: white; width: 50px; height: 50px; transform: skewX(5deg);"><img src="Images/csgoLogo.png" width="50" height="50" alt="" /></div>
+                        <h5 class="titleGame" style="color: #ecf0f1; transform: skewX(5deg);"><?= $game['nama_game'] ?></h5>
+                    </div>
+                <?php endforeach; ?>
             </div>
         </div>
-
 
         <h2 class="itemHeader">Items for <p class="yellow">Overwatch</p>
         </h2>

@@ -1,0 +1,65 @@
+.merchantInfo{
+	width: 78%;
+	height: 60px;
+	background-color: #585D68;
+	position: fixed;
+	left: 20.5vw;
+	border-radius: 0 0 15px 15px;
+	box-shadow:
+	  0 26.2px 31.5px -27px rgba(0, 0, 0, 0.1),
+	  0 50.8px 58.3px -27px rgba(0, 0, 0, 0.065),
+	  0 75.9px 81.7px -27px rgba(0, 0, 0, 0.051),
+	  0 111.9px 109.9px -27px rgba(0, 0, 0, 0.039),
+	  0 256px 223px -27px rgba(0, 0, 0, 0.024)
+	;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.merchantWrapper{
+	display:flex;
+	align-items: center;
+}
+.merchantImg{
+	border-radius: 100%;
+	margin-left: 20px;
+}
+
+.merchantName{
+	margin-left: 20px;
+    color: #ecf0f1;
+    margin-bottom: 0;
+}
+.merchantFollow{
+	border: none;
+	background-color: transparent;
+	margin-left: 150px;
+}
+.merchantFollow:hover #Icon_awesome-heart{
+	fill:#E92E55;
+}
+.rating{
+	box-sizing: border-box;
+	margin-left: 20px;
+}
+button{
+	border: none;
+	background-color: transparent;
+	margin-left: 20px;
+}
+.ItemIMG{
+	margin-left: 4vw;
+}
+.bodyContainer{
+	margin-top: 100px;
+	text-align: left;
+}
+.merchantFollow:hover #Icon_awesome-heart{
+    fill:#E92E55;
+}
+.merchantChat:hover #Icon_open-chat{
+    fill: #D7C13F;
+}
+.merchantRate:hover #Icon_material-rate-review{
+    fill: #D7C13F;
+}
