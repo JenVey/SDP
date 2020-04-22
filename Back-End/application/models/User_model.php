@@ -72,7 +72,6 @@ class User_model extends CI_model
             $foto = 'default.jpg';
         }
 
-        $status;
         if ($this->input->post('statusUser') == "Online") {
             $status = 1;
         } else {

@@ -63,4 +63,18 @@ class User_model extends CI_model
         ];
         $this->db->insert('user', $data);
     }
+
+
+    public function changePass($id)
+    {
+        $query = $this->db->query("select * from user");
+        $pass = $this->input->post('forPass');
+
+        $data = [
+            "pass_user" => $pass
+        ];
+
+        $this->db->where('id_user', $id);
+        $this->db->update('user', $data);
+    }
 }
