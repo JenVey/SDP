@@ -32,7 +32,7 @@
         <div class="accItemContainer">
             <?php foreach ($merchantF as $mchF) : ?>
                 <div class="accItem" value="<?= $mchF['id'] ?>">
-                    <div class="profileImg" style="margin-left: 0;"><img class="profileImg" src="<?php base_url(); ?>asset/Images/R6.jpg" width="50" height="50" alt="" /></div>
+                    <div class="profileImg" style="margin-left: 0;"><img class="profileImg" src="<?= base_url(); ?>asset/Images/R6.jpg" width="50" height="50" alt="" /></div>
                     <div class="profileStats">
                         <h6 class="profileName"> <?= $mchF['nama'] ?> </h6>
                         <h6 class="profileBalance" style="float: left;"><?= $mchF['rating'] ?></h6>
@@ -46,11 +46,11 @@
     </div>
 
     <div class="profile">
-        <div class="profileImg"><img class="profileImg" src="../R6.jpg" width="50" height="50" alt="" /></div>
+        <div class="profileImg"><img class="profileImg" src="<?= base_url(); ?>asset/Images/R6.jpg" width="50" height="50" alt="" /></div>
         <div class="profileStats">
             <!-- Max Line 10 -->
             <h5 class="profileName"><?= $user['nama_user'] ?></h5>
-            <h6 class="profileBalance">IDR <?= $user['saldo'] ?></h6>
+            <h6 class="profileBalance">IDR <?= ceil($user['saldo']) ?></h6>
         </div>
         <button class="TopUp">
             <svg xmlns="http://www.w3.org/2000/svg" width="20.271" height="28" viewBox="0 0 25.271 33">
@@ -59,43 +59,50 @@
             <h6 class="TopupText">Top-Up</h6>
         </button>
     </div>
-    <div class="bodyContainer">
-        <button class="homeButton">
-            <h1 class="yellow varela">gather.owl</h1>
-        </button>
-        <div class="filterContainer">
-            <div class="filterAlpha">
-                <svg xmlns="http://www.w3.org/2000/svg" width="26.5" height="26.5" viewBox="0 0 15.998 15.999">
-                    <path id="solid_filter" data-name="solid filter" d="M15.248,0H.751a.75.75,0,0,0-.53,1.28L6,7.06V13.5a.75.75,0,0,0,.32.614l2.5,1.749A.75.75,0,0,0,10,15.248V7.06l5.779-5.78A.751.751,0,0,0,15.248,0Z" transform="translate(0)" fill="#1E2126" opacity="" 0.26 />
+    <div class="bodyContainer" style="text-align: center">
+        <div class="headerContainer">
+            <button class="homeButton">
+                <h1 class="yellow varela">gather.owl</h1>
+            </button>
+            <button class="gachaContainer">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40.5" height="40.5" viewBox="0 0 110.055 78.793">
+                    <path id="solid_box-open" data-name="solid box-open" d="M73.164,71.365a8.3,8.3,0,0,1-7.119-4.115L54.989,48.5,43.95,67.25a8.327,8.327,0,0,1-7.136,4.133,7.745,7.745,0,0,1-2.287-.334L10.97,64.154V95.46a5.588,5.588,0,0,0,4.161,5.452l37.176,9.515a10.935,10.935,0,0,0,5.33,0l37.21-9.515a5.618,5.618,0,0,0,4.161-5.452V64.154L75.451,71.031A7.745,7.745,0,0,1,73.164,71.365Zm36.557-19.733-8.855-18.08a2.794,2.794,0,0,0-2.872-1.565l-43,5.61,15.768,26.75a2.8,2.8,0,0,0,3.181,1.284l34.029-9.937A2.915,2.915,0,0,0,109.721,51.632ZM9.113,33.552.257,51.632a2.885,2.885,0,0,0,1.737,4.045l34.029,9.937A2.8,2.8,0,0,0,39.2,64.33L54.989,37.6l-43.022-5.61A2.8,2.8,0,0,0,9.113,33.552Z" transform="translate(0.042 -31.963)" fill="#1E2126" />
                 </svg>
+                <h5 style="color: #1E2126;">Gacha Crate</h5>
+            </button>
+            <div class="filterContainer">
+                <div class="filterAlpha">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="26.5" height="26.5" viewBox="0 0 15.998 15.999">
+                        <path id="solid_filter" data-name="solid filter" d="M15.248,0H.751a.75.75,0,0,0-.53,1.28L6,7.06V13.5a.75.75,0,0,0,.32.614l2.5,1.749A.75.75,0,0,0,10,15.248V7.06l5.779-5.78A.751.751,0,0,0,15.248,0Z" transform="translate(0)" fill="#1E2126" opacity="" 0.26 />
+                    </svg>
+                </div>
+                <div class="filterOption">
+                    <label for="filters" style="margin-bottom: 0;">Filter By : </label>
+                    <select id="filters">
+                        <option value="newest">Newest</option>
+                        <option value="oldest">Oldest</option>
+                        <option value="cheapest">Cheapest</option>
+                        <option value="cheapest">Expensive</option>
+                    </select>
+                </div>
             </div>
-            <div class="filterOption">
-                <label for="filters" style="margin-bottom: 0;">Filter By : </label>
-                <select id="filters">
-                    <option value="newest">Newest</option>
-                    <option value="oldest">Oldest</option>
-                    <option value="cheapest">Cheapest</option>
-                    <option value="cheapest">Expensive</option>
-                </select>
-            </div>
+            <button class="searchButton" type="button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30.621" height="30.621" viewBox="0 0 30.621 30.621">
+                    <g id="Icon_feather-search" data-name="Icon feather-search" transform="translate(-3 -3)">
+                        <path id="Path_1128" data-name="Path 1128" d="M28.5,16.5a12,12,0,1,1-12-12A12,12,0,0,1,28.5,16.5Z" fill="none" stroke="#d7c13f" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
+                        <path id="Path_1129" data-name="Path 1129" d="M31.5,31.5l-6.525-6.525" fill="none" stroke="#d7c13f" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
+                    </g>
+                </svg>
+            </button>
+            <input name="search" type="text" class="Searchinput" placeholder="Search your favourite item or merchant here">
+            <button class="cartButton" type="button">
+                <svg id="Icon_ionic-ios-cart" data-name="Icon ionic-ios-cart" xmlns="http://www.w3.org/2000/svg" width="31.176" height="28.343" viewBox="0 0 42.176 39.343">
+                    <path id="Path_1125" data-name="Path 1125" d="M12.938,29.813a1.688,1.688,0,1,1-1.687-1.688,1.688,1.688,0,0,1,1.688,1.688Z" transform="translate(-0.291 7.843)" fill="#42b77c" />
+                    <path id="Path_1126" data-name="Path 1126" d="M28.723,29.813a1.687,1.687,0,1,1-1.687-1.688,1.687,1.687,0,0,1,1.687,1.688Z" transform="translate(9.555 7.843)" fill="#42b77c" />
+                    <path id="Path_1127" data-name="Path 1127" d="M45.543,11.928a.607.607,0,0,0-.527-.457L11.983,8.042a1.012,1.012,0,0,1-.761-.512A11.2,11.2,0,0,0,9.985,5.505C9.2,4.482,7.733,4.515,5.035,4.493A1.518,1.518,0,0,0,3.382,6.028,1.494,1.494,0,0,0,4.964,7.563,12.576,12.576,0,0,1,7.6,7.77c.477.152.862.991,1,1.72a.042.042,0,0,0,.01.033c.02.131.2,1.11.2,1.121l4.057,23.035a8.813,8.813,0,0,0,1.471,3.886,3.958,3.958,0,0,0,3.337,1.764h24a1.489,1.489,0,0,0,1.46-1.459,1.473,1.473,0,0,0-1.42-1.589H17.662a1.125,1.125,0,0,1-.842-.3,5.037,5.037,0,0,1-1.166-2.83l-.436-2.58a.06.06,0,0,1,.041-.065l28.165-5.116a.619.619,0,0,0,.5-.566l1.623-12.606A.665.665,0,0,0,45.543,11.928Z" transform="translate(-3.382 -4.493)" fill="#42b77c" />
+                </svg>
+            </button>
         </div>
-        <input name="search" type="text" class="Searchinput" placeholder="Search your favourite item or merchant here">
-        <div class="vl"></div>
-        <button class="searchButton" type="button">
-            <svg xmlns="http://www.w3.org/2000/svg" width="30.621" height="30.621" viewBox="0 0 30.621 30.621">
-                <g id="Icon_feather-search" data-name="Icon feather-search" transform="translate(-3 -3)">
-                    <path id="Path_1128" data-name="Path 1128" d="M28.5,16.5a12,12,0,1,1-12-12A12,12,0,0,1,28.5,16.5Z" fill="none" stroke="#d7c13f" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
-                    <path id="Path_1129" data-name="Path 1129" d="M31.5,31.5l-6.525-6.525" fill="none" stroke="#d7c13f" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
-                </g>
-            </svg>
-        </button>
-        <button class="cartButton" type="button">
-            <svg id="Icon_ionic-ios-cart" data-name="Icon ionic-ios-cart" xmlns="http://www.w3.org/2000/svg" width="31.176" height="28.343" viewBox="0 0 42.176 39.343">
-                <path id="Path_1125" data-name="Path 1125" d="M12.938,29.813a1.688,1.688,0,1,1-1.687-1.688,1.688,1.688,0,0,1,1.688,1.688Z" transform="translate(-0.291 7.843)" fill="#42b77c" />
-                <path id="Path_1126" data-name="Path 1126" d="M28.723,29.813a1.687,1.687,0,1,1-1.687-1.688,1.687,1.687,0,0,1,1.687,1.688Z" transform="translate(9.555 7.843)" fill="#42b77c" />
-                <path id="Path_1127" data-name="Path 1127" d="M45.543,11.928a.607.607,0,0,0-.527-.457L11.983,8.042a1.012,1.012,0,0,1-.761-.512A11.2,11.2,0,0,0,9.985,5.505C9.2,4.482,7.733,4.515,5.035,4.493A1.518,1.518,0,0,0,3.382,6.028,1.494,1.494,0,0,0,4.964,7.563,12.576,12.576,0,0,1,7.6,7.77c.477.152.862.991,1,1.72a.042.042,0,0,0,.01.033c.02.131.2,1.11.2,1.121l4.057,23.035a8.813,8.813,0,0,0,1.471,3.886,3.958,3.958,0,0,0,3.337,1.764h24a1.489,1.489,0,0,0,1.46-1.459,1.473,1.473,0,0,0-1.42-1.589H17.662a1.125,1.125,0,0,1-.842-.3,5.037,5.037,0,0,1-1.166-2.83l-.436-2.58a.06.06,0,0,1,.041-.065l28.165-5.116a.619.619,0,0,0,.5-.566l1.623-12.606A.665.665,0,0,0,45.543,11.928Z" transform="translate(-3.382 -4.493)" fill="#42b77c" />
-            </svg>
-        </button>
 
         <div class="iklan">
             <div id="iklanDisplay" class="carousel slide" data-ride="carousel">
@@ -130,7 +137,7 @@
             </div>
         </div>
 
-        <h2 class="itemHeader">Items for <p class="yellow">Overwatch</p>
+        <h2 class="itemHeader">Items for <p class="yellow">Counter Strike</p>
         </h2>
         <div class="itemContainer">
             <?php foreach ($item as $itm) : ?>
@@ -148,9 +155,9 @@
                     <div class="merchantRating">
                         <p style="color:#d7c13f; margin-bottom: 0;float: left; font-size: 10pt;">
                             <?php
-                            foreach ($merchantF as $mchF) {
-                                if ($mchF['nama'] == $itm['nama_merchant']) {
-                                    echo $mchF['rating'];
+                            foreach ($merchant as $mch) {
+                                if ($mch['nama'] == $itm['nama_merchant']) {
+                                    echo $mch['rating'];
                                 } else {
                                     echo '0';
                                 }
@@ -163,7 +170,7 @@
                             </svg>
                         </div>
                     </div>
-                    <p class="itemUploadDate">Uploaded at <?= $itm['tanggal_upload'] ?></p>
+                    <p class="itemUploadDate">Uploaded at <?= date('d/m/Y', strtotime($itm['tanggal_upload'])) ?></p>
                     <button class="addtoCart">Add to cart</button>
                 </div>
             <?php endforeach; ?>
@@ -188,7 +195,7 @@
             }
         });
         $(".item").click(function() {
-            window.location.href = '<?= base_url(); ?>Shop/viewItem/'.concat('I0001');
+            window.location.href = '<?= base_url(); ?>Shop/viewItem/'.concat('IA0001');
         });
 
         $(".addtoCart").click(function() {

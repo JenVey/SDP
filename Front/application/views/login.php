@@ -28,7 +28,7 @@
   </nav>
 
   <p class="Title" style="left: 90px; top: 350px;">LET'S <em>CONNECT</em></p>
-  <p class="SubTitle">A place where we can gather and shop items.
+  <p class="SubTitle" style="left: 90px;top: 410px;">A place where we can gather and shop items.
     <br />Same time, same place.</p>
   <div class="RegButton" onclick="location.href='<?= base_url(); ?>register'"> Register now</div>
 

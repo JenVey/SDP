@@ -4,6 +4,9 @@
   font-family: Varela;
   src: url("../Fonts/VarelaRound-Regular.ttf");
 }
+.varela{
+	font-family: Varela;
+}
 body{
 	font-family: 'Open Sans', sans-serif;
 	background-color: #353B48;
@@ -11,6 +14,9 @@ body{
 	margin: 0;
 	padding: 0;
 	height: 100%;
+}
+h1,h2,h3,h4,h5,h6{
+	margin: 0;
 }
 .navbar{
 	background-color: #4A505D;
@@ -31,25 +37,18 @@ body{
 .logo:hover{
 	cursor: pointer;
 }
+
 .form-control{
 	background-color: #585D68;
 	border: none;
 	border-radius: 10px;
 	color: #FFFFFF;
 }
+
 .form-control:focus{
 	background-color: #585D68;
 	color: #FFFFFF;
 	box-shadow: none;
-}
-.Login-btn{
-	background-color: #D7C13F;
-	border-radius: 10px;
-}
-.Login-btn:hover{
-	background-color: transparent;
-	border-color: #D7C13F;
-	color: #D7C13F;
 }
 
 .Title{
@@ -155,9 +154,10 @@ body{
 	width: 84%;
 	height: auto;
 	position: absolute;
-	margin-left: 16vw;
-	text-align: center;
+	margin-left: 18vw;
+	text-align: left;
 	padding:3vh 3vh 0 3vh;
+	display: inline-block;
 }
 
 .accList{
@@ -173,8 +173,8 @@ body{
 	height: 80%;
 	overflow: auto;
 	display: grid;
-	grid-gap: 10px;
 	grid-template-rows: repeat(1,80px);
+	grid-row-gap: 10px;
 }
 
 .accItem{
@@ -229,8 +229,7 @@ body::-webkit-scrollbar-thumb {
   	border-radius: 100px;
 }
 
-
-
+/* Robby's */	
 .svgForgot{
 	position: absolute;
 	left: 45vw;
@@ -509,3 +508,4 @@ body::-webkit-scrollbar-thumb {
 .varela{
     font-family: Varela;
 }
+

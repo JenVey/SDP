@@ -1,7 +1,5 @@
 .homeButton{
 	height: 50px;
-	position: absolute;
-	left: 5vw;
 	border: none;
 	background-color: transparent;
 }
@@ -14,11 +12,35 @@ button:focus{
 	outline: none;
 }
 
-.filterContainer{
-	width: 20vw;
+.headerContainer{
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+}
+
+.gachaContainer{
+	display: flex;
+	width: 12vw;
 	height: 50px;
-	left :19vw;
-	position: absolute;
+	margin-left: 1vw;
+	align-items: center;
+	justify-content: space-between;
+	color:  #ecf0f1;
+	font-size: 16pt;
+	background-color: #8743C2;
+	border-radius: 15px;
+	padding: 0 20px;
+	border: 0;
+}
+
+.gachaContainer:hover{
+	background-color: #A75AE9;
+}
+
+.filterContainer{
+	width: 17vw;
+	height: 50px;
+	margin-left: 1vw;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -39,15 +61,11 @@ button:focus{
 }
 
 .Searchinput{
-	width: 32vw;
+	width: 25vw;
 	height: 50px;
-	position: absolute;
-	border-radius: 15px;
-	border-top-left-radius: 0;
-	border-bottom-left-radius: 0;
+	border-radius: 0 15px 15px 0;
 	border: none;
 	padding-left: 10px;
-	left: 43vw;
 	background-color: #585D68;
 	color:#ecf0f1;
 	z-index: 2;
@@ -56,8 +74,7 @@ button:focus{
 .searchButton{
 	width: 3vw;
 	height: 50px;
-	position: absolute;
-	left: 40vw;
+	margin-left: 1vw;
 	border-top-left-radius: 15px;
 	border-bottom-left-radius: 15px;
 	border: none;
@@ -71,16 +88,19 @@ button:focus{
 	color:#353B48;
 }
 
-.vl{
-	height: 30px;
-	width: 2px;
-	position: absolute;
-	left: 43vw;
-	top: 4.1vh;
-	z-index: 2;
-	background-color: #707070;
-	border-radius: 100;
+.cartButton{
+	width: 70px;
+	height: 50px;
+	margin-left: 1vw;
+	border-radius: 15px;
+	background-color: #585D68;
+	border: none;
 }
+.cartButton:focus{
+	outline:none;
+	box-shadow: 0 0 3px #D7C13F;
+}
+
 
 #filters{
 	background-color: transparent;
@@ -112,13 +132,14 @@ select:focus{
 	outline:none;
 	box-shadow: 0 0 3px #D7C13F;
 }
+
+
 .iklan{
 	display: inline-block;
 	width: 900px;
 	height: 200px;
 	background-color: #585D68;
 	margin-top: 10vh;
-	margin-left: 2vw;
 }
 
 #iklanDisplay{
@@ -132,19 +153,6 @@ select:focus{
   border-radius: 100%;
 }
 
-.cartButton{
-	width: 70px;
-	height: 50px;
-	position: absolute;
-	left: 76vw;
-	border-radius: 15px;
-	background-color: #585D68;
-	border: none;
-}
-.cartButton:focus{
-	outline:none;
-	box-shadow: 0 0 3px #D7C13F;
-}
 
 .gamesHeader{
 	text-shadow: 0px 10px 15px rgba(0,0,0,0.1),
@@ -389,11 +397,11 @@ select:focus{
 	width: 100%;
 	height: 10%;
 	border: none;
+	margin-left: 0;
 	background: transparent;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin-left: 0;
 }
 .backtoMenu:hover{
 	background-color: #f25757;
@@ -412,50 +420,3 @@ select:focus{
 	margin-bottom: 0;
 	margin-left: 30px;
 }
-
-.accList{
-	display: flex;
-	overflow: hidden;
-	flex-direction: column;
-	justify-content: space-between;
-	align-items: center;
-}
-
-.accItemContainer{
-	width: 100%;
-	height: 80%;
-	overflow: auto;
-	display: grid;
-	grid-gap: 10px;
-}
-
-.accItem{
-	width: 100%;
-	height: 80px;
-	display: flex;
-	align-items: center;
-	justify-content: flex-start;
-	border-radius: 15px;
-	text-align: left;
-}
-
-.accItem:hover{
-	background-color:rgba(76,82,93,0.44);
-	cursor: pointer;
-}
-
-.accItemContainer::-webkit-scrollbar {
-    width: 5px;
-	height: 5px;
-}
- 
-.accItemContainer::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-}
- 
-.accItemContainer::-webkit-scrollbar-thumb {
-  	background-color: #D7C13F;
-  	outline: 1px solid slategrey;
-  	border-radius: 100px;
-}
-

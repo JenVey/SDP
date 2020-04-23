@@ -27,6 +27,7 @@ class Shop extends CI_Controller
         $this->load->model('Item_model');
         $this->load->model('Merchant_model');
         $this->load->model('Game_model');
+        $this->load->model('Komen_model');
     }
 
     public function index()
@@ -41,13 +42,15 @@ class Shop extends CI_Controller
         $this->load->view('shop', $data);
     }
 
-    public function viewItem($id)
+    public function viewItem($idI)
     {
         $id = $this->session->userdata('user_id');
         $data['user'] = $this->User_model->getUserById($id);
         $data['merchantF'] = $this->Merchant_model->getMerchantByIdUser($id);
         $data['merchant'] = $this->Merchant_model->getAllMerchant();
-        $data['item'] = $this->Item_model->getItemById($id);
+        $data['item'] = $this->Item_model->getItemById($idI);
+        $data['games'] = $this->Game_model->getAllGame();
+        $data['komen'] = $this->Komen_model->getKomenByIdItem($idI);
         $this->load->view('viewItem', $data);
     }
 
