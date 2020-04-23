@@ -9,4 +9,8 @@ class Item_model extends CI_model
     {
         return $this->db->get_where('item', ['id_item' => $id])->row_array();
     }
+    public function getItemByIdMerchant($id)
+    {
+        return $this->db->get_where('item', ['id_merchant' => $id])->row_array();
+    }
 }

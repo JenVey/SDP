@@ -393,6 +393,7 @@ select:focus{
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	margin-left: 0;
 }
 .backtoMenu:hover{
 	background-color: #f25757;

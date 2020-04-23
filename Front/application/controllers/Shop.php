@@ -25,12 +25,23 @@ class Shop extends CI_Controller
         $this->load->model('User_model');
         $this->load->model('Item_model');
         $this->load->model('Merchant_model');
+        $this->load->model('Game_model');
     }
 
     public function index($id)
     {
         $data['user'] = $this->User_model->getUserById($id);
+        $data['merchant'] = $this->Merchant_model->getAllMerchant();
+
+        $data['item'] = $this->Item_model->getAllItem();
+        $data['games'] = $this->Game_model->getAllGame();
+
         $this->load->view('templates/header', $data);
         $this->load->view('shop', $data);
+    }
+
+    public function viewItem()
+    {
+        $this->load->view('viewItem');
     }
 }
