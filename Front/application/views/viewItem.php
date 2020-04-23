@@ -68,6 +68,7 @@
     <div class="bodyContainer">
 
     </div>
+
     <script>
         $(".backtoMenu").click(function() {
             window.location.href = '<?= base_url(); ?>MainMenu';

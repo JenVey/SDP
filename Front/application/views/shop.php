@@ -106,13 +106,13 @@
                 </ol>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="Images/contohIklan1.png" class="d-block w-100" alt="...">
+                        <img src="<?php echo base_url(); ?>/asset/Images/contohIklan1.png" class="d-block w-100" alt="...">
                     </div>
                     <div class="carousel-item">
-                        <img src="Images/contohIklan2.png" class="d-block w-100" alt="...">
+                        <img src="<?php echo base_url(); ?>/asset/Images/contohIklan2.png" class="d-block w-100" alt="...">
                     </div>
                     <div class="carousel-item">
-                        <img src="Images/contohIklan3.png" class="d-block w-100" alt="...">
+                        <img src="<?php echo base_url(); ?>/asset/Images/contohIklan3.png" class="d-block w-100" alt="...">
                     </div>
                 </div>
             </div>
@@ -121,10 +121,9 @@
         <h2 class="gamesHeader">Games</h2>
         <div class="gamesContainer">
             <div class="gamescollection">
-                <!--			contoh kalau mau nambah game-->
                 <?php foreach ($games as $game) : ?>
                     <div class="itemGame">
-                        <div class="img" style=" background: white; width: 50px; height: 50px; transform: skewX(5deg);"><img src="Images/csgoLogo.png" width="50" height="50" alt="" /></div>
+                        <div class="img" style=" background: white; width: 50px; height: 50px; transform: skewX(5deg);"><img src="<?php echo base_url(); ?>/asset/Images/csgoLogo.png" width="50" height="50" alt="" /></div>
                         <h5 class="titleGame" style="color: #ecf0f1; transform: skewX(5deg);"><?= $game['nama_game'] ?></h5>
                     </div>
                 <?php endforeach; ?>
