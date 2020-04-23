@@ -23,25 +23,41 @@ class Shop extends CI_Controller
     {
         parent::__construct();
         $this->load->model('User_model');
+        $this->load->model('Friend_model');
         $this->load->model('Item_model');
         $this->load->model('Merchant_model');
         $this->load->model('Game_model');
     }
 
-    public function index($id)
+    public function index()
     {
+        $id = $this->session->userdata('user_id');
         $data['user'] = $this->User_model->getUserById($id);
+        $data['merchantF'] = $this->Merchant_model->getMerchantByIdUser($id);
         $data['merchant'] = $this->Merchant_model->getAllMerchant();
-
-        $data['item'] = $this->Item_model->getAllItem();
+        $data['item'] = $this->Item_model->getAllItemOrder();
         $data['games'] = $this->Game_model->getAllGame();
-
         $this->load->view('templates/header', $data);
         $this->load->view('shop', $data);
     }
 
-    public function viewItem()
+    public function viewItem($id)
     {
-        $this->load->view('viewItem');
+        $id = $this->session->userdata('user_id');
+        $data['user'] = $this->User_model->getUserById($id);
+        $data['merchantF'] = $this->Merchant_model->getMerchantByIdUser($id);
+        $data['merchant'] = $this->Merchant_model->getAllMerchant();
+        $data['item'] = $this->Item_model->getItemById($id);
+        $this->load->view('viewItem', $data);
+    }
+
+    public function viewMerchant($idM)
+    {
+        $id = $this->session->userdata('user_id');
+        $data['user'] = $this->User_model->getUserById($id);
+        $data['merchantF'] = $this->Merchant_model->getMerchantByIdUser($id);
+        $data['merchant'] = $this->Merchant_model->getMerchantById($idM);
+        $data['item'] = $this->Item_model->getItemByIdMerchant($idM);
+        $this->load->view('viewMerchant', $data);
     }
 }

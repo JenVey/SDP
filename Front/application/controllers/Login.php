@@ -28,6 +28,7 @@ class Login extends CI_Controller
 
 	public function index()
 	{
+		//$this->session->unset_userdata($data_session);
 		$this->load->view('templates/header');
 		$this->load->view('login');
 	}
@@ -40,6 +41,7 @@ class Login extends CI_Controller
 		$user = $this->input->post('LogUsername');
 		$pass = $this->input->post('LogPass');
 
+		//echo $pass;
 		foreach ($query->result_array() as $row) {
 			if ($row['email_user'] == $user && $row['pass_user'] == $pass) {
 				$ada = true;
@@ -49,13 +51,17 @@ class Login extends CI_Controller
 				$ada = true;
 				$id = $row['id_user'];
 			}
+		}
 
-			if ($ada == true) {
-				redirect('MainMenu/index/' . $id);
-			} else {
-				$this->session->set_flashdata('flash', 'Wrong Username/Password !!!');
-				redirect('Login');
-			}
+		if ($ada == true) {
+			$data_session = array(
+				'user_id' => $id
+			);
+			$this->session->set_userdata($data_session);
+			redirect('MainMenu');
+		} else {
+			$this->session->set_flashdata('flash', 'Wrong Username/Password !!!');
+			redirect('Login');
 		}
 	}
 }

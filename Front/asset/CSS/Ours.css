@@ -505,3 +505,7 @@ body::-webkit-scrollbar-thumb {
 	color: red;
 	font-weight: lighter;
 }
+
+.varela{
+    font-family: Varela;
+}

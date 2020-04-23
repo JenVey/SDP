@@ -196,7 +196,7 @@ $id = $user['id_user'];
 		</div>
 	</div>
 </div>
-<div class="logout" href="<?= base_url(); ?>login">
+<div class="logout">
 	<svg xmlns="http://www.w3.org/2000/svg" width="70" height="60.314" viewBox="0 0 70 60.314">
 		<path id="Icon_open-account-logout" data-name="Icon open-account-logout" d="M26.25,0V8.616h35V51.7h-35v8.616H70V0ZM17.5,17.233,0,30.157,17.5,43.082V34.465h35V25.849h-35Z" fill="#f25757" />
 	</svg>
@@ -204,7 +204,10 @@ $id = $user['id_user'];
 </div>
 <script>
 	$('.gridShopMainMenu').click(function() {
-		window.location.href = '<?= base_url(); ?>Shop/index/'.concat('<?= $id ?>');
+		window.location.href = '<?= base_url(); ?>Shop';
+	});
+	$('.logout').click(function() {
+		window.location.href = '<?= base_url(); ?>Login';
 	});
 </script>
 </body>
