@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 02, 2020 at 03:33 PM
+-- Generation Time: Apr 23, 2020 at 03:30 PM
 -- Server version: 10.3.15-MariaDB
 -- PHP Version: 7.3.6
 
@@ -89,7 +89,20 @@ CREATE TABLE `channel_user` (
 DROP TABLE IF EXISTS `friend`;
 CREATE TABLE `friend` (
   `id_user1` varchar(6) NOT NULL,
-  `id_user2` varchar(6) NOT NULL
+  `id_user2` varchar(6) NOT NULL,
+  `status` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `gacha`
+--
+
+DROP TABLE IF EXISTS `gacha`;
+CREATE TABLE `gacha` (
+  `id_item` varchar(6) NOT NULL,
+  `kemungkinan` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -101,7 +114,22 @@ CREATE TABLE `friend` (
 DROP TABLE IF EXISTS `game`;
 CREATE TABLE `game` (
   `id_game` varchar(6) NOT NULL,
-  `nama_game` varchar(64) NOT NULL
+  `nama_game` varchar(64) NOT NULL,
+  `desc_game` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `iklan`
+--
+
+DROP TABLE IF EXISTS `iklan`;
+CREATE TABLE `iklan` (
+  `id_iklan` varchar(6) NOT NULL,
+  `id_merchant` varchar(6) NOT NULL,
+  `gambar` blob NOT NULL,
+  `status` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -116,6 +144,7 @@ CREATE TABLE `item` (
   `id_merchant` varchar(6) NOT NULL,
   `id_game` varchar(6) NOT NULL,
   `nama_item` text NOT NULL,
+  `desc_item` text NOT NULL,
   `harga_item` decimal(8,2) NOT NULL,
   `foto_item` blob NOT NULL,
   `link_item` text NOT NULL,
@@ -134,20 +163,8 @@ CREATE TABLE `item_komentar` (
   `id_komentar` varchar(6) NOT NULL,
   `id_item` varchar(6) NOT NULL,
   `id_user` varchar(6) NOT NULL,
-  `pesan` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `item_reply`
---
-
-DROP TABLE IF EXISTS `item_reply`;
-CREATE TABLE `item_reply` (
-  `id_reply` varchar(6) NOT NULL,
-  `id_komentar` varchar(6) NOT NULL,
-  `pesan` text NOT NULL
+  `pesan` text NOT NULL,
+  `reply` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -177,7 +194,7 @@ CREATE TABLE `merchant_rating` (
   `id_merchant` varchar(6) NOT NULL,
   `id_user` varchar(6) NOT NULL,
   `komentar` text NOT NULL,
-  `bintang` int(1) NOT NULL
+  `bintang` decimal(1,1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -190,6 +207,8 @@ DROP TABLE IF EXISTS `pembelian_item`;
 CREATE TABLE `pembelian_item` (
   `id_user` varchar(6) NOT NULL,
   `id_item` varchar(6) NOT NULL,
+  `user_acc` varchar(50) NOT NULL,
+  `keterangan` text NOT NULL,
   `tgl_transaksi` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -249,6 +268,18 @@ CREATE TABLE `pesan` (
   `pesan` text NOT NULL,
   `tanggal` date NOT NULL,
   `status` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pesan_channelroom`
+--
+
+DROP TABLE IF EXISTS `pesan_channelroom`;
+CREATE TABLE `pesan_channelroom` (
+  `id_room` varchar(6) NOT NULL,
+  `id_pesan` varchar(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -394,15 +425,33 @@ CREATE TABLE `user` (
   `foto` blob NOT NULL,
   `phone` int(13) NOT NULL,
   `saldo` decimal(10,0) NOT NULL,
-  `status` int(1) NOT NULL
+  `status` int(1) NOT NULL,
+  `no_telp` int(12) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `user`
+-- Table structure for table `user_cart`
 --
 
-INSERT INTO `user` (`id_user`, `nama_user`, `pass_user`, `email_user`, `username_user`, `trade_link`, `jenis_kelamin`, `foto`, `phone`, `saldo`, `status`) VALUES
-('UM0001', 'Marvel', 'aaa', 'marvelbp30@gmail.com', 'marv', 'aa', 'L', '', 908123897, '0', 0);
+DROP TABLE IF EXISTS `user_cart`;
+CREATE TABLE `user_cart` (
+  `id_cart` varchar(6) NOT NULL,
+  `id_user` varchar(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_cart_item`
+--
+
+DROP TABLE IF EXISTS `user_cart_item`;
+CREATE TABLE `user_cart_item` (
+  `id_cart` varchar(6) NOT NULL,
+  `id_item` varchar(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Indexes for dumped tables
@@ -444,10 +493,23 @@ ALTER TABLE `friend`
   ADD KEY `fk_id_friend2` (`id_user2`);
 
 --
+-- Indexes for table `gacha`
+--
+ALTER TABLE `gacha`
+  ADD KEY `fk_id_item_gacha` (`id_item`);
+
+--
 -- Indexes for table `game`
 --
 ALTER TABLE `game`
   ADD PRIMARY KEY (`id_game`);
+
+--
+-- Indexes for table `iklan`
+--
+ALTER TABLE `iklan`
+  ADD PRIMARY KEY (`id_iklan`),
+  ADD KEY `id_mercchant` (`id_merchant`);
 
 --
 -- Indexes for table `item`
@@ -464,13 +526,6 @@ ALTER TABLE `item_komentar`
   ADD PRIMARY KEY (`id_komentar`),
   ADD KEY `FK_item` (`id_item`),
   ADD KEY `Fk_user` (`id_user`);
-
---
--- Indexes for table `item_reply`
---
-ALTER TABLE `item_reply`
-  ADD PRIMARY KEY (`id_reply`),
-  ADD KEY `FK_komentar` (`id_komentar`);
 
 --
 -- Indexes for table `merchant`
@@ -521,6 +576,13 @@ ALTER TABLE `pertandingan_user`
 ALTER TABLE `pesan`
   ADD PRIMARY KEY (`id_pesan`),
   ADD UNIQUE KEY `fk_id_pengirim` (`id_pengirim`);
+
+--
+-- Indexes for table `pesan_channelroom`
+--
+ALTER TABLE `pesan_channelroom`
+  ADD KEY `fk_id_roomm` (`id_room`),
+  ADD KEY `fk_id_pesann` (`id_pesan`);
 
 --
 -- Indexes for table `promo`
@@ -584,6 +646,20 @@ ALTER TABLE `user`
   ADD PRIMARY KEY (`id_user`);
 
 --
+-- Indexes for table `user_cart`
+--
+ALTER TABLE `user_cart`
+  ADD PRIMARY KEY (`id_cart`),
+  ADD KEY `fk_id_user_cart` (`id_user`);
+
+--
+-- Indexes for table `user_cart_item`
+--
+ALTER TABLE `user_cart_item`
+  ADD KEY `fk_id_cart_item` (`id_cart`),
+  ADD KEY `fk_id_item_cart` (`id_item`);
+
+--
 -- Constraints for dumped tables
 --
 
@@ -615,6 +691,18 @@ ALTER TABLE `friend`
   ADD CONSTRAINT `fk_id_friend2` FOREIGN KEY (`id_user2`) REFERENCES `user` (`id_user`);
 
 --
+-- Constraints for table `gacha`
+--
+ALTER TABLE `gacha`
+  ADD CONSTRAINT `fk_id_item_gacha` FOREIGN KEY (`id_item`) REFERENCES `item` (`id_item`);
+
+--
+-- Constraints for table `iklan`
+--
+ALTER TABLE `iklan`
+  ADD CONSTRAINT `id_mercchant` FOREIGN KEY (`id_merchant`) REFERENCES `merchant` (`id_merchant`);
+
+--
 -- Constraints for table `item`
 --
 ALTER TABLE `item`
@@ -627,12 +715,6 @@ ALTER TABLE `item`
 ALTER TABLE `item_komentar`
   ADD CONSTRAINT `FK_item` FOREIGN KEY (`id_item`) REFERENCES `item` (`id_item`),
   ADD CONSTRAINT `Fk_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`);
-
---
--- Constraints for table `item_reply`
---
-ALTER TABLE `item_reply`
-  ADD CONSTRAINT `FK_komentar` FOREIGN KEY (`id_komentar`) REFERENCES `item_komentar` (`id_komentar`);
 
 --
 -- Constraints for table `merchant`
@@ -681,6 +763,13 @@ ALTER TABLE `pesan`
   ADD CONSTRAINT `fk_id_pengirim` FOREIGN KEY (`id_pengirim`) REFERENCES `user` (`id_user`);
 
 --
+-- Constraints for table `pesan_channelroom`
+--
+ALTER TABLE `pesan_channelroom`
+  ADD CONSTRAINT `fk_id_pesann` FOREIGN KEY (`id_pesan`) REFERENCES `pesan` (`id_pesan`),
+  ADD CONSTRAINT `fk_id_roomm` FOREIGN KEY (`id_room`) REFERENCES `channel_roomchat` (`id_room`);
+
+--
 -- Constraints for table `promo`
 --
 ALTER TABLE `promo`
@@ -719,6 +808,19 @@ ALTER TABLE `team_reminder`
 ALTER TABLE `tournament`
   ADD CONSTRAINT `fk_id_channell` FOREIGN KEY (`id_channel`) REFERENCES `channel` (`id_channel`),
   ADD CONSTRAINT `fk_id_game1` FOREIGN KEY (`id_game`) REFERENCES `game` (`id_game`);
+
+--
+-- Constraints for table `user_cart`
+--
+ALTER TABLE `user_cart`
+  ADD CONSTRAINT `fk_id_user_cart` FOREIGN KEY (`id_cart`) REFERENCES `user` (`id_user`);
+
+--
+-- Constraints for table `user_cart_item`
+--
+ALTER TABLE `user_cart_item`
+  ADD CONSTRAINT `fk_id_cart_item` FOREIGN KEY (`id_cart`) REFERENCES `user_cart` (`id_cart`),
+  ADD CONSTRAINT `fk_id_item_cart` FOREIGN KEY (`id_item`) REFERENCES `item` (`id_item`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
