@@ -54,8 +54,8 @@
         <div class="profileImg"><img class="profileImg" src="../R6.jpg" width="50" height="50" alt="" /></div>
         <div class="profileStats">
             <!-- Max Line 10 -->
-            <h5 class="profileName"><?= $user['nama_user'] ?></h5>
-            <h6 class="profileBalance">IDR <?= ceil($user['saldo'] ?></h6>
+            <h5 class="profileName"><?= $user['nama_user'] ?> </h5>
+            <h6 class="profileBalance">IDR <?= ceil($user['saldo']) ?> </h6>
         </div>
         <button class="TopUp">
             <svg xmlns="http://www.w3.org/2000/svg" width="20.271" height="28" viewBox="0 0 25.271 33">
@@ -133,8 +133,8 @@
                     <h5 style="color: #42b77c;margin-top: 10px;">
                         <?php
                         foreach ($merchant as $merch) {
-                            if ($merch['id_merchant'] == $item['id_merchant']) {
-                                echo $merch['nama_merchant'];
+                            if ($merch['id'] == $item['id_merchant']) {
+                                echo $merch['nama'];
                             }
                         }
                         ?>

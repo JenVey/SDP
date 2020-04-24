@@ -31,7 +31,7 @@
         </div>
         <div class="accItemContainer">
             <?php foreach ($merchantF as $mchF) : ?>
-                <div class="accItem" value="<?= $mchF['id'] ?>">
+                <div class="accItem" idMerchant="<?= $mchF['id'] ?>">
                     <div class="profileImg" style="margin-left: 0;"><img class="profileImg" src="<?= base_url(); ?>asset/Images/R6.jpg" width="50" height="50" alt="" /></div>
                     <div class="profileStats">
                         <h6 class="profileName"> <?= $mchF['nama'] ?> </h6>
@@ -128,8 +128,9 @@
         <h2 class="gamesHeader">Games</h2>
         <div class="gamesContainer">
             <div class="gamescollection">
+                <?php $ctr = 0; ?>
                 <?php foreach ($games as $game) : ?>
-                    <div class="itemGame">
+                    <div class="itemGame" idGame='<?= $game['id_game'] ?>'>
                         <div class="img" style=" background: white; width: 50px; height: 50px; transform: skewX(5deg);"><img src="<?php echo base_url(); ?>/asset/Images/csgoLogo.png" width="50" height="50" alt="" /></div>
                         <h5 class="titleGame" style="color: #ecf0f1; transform: skewX(5deg);"><?= $game['nama_game'] ?></h5>
                     </div>
@@ -137,11 +138,22 @@
             </div>
         </div>
 
-        <h2 class="itemHeader">Items for <p class="yellow">Counter Strike</p>
+        <?php
+        if (!isset($_SESSION['id_game'])) {
+            echo "<h2 class='itemHeader'>Recent Items</h2>";
+        } else {
+            foreach ($games as $game) {
+                if ($game['id_game'] == $_SESSION['id_game']) {
+                    echo "<h2 class='itemHeader'>Items for <p class='yellow'>" . $game['nama_game'] . "</p>";
+                }
+            }
+        }
+        ?>
+
         </h2>
         <div class="itemContainer">
             <?php foreach ($item as $itm) : ?>
-                <div class="item">
+                <div class="item" idItem="<?= $itm['id_item'] ?>">
                     <h5 class="itemPrice"><?= "IDR " .  ceil($itm['harga_item']) ?></h5>
                     <img class="itemImg" src="../overwatch.png" alt="" />
                     <h5 class="itemTitle"><?= $itm['nama_item'] ?></h5>
@@ -188,22 +200,27 @@
             if (filter == 0) {
                 filter = 1;
                 $("#solid_filter").css("fill", "#D7C13F");
-
             } else {
                 filter = 0;
                 $("#solid_filter").css("fill", "#1E2126");
             }
         });
         $(".item").click(function() {
-            window.location.href = '<?= base_url(); ?>Shop/viewItem/'.concat('IA0001');
+            id = $(this).attr('idItem');
+            window.location.href = '<?= base_url(); ?>Shop/viewItem/'.concat(id);
         });
 
         $(".addtoCart").click(function() {
             addCart = 1;
         });
 
+        $(".gamescollection").click(function() {
+
+        })
+
         $(".itemGame").click(function() {
-            alert("itemGame");
+            id = $(this).attr('idGame');
+            window.location.href = '<?= base_url(); ?>Shop/setGame/'.concat(id);
         });
 
         $(".TopUp").click(function() {
@@ -215,12 +232,12 @@
         });
 
         $(".accItem").click(function() {
-            //var id = e.val();
-            window.location.href = '<?= base_url(); ?>Shop/viewMerchant/'.concat('MM0001');
+            id = $(this).attr('idMerchant');
+            window.location.href = '<?= base_url(); ?>Shop/viewMerchant/'.concat(id);
         });
 
         $(".homeButton").click(function() {
-            window.location.href = '<?= base_url(); ?>Shop';
+            window.location.href = '<?= base_url(); ?>Shop/unsetGame';
         });
     </script>
 </body>

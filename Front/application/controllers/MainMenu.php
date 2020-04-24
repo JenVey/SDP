@@ -28,7 +28,7 @@ class MainMenu extends CI_Controller
 
 	public function index()
 	{
-		$id = $this->session->userdata('user_id');
+		$id = $this->session->userdata('id_user');
 		$data['user'] = $this->User_model->getUserById($id);
 		$this->load->view('templates/header', $data);
 		$this->load->view('mainMenu', $data);

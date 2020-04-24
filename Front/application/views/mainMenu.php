@@ -13,6 +13,7 @@
 <?php
 $id = $user['id_user'];
 ?>
+<!-- Hello! Where do you want to go? -->
 <p class="MainMenutitle">Hello! Where do you want to go?</p>
 <div class="gridConMainMenu">
 	<div class="gridCommMainMenu">

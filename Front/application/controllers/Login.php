@@ -28,7 +28,9 @@ class Login extends CI_Controller
 
 	public function index()
 	{
+		//$this->session->unset_userdata(array('first_thing', 'second_thing', 'third_thing', 'etc'));
 		//$this->session->unset_userdata($data_session);
+		$this->session->sess_destroy();
 		$this->load->view('templates/header');
 		$this->load->view('login');
 	}
@@ -55,7 +57,7 @@ class Login extends CI_Controller
 
 		if ($ada == true) {
 			$data_session = array(
-				'user_id' => $id
+				'id_user' => $id
 			);
 			$this->session->set_userdata($data_session);
 			redirect('MainMenu');

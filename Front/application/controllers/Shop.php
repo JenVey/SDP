@@ -32,7 +32,8 @@ class Shop extends CI_Controller
 
     public function index()
     {
-        $id = $this->session->userdata('user_id');
+        //$this->session->unset_userdata('id_game');
+        $id = $this->session->userdata('id_user');
         $data['user'] = $this->User_model->getUserById($id);
         $data['merchantF'] = $this->Merchant_model->getMerchantByIdUser($id);
         $data['merchant'] = $this->Merchant_model->getAllMerchant();
@@ -44,7 +45,7 @@ class Shop extends CI_Controller
 
     public function viewItem($idI)
     {
-        $id = $this->session->userdata('user_id');
+        $id = $this->session->userdata('id_user');
         $data['user'] = $this->User_model->getUserById($id);
         $data['merchantF'] = $this->Merchant_model->getMerchantByIdUser($id);
         $data['merchant'] = $this->Merchant_model->getAllMerchant();
@@ -56,11 +57,23 @@ class Shop extends CI_Controller
 
     public function viewMerchant($idM)
     {
-        $id = $this->session->userdata('user_id');
+        $id = $this->session->userdata('id_user');
         $data['user'] = $this->User_model->getUserById($id);
         $data['merchantF'] = $this->Merchant_model->getMerchantByIdUser($id);
         $data['merchant'] = $this->Merchant_model->getMerchantById($idM);
         $data['item'] = $this->Item_model->getItemByIdMerchant($idM);
         $this->load->view('viewMerchant', $data);
+    }
+
+    public function unsetGame()
+    {
+        $this->session->unset_userdata('id_game');
+        redirect('Shop');
+    }
+
+    public function setGame($id)
+    {
+        $this->session->set_userdata(array('id_game' => $id));
+        redirect('Shop');
     }
 }

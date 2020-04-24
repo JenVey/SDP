@@ -24,4 +24,11 @@ class Item_model extends CI_model
         $res = $this->db->query($query);
         return $res->result_array();
     }
+
+    public function getItemByIdGame($id)
+    {
+        $query = "SELECT * FROM ITEM I JOIN MERCHANT M ON M.ID_MERCHANT = I.ID_MERCHANT JOIN GAME G ON G.ID_GAME = I.ID_GAME WHERE I.ID_GAME= '" . $id . "' ORDER BY I.TANGGAL_UPLOAD DESC";
+        $res = $this->db->query($query);
+        return $res->result_array();
+    }
 }
