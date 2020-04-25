@@ -33,6 +33,7 @@ h1,h2,h3,h4,h5,h6{
 	line-height: inherit;
 	white-space: nowrap;
 	margin-left: 38px;
+	text-shadow: 4px 3px 11px rgb(34, 33, 33);
 }
 .logo:hover{
 	cursor: pointer;
@@ -173,7 +174,7 @@ h1,h2,h3,h4,h5,h6{
 	height: 80%;
 	overflow: auto;
 	display: grid;
-	grid-template-rows: repeat(1,80px);
+	grid-auto-rows: 80px;
 	grid-row-gap: 10px;
 }
 

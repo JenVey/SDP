@@ -22,25 +22,37 @@ class Shop extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->load->library('form_validation');
         $this->load->model('User_model');
         $this->load->model('Friend_model');
         $this->load->model('Item_model');
         $this->load->model('Merchant_model');
         $this->load->model('Game_model');
         $this->load->model('Komen_model');
+        $this->load->model('Reply_model');
     }
 
     public function index()
     {
-        //$this->session->unset_userdata('id_game');
-        $id = $this->session->userdata('id_user');
-        $data['user'] = $this->User_model->getUserById($id);
-        $data['merchantF'] = $this->Merchant_model->getMerchantByIdUser($id);
-        $data['merchant'] = $this->Merchant_model->getAllMerchant();
-        $data['item'] = $this->Item_model->getAllItemOrder();
-        $data['games'] = $this->Game_model->getAllGame();
-        $this->load->view('templates/header', $data);
-        $this->load->view('shop', $data);
+        if (isset($_SESSION['id_game'])) {
+            $id = $this->session->userdata('id_user');
+            $data['user'] = $this->User_model->getUserById($id);
+            $data['merchantF'] = $this->Merchant_model->getMerchantByIdUser($id);
+            $data['merchant'] = $this->Merchant_model->getAllMerchant();
+            $data['item'] = $this->Item_model->getItemByIdGame($_SESSION['id_game']);
+            $data['games'] = $this->Game_model->getAllGame();
+            $this->load->view('templates/header', $data);
+            $this->load->view('shop', $data);
+        } else {
+            $id = $this->session->userdata('id_user');
+            $data['user'] = $this->User_model->getUserById($id);
+            $data['merchantF'] = $this->Merchant_model->getMerchantByIdUser($id);
+            $data['merchant'] = $this->Merchant_model->getAllMerchant();
+            $data['item'] = $this->Item_model->getAllItemOrder();
+            $data['games'] = $this->Game_model->getAllGame();
+            $this->load->view('templates/header', $data);
+            $this->load->view('shop', $data);
+        }
     }
 
     public function viewItem($idI)
@@ -52,6 +64,7 @@ class Shop extends CI_Controller
         $data['item'] = $this->Item_model->getItemById($idI);
         $data['games'] = $this->Game_model->getAllGame();
         $data['komen'] = $this->Komen_model->getKomenByIdItem($idI);
+        $data['reply'] = $this->Reply_model->getAllReply();
         $this->load->view('viewItem', $data);
     }
 
@@ -65,6 +78,34 @@ class Shop extends CI_Controller
         $this->load->view('viewMerchant', $data);
     }
 
+    public function viewSearch($keyword)
+    {
+        $id = $this->session->userdata('id_user');
+        $data['user'] = $this->User_model->getUserById($id);
+        $data['merchantF'] = $this->Merchant_model->getMerchantByIdUser($id);
+        $data['merchant'] = $this->Merchant_model->getMerchantBySearch($keyword);
+        $data['item'] = $this->Item_model->getItemBySearch($keyword);
+        $this->load->view('viewSearch', $data);
+    }
+
+    public function viewCart()
+    {
+        $this->load->view('myCart');
+    }
+
+    public function setFilter($isi)
+    {
+        $keyword = $this->uri->segment('4');
+        $this->session->set_userdata(array('filter' => $isi));
+        redirect('Shop/viewSearch/' . $keyword);
+    }
+
+    public function unsetFilter($keyword)
+    {
+        $this->session->unset_userdata('filter');
+        redirect('Shop/viewSearch/' . $keyword);
+    }
+
     public function unsetGame()
     {
         $this->session->unset_userdata('id_game');
@@ -75,5 +116,19 @@ class Shop extends CI_Controller
     {
         $this->session->set_userdata(array('id_game' => $id));
         redirect('Shop');
+    }
+
+    public function insertComment($id)
+    {
+
+        $this->form_validation->set_rules('commentUser', 'Comment', 'required');
+
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->load->view('register');
+        } else {
+            $this->Komen_model->insertComment($id);
+            redirect('Shop/viewItem/' . $id);
+        }
     }
 }

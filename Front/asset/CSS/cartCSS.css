@@ -1,0 +1,229 @@
+.back{
+	background: transparent;
+	border: none;
+	float: left;
+}
+.titleCart{
+	margin-left: 50px;
+}
+
+.cartHeader{
+	width: 95%;
+	height: 50px;
+	margin-left: 3vw;
+	margin-top: 100px;
+}
+
+.headerText{
+	height: 30px;
+	display: flex;
+	justify-content: flex-start;
+	align-items: flex-end;
+}
+
+#checkboxall{
+	background: none;
+	border: none;
+}
+
+.headerItem{
+	margin-left: 5vw;
+	margin-bottom: 0;
+}
+
+.headerDesc{
+	margin-left: 10vw;
+	margin-bottom: 0;
+}
+
+.headerMerchant{
+	margin-left: 10vw;
+	margin-bottom: 0;
+}
+
+.headerAmount{
+	margin-left: 9vw;
+	margin-bottom: 0;
+}
+
+.headerPrice{
+	margin-left: 12.5vw;
+	margin-bottom: 0;
+}
+
+.headerSubtotal{
+	margin-left: 10vw;
+	margin-bottom: 0;
+}
+
+.cartItemContainer{
+	width: 93%;
+	height: 70vh;
+	margin-left: 3vw;
+	display: grid;
+	grid-row-gap: 30px;
+	grid-auto-rows:150px;
+	padding: 20px 0;
+}
+
+.cartItemWrapper{
+	width: 100%;
+	height: 150px;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.cartItem{
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	background-color: #585D68;
+	margin-left: 2vw;
+	border-radius: 15px;
+	box-shadow:
+	  0 3.3px 1.7px rgba(0, 0, 0, 0.035),
+	  0 8.4px 5.6px rgba(0, 0, 0, 0.054),
+	  0 27px 25px rgba(0, 0, 0, 0.08)
+	;
+}
+
+.grandTotalContainer{
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	margin-left: 2vw;
+}
+
+.grandTotalWrapper{
+	display: flex;
+	flex-direction: column;
+	align-items:flex-end;
+	width: 40%;
+	height: 100%;
+}
+
+.total{
+	width: 100%;
+	height: 50%;
+}
+
+.pembeda{
+	display: flex;
+	width: 100%;
+	height: 50%;
+	justify-content: flex-start;
+}
+
+.GrandTotal{
+	color: #F25757;
+	margin-left: 3vw;
+}
+
+.checkOut{
+	background-color: #D7C13F;
+	width: 150px;
+	height: 50px;
+	border-radius: 15px;
+	border: none;
+	margin: 1vw 4.5vw 0 0;
+	color: #ecf0f1;
+}
+
+.checkOut:disabled{
+	opacity: 0.3;
+}
+
+.checkOut:hover:enabled{
+	color: #4C525D;
+}
+
+.action{
+	width: 35px;
+	height: 90px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.removeButton{
+	background: none;
+	border: none;
+	margin-left: 0.2vw;
+}
+
+.itemImage{
+	width: 180px;
+	height: 150px;
+	margin-left: 1vw;
+	display: flex;
+	align-items: center;
+}
+
+img{
+	max-width: 100%;
+	max-height: 80%;
+}
+
+.itemDescWrapper{
+	width: 18vw;
+	height: 100%;
+	margin-left: 1vw;
+	padding: 10px;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	text-align: left;
+	color: #ecf0f1;
+	overflow: auto;
+}
+
+.price{
+	width: 200px;
+	height: 100%;
+	text-align: center;
+	margin-left: 2vw;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.amount{
+	width: 200px;
+	height: 100%;
+	margin-left: 2vw;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.minplusButton{
+	display: flex;
+	width: 70%;
+	height: 50px;
+	justify-content: space-between;
+	align-items: flex-end;
+}
+
+.amountBut{
+	border: none;
+	background-color: #585D68;
+}
+
+.subtotal{
+	width: 200px;
+	height: 100%;
+	text-align: center;
+	margin-left: 3vw;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+hr{
+	background-color: #ecf0f1;
+}
