@@ -177,7 +177,7 @@
                 <div class="item" idItem="<?= $itm['id_item'] ?>">
                     <h5 class="itemPrice"><?= "IDR " .  ceil($itm['harga_item']) ?></h5>
                     <div class="itemImgContainer">
-                        <img src="data:image/jpeg;base64,<?= base64_encode($user['foto']) ?>" alt="" />
+                        <img src="data:image/jpeg;base64,<?= base64_encode($itm['foto_item']) ?>" alt="" />
                     </div>
                     <h5 class="itemTitle"><?= $itm['nama_item'] ?></h5>
                     <h6 class="itemGameType"><?= $itm['nama_game'] ?></h6>
@@ -234,8 +234,6 @@
             }
         });
 
-
-
         $(".TopUp").click(function() {
             alert("TopUp");
         });
@@ -256,7 +254,7 @@
         $(".addtoCart").click(function() {
             addCart = 1;
             id = $(this).attr('idItem');
-            window.location.href = '<?= base_url(); ?>Shop/viewItem/'.concat(id);
+            //window.location.href = '<?= base_url(); ?>Shop/viewItem/'.concat(id);
 
         });
 

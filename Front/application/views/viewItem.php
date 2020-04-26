@@ -65,7 +65,7 @@
     </div>
 
     <div class="profile">
-        <div class="profileImg"><img class="profileImg" src="../R6.jpg" width="50" height="50" alt="" /></div>
+        <div class="profileImg"><img class="profileImg" src="data:image/jpeg;base64,<?= base64_encode($user['foto']) ?>" width="50" height="50" alt="" /></div>
         <div class="profileStats">
             <!-- Max Line 10 -->
             <h5 class="profileName"><?= $user['nama_user'] ?> </h5>
@@ -127,7 +127,7 @@
         </div>
         <div class="itemFrame">
             <div class="itemImage">
-                <img src="<?= base_url(); ?>asset/Images/csgoLogo.png" alt="">
+                <img src="data:image/jpeg;base64,<?= base64_encode($item['foto_item']) ?>" alt="" />
             </div>
             <div class="itemDetails">
                 <h3 class="varela" style="color: #ecf0f1;"> <?= $item['nama_item'] ?>
