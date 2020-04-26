@@ -1,12 +1,8 @@
 <?php
 class Item_model extends CI_model
 {
-    public function getAllItem()
-    {
-        return $this->db->get('item')->result_array();
-    }
 
-    public function getAllItemOrder()
+    public function getAllItem()
     {
         $query = "SELECT * FROM ITEM I 
         JOIN MERCHANT M ON M.ID_MERCHANT = I.ID_MERCHANT 

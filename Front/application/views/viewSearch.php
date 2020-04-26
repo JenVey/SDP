@@ -99,7 +99,7 @@
                 </div>
                 <div class="filterOption">
                     <div class="sel sel--superman">
-                        <select name="select-superpower" id="select-superpower">
+                        <select name="select-superpower" id="filters">
                             <option value="" disabled>Filter By</option>
                             <option value="newest">Newest</option>
                             <option value="oldest">Oldest</option>
@@ -130,7 +130,7 @@
 
 
 
-        <h2 class=" itemHeader">Recent Items</p>
+        <h2 class=" itemHeader">Keyword : '<?= $_SESSION['keyword'] ?>'</p>
         </h2>
         <div class="itemContainer">
             <?php foreach ($item as $itm) : ?>

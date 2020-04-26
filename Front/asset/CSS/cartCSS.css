@@ -227,3 +227,16 @@ img{
 hr{
 	background-color: #ecf0f1;
 }
+.merchantName{
+    text-decoration: none;
+    color:#63D99E;
+    margin-top: -5px;
+}
+
+.merchantName:hover{
+    color: #63D99E;
+}
+
+.itemDesc{
+    margin-top: 10px;
+}
