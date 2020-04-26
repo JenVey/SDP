@@ -5,8 +5,8 @@ class Friend_model extends CI_model
     {
         return $this->db->get('game')->result_array();
     }
-    public function getFriendByUser($id)
+    public function getFriendByIdUser($id)
     {
-        return $this->db->get_where('friend', ['id_game' => $id])->row_array();
+        return $this->db->get_where('friend', ['id_user1' => $id])->row_array();
     }
 }

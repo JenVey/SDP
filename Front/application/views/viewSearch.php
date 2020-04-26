@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>gather.owl - Item</title>
+    <title>gather.owl - Merchant</title>
     <link rel="icon" href="<?php echo base_url(); ?>asset/Images/android-chrome-512x512.png">
     <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/bootstrap.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/shopCSS.css">
@@ -18,7 +18,7 @@
 
 <body>
     <div class="accList">
-        <button class="backtoMenu">
+        <button class=" backtoMenu">
             <svg xmlns="http://www.w3.org/2000/svg" width="35" height="27.5" viewBox="0 0 40 32.5">
                 <g id="icon" transform="translate(0 -4.785)">
                     <path id="Path_1402" data-name="Path 1402" d="M39.144,37.285a.871.871,0,0,1-.793-.657h0c-.1-.3-2.573-7.328-11.823-8.721a50.176,50.176,0,0,0-7.037-.475V36.2a1.159,1.159,0,0,1-.456.965.714.714,0,0,1-.882-.063L.381,21.941a1.191,1.191,0,0,1-.381-.9,1.2,1.2,0,0,1,.381-.906L18.16,4.971a.7.7,0,0,1,.882-.055,1.147,1.147,0,0,1,.454.954v8.156c3.866.638,20.5,4.427,20.5,22.18a1.059,1.059,0,0,1-.688,1.068A.84.84,0,0,1,39.144,37.285Z" fill="#f25757" />
@@ -65,11 +65,11 @@
     </div>
 
     <div class="profile">
-        <div class="profileImg"><img class="profileImg" src="../R6.jpg" width="50" height="50" alt="" /></div>
+        <div class="profileImg"><img class="profileImg" src="<?= base_url(); ?>asset/Images/R6.jpg" width="50" height="50" alt="" /></div>
         <div class="profileStats">
             <!-- Max Line 10 -->
-            <h5 class="profileName"><?= $user['nama_user'] ?> </h5>
-            <h6 class="profileBalance">IDR <?= ceil($user['saldo']) ?> </h6>
+            <h5 class="profileName"><?= $user['nama_user'] ?></h5>
+            <h6 class="profileBalance">IDR <?= $user['saldo'] ?></h6>
         </div>
         <button class="TopUp">
             <svg xmlns="http://www.w3.org/2000/svg" width="20.271" height="28" viewBox="0 0 25.271 33">
@@ -78,8 +78,10 @@
             <h6 class="TopupText">Top-Up</h6>
         </button>
     </div>
+
     <div class="bodyContainer">
         <div class="headerContainer">
+
             <button class="homeButton">
                 <h1 class="yellow varela">gather.owl</h1>
             </button>
@@ -125,72 +127,49 @@
                 </svg>
             </button>
         </div>
-        <div class="itemFrame">
-            <div class="itemImage">
-                <img src="<?= base_url(); ?>asset/Images/csgoLogo.png" alt="">
-            </div>
-            <div class="itemDetails">
-                <h3 class="varela" style="color: #ecf0f1;"> <?= $item['nama_item'] ?>
-                    <p class="yellow" style="font-size: 10px">
-                        <?php
-                        foreach ($games as $game) {
-                            if ($game['id_game'] == $item['id_game']) {
-                                echo $game['nama_game'];
-                            }
-                        }
-                        ?>
-                    </p>
-                </h3>
 
-                <h4 style="color: #42b77c;">IDR <?= ceil($item['harga_item']) ?></h4>
-                <div class="descBox">
-                    <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
-                </div>
-                <a href="<?= base_url(); ?>/Shop/viewMerchant/<?= $item['id_merchant'] ?>">
-                    <h5 style="color: #42b77c;margin-top: 10px;">
-                        <?php
-                        foreach ($merchant as $merch) {
-                            if ($merch['id'] == $item['id_merchant']) {
-                                $namaMerchant = $merch['nama'];
-                                echo $namaMerchant;
-                            }
-                        }
-                        ?>
-                    </h5>
-                </a>
-                <p style="color: gray;font-size: 10pt; margin: 0;">Uploaded on <?= date('d/m/Y', strtotime($item['tanggal_upload'])) ?></p>
-                <button class="AddtoCart">Add to cart</button>
-            </div>
-        </div>
-        <h3 class="yellow varela" style="margin-left: 2vw;">Comments</h3>
-        <div class="enterComment">
-            <form method="post" action="<?= base_url(); ?>/Shop/insertComment/<?= $item['id_item'] ?>">
-                <textarea name="commentUser" placeholder="Wanna ask about the item?" id="commentMe" cols="169" rows="6"></textarea>
-                <input type="hidden" name="idUser" value="<?= $user['id_user'] ?>">
-                <button class="sendComment" type="submit">
-                    <h5>Send</h5>
-                </button>
-            </form>
-        </div>
-        <div class="commentSection">
-            <?php foreach ($komen as $comment) : ?>
-                <div class="commentWrapper">
-                    <div class="commentUser">
-                        <h3 class="userName"><?= $comment['nama_user'] ?></h3>
-                        <p class="comment varela"><?= $comment['pesan'] ?></p>
+
+
+        <h2 class=" itemHeader">Recent Items</p>
+        </h2>
+        <div class="itemContainer">
+            <?php foreach ($item as $itm) : ?>
+                <div class="item" idItem="<?= $itm['id_item'] ?>">
+                    <h5 class="itemPrice"><?= "IDR " .  ceil($itm['harga_item']) ?></h5>
+                    <div class="itemImgContainer">
+                        <img src="data:image/jpeg;base64,<?= base64_encode($user['foto']) ?>" alt="" />
                     </div>
-                    <div class="replyMerchant">
-                        <?php
+                    <h5 class="itemTitle"><?= $itm['nama_item'] ?></h5>
+                    <h6 class="itemGameType"><?= $itm['nama_game'] ?></h6>
+                    <p class="itemDesc">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                        ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+                        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+                    <h6 class="itemMerchant"><?= $itm['nama_merchant'] ?></h6>
+                    <div class="merchantRating">
 
-                        foreach ($reply as $rep) {
-                            if ($rep['id_komentar'] == $comment['id_komentar']) {
-                                echo "<h3 class='merchantName'>" . $namaMerchant . "</h3>";
-                                echo "<p class='comment varela'>" . $rep['pesan'] . "</p>";
+                        <?php
+                        $ada = 0;
+                        foreach ($merchant as $mch) {
+                            if ($mch['nama'] == $itm['nama_merchant']) {
+                                if (isset($mch['rating'])) {
+                                    echo "<p style='color:#d7c13f; margin-bottom: 0;float: left; font-size: 10pt;'>";
+                                    echo $mch['rating'];
+                                    echo "</p>";
+                                    echo "<svg style='float: left;margin-top: 5px;' xmlns='http://www.w3.org/2000/svg' width='10.125' height='8.62' viewBox='0 0 35.125 33.62'>";
+                                    echo "<path class='solid_star' data-name='solid star' d='M36.178,1.157,31.891,9.85l-9.592,1.4a2.1,2.1,0,0,0-1.162,3.585l6.94,6.762-1.641,9.553a2.1,2.1,0,0,0,3.046,2.213l8.581-4.51,8.581,4.51a2.1,2.1,0,0,0,3.046-2.213L48.048,21.6l6.94-6.762a2.1,2.1,0,0,0-1.162-3.585l-9.592-1.4L39.947,1.157a2.1,2.1,0,0,0-3.769,0Z' transform='translate(-20.5 0.013)' fill='#d7c13f' /></svg>";
+                                } else {
+                                    echo "<p style='color:#d7c13f; margin-bottom: 0;float: left; font-size: 10pt;'>";
+                                    echo "Unrated";
+                                    echo "</p>";
+                                }
                             }
                         }
-
                         ?>
                     </div>
+                    <p class="itemUploadDate">Uploaded at <?= date('d/m/Y', strtotime($itm['tanggal_upload'])) ?></p>
+                    <button class="addtoCart">Add to cart</button>
                 </div>
             <?php endforeach; ?>
         </div>
@@ -215,9 +194,16 @@
         $(".backtoMenu").click(function() {
             window.location.href = '<?= base_url(); ?>MainMenu';
         });
+
         $(".homeButton").click(function() {
-            window.location.href = '<?= base_url(); ?>Shop';
+            window.location.href = '<?= base_url(); ?>Shop/unsetGame/';
         });
+
+        $(".item").click(function() {
+            id = $(this).attr('idItem');
+            window.location.href = '<?= base_url(); ?>Shop/viewItem/'.concat(id);
+        });
+
         $(".accItem").click(function() {
             id = $(this).attr('idMerchant');
             window.location.href = '<?= base_url(); ?>Shop/viewMerchant/'.concat(id);

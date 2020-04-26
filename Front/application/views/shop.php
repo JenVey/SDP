@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/bootstrap.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/shopCSS.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/Ours.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/select.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="<?php echo base_url(); ?>asset/Js/jquery-min.js"></script>
     <script src="<?php echo base_url(); ?>asset/Js/bootstrap.js"></script>
     <script src="<?php echo base_url(); ?>asset/Js/textFit.js"></script>
@@ -30,27 +32,44 @@
             <div class="hl"></div>
         </div>
         <div class="accItemContainer">
-            <?php foreach ($merchant as $mch) : ?>
-                <div class="accItem">
-                    <div class="profileImg" style="margin-left: 0;"><img class="profileImg" src="<?php base_url(); ?>asset/Images/R6.jpg" width="50" height="50" alt="" /></div>
-                    <div class="profileStats">
-                        <h6 class="profileName"> <?= $mch['nama_merchant'] ?> </h6>
-                        <h6 class="profileBalance" style="float: left;">4.8</h6>
-                        <svg style="float: left;margin-top: 5px;" xmlns="http://www.w3.org/2000/svg" width="10.125" height="8.62" viewBox="0 0 35.125 33.62">
-                            <path class="solid_star" data-name="solid star" d="M36.178,1.157,31.891,9.85l-9.592,1.4a2.1,2.1,0,0,0-1.162,3.585l6.94,6.762-1.641,9.553a2.1,2.1,0,0,0,3.046,2.213l8.581-4.51,8.581,4.51a2.1,2.1,0,0,0,3.046-2.213L48.048,21.6l6.94-6.762a2.1,2.1,0,0,0-1.162-3.585l-9.592-1.4L39.947,1.157a2.1,2.1,0,0,0-3.769,0Z" transform="translate(-20.5 0.013)" fill="#d7c13f" />
-                        </svg>
+            <?php
+            if (count($merchantF) > 0) {
+                foreach ($merchantF as $mchF) : ?>
+                    <div class="accItem" idMerchant="<?= $mchF['id'] ?>">
+                        <div class="profileImg" style="margin-left: 0;"><img class="profileImg" src="<?= base_url(); ?>asset/Images/R6.jpg" width="50" height="50" alt="" /></div>
+                        <div class="profileStats">
+                            <h6 class="profileName"> <?= $mchF['nama'] ?> </h6>
+                            <?php
+                            if (isset($mchF['rating'])) {
+                                echo "<h6 class='profileBalance' style='float: left;'>";
+                                echo $mchF['rating'];
+                                echo "</h6>";
+                                echo "<svg style='float: left;margin-top: 5px;' xmlns='http://www.w3.org/2000/svg' width='10.125' height='8.62' viewBox='0 0 35.125 33.62'>";
+                                echo "<path class='solid_star' data-name='solid star' d='M36.178,1.157,31.891,9.85l-9.592,1.4a2.1,2.1,0,0,0-1.162,3.585l6.94,6.762-1.641,9.553a2.1,2.1,0,0,0,3.046,2.213l8.581-4.51,8.581,4.51a2.1,2.1,0,0,0,3.046-2.213L48.048,21.6l6.94-6.762a2.1,2.1,0,0,0-1.162-3.585l-9.592-1.4L39.947,1.157a2.1,2.1,0,0,0-3.769,0Z' transform='translate(-20.5 0.013)' fill='#d7c13f' /></svg>";
+                            } else {
+                                echo "<h6 class='profileBalance' style='float: left;'>";
+                                echo "Unrated";
+                                echo "</h6>";
+                            }
+                            ?>
+                        </div>
                     </div>
-                </div>
-            <?php endforeach; ?>
+            <?php endforeach;
+            } else {
+                echo "<div class='noAccItem'>";
+                echo "<h5>This is where all of your beloved merchants will be displayed</h5>";
+                echo "</div>";
+            }
+            ?>
         </div>
     </div>
 
     <div class="profile">
-        <div class="profileImg"><img class="profileImg" src="../R6.jpg" width="50" height="50" alt="" /></div>
+        <div class="profileImg"><img class="profileImg" src="data:image/jpeg;base64,<?= base64_encode($user['foto']) ?>" width="50" height="50" alt="" /></div>
         <div class="profileStats">
             <!-- Max Line 10 -->
             <h5 class="profileName"><?= $user['nama_user'] ?></h5>
-            <h6 class="profileBalance">IDR <?= $user['saldo'] ?></h6>
+            <h6 class="profileBalance">IDR <?= ceil($user['saldo']) ?></h6>
         </div>
         <button class="TopUp">
             <svg xmlns="http://www.w3.org/2000/svg" width="20.271" height="28" viewBox="0 0 25.271 33">
@@ -59,45 +78,53 @@
             <h6 class="TopupText">Top-Up</h6>
         </button>
     </div>
-    <div class="bodyContainer">
-        <button class="homeButton">
-            <svg xmlns="http://www.w3.org/2000/svg" width="35.38" height="32.5" viewBox="0 0 35.38 32.5">
-                <path id="Icon_ionic-md-home" data-name="Icon ionic-md-home" d="M16.983,37V26.167h8.165V37h8.3V20.75h5.307L21.065,4.5,3.375,20.75H8.682V37Z" transform="translate(-3.375 -4.5)" fill="#ecf0f1" />
-            </svg>
-        </button>
-        <div class="filterContainer">
-            <div class="filterAlpha">
-                <svg xmlns="http://www.w3.org/2000/svg" width="26.5" height="26.5" viewBox="0 0 15.998 15.999">
-                    <path id="solid_filter" data-name="solid filter" d="M15.248,0H.751a.75.75,0,0,0-.53,1.28L6,7.06V13.5a.75.75,0,0,0,.32.614l2.5,1.749A.75.75,0,0,0,10,15.248V7.06l5.779-5.78A.751.751,0,0,0,15.248,0Z" transform="translate(0)" fill="#1E2126" opacity="" 0.26 />
+    <div class="bodyContainer" style="text-align: center">
+        <div class="headerContainer">
+            <button class="homeButton">
+                <h1 class="yellow varela">gather.owl</h1>
+            </button>
+            <button class="gachaContainer">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40.5" height="40.5" viewBox="0 0 110.055 78.793">
+                    <path id="solid_box-open" data-name="solid box-open" d="M73.164,71.365a8.3,8.3,0,0,1-7.119-4.115L54.989,48.5,43.95,67.25a8.327,8.327,0,0,1-7.136,4.133,7.745,7.745,0,0,1-2.287-.334L10.97,64.154V95.46a5.588,5.588,0,0,0,4.161,5.452l37.176,9.515a10.935,10.935,0,0,0,5.33,0l37.21-9.515a5.618,5.618,0,0,0,4.161-5.452V64.154L75.451,71.031A7.745,7.745,0,0,1,73.164,71.365Zm36.557-19.733-8.855-18.08a2.794,2.794,0,0,0-2.872-1.565l-43,5.61,15.768,26.75a2.8,2.8,0,0,0,3.181,1.284l34.029-9.937A2.915,2.915,0,0,0,109.721,51.632ZM9.113,33.552.257,51.632a2.885,2.885,0,0,0,1.737,4.045l34.029,9.937A2.8,2.8,0,0,0,39.2,64.33L54.989,37.6l-43.022-5.61A2.8,2.8,0,0,0,9.113,33.552Z" transform="translate(0.042 -31.963)" fill="#1E2126" />
                 </svg>
+                <h5 style="color: #1E2126;">Gacha Crate</h5>
+            </button>
+            <div class="filterContainer">
+                <div class="filterAlpha">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="26.5" height="26.5" viewBox="0 0 15.998 15.999">
+                        <path id="solid_filter" data-name="solid filter" d="M15.248,0H.751a.75.75,0,0,0-.53,1.28L6,7.06V13.5a.75.75,0,0,0,.32.614l2.5,1.749A.75.75,0,0,0,10,15.248V7.06l5.779-5.78A.751.751,0,0,0,15.248,0Z" transform="translate(0)" fill="#1E2126" opacity="" 0.26 />
+                    </svg>
+                </div>
+                <div class="filterOption">
+                    <div class="sel sel--superman">
+                        <select name="select-superpower" id="select-superpower">
+                            <option value="" disabled>Filter By</option>
+                            <option value="newest">Newest</option>
+                            <option value="oldest">Oldest</option>
+                            <option value="expensive">Expensive</option>
+                            <option value="cheapest">Cheapest</option>
+                        </select>
+                    </div>
+                    <hr class="rule">
+                </div>
             </div>
-            <div class="filterOption">
-                <label for="filters" style="margin-bottom: 0;">Filter By : </label>
-                <select id="filters">
-                    <option value="newest">Newest</option>
-                    <option value="oldest">Oldest</option>
-                    <option value="cheapest">Cheapest</option>
-                    <option value="cheapest">Expensive</option>
-                </select>
-            </div>
+            <button class="searchButton" type="button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30.621" height="30.621" viewBox="0 0 30.621 30.621">
+                    <g id="Icon_feather-search" data-name="Icon feather-search" transform="translate(-3 -3)">
+                        <path id="Path_1128" data-name="Path 1128" d="M28.5,16.5a12,12,0,1,1-12-12A12,12,0,0,1,28.5,16.5Z" fill="none" stroke="#d7c13f" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
+                        <path id="Path_1129" data-name="Path 1129" d="M31.5,31.5l-6.525-6.525" fill="none" stroke="#d7c13f" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
+                    </g>
+                </svg>
+            </button>
+            <input name="search" type="text" class="Searchinput" placeholder="Search your favourite item or merchant here">
+            <button class="cartButton" type="button">
+                <svg id="Icon_ionic-ios-cart" data-name="Icon ionic-ios-cart" xmlns="http://www.w3.org/2000/svg" width="31.176" height="28.343" viewBox="0 0 42.176 39.343">
+                    <path id="Path_1125" data-name="Path 1125" d="M12.938,29.813a1.688,1.688,0,1,1-1.687-1.688,1.688,1.688,0,0,1,1.688,1.688Z" transform="translate(-0.291 7.843)" fill="#42b77c" />
+                    <path id="Path_1126" data-name="Path 1126" d="M28.723,29.813a1.687,1.687,0,1,1-1.687-1.688,1.687,1.687,0,0,1,1.687,1.688Z" transform="translate(9.555 7.843)" fill="#42b77c" />
+                    <path id="Path_1127" data-name="Path 1127" d="M45.543,11.928a.607.607,0,0,0-.527-.457L11.983,8.042a1.012,1.012,0,0,1-.761-.512A11.2,11.2,0,0,0,9.985,5.505C9.2,4.482,7.733,4.515,5.035,4.493A1.518,1.518,0,0,0,3.382,6.028,1.494,1.494,0,0,0,4.964,7.563,12.576,12.576,0,0,1,7.6,7.77c.477.152.862.991,1,1.72a.042.042,0,0,0,.01.033c.02.131.2,1.11.2,1.121l4.057,23.035a8.813,8.813,0,0,0,1.471,3.886,3.958,3.958,0,0,0,3.337,1.764h24a1.489,1.489,0,0,0,1.46-1.459,1.473,1.473,0,0,0-1.42-1.589H17.662a1.125,1.125,0,0,1-.842-.3,5.037,5.037,0,0,1-1.166-2.83l-.436-2.58a.06.06,0,0,1,.041-.065l28.165-5.116a.619.619,0,0,0,.5-.566l1.623-12.606A.665.665,0,0,0,45.543,11.928Z" transform="translate(-3.382 -4.493)" fill="#42b77c" />
+                </svg>
+            </button>
         </div>
-        <input name="search" type="text" class="Searchinput" placeholder="Search your favourite item or merchant here">
-        <div class="vl"></div>
-        <button class="searchButton" type="button">
-            <svg xmlns="http://www.w3.org/2000/svg" width="30.621" height="30.621" viewBox="0 0 30.621 30.621">
-                <g id="Icon_feather-search" data-name="Icon feather-search" transform="translate(-3 -3)">
-                    <path id="Path_1128" data-name="Path 1128" d="M28.5,16.5a12,12,0,1,1-12-12A12,12,0,0,1,28.5,16.5Z" fill="none" stroke="#d7c13f" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
-                    <path id="Path_1129" data-name="Path 1129" d="M31.5,31.5l-6.525-6.525" fill="none" stroke="#d7c13f" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
-                </g>
-            </svg>
-        </button>
-        <button class="cartButton" type="button">
-            <svg id="Icon_ionic-ios-cart" data-name="Icon ionic-ios-cart" xmlns="http://www.w3.org/2000/svg" width="31.176" height="28.343" viewBox="0 0 42.176 39.343">
-                <path id="Path_1125" data-name="Path 1125" d="M12.938,29.813a1.688,1.688,0,1,1-1.687-1.688,1.688,1.688,0,0,1,1.688,1.688Z" transform="translate(-0.291 7.843)" fill="#42b77c" />
-                <path id="Path_1126" data-name="Path 1126" d="M28.723,29.813a1.687,1.687,0,1,1-1.687-1.688,1.687,1.687,0,0,1,1.687,1.688Z" transform="translate(9.555 7.843)" fill="#42b77c" />
-                <path id="Path_1127" data-name="Path 1127" d="M45.543,11.928a.607.607,0,0,0-.527-.457L11.983,8.042a1.012,1.012,0,0,1-.761-.512A11.2,11.2,0,0,0,9.985,5.505C9.2,4.482,7.733,4.515,5.035,4.493A1.518,1.518,0,0,0,3.382,6.028,1.494,1.494,0,0,0,4.964,7.563,12.576,12.576,0,0,1,7.6,7.77c.477.152.862.991,1,1.72a.042.042,0,0,0,.01.033c.02.131.2,1.11.2,1.121l4.057,23.035a8.813,8.813,0,0,0,1.471,3.886,3.958,3.958,0,0,0,3.337,1.764h24a1.489,1.489,0,0,0,1.46-1.459,1.473,1.473,0,0,0-1.42-1.589H17.662a1.125,1.125,0,0,1-.842-.3,5.037,5.037,0,0,1-1.166-2.83l-.436-2.58a.06.06,0,0,1,.041-.065l28.165-5.116a.619.619,0,0,0,.5-.566l1.623-12.606A.665.665,0,0,0,45.543,11.928Z" transform="translate(-3.382 -4.493)" fill="#42b77c" />
-            </svg>
-        </button>
 
         <div class="iklan">
             <div id="iklanDisplay" class="carousel slide" data-ride="carousel">
@@ -108,13 +135,13 @@
                 </ol>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="Images/contohIklan1.png" class="d-block w-100" alt="...">
+                        <img src="<?php echo base_url(); ?>/asset/Images/contohIklan1.png" class="d-block w-100" alt="...">
                     </div>
                     <div class="carousel-item">
-                        <img src="Images/contohIklan2.png" class="d-block w-100" alt="...">
+                        <img src="<?php echo base_url(); ?>/asset/Images/contohIklan2.png" class="d-block w-100" alt="...">
                     </div>
                     <div class="carousel-item">
-                        <img src="Images/contohIklan3.png" class="d-block w-100" alt="...">
+                        <img src="<?php echo base_url(); ?>/asset/Images/contohIklan3.png" class="d-block w-100" alt="...">
                     </div>
                 </div>
             </div>
@@ -123,280 +150,135 @@
         <h2 class="gamesHeader">Games</h2>
         <div class="gamesContainer">
             <div class="gamescollection">
-                <!--			contoh kalau mau nambah game-->
+                <?php $ctr = 0; ?>
                 <?php foreach ($games as $game) : ?>
-                    <div class="itemGame">
-                        <div class="img" style=" background: white; width: 50px; height: 50px; transform: skewX(5deg);"><img src="Images/csgoLogo.png" width="50" height="50" alt="" /></div>
+                    <div class="itemGame" idGame='<?= $game['id_game'] ?>'>
+                        <div class="img" style=" background: white; width: 50px; height: 50px; transform: skewX(5deg);"><img src="<?php echo base_url(); ?>/asset/Images/csgoLogo.png" width="50" height="50" alt="" /></div>
                         <h5 class="titleGame" style="color: #ecf0f1; transform: skewX(5deg);"><?= $game['nama_game'] ?></h5>
                     </div>
                 <?php endforeach; ?>
             </div>
         </div>
-
-        <h2 class="itemHeader">Items for <p class="yellow">Overwatch</p>
+        <?php
+        if (!isset($_SESSION['id_game'])) {
+            echo "<h2 class='itemHeader'>Recent Items</h2>";
+        } else {
+            foreach ($games as $game) {
+                if ($game['id_game'] == $_SESSION['id_game']) {
+                    echo "<h2 class='itemHeader'>Items for <p class='yellow'>" . $game['nama_game'] . "</p>";
+                }
+            }
+        }
+        ?>
         </h2>
+
         <div class="itemContainer">
-            <div class="item">
-                <h5 class="itemPrice">IDR 50000</h5>
-                <img class="itemImg" src="../overwatch.png" alt="" />
-                <h5 class="itemTitle">Default Mercy Skin</h5>
-                <h6 class="itemGameType">OVERWATCH</h6>
-                <p class="itemDesc">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                    voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
-                <h6 class="itemMerchant">Untrail.ID</h6>
-                <div class="merchantRating">
-                    <p style="color:#d7c13f; margin-bottom: 0;float: left; font-size: 10pt;">4.8</p>
-                    <div>
-                        <svg style="float: left;margin-top: 5px;" xmlns="http://www.w3.org/2000/svg" width="10.125" height="8.62" viewBox="0 0 35.125 33.62">
-                            <path class="solid_star" data-name="solid star" d="M36.178,1.157,31.891,9.85l-9.592,1.4a2.1,2.1,0,0,0-1.162,3.585l6.94,6.762-1.641,9.553a2.1,2.1,0,0,0,3.046,2.213l8.581-4.51,8.581,4.51a2.1,2.1,0,0,0,3.046-2.213L48.048,21.6l6.94-6.762a2.1,2.1,0,0,0-1.162-3.585l-9.592-1.4L39.947,1.157a2.1,2.1,0,0,0-3.769,0Z" transform="translate(-20.5 0.013)" fill="#d7c13f" />
-                        </svg>
+            <?php foreach ($item as $itm) : ?>
+                <div class="item" idItem="<?= $itm['id_item'] ?>">
+                    <h5 class="itemPrice"><?= "IDR " .  ceil($itm['harga_item']) ?></h5>
+                    <div class="itemImgContainer">
+                        <img src="data:image/jpeg;base64,<?= base64_encode($user['foto']) ?>" alt="" />
                     </div>
-                </div>
-                <p class="itemUploadDate">Uploaded at 08/03/2020</p>
-                <button class="addtoCart">Add to cart</button>
-            </div>
-            <div class="item">
-                <h5 class="itemPrice">IDR 50000</h5>
-                <img class="itemImg" src="../overwatch.png" alt="" />
-                <h5 class="itemTitle">Default Mercy Skin</h5>
-                <h6 class="itemGameType">OVERWATCH</h6>
-                <p class="itemDesc">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                    voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
-                <h6 class="itemMerchant">Untrail.ID</h6>
-                <div class="merchantRating">
-                    <p style="color:#d7c13f; margin-bottom: 0;float: left; font-size: 10pt;">4.8</p>
-                    <div>
-                        <svg style="float: left;margin-top: 5px;" xmlns="http://www.w3.org/2000/svg" width="10.125" height="8.62" viewBox="0 0 35.125 33.62">
-                            <path class="solid_star" data-name="solid star" d="M36.178,1.157,31.891,9.85l-9.592,1.4a2.1,2.1,0,0,0-1.162,3.585l6.94,6.762-1.641,9.553a2.1,2.1,0,0,0,3.046,2.213l8.581-4.51,8.581,4.51a2.1,2.1,0,0,0,3.046-2.213L48.048,21.6l6.94-6.762a2.1,2.1,0,0,0-1.162-3.585l-9.592-1.4L39.947,1.157a2.1,2.1,0,0,0-3.769,0Z" transform="translate(-20.5 0.013)" fill="#d7c13f" />
-                        </svg>
+                    <h5 class="itemTitle"><?= $itm['nama_item'] ?></h5>
+                    <h6 class="itemGameType"><?= $itm['nama_game'] ?></h6>
+                    <p class="itemDesc">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                        ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+                        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+                    <h6 class="itemMerchant"><?= $itm['nama_merchant'] ?></h6>
+                    <div class="merchantRating">
+
+                        <?php
+                        $ada = 0;
+                        foreach ($merchant as $mch) {
+                            if ($mch['nama'] == $itm['nama_merchant']) {
+                                if (isset($mch['rating'])) {
+                                    echo "<p style='color:#d7c13f; margin-bottom: 0;float: left; font-size: 10pt;'>";
+                                    echo $mch['rating'];
+                                    echo "</p>";
+                                    echo "<svg style='float: left;margin-top: 5px;' xmlns='http://www.w3.org/2000/svg' width='10.125' height='8.62' viewBox='0 0 35.125 33.62'>";
+                                    echo "<path class='solid_star' data-name='solid star' d='M36.178,1.157,31.891,9.85l-9.592,1.4a2.1,2.1,0,0,0-1.162,3.585l6.94,6.762-1.641,9.553a2.1,2.1,0,0,0,3.046,2.213l8.581-4.51,8.581,4.51a2.1,2.1,0,0,0,3.046-2.213L48.048,21.6l6.94-6.762a2.1,2.1,0,0,0-1.162-3.585l-9.592-1.4L39.947,1.157a2.1,2.1,0,0,0-3.769,0Z' transform='translate(-20.5 0.013)' fill='#d7c13f' /></svg>";
+                                } else {
+                                    echo "<p style='color:#d7c13f; margin-bottom: 0;float: left; font-size: 10pt;'>";
+                                    echo "Unrated";
+                                    echo "</p>";
+                                }
+                            }
+                        }
+                        ?>
                     </div>
+                    <p class="itemUploadDate">Uploaded at <?= date('d/m/Y', strtotime($itm['tanggal_upload'])) ?></p>
+                    <button class="addtoCart">Add to cart</button>
                 </div>
-                <p class="itemUploadDate">Uploaded at 08/03/2020</p>
-                <button class="addtoCart">Add to cart</button>
-            </div>
-            <div class="item">
-                <h5 class="itemPrice">IDR 50000</h5>
-                <img class="itemImg" src="../overwatch.png" alt="" />
-                <h5 class="itemTitle">Default Mercy Skin</h5>
-                <h6 class="itemGameType">OVERWATCH</h6>
-                <p class="itemDesc">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                    voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
-                <h6 class="itemMerchant">Untrail.ID</h6>
-                <div class="merchantRating">
-                    <p style="color:#d7c13f; margin-bottom: 0;float: left; font-size: 10pt;">4.8</p>
-                    <div>
-                        <svg style="float: left;margin-top: 5px;" xmlns="http://www.w3.org/2000/svg" width="10.125" height="8.62" viewBox="0 0 35.125 33.62">
-                            <path class="solid_star" data-name="solid star" d="M36.178,1.157,31.891,9.85l-9.592,1.4a2.1,2.1,0,0,0-1.162,3.585l6.94,6.762-1.641,9.553a2.1,2.1,0,0,0,3.046,2.213l8.581-4.51,8.581,4.51a2.1,2.1,0,0,0,3.046-2.213L48.048,21.6l6.94-6.762a2.1,2.1,0,0,0-1.162-3.585l-9.592-1.4L39.947,1.157a2.1,2.1,0,0,0-3.769,0Z" transform="translate(-20.5 0.013)" fill="#d7c13f" />
-                        </svg>
-                    </div>
-                </div>
-                <p class="itemUploadDate">Uploaded at 08/03/2020</p>
-                <button class="addtoCart">Add to cart</button>
-            </div>
-            <div class="item">
-                <h5 class="itemPrice">IDR 50000</h5>
-                <img class="itemImg" src="../overwatch.png" alt="" />
-                <h5 class="itemTitle">Default Mercy Skin</h5>
-                <h6 class="itemGameType">OVERWATCH</h6>
-                <p class="itemDesc">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                    voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
-                <h6 class="itemMerchant">Untrail.ID</h6>
-                <div class="merchantRating">
-                    <p style="color:#d7c13f; margin-bottom: 0;float: left; font-size: 10pt;">4.8</p>
-                    <div>
-                        <svg style="float: left;margin-top: 5px;" xmlns="http://www.w3.org/2000/svg" width="10.125" height="8.62" viewBox="0 0 35.125 33.62">
-                            <path class="solid_star" data-name="solid star" d="M36.178,1.157,31.891,9.85l-9.592,1.4a2.1,2.1,0,0,0-1.162,3.585l6.94,6.762-1.641,9.553a2.1,2.1,0,0,0,3.046,2.213l8.581-4.51,8.581,4.51a2.1,2.1,0,0,0,3.046-2.213L48.048,21.6l6.94-6.762a2.1,2.1,0,0,0-1.162-3.585l-9.592-1.4L39.947,1.157a2.1,2.1,0,0,0-3.769,0Z" transform="translate(-20.5 0.013)" fill="#d7c13f" />
-                        </svg>
-                    </div>
-                </div>
-                <p class="itemUploadDate">Uploaded at 08/03/2020</p>
-                <button class="addtoCart">Add to cart</button>
-            </div>
-            <div class="item">
-                <h5 class="itemPrice">IDR 50000</h5>
-                <img class="itemImg" src="../overwatch.png" alt="" />
-                <h5 class="itemTitle">Default Mercy Skin</h5>
-                <h6 class="itemGameType">OVERWATCH</h6>
-                <p class="itemDesc">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                    voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
-                <h6 class="itemMerchant">Untrail.ID</h6>
-                <div class="merchantRating">
-                    <p style="color:#d7c13f; margin-bottom: 0;float: left; font-size: 10pt;">4.8</p>
-                    <div>
-                        <svg style="float: left;margin-top: 5px;" xmlns="http://www.w3.org/2000/svg" width="10.125" height="8.62" viewBox="0 0 35.125 33.62">
-                            <path class="solid_star" data-name="solid star" d="M36.178,1.157,31.891,9.85l-9.592,1.4a2.1,2.1,0,0,0-1.162,3.585l6.94,6.762-1.641,9.553a2.1,2.1,0,0,0,3.046,2.213l8.581-4.51,8.581,4.51a2.1,2.1,0,0,0,3.046-2.213L48.048,21.6l6.94-6.762a2.1,2.1,0,0,0-1.162-3.585l-9.592-1.4L39.947,1.157a2.1,2.1,0,0,0-3.769,0Z" transform="translate(-20.5 0.013)" fill="#d7c13f" />
-                        </svg>
-                    </div>
-                </div>
-                <p class="itemUploadDate">Uploaded at 08/03/2020</p>
-                <button class="addtoCart">Add to cart</button>
-            </div>
-            <div class="item">
-                <h5 class="itemPrice">IDR 50000</h5>
-                <img class="itemImg" src="../overwatch.png" alt="" />
-                <h5 class="itemTitle">Default Mercy Skin</h5>
-                <h6 class="itemGameType">OVERWATCH</h6>
-                <p class="itemDesc">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                    voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
-                <h6 class="itemMerchant">Untrail.ID</h6>
-                <div class="merchantRating">
-                    <p style="color:#d7c13f; margin-bottom: 0;float: left; font-size: 10pt;">4.8</p>
-                    <div>
-                        <svg style="float: left;margin-top: 5px;" xmlns="http://www.w3.org/2000/svg" width="10.125" height="8.62" viewBox="0 0 35.125 33.62">
-                            <path class="solid_star" data-name="solid star" d="M36.178,1.157,31.891,9.85l-9.592,1.4a2.1,2.1,0,0,0-1.162,3.585l6.94,6.762-1.641,9.553a2.1,2.1,0,0,0,3.046,2.213l8.581-4.51,8.581,4.51a2.1,2.1,0,0,0,3.046-2.213L48.048,21.6l6.94-6.762a2.1,2.1,0,0,0-1.162-3.585l-9.592-1.4L39.947,1.157a2.1,2.1,0,0,0-3.769,0Z" transform="translate(-20.5 0.013)" fill="#d7c13f" />
-                        </svg>
-                    </div>
-                </div>
-                <p class="itemUploadDate">Uploaded at 08/03/2020</p>
-                <button class="addtoCart">Add to cart</button>
-            </div>
-            <div class="item">
-                <h5 class="itemPrice">IDR 50000</h5>
-                <img class="itemImg" src="../overwatch.png" alt="" />
-                <h5 class="itemTitle">Default Mercy Skin</h5>
-                <h6 class="itemGameType">OVERWATCH</h6>
-                <p class="itemDesc">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                    voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
-                <h6 class="itemMerchant">Untrail.ID</h6>
-                <div class="merchantRating">
-                    <p style="color:#d7c13f; margin-bottom: 0;float: left; font-size: 10pt;">4.8</p>
-                    <div>
-                        <svg style="float: left;margin-top: 5px;" xmlns="http://www.w3.org/2000/svg" width="10.125" height="8.62" viewBox="0 0 35.125 33.62">
-                            <path class="solid_star" data-name="solid star" d="M36.178,1.157,31.891,9.85l-9.592,1.4a2.1,2.1,0,0,0-1.162,3.585l6.94,6.762-1.641,9.553a2.1,2.1,0,0,0,3.046,2.213l8.581-4.51,8.581,4.51a2.1,2.1,0,0,0,3.046-2.213L48.048,21.6l6.94-6.762a2.1,2.1,0,0,0-1.162-3.585l-9.592-1.4L39.947,1.157a2.1,2.1,0,0,0-3.769,0Z" transform="translate(-20.5 0.013)" fill="#d7c13f" />
-                        </svg>
-                    </div>
-                </div>
-                <p class="itemUploadDate">Uploaded at 08/03/2020</p>
-                <button class="addtoCart">Add to cart</button>
-            </div>
-            <div class="item">
-                <h5 class="itemPrice">IDR 50000</h5>
-                <img class="itemImg" src="../overwatch.png" alt="" />
-                <h5 class="itemTitle">Default Mercy Skin</h5>
-                <h6 class="itemGameType">OVERWATCH</h6>
-                <p class="itemDesc">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                    voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
-                <h6 class="itemMerchant">Untrail.ID</h6>
-                <div class="merchantRating">
-                    <p style="color:#d7c13f; margin-bottom: 0;float: left; font-size: 10pt;">4.8</p>
-                    <div>
-                        <svg style="float: left;margin-top: 5px;" xmlns="http://www.w3.org/2000/svg" width="10.125" height="8.62" viewBox="0 0 35.125 33.62">
-                            <path class="solid_star" data-name="solid star" d="M36.178,1.157,31.891,9.85l-9.592,1.4a2.1,2.1,0,0,0-1.162,3.585l6.94,6.762-1.641,9.553a2.1,2.1,0,0,0,3.046,2.213l8.581-4.51,8.581,4.51a2.1,2.1,0,0,0,3.046-2.213L48.048,21.6l6.94-6.762a2.1,2.1,0,0,0-1.162-3.585l-9.592-1.4L39.947,1.157a2.1,2.1,0,0,0-3.769,0Z" transform="translate(-20.5 0.013)" fill="#d7c13f" />
-                        </svg>
-                    </div>
-                </div>
-                <p class="itemUploadDate">Uploaded at 08/03/2020</p>
-                <button class="addtoCart">Add to cart</button>
-            </div>
-            <div class="item">
-                <h5 class="itemPrice">IDR 50000</h5>
-                <img class="itemImg" src="../overwatch.png" alt="" />
-                <h5 class="itemTitle">Default Mercy Skin</h5>
-                <h6 class="itemGameType">OVERWATCH</h6>
-                <p class="itemDesc">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                    voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
-                <h6 class="itemMerchant">Untrail.ID</h6>
-                <div class="merchantRating">
-                    <p style="color:#d7c13f; margin-bottom: 0;float: left; font-size: 10pt;">4.8</p>
-                    <div>
-                        <svg style="float: left;margin-top: 5px;" xmlns="http://www.w3.org/2000/svg" width="10.125" height="8.62" viewBox="0 0 35.125 33.62">
-                            <path class="solid_star" data-name="solid star" d="M36.178,1.157,31.891,9.85l-9.592,1.4a2.1,2.1,0,0,0-1.162,3.585l6.94,6.762-1.641,9.553a2.1,2.1,0,0,0,3.046,2.213l8.581-4.51,8.581,4.51a2.1,2.1,0,0,0,3.046-2.213L48.048,21.6l6.94-6.762a2.1,2.1,0,0,0-1.162-3.585l-9.592-1.4L39.947,1.157a2.1,2.1,0,0,0-3.769,0Z" transform="translate(-20.5 0.013)" fill="#d7c13f" />
-                        </svg>
-                    </div>
-                </div>
-                <p class="itemUploadDate">Uploaded at 08/03/2020</p>
-                <button class="addtoCart">Add to cart</button>
-            </div>
-            <div class="item">
-                <h5 class="itemPrice">IDR 50000</h5>
-                <img class="itemImg" src="../overwatch.png" alt="" />
-                <h5 class="itemTitle">Default Mercy Skin</h5>
-                <h6 class="itemGameType">OVERWATCH</h6>
-                <p class="itemDesc">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                    voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
-                <h6 class="itemMerchant">Untrail.ID</h6>
-                <div class="merchantRating">
-                    <p style="color:#d7c13f; margin-bottom: 0;float: left; font-size: 10pt;">4.8</p>
-                    <div>
-                        <svg style="float: left;margin-top: 5px;" xmlns="http://www.w3.org/2000/svg" width="10.125" height="8.62" viewBox="0 0 35.125 33.62">
-                            <path class="solid_star" data-name="solid star" d="M36.178,1.157,31.891,9.85l-9.592,1.4a2.1,2.1,0,0,0-1.162,3.585l6.94,6.762-1.641,9.553a2.1,2.1,0,0,0,3.046,2.213l8.581-4.51,8.581,4.51a2.1,2.1,0,0,0,3.046-2.213L48.048,21.6l6.94-6.762a2.1,2.1,0,0,0-1.162-3.585l-9.592-1.4L39.947,1.157a2.1,2.1,0,0,0-3.769,0Z" transform="translate(-20.5 0.013)" fill="#d7c13f" />
-                        </svg>
-                    </div>
-                </div>
-                <p class="itemUploadDate">Uploaded at 08/03/2020</p>
-                <button class="addtoCart">Add to cart</button>
-            </div>
+            <?php endforeach; ?>
         </div>
         <div class="footer">
             Copyright MorningOwl
         </div>
     </div>
+    <script src="<?= base_url(); ?>/asset/Js/select.js"></script>
     <script>
         var filter = 0;
         var addCart = 0;
         textFit($(".titleGame"));
         textFit($(".profileName"));
+
         $(".filterAlpha").click(function() {
             if (filter == 0) {
                 filter = 1;
                 $("#solid_filter").css("fill", "#D7C13F");
-
             } else {
                 filter = 0;
                 $("#solid_filter").css("fill", "#1E2126");
             }
         });
-        $(".item").click(function() {
-            if (addCart == 0) {
-                alert("item");
-            } else {
-                alert("addtocart");
-                addCart = 0;
-            }
-        });
+
         $(".addtoCart").click(function() {
             addCart = 1;
         });
-        $(".itemGame").click(function() {
-            alert("itemGame");
-        });
+
 
         $(".TopUp").click(function() {
             alert("TopUp");
         });
 
+        $(".homeButton").click(function() {
+            window.location.href = '<?= base_url(); ?>Shop/unsetGame/';
+        });
+
         $(".backtoMenu").click(function() {
-            window.location.href = '<?= base_url(); ?>MainMenu/index/'.concat('<?= $user['id_user'] ?>');
+            window.location.href = '<?= base_url(); ?>MainMenu';
+        });
+
+        $(".itemGame").click(function() {
+            id = $(this).attr('idGame');
+            window.location.href = '<?= base_url(); ?>Shop/setGame/'.concat(id);
+        });
+
+        $(".item").click(function() {
+            id = $(this).attr('idItem');
+            window.location.href = '<?= base_url(); ?>Shop/viewItem/'.concat(id);
+        });
+
+        $(".accItem").click(function() {
+            id = $(this).attr('idMerchant');
+            window.location.href = '<?= base_url(); ?>Shop/viewMerchant/'.concat(id);
+        });
+
+        $(".searchButton").click(function() {
+            isi = $(".Searchinput").val();
+            if (isi == "") {
+                alert('Search input belum diisi');
+            } else {
+                if (filter == 1) {
+                    setFilter = $('#filters').val();
+                    window.location.href = '<?= base_url(); ?>Shop/setFilter/'.concat(setFilter.concat("/")).concat(isi);
+                } else {
+                    window.location.href = '<?= base_url(); ?>Shop/unsetFilter/'.concat(isi);
+                }
+
+            }
         });
     </script>
 </body>
