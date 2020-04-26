@@ -256,11 +256,9 @@
         $(".addtoCart").click(function() {
             addCart = 1;
             id = $(this).attr('idItem');
-
             window.location.href = '<?= base_url(); ?>Shop/viewItem/'.concat(id);
 
         });
-
 
         $(".item").click(function() {
             if (addCart == 0) {
