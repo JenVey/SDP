@@ -65,7 +65,7 @@
     </div>
 
     <div class="profile">
-        <div class="profileImg"><img class="profileImg" src="<?= base_url(); ?>asset/Images/R6.jpg" width="50" height="50" alt="" /></div>
+        <div class="profileImg"><img class="profileImg" src="data:image/jpeg;base64,<?= base64_encode($user['foto']) ?>" width="50" height="50" alt="" /></div>
         <div class="profileStats">
             <!-- Max Line 10 -->
             <h5 class="profileName"><?= $user['nama_user'] ?></h5>
@@ -99,7 +99,7 @@
                 </div>
                 <div class="filterOption">
                     <div class="sel sel--superman">
-                        <select name="select-superpower" id="select-superpower">
+                        <select name="select-superpower" id="filters">
                             <option value="" disabled>Filter By</option>
                             <option value="newest">Newest</option>
                             <option value="oldest">Oldest</option>
@@ -156,11 +156,33 @@
                     </div>
                 </div>
                 <div class="buttons">
-                    <button class="merchantFollow">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="37.353" height="30" viewBox="0 0 47.353 40">
-                            <path id="Icon_awesome-heart" data-name="Icon awesome-heart" d="M42.755,4.983C37.687.813,30.15,1.563,25.5,6.2L23.676,8.009,21.854,6.2C17.211,1.563,9.665.813,4.6,4.983a12.52,12.52,0,0,0-.916,18.562l17.9,17.839a2.972,2.972,0,0,0,4.19,0l17.9-17.839a12.512,12.512,0,0,0-.906-18.562Z" transform="translate(0.001 -2.248)" fill="#3e3e3e" />
-                        </svg>
-                    </button>
+                    <?php
+                    $ada = false;
+                    foreach ($merchantF as $mchF) {
+                        foreach ($merchant as $mch) {
+                            if ($mch['id'] == $mchF['id']) {
+                                $ada = true;
+                            }
+                        }
+                    }
+
+                    if ($ada) {
+                        echo "<button class='merchantFollow' follow='1'>";
+                        echo "<svg xmlns='http://www.w3.org/2000/svg' width='37.353' height='30' viewBox='0 0 47.353 40'>";
+                        echo "<path id='Icon_awesome-heart' style='fill:#E92E55;' data-name='Icon awesome-heart' d='M42.755,4.983C37.687.813,30.15,1.563,25.5,6.2L23.676,8.009,21.854,6.2C17.211,1.563,9.665.813,4.6,4.983a12.52,12.52,0,0,0-.916,18.562l17.9,17.839a2.972,2.972,0,0,0,4.19,0l17.9-17.839a12.512,12.512,0,0,0-.906-18.562Z' transform='translate(0.001 -2.248)' fill='#3e3e3e' />";
+                        echo "</svg>";
+                        echo "</button>";
+                    } else {
+                        echo "<button class='merchantFollow' follow='0'>";
+                        echo "<svg xmlns='http://www.w3.org/2000/svg' width='37.353' height='30' viewBox='0 0 47.353 40'>";
+                        echo "<path id='Icon_awesome-heart' data-name='Icon awesome-heart' d='M42.755,4.983C37.687.813,30.15,1.563,25.5,6.2L23.676,8.009,21.854,6.2C17.211,1.563,9.665.813,4.6,4.983a12.52,12.52,0,0,0-.916,18.562l17.9,17.839a2.972,2.972,0,0,0,4.19,0l17.9-17.839a12.512,12.512,0,0,0-.906-18.562Z' transform='translate(0.001 -2.248)' fill='#3e3e3e' />";
+                        echo "</svg>";
+                        echo "</button>";
+                    }
+
+
+                    ?>
+
                     <button class="merchantChat">
                         <svg xmlns="http://www.w3.org/2000/svg" width="37.353" height="30" viewBox="0 0 56.736 44">
                             <path id="Icon_open-chat" data-name="Icon open-chat" d="M0,0V31.429l7.092-6.286h7.092V6.286H35.46V0ZM21.276,12.571V37.714H49.644L56.736,44V12.571Z" fill="#fff" />
@@ -187,7 +209,7 @@
                 <div class="item" idItem="<?= $itm['id_item'] ?>">
                     <h5 class="itemPrice"><?= "IDR " .  ceil($itm['harga_item']) ?></h5>
                     <div class="itemImgContainer">
-                        <img src="data:image/jpeg;base64,<?= base64_encode($user['foto']) ?>" alt="" />
+                        <img src="data:image/jpeg;base64,<?= base64_encode($itm['foto_item']) ?>" alt="" />
                     </div>
                     <h5 class="itemTitle"><?= $itm['nama_item'] ?></h5>
                     <h6 class="itemGameType"><?= $itm['nama_game'] ?></h6>
@@ -227,6 +249,7 @@
     <script src="<?= base_url(); ?>/asset/Js/select.js"></script>
     <script>
         var filter = 0;
+        var follow = $(".merchantFollow").attr("follow");
         var addCart = 0;
         textFit($(".titleGame"));
         textFit($(".profileName"));
@@ -238,6 +261,19 @@
             } else {
                 filter = 0;
                 $("#solid_filter").css("fill", "#1E2126");
+            }
+        });
+
+        $(".merchantFollow").click(function() {
+            //alert('a');
+            if (follow == 0) {
+                follow = 1;
+                //AJAX
+                $("#Icon_awesome-heart").css("fill", "#E92E55");
+            } else {
+                follow = 0;
+                //AJAX
+                $("#Icon_awesome-heart").css("fill", "#3e3e3e");
             }
         });
 

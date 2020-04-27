@@ -97,7 +97,7 @@
                 </div>
                 <div class="filterOption">
                     <div class="sel sel--superman">
-                        <select name="select-superpower" id="select-superpower">
+                        <select name="select-superpower" id="filters">
                             <option value="" disabled>Filter By</option>
                             <option value="newest">Newest</option>
                             <option value="oldest">Oldest</option>
@@ -177,7 +177,7 @@
                 <div class="item" idItem="<?= $itm['id_item'] ?>">
                     <h5 class="itemPrice"><?= "IDR " .  ceil($itm['harga_item']) ?></h5>
                     <div class="itemImgContainer">
-                        <img src="data:image/jpeg;base64,<?= base64_encode($user['foto']) ?>" alt="" />
+                        <img src="data:image/jpeg;base64,<?= base64_encode($itm['foto_item']) ?>" alt="" />
                     </div>
                     <h5 class="itemTitle"><?= $itm['nama_item'] ?></h5>
                     <h6 class="itemGameType"><?= $itm['nama_game'] ?></h6>
@@ -209,7 +209,7 @@
                         ?>
                     </div>
                     <p class="itemUploadDate">Uploaded at <?= date('d/m/Y', strtotime($itm['tanggal_upload'])) ?></p>
-                    <button class="addtoCart">Add to cart</button>
+                    <button class="addtoCart" idItem="<?= $itm['id_item'] ?>">Add to cart</button>
                 </div>
             <?php endforeach; ?>
         </div>
@@ -234,11 +234,6 @@
             }
         });
 
-        $(".addtoCart").click(function() {
-            addCart = 1;
-        });
-
-
         $(".TopUp").click(function() {
             alert("TopUp");
         });
@@ -256,9 +251,18 @@
             window.location.href = '<?= base_url(); ?>Shop/setGame/'.concat(id);
         });
 
-        $(".item").click(function() {
+        $(".addtoCart").click(function() {
+            addCart = 1;
             id = $(this).attr('idItem');
-            window.location.href = '<?= base_url(); ?>Shop/viewItem/'.concat(id);
+            //window.location.href = '<?= base_url(); ?>Shop/viewItem/'.concat(id);
+
+        });
+
+        $(".item").click(function() {
+            if (addCart == 0) {
+                id = $(this).attr('idItem');
+                window.location.href = '<?= base_url(); ?>Shop/viewItem/'.concat(id);
+            }
         });
 
         $(".accItem").click(function() {
@@ -267,18 +271,25 @@
         });
 
         $(".searchButton").click(function() {
+
             isi = $(".Searchinput").val();
             if (isi == "") {
                 alert('Search input belum diisi');
             } else {
+
                 if (filter == 1) {
                     setFilter = $('#filters').val();
                     window.location.href = '<?= base_url(); ?>Shop/setFilter/'.concat(setFilter.concat("/")).concat(isi);
+
                 } else {
                     window.location.href = '<?= base_url(); ?>Shop/unsetFilter/'.concat(isi);
                 }
 
             }
+        });
+
+        $(".cartButton").click(function() {
+            window.location.href = '<?= base_url(); ?>Shop/viewCart/';
         });
     </script>
 </body>

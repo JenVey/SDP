@@ -48,7 +48,7 @@ class Shop extends CI_Controller
             $data['user'] = $this->User_model->getUserById($id);
             $data['merchantF'] = $this->Merchant_model->getMerchantByIdUser($id);
             $data['merchant'] = $this->Merchant_model->getAllMerchant();
-            $data['item'] = $this->Item_model->getAllItemOrder();
+            $data['item'] = $this->Item_model->getAllItem();
             $data['games'] = $this->Game_model->getAllGame();
             $this->load->view('templates/header', $data);
             $this->load->view('shop', $data);
@@ -90,19 +90,27 @@ class Shop extends CI_Controller
 
     public function viewCart()
     {
-        $this->load->view('myCart');
+        $id = $this->session->userdata('id_user');
+        $data['user'] = $this->User_model->getUserById($id);
+        $data['merchantF'] = $this->Merchant_model->getMerchantByIdUser($id);
+        $data['item'] = $this->Item_model->getAllItem();
+
+        $this->load->view('myCart', $data);
     }
 
     public function setFilter($isi)
     {
         $keyword = $this->uri->segment('4');
         $this->session->set_userdata(array('filter' => $isi));
+        $this->session->set_userdata(array('keyword' => $keyword));
         redirect('Shop/viewSearch/' . $keyword);
     }
 
     public function unsetFilter($keyword)
     {
         $this->session->unset_userdata('filter');
+        $this->session->set_userdata(array('keyword' => $keyword));
+
         redirect('Shop/viewSearch/' . $keyword);
     }
 
@@ -130,5 +138,10 @@ class Shop extends CI_Controller
             $this->Komen_model->insertComment($id);
             redirect('Shop/viewItem/' . $id);
         }
+    }
+
+
+    public function addCart()
+    {
     }
 }
