@@ -98,135 +98,79 @@
 			<hr style="background-color: #D7C13F;">
 		</div>
 		<div class="cartItemContainer">
-			<div class="cartItemWrapper" id="item1">
-				<!-- isie id item-amount			-->
-				<input type="hidden" name="item1Storage" />
-				<div class="action">
-					<input type="checkbox" name="check1Item" id="check1Item" />
-					<button class="removeButton" onClick="removeItem(1)">
-						<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 46 41">
-							<g id="Group_191" data-name="Group 191" transform="translate(-15869.5 3007.5)">
-								<g id="Group_190" data-name="Group 190" transform="translate(136 -44)">
-									<rect id="Rectangle_302" data-name="Rectangle 302" width="43" height="38" rx="8" transform="translate(15735 -2962)" stroke-width="3" stroke="#d7c13f" stroke-linecap="round" stroke-linejoin="bevel" fill="#d7c13f" />
+			<?php
+			$ctr = 1;
+			foreach ($cart as $crt) : ?>
+				<div class="cartItemWrapper" id="item<?= $ctr ?>" idItem='<?= $crt['id_item'] ?>'>
+					<!-- isie id item-amount			-->
+					<input type="hidden" name="item<?= $ctr ?>Storage" />
+					<div class="action">
+						<input type="checkbox" name="check<?= $ctr ?>Item" id="check<?= $ctr ?>Item" />
+						<button class="removeButton" onClick="removeItem(<?= $ctr ?>)">
+							<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 46 41">
+								<g id="Group_191" data-name="Group 191" transform="translate(-15869.5 3007.5)">
+									<g id="Group_190" data-name="Group 190" transform="translate(136 -44)">
+										<rect id="Rectangle_302" data-name="Rectangle 302" width="43" height="38" rx="8" transform="translate(15735 -2962)" stroke-width="3" stroke="#d7c13f" stroke-linecap="round" stroke-linejoin="bevel" fill="#d7c13f" />
+									</g>
+									<g id="Icon_feather-trash-2" data-name="Icon feather-trash-2" transform="translate(15876.1 -3004)">
+										<path id="Path_1848" data-name="Path 1848" d="M4.5,9H28.052" transform="translate(0 -0.484)" fill="none" stroke="#4c525d" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
+										<path id="Path_1849" data-name="Path 1849" d="M25.818,8.516V27.823A2.69,2.69,0,0,1,23.2,30.581H10.117A2.69,2.69,0,0,1,7.5,27.823V8.516m3.925,0V5.758A2.69,2.69,0,0,1,14.042,3h5.234a2.69,2.69,0,0,1,2.617,2.758V8.516" transform="translate(-0.383)" fill="none" stroke="#4c525d" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
+										<path id="Path_1850" data-name="Path 1850" d="M15,16.5v8.274" transform="translate(-1.341 -1.088)" fill="none" stroke="#4c525d" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
+										<path id="Path_1851" data-name="Path 1851" d="M21,16.5v8.274" transform="translate(-2.107 -1.088)" fill="none" stroke="#4c525d" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
+									</g>
 								</g>
-								<g id="Icon_feather-trash-2" data-name="Icon feather-trash-2" transform="translate(15876.1 -3004)">
-									<path id="Path_1848" data-name="Path 1848" d="M4.5,9H28.052" transform="translate(0 -0.484)" fill="none" stroke="#4c525d" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
-									<path id="Path_1849" data-name="Path 1849" d="M25.818,8.516V27.823A2.69,2.69,0,0,1,23.2,30.581H10.117A2.69,2.69,0,0,1,7.5,27.823V8.516m3.925,0V5.758A2.69,2.69,0,0,1,14.042,3h5.234a2.69,2.69,0,0,1,2.617,2.758V8.516" transform="translate(-0.383)" fill="none" stroke="#4c525d" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
-									<path id="Path_1850" data-name="Path 1850" d="M15,16.5v8.274" transform="translate(-1.341 -1.088)" fill="none" stroke="#4c525d" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
-									<path id="Path_1851" data-name="Path 1851" d="M21,16.5v8.274" transform="translate(-2.107 -1.088)" fill="none" stroke="#4c525d" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
-								</g>
-							</g>
-						</svg>
-					</button>
-				</div>
-				<div class="cartItem">
-					<div class="itemImage">
-						<img src="Images/R6.jpg" alt="">
+							</svg>
+						</button>
 					</div>
-					<div class="itemDescWrapper">
-						<h5 class="itemName yellow">Skin Default</h5>
-						<a href="#" class="merchantName">Untrail.ID</a>
-						<div class="itemDesc">
-							<p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+					<div class="cartItem">
+						<div class="itemImage">
+							<img src="data:image/jpeg;base64,<?= base64_encode($crt['foto']) ?>" alt="">
+						</div>
+						<div class=" itemDescWrapper">
+							<h5 class="itemName yellow"><?= $crt['nama_item'] ?></h5>
+							<a href="<?= base_url(); ?>/Shop/viewMerchant/<?= $crt['id_merchant'] ?>" class="merchantName"><?= $crt['nama_merchant'] ?></a>
+							<div class="itemDesc">
+								<p><?= $crt['deskripsi'] ?></p>
+							</div>
+						</div>
+						<div class="price">
+							<h4 id="item<?= $ctr ?>Price" class="yellow">IDR <?= $crt['harga'] ?></h4>
+						</div>
+						<div class="amount">
+							<h4 id="item<?= $ctr ?>Amount" class="yellow"><?= $crt['jumlah'] ?></h4>
+							<div class="minplusButton">
+								<button class="amountBut" onClick="addAmount(<?= $ctr ?>	,0)">
+									<svg xmlns="http://www.w3.org/2000/svg" width="46" height="41" viewBox="0 0 46 41">
+										<g id="Group_185" data-name="Group 185" transform="translate(-15819.5 3056.5)">
+											<g id="Group_182" data-name="Group 182" transform="translate(86 -93)">
+												<rect id="Rectangle_302" data-name="Rectangle 302" width="43" height="38" rx="8" transform="translate(15735 -2962)" stroke-width="3" stroke="none" stroke-linecap="round" stroke-linejoin="bevel" fill="#d7c13f" />
+											</g>
+											<path id="Icon_material-add" data-name="Icon material-add" d="M28.5,19.5H7.5v-3h21Z" transform="translate(15824.7 -3054)" fill="#4C525D" />
+										</g>
+									</svg>
+								</button>
+								<button class="amountBut" onClick="addAmount(<?= $ctr ?>,1)">
+									<svg class="plus" xmlns="http://www.w3.org/2000/svg" width="46" height="41" viewBox="0 0 46 41">
+										<g id="Group_186" data-name="Group 186" transform="translate(-15879.5 3056.5)">
+											<g id="Group_184" data-name="Group 184" transform="translate(146 -93)">
+												<rect id="Rectangle_302" data-name="Rectangle 302" width="43" height="38" rx="8" transform="translate(15735 -2962)" stroke-width="3" stroke="none" stroke-linecap="round" stroke-linejoin="bevel" fill="#d7c13f" />
+											</g>
+											<path id="Icon_material-add" data-name="Icon material-add" d="M28.5,19.5h-9v9h-3v-9h-9v-3h9v-9h3v9h9Z" transform="translate(15884.7 -3054)" fill="#4C525D" />
+										</g>
+									</svg>
+								</button>
+							</div>
+						</div>
+						<div class="subtotal">
+							<h4 id="item<?= $ctr ?>Subtotal" style="color:#63D99E; ">IDR <?= $crt['subtotal'] ?></h4>
 						</div>
 					</div>
-					<div class="price">
-						<h4 id="item1Price" class="yellow">IDR 3.000.000</h4>
-					</div>
-					<div class="amount">
-						<h4 id="item1Amount" class="yellow">3</h4>
-						<div class="minplusButton">
-							<button class="amountBut" onClick="addAmount(1,0)">
-								<svg xmlns="http://www.w3.org/2000/svg" width="46" height="41" viewBox="0 0 46 41">
-									<g id="Group_185" data-name="Group 185" transform="translate(-15819.5 3056.5)">
-										<g id="Group_182" data-name="Group 182" transform="translate(86 -93)">
-											<rect id="Rectangle_302" data-name="Rectangle 302" width="43" height="38" rx="8" transform="translate(15735 -2962)" stroke-width="3" stroke="none" stroke-linecap="round" stroke-linejoin="bevel" fill="#d7c13f" />
-										</g>
-										<path id="Icon_material-add" data-name="Icon material-add" d="M28.5,19.5H7.5v-3h21Z" transform="translate(15824.7 -3054)" fill="#4C525D" />
-									</g>
-								</svg>
-							</button>
-							<button class="amountBut" onClick="addAmount(1,1)">
-								<svg class="plus" xmlns="http://www.w3.org/2000/svg" width="46" height="41" viewBox="0 0 46 41">
-									<g id="Group_186" data-name="Group 186" transform="translate(-15879.5 3056.5)">
-										<g id="Group_184" data-name="Group 184" transform="translate(146 -93)">
-											<rect id="Rectangle_302" data-name="Rectangle 302" width="43" height="38" rx="8" transform="translate(15735 -2962)" stroke-width="3" stroke="none" stroke-linecap="round" stroke-linejoin="bevel" fill="#d7c13f" />
-										</g>
-										<path id="Icon_material-add" data-name="Icon material-add" d="M28.5,19.5h-9v9h-3v-9h-9v-3h9v-9h3v9h9Z" transform="translate(15884.7 -3054)" fill="#4C525D" />
-									</g>
-								</svg>
-							</button>
-						</div>
-					</div>
-					<div class="subtotal">
-						<h4 id="item1Subtotal" style="color:#63D99E; ">IDR 9.000.000</h4>
-					</div>
 				</div>
-			</div>
-			<div class="cartItemWrapper" id="item2">
-				<!-- isie id item-amount			-->
-				<input type="hidden" name="item2Storage" />
-				<div class="action">
-					<input type="checkbox" name="check2Item" id="check2Item" />
-					<button class="removeButton" onClick="removeItem(2)">
-						<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 46 41">
-							<g id="Group_191" data-name="Group 191" transform="translate(-15869.5 3007.5)">
-								<g id="Group_190" data-name="Group 190" transform="translate(136 -44)">
-									<rect id="Rectangle_302" data-name="Rectangle 302" width="43" height="38" rx="8" transform="translate(15735 -2962)" stroke-width="3" stroke="#d7c13f" stroke-linecap="round" stroke-linejoin="bevel" fill="#d7c13f" />
-								</g>
-								<g id="Icon_feather-trash-2" data-name="Icon feather-trash-2" transform="translate(15876.1 -3004)">
-									<path id="Path_1848" data-name="Path 1848" d="M4.5,9H28.052" transform="translate(0 -0.484)" fill="none" stroke="#4c525d" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
-									<path id="Path_1849" data-name="Path 1849" d="M25.818,8.516V27.823A2.69,2.69,0,0,1,23.2,30.581H10.117A2.69,2.69,0,0,1,7.5,27.823V8.516m3.925,0V5.758A2.69,2.69,0,0,1,14.042,3h5.234a2.69,2.69,0,0,1,2.617,2.758V8.516" transform="translate(-0.383)" fill="none" stroke="#4c525d" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
-									<path id="Path_1850" data-name="Path 1850" d="M15,16.5v8.274" transform="translate(-1.341 -1.088)" fill="none" stroke="#4c525d" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
-									<path id="Path_1851" data-name="Path 1851" d="M21,16.5v8.274" transform="translate(-2.107 -1.088)" fill="none" stroke="#4c525d" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
-								</g>
-							</g>
-						</svg>
-					</button>
-				</div>
-				<div class="cartItem">
-					<div class="itemImage">
-						<img src="Images/R6.jpg" alt="">
-					</div>
-					<div class="itemDescWrapper">
-						<h5 class="itemName yellow">Skin Default</h5>
-						<div class="itemDesc">
-							<p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
-						</div>
-					</div>
-					<div class="price">
-						<h4 id="item2Price" class="yellow">IDR 100.000</h4>
-					</div>
-					<div class="amount">
-						<h4 id="item2Amount" class="yellow">2</h4>
-						<div class="minplusButton">
-							<button class="amountBut" onClick="addAmount(2,0)">
-								<svg xmlns="http://www.w3.org/2000/svg" width="46" height="41" viewBox="0 0 46 41">
-									<g id="Group_185" data-name="Group 185" transform="translate(-15819.5 3056.5)">
-										<g id="Group_182" data-name="Group 182" transform="translate(86 -93)">
-											<rect id="Rectangle_302" data-name="Rectangle 302" width="43" height="38" rx="8" transform="translate(15735 -2962)" stroke-width="3" stroke="none" stroke-linecap="round" stroke-linejoin="bevel" fill="#d7c13f" />
-										</g>
-										<path id="Icon_material-add" data-name="Icon material-add" d="M28.5,19.5H7.5v-3h21Z" transform="translate(15824.7 -3054)" fill="#4C525D" />
-									</g>
-								</svg>
-							</button>
-							<button class="amountBut" onClick="addAmount(2,1)">
-								<svg class="plus" xmlns="http://www.w3.org/2000/svg" width="46" height="41" viewBox="0 0 46 41">
-									<g id="Group_186" data-name="Group 186" transform="translate(-15879.5 3056.5)">
-										<g id="Group_184" data-name="Group 184" transform="translate(146 -93)">
-											<rect id="Rectangle_302" data-name="Rectangle 302" width="43" height="38" rx="8" transform="translate(15735 -2962)" stroke-width="3" stroke="none" stroke-linecap="round" stroke-linejoin="bevel" fill="#d7c13f" />
-										</g>
-										<path id="Icon_material-add" data-name="Icon material-add" d="M28.5,19.5h-9v9h-3v-9h-9v-3h9v-9h3v9h9Z" transform="translate(15884.7 -3054)" fill="#4C525D" />
-									</g>
-								</svg>
-							</button>
-						</div>
-					</div>
-					<div class="subtotal">
-						<h4 id="item2Subtotal" style="color:#63D99E; ">IDR 200.000</h4>
-					</div>
-				</div>
-			</div>
+			<?php
+				$ctr++;
+			endforeach;
+			?>
+
 			<div class="cartItemWrapper">
 				<div class="grandTotalContainer">
 					<div class="grandTotalWrapper">
@@ -336,7 +280,18 @@
 		}
 
 		function removeItem(id) {
-			$("#item" + id).remove();
+			idI = $("#item" + id).attr("idItem");
+			$.ajax({
+				url: "<?= base_url(); ?>Shop/removeCart",
+				method: "post",
+				data: {
+					idItem: idI
+				},
+				success: function(result) {
+					$("#item" + id).remove();
+				}
+			});
+
 		}
 
 		$(".backtoMenu").click(function() {

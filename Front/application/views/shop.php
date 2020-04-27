@@ -146,14 +146,25 @@
                 </div>
             </div>
         </div>
-
+        <div class="success" style="left: 500px;top:150px; position:fixed;">
+            <div class="check">
+                <div class="textVeri" style="left: 350px;">Success!!!</div>
+                <div class="textExp" style="left: 295px;">Add to your cart</div>
+                <svg id=centang1 xmlns="http://www.w3.org/2000/svg" width="215" height="215" viewBox="0 0 215 215">
+                    <ellipse id="Ellipse_58" data-name="Ellipse 58" cx="107.5" cy="107.5" rx="107.5" ry="107.5" fill="#69f0ae" />
+                </svg>
+                <svg id="centang2" xmlns="http://www.w3.org/2000/svg" width="134.385" height="117.583" viewBox="0 0 134.385 117.583">
+                    <path id="Path_1265" data-name="Path 1265" d="M319.351,289.686l40.308,36.955,57.109-83.981,20.167,16.8L359.659,360.243,302.55,296.416Z" transform="translate(-302.55 -242.66)" fill="#fff" />
+                </svg>
+            </div>
+        </div>
         <h2 class="gamesHeader">Games</h2>
         <div class="gamesContainer">
             <div class="gamescollection">
                 <?php $ctr = 0; ?>
                 <?php foreach ($games as $game) : ?>
                     <div class="itemGame" idGame='<?= $game['id_game'] ?>'>
-                        <div class="img" style=" background: white; width: 50px; height: 50px; transform: skewX(5deg);"><img src="<?php echo base_url(); ?>/asset/Images/csgoLogo.png" width="50" height="50" alt="" /></div>
+                        <div class="img" style=" background: white; width: 50px; height: 50px; transform: skewX(5deg);"><img src="data:image/jpeg;base64,<?= base64_encode($user['foto']) ?>" width="50" height="50" alt="" /></div>
                         <h5 class="titleGame" style="color: #ecf0f1; transform: skewX(5deg);"><?= $game['nama_game'] ?></h5>
                     </div>
                 <?php endforeach; ?>
@@ -213,6 +224,7 @@
                 </div>
             <?php endforeach; ?>
         </div>
+
         <div class="footer">
             Copyright MorningOwl
         </div>
@@ -223,6 +235,7 @@
         var addCart = 0;
         textFit($(".titleGame"));
         textFit($(".profileName"));
+        $('.success').hide();
 
         $(".filterAlpha").click(function() {
             if (filter == 0) {
@@ -254,8 +267,26 @@
         $(".addtoCart").click(function() {
             addCart = 1;
             id = $(this).attr('idItem');
-            //window.location.href = '<?= base_url(); ?>Shop/viewItem/'.concat(id);
+            $.ajax({
+                url: "<?= base_url(); ?>Shop/addCart",
+                method: "post",
+                data: {
+                    idItem: id
+                },
+                success: function(result) {
+                    addCart = 0;
+                    $('.success').fadeIn("slow");
+                }
+            });
 
+        });
+
+        $(document).mouseup(function(e) {
+            var container = $(".success");
+            // If the target of the click isn't the container
+            if (!container.is(e.target) && container.has(e.target).length === 0) {
+                $(".success").fadeOut("slow");
+            }
         });
 
         $(".item").click(function() {

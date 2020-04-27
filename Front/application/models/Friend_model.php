@@ -16,4 +16,11 @@ class Friend_model extends CI_model
         $query = "DELETE FROM FRIEND  WHERE ID_USER1 = '" . $id . "' AND ID_USER2 = '" . $idM . "' ";
         $this->db->query($query);
     }
+
+    public function likeMerchant($idM)
+    {
+        $id = $this->session->userdata('id_user');
+        $query = "INSERT INTO FRIEND(ID_USER1,ID_USER2) VALUES('" . $id . "' , '" . $idM . "' )";
+        $this->db->query($query);
+    }
 }

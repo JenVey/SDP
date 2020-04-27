@@ -249,6 +249,7 @@
                 </div>
             <?php endforeach; ?>
         </div>
+
     </div>
     <script src="<?= base_url(); ?>/asset/Js/select.js"></script>
     <script>
@@ -273,6 +274,16 @@
             id = $(".merchantName").attr("idMerchant");
             if (follow == 0) {
                 follow = 1;
+                $.ajax({
+                    url: "<?= base_url(); ?>Shop/likeMerchant",
+                    method: "post",
+                    data: {
+                        idMerchant: id
+                    },
+                    success: function(result) {
+
+                    }
+                });
                 $("#Icon_awesome-heart").css("fill", "#E92E55");
 
             } else {
@@ -285,9 +296,7 @@
                         idMerchant: id
                     },
                     success: function(result) {
-                        if (result) {
-                            window.location.href = '<?= base_url(); ?>Shop/viewMerchant/'.concat(id);
-                        }
+
                     }
                 });
                 $("#Icon_awesome-heart").css("fill", "#3e3e3e");

@@ -23,7 +23,7 @@ class Komen_model extends CI_model
         $komen = $this->input->post('commentUser');
         $user = $this->input->post('idUser');
 
-        $ctr = 0;
+        $ctr = 1;
         $cekNewId = 'K' . substr(strtoupper($komen), 0, 1);
         foreach ($query->result_array() as $row) {
             $cekId = substr(strtoupper($row['id_komentar']), 0, 2);

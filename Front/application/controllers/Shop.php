@@ -29,7 +29,7 @@ class Shop extends CI_Controller
         $this->load->model('Merchant_model');
         $this->load->model('Game_model');
         $this->load->model('Komen_model');
-        $this->load->model('Reply_model');
+        $this->load->model('Cart_model');
     }
 
     public function index()
@@ -64,7 +64,6 @@ class Shop extends CI_Controller
         $data['item'] = $this->Item_model->getItemById($idI);
         $data['games'] = $this->Game_model->getAllGame();
         $data['komen'] = $this->Komen_model->getKomenByIdItem($idI);
-        $data['reply'] = $this->Reply_model->getAllReply();
         $this->load->view('viewItem', $data);
     }
 
@@ -94,6 +93,7 @@ class Shop extends CI_Controller
         $data['user'] = $this->User_model->getUserById($id);
         $data['merchantF'] = $this->Merchant_model->getMerchantByIdUser($id);
         $data['item'] = $this->Item_model->getAllItem();
+        $data['cart'] = $this->Cart_model->getCartByIdUser($id);
 
         $this->load->view('myCart', $data);
     }
@@ -145,10 +145,23 @@ class Shop extends CI_Controller
     {
         $idM = $this->input->post('idMerchant');
         $this->Friend_model->unlikeMerchant($idM);
-        return true;
+    }
+
+    public function likeMerchant()
+    {
+        $idM = $this->input->post('idMerchant');
+        $this->Friend_model->likeMerchant($idM);
     }
 
     public function addCart()
     {
+        $idI = $this->input->post('idItem');
+        $this->Cart_model->addCart($idI);
+    }
+
+    public function removeCart()
+    {
+        $idI = $this->input->post('idItem');
+        $this->Cart_model->removeCart($idI);
     }
 }

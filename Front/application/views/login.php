@@ -66,7 +66,7 @@
 
   <div class="success">
     <div class="check">
-      <div class="textVeri">Verification Has Been Sent</div>
+      <div class="textVeri">SUCCESS</div>
       <div class="textExp">The mail will expire in 24 hours</div>
       <svg id=centang1 xmlns="http://www.w3.org/2000/svg" width="215" height="215" viewBox="0 0 215 215">
         <ellipse id="Ellipse_58" data-name="Ellipse 58" cx="107.5" cy="107.5" rx="107.5" ry="107.5" fill="#69f0ae" />

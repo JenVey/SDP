@@ -180,16 +180,8 @@
                         <p class="comment varela"><?= $comment['pesan'] ?></p>
                     </div>
                     <div class="replyMerchant">
-                        <?php
-
-                        foreach ($reply as $rep) {
-                            if ($rep['id_komentar'] == $comment['id_komentar']) {
-                                echo "<h3 class='merchantName'>" . $namaMerchant . "</h3>";
-                                echo "<p class='comment varela'>" . $rep['pesan'] . "</p>";
-                            }
-                        }
-
-                        ?>
+                        <h3 class="merchantName"> <?= $namaMerchant ?></h3>
+                        <p class="comment varela"> <?= $comment['reply'] ?></p>
                     </div>
                 </div>
             <?php endforeach; ?>
