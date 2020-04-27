@@ -137,7 +137,7 @@
 							<h4 id="item<?= $ctr ?>Price" class="yellow">IDR <?= $crt['harga'] ?></h4>
 						</div>
 						<div class="amount">
-							<h4 id="item<?= $ctr ?>Amount" class="yellow"><?= $crt['jumlah'] ?></h4>
+							<h4 id="item<?= $ctr ?>Amount" class="yellow"><?= $crt['jumlah'] ?>/<?= $crt['stok'] ?></h4>
 							<div class="minplusButton">
 								<button class="amountBut" onClick="addAmount(<?= $ctr ?>	,0)">
 									<svg xmlns="http://www.w3.org/2000/svg" width="46" height="41" viewBox="0 0 46 41">
@@ -181,7 +181,7 @@
 							</div>
 							<div class="pembeda">
 								<h4 style="color: #ecf0f1; margin-left: 5vw;">Your Balance :</h4>
-								<h4 class="balance yellow" style="margin-left: 3vw;">IDR 15.000.000</h4>
+								<h4 class="balance yellow" style="margin-left: 3vw;">IDR <?= $user['saldo'] ?></h4>
 							</div>
 						</div>
 						<button class="checkOut">
@@ -209,6 +209,15 @@
 			}
 			ctr--;
 			id = ctr;
+			for (i = 1; i <= id; i++) {
+				var price = $("#item" + i + "Price").html();
+				var amount = $("#item" + id + "Amount").html();
+				amount = amount.substring(0, amount.indexOf('/'));
+				price = price.substring(4, price.length);
+				$("#item" + i + "Price").html("IDR " + addCommas(price));
+				var subtotal = price * amount;
+				$("#item" + i + "Subtotal").html("IDR " + addCommas(subtotal));
+			}
 		});
 
 		function addGrandtotal() {
@@ -253,13 +262,17 @@
 
 		function addAmount(id, jenis) {
 			var amount = $("#item" + id + "Amount").html();
+			amount = amount.substring(0, amount.indexOf('/'));
 			amount = parseInt(amount);
+			var stok = $("#item" + id + "Amount").html();
+			stok = stok.substring(stok.indexOf('/') + 1, stok.length);
+			stok = parseInt(stok);
 			if (jenis == 0) {
 				if (amount != 0) amount -= 1;
 			} else {
-				amount += 1;
+				if (stok > amount) amount += 1;
 			}
-			$("#item" + id + "Amount").html(amount);
+			$("#item" + id + "Amount").html(amount + "/" + stok);
 			var price = $("#item" + id + "Price").html();
 			price = price.replace(/[^a-z0-9\s]/gi, '');
 			price = price.substring(4, price.length);

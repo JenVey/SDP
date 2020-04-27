@@ -67,4 +67,37 @@ class Item_model extends CI_model
         $res = $this->db->query($query);
         return $res->result_array();
     }
+
+    public function getItemBySearchM($keyword)
+    {
+        $idM = $_SESSION['id_merchant'];
+        if (isset($_SESSION['filter'])) {
+            $query = "SELECT * FROM ITEM I 
+            JOIN MERCHANT M ON M.ID_MERCHANT = I.ID_MERCHANT 
+            JOIN GAME G ON G.ID_GAME = I.ID_GAME 
+            WHERE I.NAMA_ITEM LIKE '%" . $keyword . "%' 
+            AND M.ID_MERCHANT = '" . $idM . "'
+            ORDER BY CASE WHEN I.NAMA_ITEM LIKE '" . $keyword . "%' THEN 0 ELSE 1 END ";
+
+            if ($_SESSION['filter'] == "newest") {
+                $query = $query . ", I.TANGGAL_UPLOAD DESC";
+            } else if ($_SESSION['filter'] == "oldest") {
+                $query = $query . ", I.TANGGAL_UPLOAD ASC";
+            } else if ($_SESSION['filter'] == "cheapest") {
+                $query = $query . ", I.HARGA_ITEM ASC";
+            } else {
+                $query = $query . ", I.HARGA_ITEM DESC";
+            }
+        } else {
+            $query = "SELECT * FROM ITEM I 
+            JOIN MERCHANT M ON M.ID_MERCHANT = I.ID_MERCHANT 
+            JOIN GAME G ON G.ID_GAME = I.ID_GAME 
+            WHERE I.NAMA_ITEM LIKE '%" . $keyword . "%' 
+            AND M.ID_MERCHANT = '" . $idM . "'
+            ORDER BY CASE WHEN I.NAMA_ITEM LIKE '" . $keyword . "%' THEN 0 ELSE 1 END, I.NAMA_ITEM";
+        }
+
+        $res = $this->db->query($query);
+        return $res->result_array();
+    }
 }

@@ -70,6 +70,7 @@ class Shop extends CI_Controller
     public function viewMerchant($idM)
     {
         $id = $this->session->userdata('id_user');
+        $this->session->set_userdata(array('id_merchant' => $idM));
         $data['user'] = $this->User_model->getUserById($id);
         $data['merchantF'] = $this->Merchant_model->getMerchantByIdUser($id);
         $data['merchant'] = $this->Merchant_model->getMerchantById($idM);
@@ -77,8 +78,21 @@ class Shop extends CI_Controller
         $this->load->view('viewMerchant', $data);
     }
 
+    public function viewSearchM($keyword)
+    {
+        $id = $this->session->userdata('id_user');
+        $idM = $this->session->userdata('id_merchant');
+        $data['user'] = $this->User_model->getUserById($id);
+        $data['merchantF'] = $this->Merchant_model->getMerchantByIdUser($id);
+        $data['merchant'] = $this->Merchant_model->getMerchantById($idM);
+        $data['item'] = $this->Item_model->getItemBySearchM($keyword);
+        $this->session->unset_userdata('id_merchant');
+        $this->load->view('viewSearchM', $data);
+    }
+
     public function viewSearch($keyword)
     {
+
         $id = $this->session->userdata('id_user');
         $data['user'] = $this->User_model->getUserById($id);
         $data['merchantF'] = $this->Merchant_model->getMerchantByIdUser($id);
@@ -111,8 +125,29 @@ class Shop extends CI_Controller
         $this->session->unset_userdata('filter');
         $this->session->set_userdata(array('keyword' => $keyword));
 
-        redirect('Shop/viewSearch/' . $keyword);
+        if (isset($_SESSION['id_merchant'])) {
+            redirect('Shop/viewSearchM/' . $keyword);
+        } else {
+            redirect('Shop/viewSearch/' . $keyword);
+        }
     }
+
+    public function setMerchant($idM)
+    {
+        $keyword = $this->uri->segment('4');
+        $this->session->set_userdata(array('id_merchant' => $idM));
+        redirect('Shop/unsetFilter/' . $keyword);
+    }
+
+    public function setMerchantF($filter)
+    {
+        $keyword = $this->uri->segment('4');
+        $idM = $this->uri->segment('5');
+        $this->session->set_userdata(array('id_merchant' => $idM));
+
+        redirect('Shop/setFilter/' . $filter . "/" . $keyword);
+    }
+
 
     public function unsetGame()
     {
@@ -139,7 +174,6 @@ class Shop extends CI_Controller
             redirect('Shop/viewItem/' . $id);
         }
     }
-
 
     public function unlikeMerchant()
     {

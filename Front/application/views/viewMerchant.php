@@ -270,7 +270,6 @@
         });
 
         $(".merchantFollow").click(function() {
-            //alert('a');
             id = $(".merchantName").attr("idMerchant");
             if (follow == 0) {
                 follow = 1;
@@ -301,6 +300,7 @@
                 });
                 $("#Icon_awesome-heart").css("fill", "#3e3e3e");
             }
+
         });
 
         $(".backtoMenu").click(function() {
@@ -319,6 +319,25 @@
         $(".accItem").click(function() {
             id = $(this).attr('idMerchant');
             window.location.href = '<?= base_url(); ?>Shop/viewMerchant/'.concat(id);
+        });
+
+        $(".searchButton").click(function() {
+            idM = $(".merchantName").attr("idMerchant");
+            alert(idM);
+            isi = $(".Searchinput").val();
+            if (isi == "") {
+                alert('Search input belum diisi');
+            } else {
+
+                if (filter == 1) {
+                    setFilter = $('#filters').val();
+                    window.location.href = '<?= base_url(); ?>Shop/setMerchantF/'.concat(setFilter.concat("/")).concat(isi.concat("/")).concat(idM);
+
+                } else {
+                    window.location.href = '<?= base_url(); ?>Shop/setMerchant/'.concat(idM.concat("/")).concat(isi);
+                }
+
+            }
         });
     </script>
 </body>

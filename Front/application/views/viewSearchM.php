@@ -128,36 +128,87 @@
             </button>
         </div>
 
-
-
-        <h2 class=" itemHeader">Keyword : '<?= $_SESSION['keyword'] ?>'</p>
-        </h2>
-        <div class="merchantContainer">
-            <?php foreach ($merchant as $mch) : ?>
-
-                <div class="merchantAcc" idMerchant='<?= $mch['id'] ?>'>
-                    <div class="merchantIMG"><img src="data:image/jpeg;base64,<?= base64_encode($mch['foto']) ?>" width="60" height="60" alt="" /></div>
-                    <div class="merchantDetails">
-                        <h5 style="color: #ecf0f1;"><?= $mch['nama'] ?></h5>
+        <div class="filterSearchContainer">
+            <div class="merchantInfo">
+                <div class="merchantWrapper">
+                    <img src="Images/untrail.jpeg" width="50" height="50" alt="" class="merchantImg">
+                    <h4 class="merchantName" <?php
+                                                foreach ($merchant as $mch) {
+                                                    echo "idMerchant='" . $mch['id'] . "'";
+                                                }
+                                                ?>>
                         <?php
-                        if (isset($mch['rating'])) {
-                            echo "<p class='rating yellow' style='margin-bottom: 0; '>";
-                            echo $mch['rating'];
-                            echo "<svg style='margin-left: 1px; margin-bottom: 5px;' xmlns='http://www.w3.org/2000/svg' width='10.125' height='8.62' viewBox='0 0 35.125 33.62'>";
-                            echo "<path class='solid_star' data-name='solid star' d='M36.178,1.157,31.891,9.85l-9.592,1.4a2.1,2.1,0,0,0-1.162,3.585l6.94,6.762-1.641,9.553a2.1,2.1,0,0,0,3.046,2.213l8.581-4.51,8.581,4.51a2.1,2.1,0,0,0,3.046-2.213L48.048,21.6l6.94-6.762a2.1,2.1,0,0,0-1.162-3.585l-9.592-1.4L39.947,1.157a2.1,2.1,0,0,0-3.769,0Z' transform='translate(-20.5 0.013)' fill='#d7c13f' />";
-                            echo "</svg>";
-                        } else {
-                            echo "<p class='rating yellow' style='margin-bottom: 0; '>";
-                            echo "Unrated";
-                            echo "</p>";
-                        }
+                        foreach ($merchant as $mch) {
+                            $idM = $mch['id'];
+                            echo $mch['nama'];
                         ?>
-                        </p>
+                    </h4>
+                    <div class="rating">
+                    <?php
+                            if (isset($mch['rating'])) {
+                                for ($i = 0; $i < $mch['rating']; $i++) {
+                                    echo " <svg xmlns='http://www.w3.org/2000/svg' width='37.353' height='30' viewBox='0 0 21 21'>";
+                                    echo "<path class='Icon_awesome-star' data-name='Icon awesome-star' d='M10.815.73,8.252,6.159l-5.735.874a1.329,1.329,0,0,0-.695,2.239L5.971,13.5,4.99,19.463a1.268,1.268,0,0,0,1.821,1.382l5.13-2.817,5.13,2.817a1.269,1.269,0,0,0,1.821-1.382L17.912,13.5l4.149-4.224a1.329,1.329,0,0,0-.695-2.239l-5.735-.874L13.068.73a1.234,1.234,0,0,0-2.253,0Z' transform='translate(-1.441 0.001)' fill='#d7c13f' />";
+                                    echo "</svg>";
+                                }
+                            } else {
+                                echo "<p style='color:#d7c13f; margin-bottom: 0;float: left; font-size: 20pt;'>";
+                                echo "Unrated";
+                                echo "</p>";
+                            }
+                        }
+                    ?>
                     </div>
                 </div>
+                <div class="buttons">
+                    <?php
+                    $ada = false;
+                    foreach ($merchantF as $mchF) {
+                        foreach ($merchant as $mch) {
+                            if ($mch['id'] == $mchF['id']) {
+                                $ada = true;
+                            }
+                        }
+                    }
 
-            <?php endforeach; ?>
+                    if ($ada) {
+                        echo "<button class='merchantFollow' follow='1'>";
+                        echo "<svg xmlns='http://www.w3.org/2000/svg' width='37.353' height='30' viewBox='0 0 47.353 40'>";
+                        echo "<path id='Icon_awesome-heart' style='fill:#E92E55;' data-name='Icon awesome-heart' d='M42.755,4.983C37.687.813,30.15,1.563,25.5,6.2L23.676,8.009,21.854,6.2C17.211,1.563,9.665.813,4.6,4.983a12.52,12.52,0,0,0-.916,18.562l17.9,17.839a2.972,2.972,0,0,0,4.19,0l17.9-17.839a12.512,12.512,0,0,0-.906-18.562Z' transform='translate(0.001 -2.248)' fill='#3e3e3e' />";
+                        echo "</svg>";
+                        echo "</button>";
+                    } else {
+                        echo "<button class='merchantFollow' follow='0'>";
+                        echo "<svg xmlns='http://www.w3.org/2000/svg' width='37.353' height='30' viewBox='0 0 47.353 40'>";
+                        echo "<path id='Icon_awesome-heart' data-name='Icon awesome-heart' d='M42.755,4.983C37.687.813,30.15,1.563,25.5,6.2L23.676,8.009,21.854,6.2C17.211,1.563,9.665.813,4.6,4.983a12.52,12.52,0,0,0-.916,18.562l17.9,17.839a2.972,2.972,0,0,0,4.19,0l17.9-17.839a12.512,12.512,0,0,0-.906-18.562Z' transform='translate(0.001 -2.248)' fill='#3e3e3e' />";
+                        echo "</svg>";
+                        echo "</button>";
+                    }
+
+
+                    ?>
+
+                    <button class="merchantChat">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="37.353" height="30" viewBox="0 0 56.736 44">
+                            <path id="Icon_open-chat" data-name="Icon open-chat" d="M0,0V31.429l7.092-6.286h7.092V6.286H35.46V0ZM21.276,12.571V37.714H49.644L56.736,44V12.571Z" fill="#fff" />
+                        </svg>
+                    </button>
+                    <button class="merchantRate">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="37.353" height="30" viewBox="0 0 43.153 42.621">
+                            <path id="Icon_material-rate-review" data-name="Icon material-rate-review" d="M41.838,3H7.315A4.283,4.283,0,0,0,3.022,7.262L3,45.621,11.631,37.1H41.838a4.3,4.3,0,0,0,4.315-4.262V7.262A4.3,4.3,0,0,0,41.838,3ZM11.631,28.572V23.309L26.475,8.647a1.078,1.078,0,0,1,1.532,0l3.819,3.772a1.046,1.046,0,0,1,0,1.513L16.96,28.572Zm25.892,0H21.34l4.315-4.262H37.523Z" transform="translate(-3 -3)" fill="#fff" />
+                        </svg>
+                    </button>
+                    <button class="merchantReport">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="37.353" height="30" viewBox="0 0 45.466 45.121">
+                            <path id="Icon_material-report" data-name="Icon material-report" d="M36.654,4.5H17.811L4.5,17.71v18.7l13.311,13.21H36.654L49.966,36.41V17.71ZM27.233,40.346a3.259,3.259,0,1,1,3.284-3.259A3.265,3.265,0,0,1,27.233,40.346Zm2.526-10.779H24.707V14.527h5.052Z" transform="translate(-4.5 -4.5)" fill="#ff5858" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
         </div>
+
+        <h2 class=" itemHeader">Recent Items</p>
+        </h2>
         <div class="itemContainer">
             <?php foreach ($item as $itm) : ?>
                 <div class="item" idItem="<?= $itm['id_item'] ?>">
@@ -176,6 +227,7 @@
                     <div class="merchantRating">
 
                         <?php
+                        $ada = 0;
                         foreach ($merchant as $mch) {
                             if ($mch['nama'] == $itm['nama_merchant']) {
                                 if (isset($mch['rating'])) {
@@ -198,10 +250,12 @@
                 </div>
             <?php endforeach; ?>
         </div>
+
     </div>
     <script src="<?= base_url(); ?>/asset/Js/select.js"></script>
     <script>
         var filter = 0;
+        var follow = $(".merchantFollow").attr("follow");
         var addCart = 0;
         textFit($(".titleGame"));
         textFit($(".profileName"));
@@ -216,12 +270,46 @@
             }
         });
 
+        $(".merchantFollow").click(function() {
+            id = $(".merchantName").attr("idMerchant");
+            if (follow == 0) {
+                follow = 1;
+                $.ajax({
+                    url: "<?= base_url(); ?>Shop/likeMerchant",
+                    method: "post",
+                    data: {
+                        idMerchant: id
+                    },
+                    success: function(result) {
+
+                    }
+                });
+                $("#Icon_awesome-heart").css("fill", "#E92E55");
+
+            } else {
+                //alert(id);
+                follow = 0;
+                $.ajax({
+                    url: "<?= base_url(); ?>Shop/unlikeMerchant",
+                    method: "post",
+                    data: {
+                        idMerchant: id
+                    },
+                    success: function(result) {
+
+                    }
+                });
+                $("#Icon_awesome-heart").css("fill", "#3e3e3e");
+            }
+
+        });
+
         $(".backtoMenu").click(function() {
             window.location.href = '<?= base_url(); ?>MainMenu';
         });
 
         $(".homeButton").click(function() {
-            window.location.href = '<?= base_url(); ?>Shop/unsetGame/';
+            window.location.href = '<?= base_url(); ?>Shop';
         });
 
         $(".item").click(function() {
@@ -234,23 +322,19 @@
             window.location.href = '<?= base_url(); ?>Shop/viewMerchant/'.concat(id);
         });
 
-        $(".merchantAcc").click(function() {
-            id = $(this).attr('idMerchant');
-            window.location.href = '<?= base_url(); ?>Shop/viewMerchant/'.concat(id);
-        });
-
-
-
         $(".searchButton").click(function() {
+            idM = <?= $idM ?>
             isi = $(".Searchinput").val();
             if (isi == "") {
                 alert('Search input belum diisi');
             } else {
+
                 if (filter == 1) {
                     setFilter = $('#filters').val();
-                    window.location.href = '<?= base_url(); ?>Shop/setFilter/'.concat(setFilter.concat("/")).concat(isi);
+                    window.location.href = '<?= base_url(); ?>Shop/setMerchantF/'.concat(setFilter.concat("/")).concat(isi.concat("/")).concat(idM);
+
                 } else {
-                    window.location.href = '<?= base_url(); ?>Shop/unsetFilter/'.concat(isi);
+                    window.location.href = '<?= base_url(); ?>Shop/setMerchant/'.concat(idM.concat("/")).concat(isi);
                 }
 
             }

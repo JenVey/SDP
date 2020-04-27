@@ -9,7 +9,7 @@ class Cart_model extends CI_model
     {
         $query = "SELECT I.NAMA_ITEM AS 'nama_item', M.NAMA_MERCHANT AS 'nama_merchant', 
         ROUND(I.HARGA_ITEM) AS 'harga', I.FOTO_ITEM AS 'foto',I.DESC_ITEM AS 'deskripsi',C.AMOUNT AS 'jumlah', 
-        C.AMOUNT * I.HARGA_ITEM AS 'subtotal', M.ID_MERCHANT AS 'id_merchant', C.ID_ITEM AS 'id_item'
+        C.AMOUNT * I.HARGA_ITEM AS 'subtotal', M.ID_MERCHANT AS 'id_merchant', C.ID_ITEM AS 'id_item', I.JUMLAH_ITEM AS 'stok'
         FROM USER_CART C 
         JOIN ITEM I ON I.ID_ITEM = C.ID_ITEM
         JOIN MERCHANT M ON M.ID_MERCHANT = I.ID_MERCHANT
@@ -21,9 +21,47 @@ class Cart_model extends CI_model
 
     public function addCart($idI)
     {
+        $ada = false;
         $id = $this->session->userdata('id_user');
-        $query = "INSERT INTO USER_CART(ID_USER,ID_ITEM,AMOUNT) VALUES('" . $id . "' , '" . $idI . "' , 1)";
+        $cekQuery = $this->db->query("select * from USER_CART");
+        $amount = 1;
+
+        foreach ($cekQuery->result_array() as $row) {
+            if ($id == $row['id_user'] && $idI == $row['id_item']) {
+                $ada = true;
+                $amount = $row['amount'];
+            }
+        }
+
+        if ($ada) {
+            $amount++;
+            $query = "UPDATE USER_CART SET AMOUNT = $amount WHERE ID_USER = '" . $id . "' AND ID_ITEM = '" . $idI . "' ";
+            $this->db->query($query);
+        } else {
+            $query = "INSERT INTO USER_CART(ID_USER,ID_ITEM,AMOUNT,STATUS) VALUES('" . $id . "' , '" . $idI . "' , $amount , 0)";
+            $this->db->query($query);
+        }
+    }
+
+    public function updateCart($idI)
+    {
+        $id = $this->session->userdata('id_user');
+        $cekQuery = $this->db->query("select * from USER_CART");
+        $amount = 0;
+
+        $query = "UPDATE USER_CART SET AMOUNT = $amount WHERE ID_USER = '" . $id . "' AND ID_ITEM = '" . $idI . "' ";
         $this->db->query($query);
+    }
+
+    public function updateStatus($idI)
+    {
+        $id = $this->session->userdata('id_user');
+        $cekQuery = $this->db->query("select * from USER_CART");
+
+        foreach ($cekQuery->result_array() as $row) {
+            $query = "UPDATE USER_CART SET STATUS = 1 WHERE ID_USER = '" . $row['id_user'] . "' AND ID_ITEM = '" .  $row['id_item'] . "' ";
+            $this->db->query($query);
+        }
     }
 
     public function removeCart($idI)

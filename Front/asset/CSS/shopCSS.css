@@ -274,6 +274,7 @@ select:focus{
 }
 
 .item{
+	position: relative;
 	width: 350px;
 	height: 550px;
 	background-color: #4C525D;
@@ -370,16 +371,22 @@ img{
 }
 
 .addtoCart{
-	width: 130px;
-	height: 30px;
-	float: right;
-	border-radius: 100px;
-	border: none;
-	background-color:#63D99E; 
-	color: white;
-	font-size: 13pt;
-	font-family: Varela;
-	margin-top: 20px;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    border-radius: 100px;
+    border: none;
+    background:none;
+    color: white;
+    font-size: 13pt;
+    font-family: Varela;
+    margin-top: 20px;
+}
+
+.stok{
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
 }
 
 .addtoCart:hover{
@@ -455,7 +462,7 @@ img{
 .merchantContainer{
     width: 90%;
     height: auto;
-    margin-left: 5vw;
+    margin-left: 8vw;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(18vw, 0.28fr));
     grid-template-rows: repeat(1, 80px);

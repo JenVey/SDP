@@ -146,7 +146,7 @@
                 </div>
             </div>
         </div>
-        <div class="success" style="left: 500px;top:150px; position:fixed;">
+        <div class="success" style="left:-550px;top:-800px; position:fixed;">
             <div class="check">
                 <div class="textVeri" style="left: 350px;">Success!!!</div>
                 <div class="textExp" style="left: 295px;">Add to your cart</div>
@@ -164,7 +164,7 @@
                 <?php $ctr = 0; ?>
                 <?php foreach ($games as $game) : ?>
                     <div class="itemGame" idGame='<?= $game['id_game'] ?>'>
-                        <div class="img" style=" background: white; width: 50px; height: 50px; transform: skewX(5deg);"><img src="data:image/jpeg;base64,<?= base64_encode($user['foto']) ?>" width="50" height="50" alt="" /></div>
+                        <div class="img" style=" width: 80px; height: 80px; transform: skewX(5deg);"><img src="data:image/jpeg;base64,<?= base64_encode($game['foto_game']) ?>" alt="" /></div>
                         <h5 class="titleGame" style="color: #ecf0f1; transform: skewX(5deg);"><?= $game['nama_game'] ?></h5>
                     </div>
                 <?php endforeach; ?>
@@ -192,11 +192,7 @@
                     </div>
                     <h5 class="itemTitle"><?= $itm['nama_item'] ?></h5>
                     <h6 class="itemGameType"><?= $itm['nama_game'] ?></h6>
-                    <p class="itemDesc">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                        ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+                    <p class="itemDesc"><?= $itm['desc_item'] ?></p>
                     <h6 class="itemMerchant"><?= $itm['nama_merchant'] ?></h6>
                     <div class="merchantRating">
 
@@ -220,7 +216,20 @@
                         ?>
                     </div>
                     <p class="itemUploadDate">Uploaded at <?= date('d/m/Y', strtotime($itm['tanggal_upload'])) ?></p>
-                    <button class="addtoCart" idItem="<?= $itm['id_item'] ?>">Add to cart</button>
+                    <div class="addtoCart" idItem="<?= $itm['id_item'] ?>">
+                        <button style="border: none;background: none;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50">
+                                <g id="Group_182" data-name="Group 182" transform="translate(-10402 -997)">
+                                    <g id="Group_181" data-name="Group 181" transform="translate(10402 997)">
+                                        <rect id="Rectangle_302" data-name="Rectangle 302" width="50" height="50" rx="10" fill="#63d99e" />
+                                        <path id="Icon_material-add-shopping-cart" data-name="Icon material-add-shopping-cart" d="M12.115,31.142a3.55,3.55,0,1,0,3.538,3.55A3.539,3.539,0,0,0,12.115,31.142Zm17.691,0a3.55,3.55,0,1,0,3.538,3.55A3.539,3.539,0,0,0,29.806,31.142ZM12.416,25.374l.053-.213,1.592-2.893h13.18a3.52,3.52,0,0,0,3.1-1.828L37.166,8l-3.078-1.7H34.07l-1.946,3.55-4.883,8.875H14.822l-.23-.479-3.963-8.4L8.948,6.294,7.285,2.744H1.5v3.55H5.038l6.369,13.472L9.019,24.114a3.44,3.44,0,0,0-.442,1.7,3.554,3.554,0,0,0,3.538,3.55h21.23v-3.55H12.858A.45.45,0,0,1,12.416,25.374Z" transform="translate(5.012 5.81)" fill="#4c525d" />
+                                        <path id="Icon_awesome-arrow-down" data-name="Icon awesome-arrow-down" d="M12.568,8.543l.663.733a.85.85,0,0,1,0,1.12l-5.8,6.422a.667.667,0,0,1-1.013,0L.608,10.4a.85.85,0,0,1,0-1.12l.663-.733A.671.671,0,0,1,2.3,8.556l3.429,3.981V3.043a.756.756,0,0,1,.717-.793H7.4a.756.756,0,0,1,.717.793v9.494l3.429-3.981a.666.666,0,0,1,1.025-.013Z" transform="translate(19.034 2.114)" fill="#4c525d" />
+                                    </g>
+                                </g>
+                            </svg>
+                        </button>
+                    </div>
+                    <h4 class="stok yellow">Stok : <?= $itm['jumlah_item'] ?></h4>
                 </div>
             <?php endforeach; ?>
         </div>
@@ -235,6 +244,7 @@
         var addCart = 0;
         textFit($(".titleGame"));
         textFit($(".profileName"));
+
         $('.success').hide();
 
         $(".filterAlpha").click(function() {
@@ -275,6 +285,10 @@
                 },
                 success: function(result) {
                     addCart = 0;
+                    $(".success").css({
+                        top: 150,
+                        left: 500
+                    });
                     $('.success').fadeIn("slow");
                 }
             });
