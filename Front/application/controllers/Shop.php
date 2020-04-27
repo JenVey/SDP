@@ -141,6 +141,13 @@ class Shop extends CI_Controller
     }
 
 
+    public function unlikeMerchant()
+    {
+        $idM = $this->input->post('idMerchant');
+        $this->Friend_model->unlikeMerchant($idM);
+        return true;
+    }
+
     public function addCart()
     {
     }

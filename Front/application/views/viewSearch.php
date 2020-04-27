@@ -36,7 +36,7 @@
             if (count($merchantF) > 0) {
                 foreach ($merchantF as $mchF) : ?>
                     <div class="accItem" idMerchant="<?= $mchF['id'] ?>">
-                        <div class="profileImg" style="margin-left: 0;"><img class="profileImg" src="<?= base_url(); ?>asset/Images/R6.jpg" width="50" height="50" alt="" /></div>
+                        <div class="profileImg" style="margin-left: 0;"><img class="profileImg" src="data:image/jpeg;base64,<?= base64_encode($mchF['foto']) ?>" width="50" height="50" alt="" /></div>
                         <div class="profileStats">
                             <h6 class="profileName"> <?= $mchF['nama'] ?> </h6>
                             <?php
@@ -132,6 +132,30 @@
 
         <h2 class=" itemHeader">Keyword : '<?= $_SESSION['keyword'] ?>'</p>
         </h2>
+        <?php foreach ($merchant as $mch) : ?>
+            <div class="merchantContainer">
+                <div class="merchantAcc" idMerchant='<?= $mch['id'] ?>'>
+                    <div class="merchantIMG"><img src="data:image/jpeg;base64,<?= base64_encode($mch['foto']) ?>" width="60" height="60" alt="" /></div>
+                    <div class="merchantDetails">
+                        <h5 style="color: #ecf0f1;"><?= $mch['nama'] ?></h5>
+                        <?php
+                        if (isset($mch['rating'])) {
+                            echo "<p class='rating yellow' style='margin-bottom: 0; '>";
+                            echo $mch['rating'];
+                            echo "<svg style='margin-left: 1px; margin-bottom: 5px;' xmlns='http://www.w3.org/2000/svg' width='10.125' height='8.62' viewBox='0 0 35.125 33.62'>";
+                            echo "<path class='solid_star' data-name='solid star' d='M36.178,1.157,31.891,9.85l-9.592,1.4a2.1,2.1,0,0,0-1.162,3.585l6.94,6.762-1.641,9.553a2.1,2.1,0,0,0,3.046,2.213l8.581-4.51,8.581,4.51a2.1,2.1,0,0,0,3.046-2.213L48.048,21.6l6.94-6.762a2.1,2.1,0,0,0-1.162-3.585l-9.592-1.4L39.947,1.157a2.1,2.1,0,0,0-3.769,0Z' transform='translate(-20.5 0.013)' fill='#d7c13f' />";
+                            echo "</svg>";
+                        } else {
+                            echo "<p class='rating yellow' style='margin-bottom: 0; '>";
+                            echo "Unrated";
+                            echo "</p>";
+                        }
+                        ?>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
         <div class="itemContainer">
             <?php foreach ($item as $itm) : ?>
                 <div class="item" idItem="<?= $itm['id_item'] ?>">
@@ -150,7 +174,6 @@
                     <div class="merchantRating">
 
                         <?php
-                        $ada = 0;
                         foreach ($merchant as $mch) {
                             if ($mch['nama'] == $itm['nama_merchant']) {
                                 if (isset($mch['rating'])) {
@@ -208,6 +231,13 @@
             id = $(this).attr('idMerchant');
             window.location.href = '<?= base_url(); ?>Shop/viewMerchant/'.concat(id);
         });
+
+        $(".merchantAcc").click(function() {
+            id = $(this).attr('idMerchant');
+            window.location.href = '<?= base_url(); ?>Shop/viewMerchant/'.concat(id);
+        });
+
+
 
         $(".searchButton").click(function() {
             isi = $(".Searchinput").val();

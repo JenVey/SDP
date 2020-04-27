@@ -36,7 +36,7 @@
             if (count($merchantF) > 0) {
                 foreach ($merchantF as $mchF) : ?>
                     <div class="accItem" idMerchant="<?= $mchF['id'] ?>">
-                        <div class="profileImg" style="margin-left: 0;"><img class="profileImg" src="<?= base_url(); ?>asset/Images/R6.jpg" width="50" height="50" alt="" /></div>
+                        <div class="profileImg" style="margin-left: 0;"><img class="profileImg" src="data:image/jpeg;base64,<?= base64_encode($mchF['foto']) ?>" width="50" height="50" alt="" /></div>
                         <div class="profileStats">
                             <h6 class="profileName"> <?= $mchF['nama'] ?> </h6>
                             <?php
@@ -132,7 +132,11 @@
             <div class="merchantInfo">
                 <div class="merchantWrapper">
                     <img src="Images/untrail.jpeg" width="50" height="50" alt="" class="merchantImg">
-                    <h4 class="merchantName">
+                    <h4 class="merchantName" <?php
+                                                foreach ($merchant as $mch) {
+                                                    echo "idMerchant='" . $mch['id'] . "'";
+                                                }
+                                                ?>>
                         <?php
                         foreach ($merchant as $mch) {
                             echo $mch['nama'];
@@ -266,13 +270,26 @@
 
         $(".merchantFollow").click(function() {
             //alert('a');
+            id = $(".merchantName").attr("idMerchant");
             if (follow == 0) {
                 follow = 1;
-                //AJAX
                 $("#Icon_awesome-heart").css("fill", "#E92E55");
+
             } else {
+                //alert(id);
                 follow = 0;
-                //AJAX
+                $.ajax({
+                    url: "<?= base_url(); ?>Shop/unlikeMerchant",
+                    method: "post",
+                    data: {
+                        idMerchant: id
+                    },
+                    success: function(result) {
+                        if (result) {
+                            window.location.href = '<?= base_url(); ?>Shop/viewMerchant/'.concat(id);
+                        }
+                    }
+                });
                 $("#Icon_awesome-heart").css("fill", "#3e3e3e");
             }
         });

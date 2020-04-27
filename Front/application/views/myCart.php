@@ -34,7 +34,7 @@
 			if (count($merchantF) > 0) {
 				foreach ($merchantF as $mchF) : ?>
 					<div class="accItem" idMerchant="<?= $mchF['id'] ?>">
-						<div class="profileImg" style="margin-left: 0;"><img class="profileImg" src="<?= base_url(); ?>asset/Images/R6.jpg" width="50" height="50" alt="" /></div>
+						<div class="profileImg" style="margin-left: 0;"><img class="profileImg" src="data:image/jpeg;base64,<?= base64_encode($mchF['foto']) ?>" width="50" height="50" alt="" /></div>
 						<div class="profileStats">
 							<h6 class="profileName"> <?= $mchF['nama'] ?> </h6>
 							<?php

@@ -451,3 +451,59 @@ img{
 	margin-bottom: 0;
 	margin-left: 30px;
 }
+
+.merchantContainer{
+    width: 90%;
+    height: auto;
+    margin-left: 5vw;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(18vw, 0.28fr));
+    grid-template-rows: repeat(1, 80px);
+    grid-row-gap: 30px;
+    grid-column-gap: 10px;
+    box-sizing: border-box;
+    padding: 20px;
+}
+
+.merchantAcc{
+    width: 18vw;
+    height: 80px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #1E2126;
+    border-radius: 15px;
+    box-shadow:
+      0 3.3px 1.7px rgba(0, 0, 0, 0.035),
+      0 8.4px 5.6px rgba(0, 0, 0, 0.054),
+      0 27px 25px rgba(0, 0, 0, 0.08)
+    ;
+}
+
+.merchantIMG{
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+    overflow: hidden;
+    margin-left: 1vw;
+}
+
+.merchantIMG img{
+    max-width: 100%;
+    max-height: 100%;
+}
+
+
+.merchantAcc:hover{
+    background-color: #585D68;
+    cursor: pointer;
+}
+
+.merchantDetails{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-left: 2vw;
+    height: 100%;
+}
