@@ -185,7 +185,6 @@
                         echo "</button>";
                     }
 
-
                     ?>
 
                     <button class="merchantChat">
@@ -323,7 +322,8 @@
         });
 
         $(".searchButton").click(function() {
-            idM = <?= $idM ?>
+            idM = $(".merchantName").attr("idMerchant");
+            alert(idM);
             isi = $(".Searchinput").val();
             if (isi == "") {
                 alert('Search input belum diisi');

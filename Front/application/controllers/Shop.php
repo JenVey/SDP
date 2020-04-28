@@ -92,7 +92,6 @@ class Shop extends CI_Controller
 
     public function viewSearch($keyword)
     {
-
         $id = $this->session->userdata('id_user');
         $data['user'] = $this->User_model->getUserById($id);
         $data['merchantF'] = $this->Merchant_model->getMerchantByIdUser($id);
@@ -117,7 +116,12 @@ class Shop extends CI_Controller
         $keyword = $this->uri->segment('4');
         $this->session->set_userdata(array('filter' => $isi));
         $this->session->set_userdata(array('keyword' => $keyword));
-        redirect('Shop/viewSearch/' . $keyword);
+
+        if (isset($_SESSION['id_merchant'])) {
+            redirect('Shop/viewSearchM/' . $keyword);
+        } else {
+            redirect('Shop/viewSearch/' . $keyword);
+        }
     }
 
     public function unsetFilter($keyword)
@@ -163,7 +167,6 @@ class Shop extends CI_Controller
 
     public function insertComment($id)
     {
-
         $this->form_validation->set_rules('commentUser', 'Comment', 'required');
 
 

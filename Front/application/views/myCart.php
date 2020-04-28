@@ -12,6 +12,8 @@
 	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/checkBox.css">
 	<script src="<?php echo base_url(); ?>asset/Js/jquery-min.js"></script>
 	<script src="<?php echo base_url(); ?>asset/Js/bootstrap.js"></script>
+	<script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-TFg6vzZkfEs0h_Nl"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 </head>
 
 <body>
@@ -292,6 +294,7 @@
 			return x1 + x2;
 		}
 
+
 		function removeItem(id) {
 			idI = $("#item" + id).attr("idItem");
 			$.ajax({
@@ -313,6 +316,69 @@
 
 		$(".back").click(function() {
 			window.location.href = '<?= base_url(); ?>Shop/unsetGame/';
+		});
+
+
+		//MIDTRANS
+
+		$('.checkOut').click(function(event) {
+			event.preventDefault();
+			$(this).attr("disabled", "disabled");
+
+			var id = "a001"
+			var price = "20000";
+			var quantity = "3";
+			var name = "PESO";
+			var gross_amount = "60000";
+
+			$.ajax({
+				method: 'POST',
+				url: '<?= base_url() ?>Midtrans/snap/token',
+				data: {
+					id: id,
+					price: price,
+					quantity: quantity,
+					name: name,
+					gross_amount: gross_amount
+				},
+				cache: false,
+
+				success: function(data) {
+					//location = data;
+
+					console.log('token = ' + data);
+
+					var resultType = document.getElementById('result-type');
+					var resultData = document.getElementById('result-data');
+
+					function changeResult(type, data) {
+						$("#result-type").val(type);
+						$("#result-data").val(JSON.stringify(data));
+						//resultType.innerHTML = type;
+						//resultData.innerHTML = JSON.stringify(data);
+					}
+
+					snap.pay(data, {
+
+						onSuccess: function(result) {
+							changeResult('success', result);
+							console.log(result.status_message);
+							console.log(result);
+							$("#payment-form").submit();
+						},
+						onPending: function(result) {
+							changeResult('pending', result);
+							console.log(result.status_message);
+							$("#payment-form").submit();
+						},
+						onError: function(result) {
+							changeResult('error', result);
+							console.log(result.status_message);
+							$("#payment-form").submit();
+						}
+					});
+				}
+			});
 		});
 	</script>
 </body>

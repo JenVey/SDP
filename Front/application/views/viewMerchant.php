@@ -286,7 +286,6 @@
                 $("#Icon_awesome-heart").css("fill", "#E92E55");
 
             } else {
-                //alert(id);
                 follow = 0;
                 $.ajax({
                     url: "<?= base_url(); ?>Shop/unlikeMerchant",
