@@ -103,10 +103,12 @@ class Shop extends CI_Controller
     public function viewCart()
     {
         $id = $this->session->userdata('id_user');
+        $this->Cart_model->updateStatus();
         $data['user'] = $this->User_model->getUserById($id);
         $data['merchantF'] = $this->Merchant_model->getMerchantByIdUser($id);
         $data['item'] = $this->Item_model->getAllItem();
         $data['cart'] = $this->Cart_model->getCartByIdUser($id);
+
 
         $this->load->view('myCart', $data);
     }
@@ -200,5 +202,13 @@ class Shop extends CI_Controller
     {
         $idI = $this->input->post('idItem');
         $this->Cart_model->removeCart($idI);
+    }
+
+    public function finish()
+    {
+        $id = $this->session->userdata('id_user');
+        $total = $this->input->post('total');
+        $this->User_model->updateSaldo($total);
+        redirect('Shop');
     }
 }

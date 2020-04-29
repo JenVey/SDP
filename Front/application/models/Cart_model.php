@@ -13,7 +13,8 @@ class Cart_model extends CI_model
         FROM USER_CART C 
         JOIN ITEM I ON I.ID_ITEM = C.ID_ITEM
         JOIN MERCHANT M ON M.ID_MERCHANT = I.ID_MERCHANT
-        WHERE C.ID_USER = '" . $id . "' ";
+        WHERE C.ID_USER = '" . $id . "' 
+        AND C.STATUS = 1";
         $res = $this->db->query($query);
         return $res->result_array();
         //return $this->db->get_where('cart', ['id_user' => $id])->row_array();
@@ -53,7 +54,7 @@ class Cart_model extends CI_model
         $this->db->query($query);
     }
 
-    public function updateStatus($idI)
+    public function updateStatus()
     {
         $id = $this->session->userdata('id_user');
         $cekQuery = $this->db->query("select * from USER_CART");
@@ -69,5 +70,10 @@ class Cart_model extends CI_model
         $id = $this->session->userdata('id_user');
         $query = "DELETE FROM USER_CART WHERE ID_USER = '" . $id . "' AND ID_ITEM = '" . $idI . "' ";
         $this->db->query($query);
+    }
+
+    public function finish()
+    {
+        $id = $this->session->userdata('id_user');
     }
 }

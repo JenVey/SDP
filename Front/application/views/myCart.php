@@ -12,7 +12,7 @@
 	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/checkBox.css">
 	<script src="<?php echo base_url(); ?>asset/Js/jquery-min.js"></script>
 	<script src="<?php echo base_url(); ?>asset/Js/bootstrap.js"></script>
-	<script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-TFg6vzZkfEs0h_Nl"></script>
+	<script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-3P7SuUbxsTWXgTf3"></script>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 </head>
 
@@ -64,7 +64,7 @@
 		</div>
 	</div>
 
-	<div class="profile">
+	<div class="profile" nama="<?= $user['nama_user'] ?>" phone="<?= $user['phone'] ?>" email="<?= $user['email_user'] ?>">
 		<div class="profileImg"><img class="profileImg" src="data:image/jpeg;base64,<?= base64_encode($user['foto']) ?>" width="50" height="50" alt="" /></div>
 		<div class="profileStats">
 			<!-- Max Line 10 -->
@@ -129,19 +129,19 @@
 							<img src="data:image/jpeg;base64,<?= base64_encode($crt['foto']) ?>" alt="">
 						</div>
 						<div class=" itemDescWrapper">
-							<h5 class="itemName yellow"><?= $crt['nama_item'] ?></h5>
+							<h5 class="itemName yellow" id="item<?= $ctr ?>Name" nama="<?= $crt['nama_item'] ?>"><?= $crt['nama_item'] ?></h5>
 							<a href="<?= base_url(); ?>/Shop/viewMerchant/<?= $crt['id_merchant'] ?>" class="merchantName"><?= $crt['nama_merchant'] ?></a>
 							<div class="itemDesc">
 								<p><?= $crt['deskripsi'] ?></p>
 							</div>
 						</div>
 						<div class="price">
-							<h4 id="item<?= $ctr ?>Price" class="yellow">IDR <?= $crt['harga'] ?></h4>
+							<h4 id="item<?= $ctr ?>Price" class="yellow" harga="<?= $crt['harga'] ?>">IDR <?= $crt['harga'] ?></h4>
 						</div>
 						<div class="amount">
-							<h4 id="item<?= $ctr ?>Amount" class="yellow"><?= $crt['jumlah'] ?>/<?= $crt['stok'] ?></h4>
+							<h4 id="item<?= $ctr ?>Amount" class="yellow" jumlah="<?= $crt['jumlah'] ?>"><?= $crt['jumlah'] ?>/<?= $crt['stok'] ?></h4>
 							<div class="minplusButton">
-								<button class="amountBut" onClick="addAmount(<?= $ctr ?>	,0)">
+								<button class="amountBut" onClick="addAmount(<?= $ctr ?>,0)">
 									<svg xmlns="http://www.w3.org/2000/svg" width="46" height="41" viewBox="0 0 46 41">
 										<g id="Group_185" data-name="Group 185" transform="translate(-15819.5 3056.5)">
 											<g id="Group_182" data-name="Group 182" transform="translate(86 -93)">
@@ -164,7 +164,7 @@
 							</div>
 						</div>
 						<div class="subtotal">
-							<h4 id="item<?= $ctr ?>Subtotal" style="color:#63D99E; ">IDR <?= $crt['subtotal'] ?></h4>
+							<h4 id="item<?= $ctr ?>Subtotal" style="color:#63D99E; " subtotal="<?= $crt['subtotal'] ?>">IDR <?= $crt['subtotal'] ?></h4>
 						</div>
 					</div>
 				</div>
@@ -194,6 +194,12 @@
 			</div>
 		</div>
 	</div>
+	<form id="payment-form" method="post" action="<?= site_url() ?>Shop/finish/">
+		<input type="hidden" name="result_data" id="result-type" value=""></div>
+		<input type="hidden" name="result_data" id="result-data" value=""></div>
+		<input type="hidden" name="total" id="total" value=""></div>
+		<input type="hidden" name="" value=""></div>
+	</form>
 	<script>
 		var id = 0;
 
@@ -220,6 +226,10 @@
 				var subtotal = price * amount;
 				$("#item" + i + "Subtotal").html("IDR " + addCommas(subtotal));
 			}
+			var balance = $(".balance").html();
+			balance = balance.substring(4, balance.length);
+			$(".balance").html("IDR " + addCommas(balance));
+
 		});
 
 		function addGrandtotal() {
@@ -294,7 +304,6 @@
 			return x1 + x2;
 		}
 
-
 		function removeItem(id) {
 			idI = $("#item" + id).attr("idItem");
 			$.ajax({
@@ -322,24 +331,52 @@
 		//MIDTRANS
 
 		$('.checkOut').click(function(event) {
+
+
+
+
 			event.preventDefault();
 			$(this).attr("disabled", "disabled");
 
-			var id = "a001"
-			var price = "20000";
-			var quantity = "3";
-			var name = "PESO";
-			var gross_amount = "60000";
+			var cart = [];
+			for (var i = 1; i <= id; i++) {
+				if ($("#check" + i + "Item").prop('checked')) {
+					cart[i] = [];
+					cart[i]['id'] = $("#item" + i).attr("idItem");
+					cart[i]['price'] = parseInt($("#item" + i + "Price").attr("harga"));
+					cart[i]['quantity'] = parseInt($("#item" + i + "Amount").attr("jumlah"));
+					cart[i]['name'] = $("#item" + i + "Name").attr("nama");
+					// alert(cart[i]['id']);
+					// alert(cart[i]['price']);
+					// alert(cart[i]['name']);
+					// alert(cart[i]['quantity']);
+				}
+			}
+			// var id = "15a";
+			// var price = "10000";
+			// var quantity = "1";
+			// var name = "peso";
 
+
+			var grandtotal = $(".GrandTotal").html();
+			grandtotal = grandtotal.replace(/[^a-z0-9\s]/gi, '');
+			grandtotal = grandtotal.substring(4, grandtotal.length);
+			var gross_amount = grandtotal;
+			$("#total").val(grandtotal);
+			total = $("#total").val();
+
+			nama = $(".profile").attr("nama");
+			phone = $(".profile").attr("phone");
+			email = $(".profile").attr("email");
 			$.ajax({
 				method: 'POST',
 				url: '<?= base_url() ?>Midtrans/snap/token',
 				data: {
-					id: id,
-					price: price,
-					quantity: quantity,
-					name: name,
-					gross_amount: gross_amount
+					cart: cart,
+					gross_amount: gross_amount,
+					nama: nama,
+					phone: phone,
+					email: email
 				},
 				cache: false,
 
@@ -359,11 +396,11 @@
 					}
 
 					snap.pay(data, {
-
 						onSuccess: function(result) {
 							changeResult('success', result);
 							console.log(result.status_message);
 							console.log(result);
+
 							$("#payment-form").submit();
 						},
 						onPending: function(result) {
@@ -377,6 +414,7 @@
 							$("#payment-form").submit();
 						}
 					});
+
 				}
 			});
 		});
