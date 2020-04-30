@@ -14,7 +14,7 @@ class Cart_model extends CI_model
         JOIN ITEM I ON I.ID_ITEM = C.ID_ITEM
         JOIN MERCHANT M ON M.ID_MERCHANT = I.ID_MERCHANT
         WHERE C.ID_USER = '" . $id . "' 
-        AND C.STATUS = 1";
+        AND C.STATUS = 1 ";
         $res = $this->db->query($query);
         return $res->result_array();
         //return $this->db->get_where('cart', ['id_user' => $id])->row_array();
@@ -28,7 +28,7 @@ class Cart_model extends CI_model
         $amount = 1;
 
         foreach ($cekQuery->result_array() as $row) {
-            if ($id == $row['id_user'] && $idI == $row['id_item']) {
+            if ($id == $row['id_user'] && $idI == $row['id_item'] && $row['status'] == 1) {
                 $ada = true;
                 $amount = $row['amount'];
             }
@@ -50,17 +50,24 @@ class Cart_model extends CI_model
         $cekQuery = $this->db->query("select * from USER_CART");
         $amount = 0;
 
-        $query = "UPDATE USER_CART SET AMOUNT = $amount WHERE ID_USER = '" . $id . "' AND ID_ITEM = '" . $idI . "' ";
+        $query = "UPDATE USER_CART 
+        SET AMOUNT = $amount
+        WHERE ID_USER = '" . $id . "' 
+        AND ID_ITEM = '" . $idI . "' 
+        AND STATUS = 1";
         $this->db->query($query);
     }
 
-    public function updateStatus()
+    public function updateStatus1()
     {
         $id = $this->session->userdata('id_user');
         $cekQuery = $this->db->query("select * from USER_CART");
 
         foreach ($cekQuery->result_array() as $row) {
-            $query = "UPDATE USER_CART SET STATUS = 1 WHERE ID_USER = '" . $row['id_user'] . "' AND ID_ITEM = '" .  $row['id_item'] . "' ";
+            $query = "UPDATE USER_CART SET STATUS = 1 
+            WHERE ID_USER = '" . $row['id_user'] . "' 
+            AND ID_ITEM = '" .  $row['id_item'] . "' 
+            AND STATUS = 0 ";
             $this->db->query($query);
         }
     }
@@ -72,8 +79,27 @@ class Cart_model extends CI_model
         $this->db->query($query);
     }
 
-    public function finish()
+    public function updateStatus2($idI)
     {
         $id = $this->session->userdata('id_user');
+
+        $query = "UPDATE USER_CART SET STATUS = 2 
+        WHERE ID_USER = '" . $id . "' 
+        AND ID_ITEM = '" .  $idI . "' 
+        AND STATUS = 1";
+
+        $this->db->query($query);
+    }
+
+    public function updateAmount($amount, $idI)
+    {
+        $id = $this->session->userdata('id_user');
+        $query = "UPDATE USER_CART 
+        SET AMOUNT = $amount 
+        WHERE ID_USER = '" . $id . "' 
+        AND ID_ITEM = '" . $idI . "' 
+        AND STATUS = 1";
+
+        $this->db->query($query);
     }
 }

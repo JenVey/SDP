@@ -15,6 +15,8 @@ class Snap extends CI_Controller
 		$this->load->library('midtrans');
 		$this->midtrans->config($params);
 		$this->load->helper('url');
+
+		$this->load->model('Cart_model');
 	}
 
 	public function index()
@@ -24,70 +26,34 @@ class Snap extends CI_Controller
 
 	public function token()
 	{
-
-
 		// Required
 		$transaction_details = array(
 			'order_id' => rand(),
 			'gross_amount' => $this->input->post('gross_amount') // no decimal allowed for creditcard
 		);
-		//$gross =  $this->input->post('gross_amount');
 
-		$item_details = $this->input->post('cart');
+		$cart = array();
+		$cart = $this->input->post('cart');
+		$cart = json_decode($cart, true);
+		$item_details = array();
+		//print_r($cart);
+		for ($i = 0; $i < count($cart); $i++) {
+			$row = array();
+			$row['id'] = $cart[$i]['id'];
+			$row['price'] = $cart[$i]['price'];
+			$row['quantity'] = $cart[$i]['quantity'];
+			$row['name'] = $cart[$i]['name'];
+			$this->Cart_model->updateAmount($row['quantity'], $row['id']);
+			array_push($item_details, $row);
+		}
 
-		//echo "<script>alert('" . $ . "')</script>";
-
-
-		//$item_details = array();
-		// Optional
-
-		// $item_details = array();
-		// for ($i = 1; $i <= count($cart); $i++) {
-		// 	$row = array();
-		// 	$row['id'] = $cart[$i]['id'];
-		// 	$row['price'] = $cart[$i]['price'];
-		// 	$row['quantity'] = $cart[$i]['quantity'];
-		// 	$row['name'] = $cart[$i]['name'];
-		// 	array_push($item_details, $row);
-		// 	//array_push($item_details, $cart[$i]['id'], $cart[$i]['price'], $cart[$i]['quantity'], $cart[$i]['name']);
-		// }
-
-
-		//$item_details = $cart;
-		// 'id' => $this->input->post('id'),
-		// 'price' => $this->input->post('price'),
-		// 'quantity' => $this->input->post('quantity'),
-		// 'name' => $this->input->post('name'),
-
-		// $item_details = array(
-
-		// 	'id' => $cart[1]['id'],
-		// 	'price' => $cart[1]['price'],
-		// 	'quantity' => $cart[1]['quantity'],
-		// 	'name' => $cart[1]['name']
-
-		// 	// array(
-		// 	// 	'id' => "m626",
-		// 	// 	'price' => "20000",
-		// 	// 	'quantity' => "3",
-		// 	// 	'name' => "AK"
-		// 	// )
-		// );
-		// $item1_details = array(
-		// 	'id' => $this->input->post('id'),
-		// 	'price' => $this->input->post('price'),
-		// 	'quantity' => $this->input->post('quantity'),
-		// 	'name' => $this->input->post('name');
-		// )
 
 		// Optional
-
 		$customer_details = array(
 			'first_name'    => $this->input->post('nama'),
 			'email'         => $this->input->post('email'),
 			'phone'         => $this->input->post('phone'),
 		);
-
 		// Data yang akan dikirim untuk request redirect_url.
 		$credit_card['secure'] = true;
 		//ser save_card true to enable oneclick or 2click

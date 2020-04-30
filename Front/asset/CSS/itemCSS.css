@@ -69,17 +69,9 @@ button{
 	margin: 5vw;
 }
 
-.itemImage {
-	display:flex;
-	justify-content: center;
-	background-color: white;
-	width: 300px;
-	height: 300px;
-}
-
-img{
-	max-width: 100%;
-	max-height: 100%;
+.itemImage img{
+	max-width: 300px;
+	max-height: 300px;
 }
 
 .itemDetails{
@@ -130,8 +122,10 @@ img{
 
 .commentSection{
 	margin-left: 2vw;
-	display: grid;
-	grid-row-gap: 50px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
 }
 
 .enterComment{
@@ -171,40 +165,90 @@ img{
 
 .commentUser{
 	width: 92%;
-	background-color: #585D68;
 	margin-left: 2vw;
-	border-radius: 15px 15px 0 0;
 	padding: 20px;
+	box-sizing: border-box;
 	display: flex;
-	justify-content: flex-end;
+	justify-content: flex-start;
 	align-items: center;
 	color: #ecf0f1;
 }
 
 .userName{
-	margin-right: 2vw;
-	color: #1E2126;
+	color: #D7C13F;
+	margin-top: 1vh;
+	text-align: center;
 }
 
 .replyMerchant{
 	width: 92%;
-	background-color:#49A879;
-	margin-left: 2vw;
-	border-radius: 0 0 15px 15px;
+	margin-left: 4vw;
 	padding: 20px;
 	display: flex;
-	justify-content: flex-end;
+	justify-content: flex-start;
 	align-items: center;
 	color: #ecf0f1;
+	box-sizing: border-box;
 }
 
 .merchantName{
 	margin-right: 2vw;
-	color: #1E2126;
+	color: #49A879;
+	text-align: center;
 }
 
 .comment{
-	width: 50%;
+	width: 70%;
+	max-height: 100px;
+	overflow: hidden;
+	border-left: solid 1px #1E2126;
+	padding-left: 20px;
+	box-sizing: border-box;
+	margin: 0;
+}
+
+.comment::-webkit-scrollbar {
+    width: 10px;
+    
+}
+
+.comment::-webkit-scrollbar:hover{
+	width: 10px;
+}
+.comment::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+ 
+.comment::-webkit-scrollbar-thumb {
+  	background-color: #D7C13F;
+  	outline: 1px solid slategrey;
+  	border-radius: 100px;
+}
+
+
+.userDetails{
+	width: 3vw;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	justify-content: space-around;
+	margin-right: 3vw;
+	margin-left: 1vw;
+}
+
+.commentWrapper{
+	display: flex;
+	width: 100%;
+	justify-content: flex-start;
+	flex-direction: column;
+}
+
+.senderImg{
+	width: 50px;
+	height: 50px;
+	border-radius: 100%;
+	overflow: hidden;
 }
 
 .bodyContainer{

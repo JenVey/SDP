@@ -103,7 +103,7 @@ class Shop extends CI_Controller
     public function viewCart()
     {
         $id = $this->session->userdata('id_user');
-        $this->Cart_model->updateStatus();
+        $this->Cart_model->updateStatus1();
         $data['user'] = $this->User_model->getUserById($id);
         $data['merchantF'] = $this->Merchant_model->getMerchantByIdUser($id);
         $data['item'] = $this->Item_model->getAllItem();
@@ -111,6 +111,16 @@ class Shop extends CI_Controller
 
 
         $this->load->view('myCart', $data);
+    }
+
+    public function viewProfile()
+    {
+        $id = $this->session->userdata('id_user');
+        $data['user'] = $this->User_model->getUserById($id);
+        $data['merchantF'] = $this->Merchant_model->getMerchantByIdUser($id);
+        $data['merchant'] = $this->Merchant_model->getMerchantUser($id);
+        $data['item'] = $this->Item_model->getItemByIdUser($id);
+        $this->load->view('viewProfile', $data);
     }
 
     public function setFilter($isi)
@@ -209,6 +219,12 @@ class Shop extends CI_Controller
         $id = $this->session->userdata('id_user');
         $total = $this->input->post('total');
         $this->User_model->updateSaldo($total);
+        $cart = $this->input->post('cart');
+
+        for ($i = 0; $i < count($cart); $i++) {
+            $this->Cart_model->updateStatus2($cart[$i]);
+        }
+        $this->Item_model->updateAmount();
         redirect('Shop');
     }
 }

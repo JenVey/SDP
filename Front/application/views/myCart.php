@@ -139,7 +139,7 @@
 							<h4 id="item<?= $ctr ?>Price" class="yellow" harga="<?= $crt['harga'] ?>">IDR <?= $crt['harga'] ?></h4>
 						</div>
 						<div class="amount">
-							<h4 id="item<?= $ctr ?>Amount" class="yellow" jumlah="<?= $crt['jumlah'] ?>"><?= $crt['jumlah'] ?>/<?= $crt['stok'] ?></h4>
+							<h4 id="item<?= $ctr ?>Amount" class="yellow"><?= $crt['jumlah'] ?>/<?= $crt['stok'] ?></h4>
 							<div class="minplusButton">
 								<button class="amountBut" onClick="addAmount(<?= $ctr ?>,0)">
 									<svg xmlns="http://www.w3.org/2000/svg" width="46" height="41" viewBox="0 0 46 41">
@@ -198,7 +198,6 @@
 		<input type="hidden" name="result_data" id="result-type" value=""></div>
 		<input type="hidden" name="result_data" id="result-data" value=""></div>
 		<input type="hidden" name="total" id="total" value=""></div>
-		<input type="hidden" name="" value=""></div>
 	</form>
 	<script>
 		var id = 0;
@@ -332,31 +331,24 @@
 
 		$('.checkOut').click(function(event) {
 
-
-
-
 			event.preventDefault();
 			$(this).attr("disabled", "disabled");
 
 			var cart = [];
 			for (var i = 1; i <= id; i++) {
 				if ($("#check" + i + "Item").prop('checked')) {
-					cart[i] = [];
-					cart[i]['id'] = $("#item" + i).attr("idItem");
-					cart[i]['price'] = parseInt($("#item" + i + "Price").attr("harga"));
-					cart[i]['quantity'] = parseInt($("#item" + i + "Amount").attr("jumlah"));
-					cart[i]['name'] = $("#item" + i + "Name").attr("nama");
-					// alert(cart[i]['id']);
-					// alert(cart[i]['price']);
-					// alert(cart[i]['name']);
-					// alert(cart[i]['quantity']);
+					var amount = $("#item" + i + "Amount").html();
+					amount = amount.substring(0, amount.indexOf('/'));
+					let obj = {
+						id: $("#item" + i).attr("idItem"),
+						price: parseInt($("#item" + i + "Price").attr("harga")),
+						quantity: parseInt(amount),
+						name: $("#item" + i + "Name").attr("nama")
+					}
+					cart.push(obj);
 				}
 			}
-			// var id = "15a";
-			// var price = "10000";
-			// var quantity = "1";
-			// var name = "peso";
-
+			cartt = JSON.stringify(cart);
 
 			var grandtotal = $(".GrandTotal").html();
 			grandtotal = grandtotal.replace(/[^a-z0-9\s]/gi, '');
@@ -365,6 +357,8 @@
 			$("#total").val(grandtotal);
 			total = $("#total").val();
 
+			alert(gross_amount);
+
 			nama = $(".profile").attr("nama");
 			phone = $(".profile").attr("phone");
 			email = $(".profile").attr("email");
@@ -372,7 +366,7 @@
 				method: 'POST',
 				url: '<?= base_url() ?>Midtrans/snap/token',
 				data: {
-					cart: cart,
+					cart: cartt,
 					gross_amount: gross_amount,
 					nama: nama,
 					phone: phone,
@@ -381,8 +375,6 @@
 				cache: false,
 
 				success: function(data) {
-					//location = data;
-
 					console.log('token = ' + data);
 
 					var resultType = document.getElementById('result-type');
@@ -391,6 +383,13 @@
 					function changeResult(type, data) {
 						$("#result-type").val(type);
 						$("#result-data").val(JSON.stringify(data));
+						for (var i = 0; i < cart.length; i++) {
+							$('<input>').attr({
+								type: 'hidden',
+								name: 'cart[]',
+								value: cart[i]["id"]
+							}).appendTo('#payment-form');
+						}
 						//resultType.innerHTML = type;
 						//resultData.innerHTML = JSON.stringify(data);
 					}
@@ -400,6 +399,7 @@
 							changeResult('success', result);
 							console.log(result.status_message);
 							console.log(result);
+
 
 							$("#payment-form").submit();
 						},

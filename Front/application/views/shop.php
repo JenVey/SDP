@@ -195,7 +195,6 @@
                     <p class="itemDesc"><?= $itm['desc_item'] ?></p>
                     <h6 class="itemMerchant"><?= $itm['nama_merchant'] ?></h6>
                     <div class="merchantRating">
-
                         <?php
                         $ada = 0;
                         foreach ($merchant as $mch) {
@@ -242,10 +241,17 @@
     <script>
         var filter = 0;
         var addCart = 0;
+        var profile = 0;
+
         textFit($(".titleGame"));
         textFit($(".profileName"));
 
         $('.success').hide();
+
+        $(".profile").click(function() {
+            profile = 1;
+            window.location.href = '<?= base_url(); ?>Shop/viewProfile/'.concat();
+        });
 
         $(".filterAlpha").click(function() {
             if (filter == 0) {
@@ -258,7 +264,10 @@
         });
 
         $(".TopUp").click(function() {
-            alert("TopUp");
+            if (profile == 0) {
+                alert("TopUp");
+            }
+
         });
 
         $(".homeButton").click(function() {

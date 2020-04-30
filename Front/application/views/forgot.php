@@ -39,7 +39,7 @@
         </div>
     </div>
 
-    <img class="svgForgot" width="1097.1" height="811.84" src="<?php echo base_url(); ?>asset/Images/SVG/ForgotPage.svg" alt="" />
+    <DIV class="svgForgot" style="content: url('<?= base_url(); ?>asset/Images/SVG/ForgotPage.svg')"></div>
     <script>
         $('.success').hide();
         $('.reset').click(function() {

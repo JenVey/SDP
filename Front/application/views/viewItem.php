@@ -176,16 +176,29 @@
             <?php foreach ($komen as $comment) : ?>
                 <div class="commentWrapper">
                     <div class="commentUser">
-                        <h3 class="userName"><?= $comment['nama_user'] ?></h3>
+                        <div class="userDetails">
+                            <div class="senderImg" style="content: url('data:image/jpeg;base64,<?= base64_encode($comment['foto']) ?>')">
+                            </div>
+                            <h5 class="userName"><?= $comment['nama'] ?></h5>
+                        </div>
                         <p class="comment varela"><?= $comment['pesan'] ?></p>
                     </div>
-                    <div class="replyMerchant">
-                        <h3 class="merchantName"> <?= $namaMerchant ?></h3>
-                        <p class="comment varela"> <?= $comment['reply'] ?></p>
-                    </div>
+                    <?php if ($comment['reply'] != "") { ?>
+                        <div class="replyMerchant">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 56.122 42.518">
+                                <path id="Icon_awesome-reply" data-name="Icon awesome-reply" d="M55.212,29.788,35.919,44.212c-1.689,1.263-4.35.238-4.35-1.724v-7.6C13.962,34.716,0,31.661,0,17.214,0,11.383,4.339,5.606,9.134,2.586c1.5-.943,3.629.24,3.078,1.768C7.242,18.117,14.57,21.77,31.569,21.982V13.639c0-1.965,2.664-2.985,4.35-1.724L55.212,26.34A2.087,2.087,0,0,1,55.212,29.788Z" transform="translate(0 -2.25)" fill="#1E2126" />
+                            </svg>
+                            <h5 class="merchantName"><?= $namaMerchant ?></h5>
+
+                            <p class="comment varela"><?= $comment['reply'] ?></p>
+
+                        </div>
+                    <?php } ?>
                 </div>
+                <div style="width: 85%; height: 1px; background-color: #D7C13F; margin: 2vh 0 2vh;"></div>
             <?php endforeach; ?>
         </div>
+    </div>
     </div>
     <script src="<?= base_url(); ?>/asset/Js/select.js"></script>
     <script>

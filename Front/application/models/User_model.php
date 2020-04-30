@@ -90,6 +90,10 @@ class User_model extends CI_model
 
         $saldo = $saldo - intval($total);
 
+        if ($saldo < 0) {
+            $saldo = 0;
+        }
+
         $query = "UPDATE USER SET SALDO = '" . $saldo . "' WHERE ID_USER = '" . $id . "' ";
         $this->db->query($query);
     }

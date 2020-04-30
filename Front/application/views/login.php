@@ -77,7 +77,7 @@
     </div>
   </div>
 
-  <img class="svgLanding" width="625.83" height="466.15" src="<?= base_url(); ?>asset/Images/SVG/LandingPage.svg" alt="" />
+  <div class="svgLanding" style="content: url('<?= base_url(); ?>asset/Images/SVG/LandingPage.svg');"></div>
   <!--Segitiga-->
   <svg class="triangle" xmlns="http://www.w3.org/2000/svg" width="94.26" height="98.118" viewBox="0 0 94.26 98.118">
     <g id="Polygon_1" data-name="Polygon 1" transform="matrix(-0.035, -0.999, 0.999, -0.035, 3.315, 98.118)" fill="none" opacity="0.34">

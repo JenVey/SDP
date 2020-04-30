@@ -16,7 +16,7 @@
 	<nav class="navbar">
 		<a class="logo" style="color: #D7C13F;" onclick="location.href='<?= base_url(); ?>login';">gather.owl</a>
 	</nav>
-	<img class="svgRegister" width="863.36" height="545.16" src="<?php echo base_url(); ?>asset/Images/SVG/RegisterPage.svg" alt="" />
+	<div class="svgRegister" style="content: url('<?= base_url(); ?>asset/Images/SVG/RegisterPage.svg');"></div>
 	<?php if (validation_errors()) : ?>
 		<div class="alert alert-danger" style="margin-left: 95px; margin-top: 10px; width: 1000px;" role="alert">
 			<?= validation_errors(); ?>

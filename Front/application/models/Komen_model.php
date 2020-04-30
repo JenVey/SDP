@@ -12,7 +12,11 @@ class Komen_model extends CI_model
 
     public function getKomenByIdItem($id)
     {
-        $query = "SELECT * FROM ITEM_KOMENTAR K JOIN ITEM I ON K.ID_ITEM = I.ID_ITEM JOIN USER U ON U.ID_USER = K.ID_USER WHERE K.ID_ITEM= '" . $id . "' ";
+        $query = "SELECT U.NAMA_USER AS 'nama', K.PESAN AS 'pesan', K.REPLY AS 'reply', U.FOTO AS 'foto'
+        FROM ITEM_KOMENTAR K 
+        JOIN ITEM I ON K.ID_ITEM = I.ID_ITEM 
+        JOIN USER U ON U.ID_USER = K.ID_USER 
+        WHERE K.ID_ITEM= '" . $id . "' ";
         $res = $this->db->query($query);
         return $res->result_array();
     }
