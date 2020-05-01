@@ -30,6 +30,8 @@ class Shop extends CI_Controller
         $this->load->model('Game_model');
         $this->load->model('Komen_model');
         $this->load->model('Cart_model');
+        $this->load->model('Trans_model');
+        $this->load->model('TransItem_model');
     }
 
     public function index()
@@ -122,6 +124,18 @@ class Shop extends CI_Controller
         $data['item'] = $this->Item_model->getItemByIdUser($id);
         $data['games'] = $this->Game_model->getAllGame();
         $this->load->view('viewProfile', $data);
+    }
+
+    public function viewHistory()
+    {
+        $id = $this->session->userdata('id_user');
+        $data['user'] = $this->User_model->getUserById($id);
+        $data['transaksi'] = $this->Trans_model->getTransByUser($id);
+        $data['transaksiItem'] = $this->TransItem_model->getAllTransItem();
+        $data['item'] = $this->Item_model->getAllItem();
+        $data['merchant'] = $this->Merchant_model->getAllMerchant();
+        $data['games'] = $this->Game_model->getAllGame();
+        $this->load->view('viewHistory', $data);
     }
 
     public function editProfile()

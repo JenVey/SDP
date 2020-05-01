@@ -1,0 +1,228 @@
+body{
+	display: flex;
+	justify-content: flex-start;
+}
+
+button{
+	border: none;
+	background: none;
+}
+
+p{
+	margin: 0;
+	display: inline;
+	font-size: 1vw;
+	font-family: Roboto;
+}
+
+h4{
+	font-size: 1.2vw;
+}
+
+.white{
+	color: #ecf0f1;
+}
+
+.dark{
+	color: #1E2126;
+}
+
+.homeButton{
+	text-shadow: 4px 3px 11px rgb(34, 33, 33);
+}
+
+.logout{
+	margin-top: 160px;
+}
+
+.historyContainer{
+	width: 81%;
+	margin-top: 20px;
+	display: flex;
+	flex-direction: column;
+	margin-left: 19vw;
+}
+
+.headerContainer{
+	width: 100%;
+	display: flex;
+	justify-content: flex-start;
+	margin-left: 1vw;
+}
+
+.headerTransaction{
+	margin-top: 6vh;
+	margin-left: 4vw;
+}
+
+.transHistoryContainer{
+	width: 90%;
+	height: 600px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-color: #1E2126;
+	margin-top: 4vh;
+	border-radius: 15px;
+	box-shadow:
+	  0 26.7px 22.9px -41px rgba(0, 0, 0, 0.09),
+	  0 51.8px 46.4px -41px rgba(0, 0, 0, 0.058),
+	  0 77.4px 71.4px -41px rgba(0, 0, 0, 0.044),
+	  0 114.1px 101.2px -41px rgba(0, 0, 0, 0.033),
+	  0 261px 172px -41px rgba(0, 0, 0, 0.02)
+	;
+}
+
+.transHistoryWrapper{
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.headerTable{
+	width: 100%;
+	height: 5vh;
+	display: flex;
+	align-items: flex-end;
+	justify-content: flex-start;
+}
+
+.headerSeparator{
+	width: 100%;
+	height: 1px;
+	margin-top: 2vh;
+	background-color: #d7c13f;
+}
+
+.transBlockContainer{
+	width: 100%;
+	height: 90%;
+	overflow: auto;
+}
+
+.transBlockContainer::-webkit-scrollbar {
+    width: 2px;
+}
+
+.transBlockContainer::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+ 
+.transBlockContainer::-webkit-scrollbar-thumb {
+  	background-color: #D7C13F;
+  	outline: 1px solid slategrey;
+  	border-radius: 100px;
+}
+
+.transBlock{
+	width: 100%;
+	height: 8vh;
+	display: flex;
+	align-items: center;
+	border-bottom: solid 1px rgba(215,193,63,0.50);
+}
+
+.transBlock:hover{
+	cursor: pointer;
+	background-color: #22262B;
+}
+
+.itemBlockContainer{
+	width: 100%;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+.itemBlock{
+	width: 100%;
+	height: 8vh;
+	display: flex;
+	align-items: center;
+	background-color: #17191D;
+	border-bottom: 1px solid rgba(236,240,241,0.45);
+}
+
+.Date{
+	width: 14.7vw;
+	color: #ECF0F1;
+}
+
+.PointsUsed{
+	width: 16vw;
+	color: #F25757;
+}
+
+.GrandTotal{
+	width: 15.8vw;
+	color: #ecf0f1;
+}
+
+.CashBack{
+	width: 15.5vw;
+	color: #42b77c;
+}
+
+.statusTrans{
+	height: 50%;
+	border-radius: 15px;
+	background-color: #D7C13F;
+	display: flex;
+	align-items: center;
+	padding: 10px;
+	box-sizing: border-box;
+	color: #1E2126!important;
+}
+
+.itemName{
+	width: 12.7vw;
+	color: #ecf0f1;
+	margin-left: 2vw;
+}
+
+.itemDesc{
+	width: 14vw;
+	height: 100%;
+	color: #ecf0f1;
+	font-weight: lighter;
+	overflow: auto;
+	box-sizing: border-box;
+	padding: 5px 0;
+}
+
+.itemDesc::-webkit-scrollbar {
+    width: 2px;
+}
+
+.itemDesc::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+.itemDesc::-webkit-scrollbar-thumb {
+      background-color: #D7C13F;
+      outline: 1px solid slategrey;
+      border-radius: 100px;
+}
+
+.merchantName{
+	width: 15.5vw;
+}
+
+.merchantName a{
+	text-decoration: none; 
+	color: #42b77c;
+}
+
+.Price{
+	width: 15.9vw;
+	color: #ecf0f1;
+	margin-left: 2vw;
+}
+
+.game{
+	color: #d7c13f;
+	font-size: 1vw;
+}
+
+.Points{
+	width: 13.7vw;
+}
