@@ -12,6 +12,8 @@
 	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/checkBox.css">
 	<script src="<?php echo base_url(); ?>asset/Js/jquery-min.js"></script>
 	<script src="<?php echo base_url(); ?>asset/Js/bootstrap.js"></script>
+	<script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-3P7SuUbxsTWXgTf3"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 </head>
 
 <body>
@@ -62,7 +64,7 @@
 		</div>
 	</div>
 
-	<div class="profile">
+	<div class="profile" nama="<?= $user['nama_user'] ?>" phone="<?= $user['phone'] ?>" email="<?= $user['email_user'] ?>">
 		<div class="profileImg"><img class="profileImg" src="data:image/jpeg;base64,<?= base64_encode($user['foto']) ?>" width="50" height="50" alt="" /></div>
 		<div class="profileStats">
 			<!-- Max Line 10 -->
@@ -127,19 +129,19 @@
 							<img src="data:image/jpeg;base64,<?= base64_encode($crt['foto']) ?>" alt="">
 						</div>
 						<div class=" itemDescWrapper">
-							<h5 class="itemName yellow"><?= $crt['nama_item'] ?></h5>
+							<h5 class="itemName yellow" id="item<?= $ctr ?>Name" nama="<?= $crt['nama_item'] ?>"><?= $crt['nama_item'] ?></h5>
 							<a href="<?= base_url(); ?>/Shop/viewMerchant/<?= $crt['id_merchant'] ?>" class="merchantName"><?= $crt['nama_merchant'] ?></a>
 							<div class="itemDesc">
 								<p><?= $crt['deskripsi'] ?></p>
 							</div>
 						</div>
 						<div class="price">
-							<h4 id="item<?= $ctr ?>Price" class="yellow">IDR <?= $crt['harga'] ?></h4>
+							<h4 id="item<?= $ctr ?>Price" class="yellow" harga="<?= $crt['harga'] ?>">IDR <?= $crt['harga'] ?></h4>
 						</div>
 						<div class="amount">
-							<h4 id="item<?= $ctr ?>Amount" class="yellow"><?= $crt['jumlah'] ?></h4>
+							<h4 id="item<?= $ctr ?>Amount" class="yellow"><?= $crt['jumlah'] ?>/<?= $crt['stok'] ?></h4>
 							<div class="minplusButton">
-								<button class="amountBut" onClick="addAmount(<?= $ctr ?>	,0)">
+								<button class="amountBut" onClick="addAmount(<?= $ctr ?>,0)">
 									<svg xmlns="http://www.w3.org/2000/svg" width="46" height="41" viewBox="0 0 46 41">
 										<g id="Group_185" data-name="Group 185" transform="translate(-15819.5 3056.5)">
 											<g id="Group_182" data-name="Group 182" transform="translate(86 -93)">
@@ -162,7 +164,7 @@
 							</div>
 						</div>
 						<div class="subtotal">
-							<h4 id="item<?= $ctr ?>Subtotal" style="color:#63D99E; ">IDR <?= $crt['subtotal'] ?></h4>
+							<h4 id="item<?= $ctr ?>Subtotal" style="color:#63D99E; " subtotal="<?= $crt['subtotal'] ?>">IDR <?= $crt['subtotal'] ?></h4>
 						</div>
 					</div>
 				</div>
@@ -181,7 +183,7 @@
 							</div>
 							<div class="pembeda">
 								<h4 style="color: #ecf0f1; margin-left: 5vw;">Your Balance :</h4>
-								<h4 class="balance yellow" style="margin-left: 3vw;">IDR 15.000.000</h4>
+								<h4 class="balance yellow" style="margin-left: 3vw;">IDR <?= $user['saldo'] ?></h4>
 							</div>
 						</div>
 						<button class="checkOut">
@@ -192,6 +194,11 @@
 			</div>
 		</div>
 	</div>
+	<form id="payment-form" method="post" action="<?= site_url() ?>Shop/finish/">
+		<input type="hidden" name="result_data" id="result-type" value=""></div>
+		<input type="hidden" name="result_data" id="result-data" value=""></div>
+		<input type="hidden" name="total" id="total" value=""></div>
+	</form>
 	<script>
 		var id = 0;
 
@@ -209,6 +216,19 @@
 			}
 			ctr--;
 			id = ctr;
+			for (i = 1; i <= id; i++) {
+				var price = $("#item" + i + "Price").html();
+				var amount = $("#item" + id + "Amount").html();
+				amount = amount.substring(0, amount.indexOf('/'));
+				price = price.substring(4, price.length);
+				$("#item" + i + "Price").html("IDR " + addCommas(price));
+				var subtotal = price * amount;
+				$("#item" + i + "Subtotal").html("IDR " + addCommas(subtotal));
+			}
+			var balance = $(".balance").html();
+			balance = balance.substring(4, balance.length);
+			$(".balance").html("IDR " + addCommas(balance));
+
 		});
 
 		function addGrandtotal() {
@@ -253,13 +273,17 @@
 
 		function addAmount(id, jenis) {
 			var amount = $("#item" + id + "Amount").html();
+			amount = amount.substring(0, amount.indexOf('/'));
 			amount = parseInt(amount);
+			var stok = $("#item" + id + "Amount").html();
+			stok = stok.substring(stok.indexOf('/') + 1, stok.length);
+			stok = parseInt(stok);
 			if (jenis == 0) {
 				if (amount != 0) amount -= 1;
 			} else {
-				amount += 1;
+				if (stok > amount) amount += 1;
 			}
-			$("#item" + id + "Amount").html(amount);
+			$("#item" + id + "Amount").html(amount + "/" + stok);
 			var price = $("#item" + id + "Price").html();
 			price = price.replace(/[^a-z0-9\s]/gi, '');
 			price = price.substring(4, price.length);
@@ -300,6 +324,99 @@
 
 		$(".back").click(function() {
 			window.location.href = '<?= base_url(); ?>Shop/unsetGame/';
+		});
+
+
+		//MIDTRANS
+
+		$('.checkOut').click(function(event) {
+
+			event.preventDefault();
+			$(this).attr("disabled", "disabled");
+
+			var cart = [];
+			for (var i = 1; i <= id; i++) {
+				if ($("#check" + i + "Item").prop('checked')) {
+					var amount = $("#item" + i + "Amount").html();
+					amount = amount.substring(0, amount.indexOf('/'));
+					let obj = {
+						id: $("#item" + i).attr("idItem"),
+						price: parseInt($("#item" + i + "Price").attr("harga")),
+						quantity: parseInt(amount),
+						name: $("#item" + i + "Name").attr("nama")
+					}
+					cart.push(obj);
+				}
+			}
+			cartt = JSON.stringify(cart);
+
+			var grandtotal = $(".GrandTotal").html();
+			grandtotal = grandtotal.replace(/[^a-z0-9\s]/gi, '');
+			grandtotal = grandtotal.substring(4, grandtotal.length);
+			var gross_amount = grandtotal;
+			$("#total").val(grandtotal);
+			total = $("#total").val();
+
+			alert(gross_amount);
+
+			nama = $(".profile").attr("nama");
+			phone = $(".profile").attr("phone");
+			email = $(".profile").attr("email");
+			$.ajax({
+				method: 'POST',
+				url: '<?= base_url() ?>Midtrans/snap/token',
+				data: {
+					cart: cartt,
+					gross_amount: gross_amount,
+					nama: nama,
+					phone: phone,
+					email: email
+				},
+				cache: false,
+
+				success: function(data) {
+					console.log('token = ' + data);
+
+					var resultType = document.getElementById('result-type');
+					var resultData = document.getElementById('result-data');
+
+					function changeResult(type, data) {
+						$("#result-type").val(type);
+						$("#result-data").val(JSON.stringify(data));
+						for (var i = 0; i < cart.length; i++) {
+							$('<input>').attr({
+								type: 'hidden',
+								name: 'cart[]',
+								value: cart[i]["id"]
+							}).appendTo('#payment-form');
+						}
+						//resultType.innerHTML = type;
+						//resultData.innerHTML = JSON.stringify(data);
+					}
+
+					snap.pay(data, {
+						onSuccess: function(result) {
+							changeResult('success', result);
+							console.log(result.status_message);
+							console.log(result);
+
+
+							$("#payment-form").submit();
+						},
+						onPending: function(result) {
+							changeResult('pending', result);
+							console.log(result.status_message);
+							$("#payment-form").submit();
+						},
+						onError: function(result) {
+							changeResult('error', result);
+							console.log(result.status_message);
+							$("#payment-form").submit();
+						}
+					});
+
+				}
+			});
 		});
 	</script>
 </body>

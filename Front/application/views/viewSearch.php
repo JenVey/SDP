@@ -132,8 +132,9 @@
 
         <h2 class=" itemHeader">Keyword : '<?= $_SESSION['keyword'] ?>'</p>
         </h2>
-        <?php foreach ($merchant as $mch) : ?>
-            <div class="merchantContainer">
+        <div class="merchantContainer">
+            <?php foreach ($merchant as $mch) : ?>
+
                 <div class="merchantAcc" idMerchant='<?= $mch['id'] ?>'>
                     <div class="merchantIMG"><img src="data:image/jpeg;base64,<?= base64_encode($mch['foto']) ?>" width="60" height="60" alt="" /></div>
                     <div class="merchantDetails">
@@ -154,8 +155,9 @@
                         </p>
                     </div>
                 </div>
-            </div>
-        <?php endforeach; ?>
+
+            <?php endforeach; ?>
+        </div>
         <div class="itemContainer">
             <?php foreach ($item as $itm) : ?>
                 <div class="item" idItem="<?= $itm['id_item'] ?>">

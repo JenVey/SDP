@@ -31,11 +31,24 @@ class Merchant_model extends CI_model
         $query = "SELECT M.ID_MERCHANT AS 'id', M.NAMA_MERCHANT AS 'nama',  ROUND(SUM(R.BINTANG)/COUNT(R.BINTANG)) AS 'rating' , M.FOTO_PROFIL AS 'foto'
         FROM MERCHANT M 
         JOIN FRIEND F ON M.ID_MERCHANT = F.ID_USER2
-        LEFT JOIN MERCHANT_RATING R ON R.ID_MERCHANT = M.ID_MERCHANT 
+        LEFT JOIN MERCHANT_RATING R ON R.ID_MERCHANT = M.ID_MERCHANT
         WHERE F.ID_USER1 = '" . $id . "' 
         GROUP BY M.ID_MERCHANT,M.NAMA_MERCHANT";
 
         $res = $this->db->query($query);
+        return $res->result_array();
+    }
+
+    public function getMerchantUser($id)
+    {
+        $query = "SELECT M.ID_MERCHANT AS 'id', M.NAMA_MERCHANT AS 'nama',  ROUND(SUM(R.BINTANG)/COUNT(R.BINTANG)) AS 'rating' , M.FOTO_PROFIL AS 'foto', M.BIO as 'bio'
+        FROM MERCHANT M 
+        LEFT JOIN MERCHANT_RATING R ON R.ID_MERCHANT = M.ID_MERCHANT
+        WHERE M.ID_USER = '" . $id . "' 
+        GROUP BY M.ID_MERCHANT,M.NAMA_MERCHANT";
+
+        $res = $this->db->query($query);
+        //print_r($res);
         return $res->result_array();
     }
 

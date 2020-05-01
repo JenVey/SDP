@@ -77,4 +77,24 @@ class User_model extends CI_model
         $this->db->where('id_user', $id);
         $this->db->update('user', $data);
     }
+
+    public function updateSaldo($total)
+    {
+        $id = $this->session->userdata('id_user');
+        $cekquery = $this->db->query("select * from user");
+        foreach ($cekquery->result_array() as $row) {
+            if ($id == $row['id_user']) {
+                $saldo = $row['saldo'];
+            }
+        }
+
+        $saldo = $saldo - intval($total);
+
+        if ($saldo < 0) {
+            $saldo = 0;
+        }
+
+        $query = "UPDATE USER SET SALDO = '" . $saldo . "' WHERE ID_USER = '" . $id . "' ";
+        $this->db->query($query);
+    }
 }

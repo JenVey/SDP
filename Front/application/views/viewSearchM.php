@@ -3,22 +3,22 @@
 
 <head>
     <meta charset="utf-8">
-    <title>gather.owl - Shop</title>
+    <title>gather.owl - Merchant</title>
     <link rel="icon" href="<?php echo base_url(); ?>asset/Images/android-chrome-512x512.png">
     <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/bootstrap.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/shopCSS.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/itemCSS.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/Ours.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/select.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="<?php echo base_url(); ?>asset/Js/jquery-min.js"></script>
     <script src="<?php echo base_url(); ?>asset/Js/bootstrap.js"></script>
     <script src="<?php echo base_url(); ?>asset/Js/textFit.js"></script>
-    <!--  -->
 </head>
 
 <body>
     <div class="accList">
-        <button class="backtoMenu">
+        <button class=" backtoMenu">
             <svg xmlns="http://www.w3.org/2000/svg" width="35" height="27.5" viewBox="0 0 40 32.5">
                 <g id="icon" transform="translate(0 -4.785)">
                     <path id="Path_1402" data-name="Path 1402" d="M39.144,37.285a.871.871,0,0,1-.793-.657h0c-.1-.3-2.573-7.328-11.823-8.721a50.176,50.176,0,0,0-7.037-.475V36.2a1.159,1.159,0,0,1-.456.965.714.714,0,0,1-.882-.063L.381,21.941a1.191,1.191,0,0,1-.381-.9,1.2,1.2,0,0,1,.381-.906L18.16,4.971a.7.7,0,0,1,.882-.055,1.147,1.147,0,0,1,.454.954v8.156c3.866.638,20.5,4.427,20.5,22.18a1.059,1.059,0,0,1-.688,1.068A.84.84,0,0,1,39.144,37.285Z" fill="#f25757" />
@@ -69,7 +69,7 @@
         <div class="profileStats">
             <!-- Max Line 10 -->
             <h5 class="profileName"><?= $user['nama_user'] ?></h5>
-            <h6 class="profileBalance">IDR <?= ceil($user['saldo']) ?></h6>
+            <h6 class="profileBalance">IDR <?= $user['saldo'] ?></h6>
         </div>
         <button class="TopUp">
             <svg xmlns="http://www.w3.org/2000/svg" width="20.271" height="28" viewBox="0 0 25.271 33">
@@ -78,8 +78,10 @@
             <h6 class="TopupText">Top-Up</h6>
         </button>
     </div>
-    <div class="bodyContainer" style="text-align: center">
+
+    <div class="bodyContainer">
         <div class="headerContainer">
+
             <button class="homeButton">
                 <h1 class="yellow varela">gather.owl</h1>
             </button>
@@ -126,63 +128,86 @@
             </button>
         </div>
 
-        <div class="iklan">
-            <div id="iklanDisplay" class="carousel slide" data-ride="carousel">
-                <ol class="carousel-indicators">
-                    <li data-target="#iklanDisplay" data-slide-to="0" class="active"></li>
-                    <li data-target="#iklanDisplay" data-slide-to="1"></li>
-                    <li data-target="#iklanDisplay" data-slide-to="2"></li>
-                </ol>
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img src="<?php echo base_url(); ?>/asset/Images/contohIklan1.png" class="d-block w-100" alt="...">
+        <div class="filterSearchContainer">
+            <div class="merchantInfo">
+                <div class="merchantWrapper">
+                    <img src="Images/untrail.jpeg" width="50" height="50" alt="" class="merchantImg">
+                    <h4 class="merchantName" <?php
+                                                foreach ($merchant as $mch) {
+                                                    echo "idMerchant='" . $mch['id'] . "'";
+                                                }
+                                                ?>>
+                        <?php
+                        foreach ($merchant as $mch) {
+                            $idM = $mch['id'];
+                            echo $mch['nama'];
+                        ?>
+                    </h4>
+                    <div class="rating">
+                    <?php
+                            if (isset($mch['rating'])) {
+                                for ($i = 0; $i < $mch['rating']; $i++) {
+                                    echo " <svg xmlns='http://www.w3.org/2000/svg' width='37.353' height='30' viewBox='0 0 21 21'>";
+                                    echo "<path class='Icon_awesome-star' data-name='Icon awesome-star' d='M10.815.73,8.252,6.159l-5.735.874a1.329,1.329,0,0,0-.695,2.239L5.971,13.5,4.99,19.463a1.268,1.268,0,0,0,1.821,1.382l5.13-2.817,5.13,2.817a1.269,1.269,0,0,0,1.821-1.382L17.912,13.5l4.149-4.224a1.329,1.329,0,0,0-.695-2.239l-5.735-.874L13.068.73a1.234,1.234,0,0,0-2.253,0Z' transform='translate(-1.441 0.001)' fill='#d7c13f' />";
+                                    echo "</svg>";
+                                }
+                            } else {
+                                echo "<p style='color:#d7c13f; margin-bottom: 0;float: left; font-size: 20pt;'>";
+                                echo "Unrated";
+                                echo "</p>";
+                            }
+                        }
+                    ?>
                     </div>
-                    <div class="carousel-item">
-                        <img src="<?php echo base_url(); ?>/asset/Images/contohIklan2.png" class="d-block w-100" alt="...">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="<?php echo base_url(); ?>/asset/Images/contohIklan3.png" class="d-block w-100" alt="...">
-                    </div>
+                </div>
+                <div class="buttons">
+                    <?php
+                    $ada = false;
+                    foreach ($merchantF as $mchF) {
+                        foreach ($merchant as $mch) {
+                            if ($mch['id'] == $mchF['id']) {
+                                $ada = true;
+                            }
+                        }
+                    }
+
+                    if ($ada) {
+                        echo "<button class='merchantFollow' follow='1'>";
+                        echo "<svg xmlns='http://www.w3.org/2000/svg' width='37.353' height='30' viewBox='0 0 47.353 40'>";
+                        echo "<path id='Icon_awesome-heart' style='fill:#E92E55;' data-name='Icon awesome-heart' d='M42.755,4.983C37.687.813,30.15,1.563,25.5,6.2L23.676,8.009,21.854,6.2C17.211,1.563,9.665.813,4.6,4.983a12.52,12.52,0,0,0-.916,18.562l17.9,17.839a2.972,2.972,0,0,0,4.19,0l17.9-17.839a12.512,12.512,0,0,0-.906-18.562Z' transform='translate(0.001 -2.248)' fill='#3e3e3e' />";
+                        echo "</svg>";
+                        echo "</button>";
+                    } else {
+                        echo "<button class='merchantFollow' follow='0'>";
+                        echo "<svg xmlns='http://www.w3.org/2000/svg' width='37.353' height='30' viewBox='0 0 47.353 40'>";
+                        echo "<path id='Icon_awesome-heart' data-name='Icon awesome-heart' d='M42.755,4.983C37.687.813,30.15,1.563,25.5,6.2L23.676,8.009,21.854,6.2C17.211,1.563,9.665.813,4.6,4.983a12.52,12.52,0,0,0-.916,18.562l17.9,17.839a2.972,2.972,0,0,0,4.19,0l17.9-17.839a12.512,12.512,0,0,0-.906-18.562Z' transform='translate(0.001 -2.248)' fill='#3e3e3e' />";
+                        echo "</svg>";
+                        echo "</button>";
+                    }
+
+                    ?>
+
+                    <button class="merchantChat">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="37.353" height="30" viewBox="0 0 56.736 44">
+                            <path id="Icon_open-chat" data-name="Icon open-chat" d="M0,0V31.429l7.092-6.286h7.092V6.286H35.46V0ZM21.276,12.571V37.714H49.644L56.736,44V12.571Z" fill="#fff" />
+                        </svg>
+                    </button>
+                    <button class="merchantRate">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="37.353" height="30" viewBox="0 0 43.153 42.621">
+                            <path id="Icon_material-rate-review" data-name="Icon material-rate-review" d="M41.838,3H7.315A4.283,4.283,0,0,0,3.022,7.262L3,45.621,11.631,37.1H41.838a4.3,4.3,0,0,0,4.315-4.262V7.262A4.3,4.3,0,0,0,41.838,3ZM11.631,28.572V23.309L26.475,8.647a1.078,1.078,0,0,1,1.532,0l3.819,3.772a1.046,1.046,0,0,1,0,1.513L16.96,28.572Zm25.892,0H21.34l4.315-4.262H37.523Z" transform="translate(-3 -3)" fill="#fff" />
+                        </svg>
+                    </button>
+                    <button class="merchantReport">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="37.353" height="30" viewBox="0 0 45.466 45.121">
+                            <path id="Icon_material-report" data-name="Icon material-report" d="M36.654,4.5H17.811L4.5,17.71v18.7l13.311,13.21H36.654L49.966,36.41V17.71ZM27.233,40.346a3.259,3.259,0,1,1,3.284-3.259A3.265,3.265,0,0,1,27.233,40.346Zm2.526-10.779H24.707V14.527h5.052Z" transform="translate(-4.5 -4.5)" fill="#ff5858" />
+                        </svg>
+                    </button>
                 </div>
             </div>
         </div>
-        <div class="success" style="left:-550px;top:-800px; position:fixed;">
-            <div class="check">
-                <div class="textVeri" style="left: 350px;">Success!!!</div>
-                <div class="textExp" style="left: 295px;">Add to your cart</div>
-                <svg id=centang1 xmlns="http://www.w3.org/2000/svg" width="215" height="215" viewBox="0 0 215 215">
-                    <ellipse id="Ellipse_58" data-name="Ellipse 58" cx="107.5" cy="107.5" rx="107.5" ry="107.5" fill="#69f0ae" />
-                </svg>
-                <svg id="centang2" xmlns="http://www.w3.org/2000/svg" width="134.385" height="117.583" viewBox="0 0 134.385 117.583">
-                    <path id="Path_1265" data-name="Path 1265" d="M319.351,289.686l40.308,36.955,57.109-83.981,20.167,16.8L359.659,360.243,302.55,296.416Z" transform="translate(-302.55 -242.66)" fill="#fff" />
-                </svg>
-            </div>
-        </div>
-        <h2 class="gamesHeader">Games</h2>
-        <div class="gamesContainer">
-            <div class="gamescollection">
-                <?php $ctr = 0; ?>
-                <?php foreach ($games as $game) : ?>
-                    <div class="itemGame" idGame='<?= $game['id_game'] ?>'>
-                        <div class="img" style=" width: 80px; height: 80px; transform: skewX(5deg);"><img src="data:image/jpeg;base64,<?= base64_encode($game['foto_game']) ?>" alt="" /></div>
-                        <h5 class="titleGame" style="color: #ecf0f1; transform: skewX(5deg);"><?= $game['nama_game'] ?></h5>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-        </div>
-        <?php
-        if (!isset($_SESSION['id_game'])) {
-            echo "<h2 class='itemHeader'>Recent Items</h2>";
-        } else {
-            foreach ($games as $game) {
-                if ($game['id_game'] == $_SESSION['id_game']) {
-                    echo "<h2 class='itemHeader'>Items for <p class='yellow'>" . $game['nama_game'] . "</p>";
-                }
-            }
-        }
-        ?>
-        </h2>
 
+        <h2 class=" itemHeader">Recent Items</p>
+        </h2>
         <div class="itemContainer">
             <?php foreach ($item as $itm) : ?>
                 <div class="item" idItem="<?= $itm['id_item'] ?>">
@@ -192,9 +217,14 @@
                     </div>
                     <h5 class="itemTitle"><?= $itm['nama_item'] ?></h5>
                     <h6 class="itemGameType"><?= $itm['nama_game'] ?></h6>
-                    <p class="itemDesc"><?= $itm['desc_item'] ?></p>
+                    <p class="itemDesc">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                        ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+                        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
                     <h6 class="itemMerchant"><?= $itm['nama_merchant'] ?></h6>
                     <div class="merchantRating">
+
                         <?php
                         $ada = 0;
                         foreach ($merchant as $mch) {
@@ -215,43 +245,19 @@
                         ?>
                     </div>
                     <p class="itemUploadDate">Uploaded at <?= date('d/m/Y', strtotime($itm['tanggal_upload'])) ?></p>
-                    <div class="addtoCart" idItem="<?= $itm['id_item'] ?>">
-                        <button style="border: none;background: none;">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50">
-                                <g id="Group_182" data-name="Group 182" transform="translate(-10402 -997)">
-                                    <g id="Group_181" data-name="Group 181" transform="translate(10402 997)">
-                                        <rect id="Rectangle_302" data-name="Rectangle 302" width="50" height="50" rx="10" fill="#63d99e" />
-                                        <path id="Icon_material-add-shopping-cart" data-name="Icon material-add-shopping-cart" d="M12.115,31.142a3.55,3.55,0,1,0,3.538,3.55A3.539,3.539,0,0,0,12.115,31.142Zm17.691,0a3.55,3.55,0,1,0,3.538,3.55A3.539,3.539,0,0,0,29.806,31.142ZM12.416,25.374l.053-.213,1.592-2.893h13.18a3.52,3.52,0,0,0,3.1-1.828L37.166,8l-3.078-1.7H34.07l-1.946,3.55-4.883,8.875H14.822l-.23-.479-3.963-8.4L8.948,6.294,7.285,2.744H1.5v3.55H5.038l6.369,13.472L9.019,24.114a3.44,3.44,0,0,0-.442,1.7,3.554,3.554,0,0,0,3.538,3.55h21.23v-3.55H12.858A.45.45,0,0,1,12.416,25.374Z" transform="translate(5.012 5.81)" fill="#4c525d" />
-                                        <path id="Icon_awesome-arrow-down" data-name="Icon awesome-arrow-down" d="M12.568,8.543l.663.733a.85.85,0,0,1,0,1.12l-5.8,6.422a.667.667,0,0,1-1.013,0L.608,10.4a.85.85,0,0,1,0-1.12l.663-.733A.671.671,0,0,1,2.3,8.556l3.429,3.981V3.043a.756.756,0,0,1,.717-.793H7.4a.756.756,0,0,1,.717.793v9.494l3.429-3.981a.666.666,0,0,1,1.025-.013Z" transform="translate(19.034 2.114)" fill="#4c525d" />
-                                    </g>
-                                </g>
-                            </svg>
-                        </button>
-                    </div>
-                    <h4 class="stok yellow">Stok : <?= $itm['jumlah_item'] ?></h4>
+                    <button class="addtoCart">Add to cart</button>
                 </div>
             <?php endforeach; ?>
         </div>
 
-        <div class="footer">
-            Copyright MorningOwl
-        </div>
     </div>
     <script src="<?= base_url(); ?>/asset/Js/select.js"></script>
     <script>
         var filter = 0;
+        var follow = $(".merchantFollow").attr("follow");
         var addCart = 0;
-        var profile = 0;
-
         textFit($(".titleGame"));
         textFit($(".profileName"));
-
-        $('.success').hide();
-
-        $(".profile").click(function() {
-            profile = 1;
-            window.location.href = '<?= base_url(); ?>Shop/viewProfile/'.concat();
-        });
 
         $(".filterAlpha").click(function() {
             if (filter == 0) {
@@ -263,60 +269,51 @@
             }
         });
 
-        $(".TopUp").click(function() {
-            if (profile == 0) {
-                alert("TopUp");
+        $(".merchantFollow").click(function() {
+            id = $(".merchantName").attr("idMerchant");
+            if (follow == 0) {
+                follow = 1;
+                $.ajax({
+                    url: "<?= base_url(); ?>Shop/likeMerchant",
+                    method: "post",
+                    data: {
+                        idMerchant: id
+                    },
+                    success: function(result) {
+
+                    }
+                });
+                $("#Icon_awesome-heart").css("fill", "#E92E55");
+
+            } else {
+                //alert(id);
+                follow = 0;
+                $.ajax({
+                    url: "<?= base_url(); ?>Shop/unlikeMerchant",
+                    method: "post",
+                    data: {
+                        idMerchant: id
+                    },
+                    success: function(result) {
+
+                    }
+                });
+                $("#Icon_awesome-heart").css("fill", "#3e3e3e");
             }
 
-        });
-
-        $(".homeButton").click(function() {
-            window.location.href = '<?= base_url(); ?>Shop/unsetGame/';
         });
 
         $(".backtoMenu").click(function() {
             window.location.href = '<?= base_url(); ?>MainMenu';
         });
 
-        $(".itemGame").click(function() {
-            id = $(this).attr('idGame');
-            window.location.href = '<?= base_url(); ?>Shop/setGame/'.concat(id);
-        });
-
-        $(".addtoCart").click(function() {
-            addCart = 1;
-            id = $(this).attr('idItem');
-            $.ajax({
-                url: "<?= base_url(); ?>Shop/addCart",
-                method: "post",
-                data: {
-                    idItem: id
-                },
-                success: function(result) {
-                    addCart = 0;
-                    $(".success").css({
-                        top: 150,
-                        left: 500
-                    });
-                    $('.success').fadeIn("slow");
-                }
-            });
-
-        });
-
-        $(document).mouseup(function(e) {
-            var container = $(".success");
-            // If the target of the click isn't the container
-            if (!container.is(e.target) && container.has(e.target).length === 0) {
-                $(".success").fadeOut("slow");
-            }
+        $(".homeButton").click(function() {
+            window.location.href = '<?= base_url(); ?>Shop';
         });
 
         $(".item").click(function() {
-            if (addCart == 0) {
-                id = $(this).attr('idItem');
-                window.location.href = '<?= base_url(); ?>Shop/viewItem/'.concat(id);
-            }
+            id = $(this).attr('idItem');
+            window.location.href = '<?= base_url(); ?>Shop/viewItem/'.concat(id);
         });
 
         $(".accItem").click(function() {
@@ -325,7 +322,8 @@
         });
 
         $(".searchButton").click(function() {
-
+            idM = $(".merchantName").attr("idMerchant");
+            alert(idM);
             isi = $(".Searchinput").val();
             if (isi == "") {
                 alert('Search input belum diisi');
@@ -333,17 +331,13 @@
 
                 if (filter == 1) {
                     setFilter = $('#filters').val();
-                    window.location.href = '<?= base_url(); ?>Shop/setFilter/'.concat(setFilter.concat("/")).concat(isi);
+                    window.location.href = '<?= base_url(); ?>Shop/setMerchantF/'.concat(setFilter.concat("/")).concat(isi.concat("/")).concat(idM);
 
                 } else {
-                    window.location.href = '<?= base_url(); ?>Shop/unsetFilter/'.concat(isi);
+                    window.location.href = '<?= base_url(); ?>Shop/setMerchant/'.concat(idM.concat("/")).concat(isi);
                 }
 
             }
-        });
-
-        $(".cartButton").click(function() {
-            window.location.href = '<?= base_url(); ?>Shop/viewCart/';
         });
     </script>
 </body>
