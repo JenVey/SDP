@@ -15,6 +15,15 @@
     <script src="<?php echo base_url(); ?>asset/Js/bootstrap.js"></script>
     <script src="<?php echo base_url(); ?>asset/Js/textFit.js"></script>
 </head>
+<?php
+
+foreach ($merchant as $mch) {
+    if ($mch['id_user'] == $user['id_user']) {
+        $mchId = $mch['id'];
+    }
+}
+
+?>
 
 <body>
     <div class="accList">
@@ -144,7 +153,7 @@
 
                 <h4 style="color: #42b77c;">IDR <?= ceil($item['harga_item']) ?></h4>
                 <div class="descBox">
-                    <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+                    <p><?= $item['desc_item'] ?></p>
                 </div>
                 <a href="<?= base_url(); ?>/Shop/viewMerchant/<?= $item['id_merchant'] ?>">
                     <h5 style="color: #42b77c;margin-top: 10px;">
@@ -159,19 +168,28 @@
                     </h5>
                 </a>
                 <p style="color: gray;font-size: 10pt; margin: 0;">Uploaded on <?= date('d/m/Y', strtotime($item['tanggal_upload'])) ?></p>
-                <button class="AddtoCart">Add to cart</button>
+                <?php
+                if ($item['jumlah_item'] == 0) {
+                    echo "<button class='soldOut'>Sold Out</button>";
+                } else {
+                    echo "<button class='AddtoCart'>Add to cart</button>";
+                }
+                ?>
+
             </div>
         </div>
         <h3 class="yellow varela" style="margin-left: 2vw;">Comments</h3>
-        <div class="enterComment">
-            <form method="post" action="<?= base_url(); ?>/Shop/insertComment/<?= $item['id_item'] ?>">
-                <textarea name="commentUser" placeholder="Wanna ask about the item?" id="commentMe" cols="169" rows="6"></textarea>
-                <input type="hidden" name="idUser" value="<?= $user['id_user'] ?>">
-                <button class="sendComment" type="submit">
-                    <h5>Send</h5>
-                </button>
-            </form>
-        </div>
+        <?php if ($mchId != $item['id_merchant']) { ?>
+            <div class="enterComment">
+                <form method="post" action="<?= base_url(); ?>/Shop/insertComment/<?= $item['id_item'] ?>">
+                    <textarea name="commentUser" placeholder="Wanna ask about the item?" id="commentMe" cols="169" rows="6"></textarea>
+                    <input type="hidden" name="idUser" value="<?= $user['id_user'] ?>">
+                    <button class="sendComment" type="submit">
+                        <h5>Send</h5>
+                    </button>
+                </form>
+            </div>
+        <?php } ?>
         <div class="commentSection">
             <?php foreach ($komen as $comment) : ?>
                 <div class="commentWrapper">
@@ -206,6 +224,8 @@
         var addCart = 0;
         textFit($(".titleGame"));
         textFit($(".profileName"));
+
+
 
         $(".filterAlpha").click(function() {
             if (filter == 0) {

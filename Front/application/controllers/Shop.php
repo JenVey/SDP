@@ -120,7 +120,37 @@ class Shop extends CI_Controller
         $data['merchantF'] = $this->Merchant_model->getMerchantByIdUser($id);
         $data['merchant'] = $this->Merchant_model->getMerchantUser($id);
         $data['item'] = $this->Item_model->getItemByIdUser($id);
+        $data['games'] = $this->Game_model->getAllGame();
         $this->load->view('viewProfile', $data);
+    }
+
+    public function editProfile()
+    {
+        $this->User_model->editUser();
+    }
+
+    public function insertItem()
+    {
+        $this->Item_model->insertItem();
+    }
+
+    public function removeItem()
+    {
+        $this->Item_model->removeItem();
+    }
+    public function editItem()
+    {
+        $this->Item_model->editItem();
+    }
+
+    public function insertMerchant()
+    {
+        $this->Merchant_model->insertMerchant();
+    }
+
+    public function editMerchant()
+    {
+        $this->Merchant_model->editMerchant();
     }
 
     public function setFilter($isi)

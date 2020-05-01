@@ -62,9 +62,11 @@ button:focus{
 	0 27px 25px rgba(0, 0, 0, 0.08)
   ;
 }
+
 .filterAlpha:hover{
 	cursor: pointer;
 }
+
 #solid_filter:hover{
 	fill: #D7C13F;
 	opacity: 0.56;

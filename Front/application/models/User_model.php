@@ -97,4 +97,28 @@ class User_model extends CI_model
         $query = "UPDATE USER SET SALDO = '" . $saldo . "' WHERE ID_USER = '" . $id . "' ";
         $this->db->query($query);
     }
+
+    public function editUser()
+    {
+        $id = $this->session->userdata('id_user');
+        $name = $this->input->post('name');
+        $phone = $this->input->post('phone');
+        $pass = $this->input->post('pass');
+        $email = $this->input->post('email');
+        $trade = $this->input->post('trade');
+        $foto = $this->input->post('foto');
+        $foto = base64_decode($foto);
+
+        $data = [
+            "nama_user" => $name,
+            "pass_user" => $pass,
+            "email_user" => $email,
+            "trade_link" => $trade,
+            "foto" =>  $foto,
+            "phone" => $phone
+        ];
+
+        $this->db->where('id_user', $id);
+        $this->db->update('user', $data);
+    }
 }
