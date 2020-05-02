@@ -51,6 +51,8 @@ class Snap extends CI_Controller
 		}
 
 		//INSERT TRANSAKSI
+		// $gp;
+		// $cashback;
 		$this->Trans_model->insertTrans();
 
 

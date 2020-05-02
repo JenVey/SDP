@@ -73,8 +73,42 @@ foreach ($merchant as $mch) {
 			</label>
 			<input type="text" name="tradeProfile" id="tradeProfile" value="<?= $user['trade_link'] ?>" readonly>
 		</div>
-		<button class="changeProfile">Edit Profile</button>
-		<button class="logout">Logout</button>
+
+		<button class="changeProfile">
+			<svg id="changeProfileIcon" style="margin-left: 20px;" xmlns="http://www.w3.org/2000/svg" width="21" height="18" viewBox="0 0 44.998 36.001">
+				<path id="Icon_awesome-user-edit" data-name="Icon awesome-user-edit" d="M15.75,18a9,9,0,1,0-9-9A9,9,0,0,0,15.75,18Zm6.3,2.25H20.876a12.24,12.24,0,0,1-10.252,0H9.45A9.452,9.452,0,0,0,0,29.7v2.925A3.376,3.376,0,0,0,3.375,36H22.7a3.376,3.376,0,0,1-.183-1.5L23,30.22l.084-.78.555-.555,5.435-5.435a9.354,9.354,0,0,0-7.024-3.2Zm3.185,10.216-.478,4.289a1.119,1.119,0,0,0,1.237,1.237l4.282-.478,9.7-9.7-5.041-5.041-9.7,9.689ZM44.508,18.907l-2.665-2.665a1.685,1.685,0,0,0-2.377,0L36.809,18.9l-.288.288,5.048,5.041,2.939-2.939a1.693,1.693,0,0,0,0-2.384Z" fill="#ecf0f1" />
+			</svg>
+			<svg id="saveChangesIcon" style="margin-left: 20px;" xmlns="http://www.w3.org/2000/svg" width="21" height="18" viewBox="0 0 28.242 20.121">
+				<path id="Icon_feather-check" data-name="Icon feather-check" d="M30,9,13.5,25.5,6,18" transform="translate(-3.879 -6.879)" fill="none" stroke="#1E2126" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
+			</svg>
+			<p class="changeProfileText" style="margin-right: 20px;">Edit Profile</p>
+		</button>
+		<div class="profileSeparator" style="margin-top: 40px;"></div>
+		<div class="Balance">
+			<h5 class="yellow">Current Balance </h5>
+			<h5 style="color: #42b77c;">GP 15.000</h5>
+			<div class="butWrapper">
+				<button class="ProfileTopUp">
+					<svg style="margin-left: 20px;" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 45 45">
+						<path id="Subtraction_1" data-name="Subtraction 1" d="M22.5,45A22.5,22.5,0,0,1,6.59,6.59,22.5,22.5,0,1,1,38.41,38.41,22.353,22.353,0,0,1,22.5,45ZM17.961,16.973a6.02,6.02,0,0,0-4.551,1.982,6.747,6.747,0,0,0-1.855,4.756,6.344,6.344,0,0,0,1.806,4.513,5.859,5.859,0,0,0,4.385,1.894c.337,0,.662-.01.967-.03.347-.022.594-.04.8-.059a6.534,6.534,0,0,0,.723-.107c.288-.059.463-.094.586-.118a5.262,5.262,0,0,0,.546-.146c.23-.072.374-.12.44-.147s.224-.087.439-.167.355-.133.381-.146c.324-.13.489-.248.489-.352a1.932,1.932,0,0,0-.137-.391,1.793,1.793,0,0,1-.137-.684c0-.026-.01-.195-.03-.517s-.029-.621-.029-.888c0-.778.066-1.218.2-1.309a3.354,3.354,0,0,1,.6-.225,2.6,2.6,0,0,1,.537-.127c.051,0,.077-.1.077-.292a.859.859,0,0,0-.039-.274c-1.337.067-2.008.1-2.11.1-.039,0-.9-.033-2.559-.1a.474.474,0,0,0-.078.322c0,.164.026.244.078.244a4.529,4.529,0,0,1,.869.117c.369.078.583.183.635.313a5.725,5.725,0,0,1,.157,1.679v.137l.02,1.6c0,.156-.046.255-.137.293a5.745,5.745,0,0,1-2.539.429,4.424,4.424,0,0,1-3.6-1.826,6.515,6.515,0,0,1-.127-8,4.015,4.015,0,0,1,3.262-1.661c2.294,0,3.634.9,3.984,2.676.039.065.124.1.254.1.272,0,.41-.1.41-.293,0-.13-.026-.945-.078-2.422A20.671,20.671,0,0,0,17.961,16.973ZM27.9,29.961h0c.389,0,1.243.033,2.539.1a.938.938,0,0,0,.039-.293c0-.184-.026-.274-.078-.274a3.92,3.92,0,0,1-.85-.157c-.4-.1-.628-.241-.693-.41a5.71,5.71,0,0,1-.157-1.7V20.254c0-.622.01-1.095.03-1.406a3.4,3.4,0,0,1,.068-.6.186.186,0,0,1,.137-.147,5.346,5.346,0,0,1,1.367-.137,2.194,2.194,0,0,1,1.875.811,3.6,3.6,0,0,1,.606,2.2,2.913,2.913,0,0,1-.7,1.953,2.153,2.153,0,0,1-1.68.821,3.8,3.8,0,0,1-1.309-.215.034.034,0,0,0-.015,0c-.019,0-.033.02-.044.062a.538.538,0,0,0,.058.449,1.782,1.782,0,0,0,1.5.547,3.871,3.871,0,0,0,1.768-.4,3.6,3.6,0,0,0,1.26-1.015,4.99,4.99,0,0,0,.713-1.27,3.517,3.517,0,0,0-.147-2.9,2.953,2.953,0,0,0-1.005-1.113,5.117,5.117,0,0,0-1.27-.586,4.558,4.558,0,0,0-1.3-.2c-.37,0-.83.013-1.367.04s-.992.039-1.387.039l-2.344-.039a.494.494,0,0,0-.078.332c0,.155.026.234.078.234a3.391,3.391,0,0,1,.771.137c.344.09.537.189.576.293A7.366,7.366,0,0,1,27,19.824v7.383a6.117,6.117,0,0,1-.137,1.836c-.065.117-.262.216-.586.293a3.51,3.51,0,0,1-.761.118c-.039,0-.059.085-.059.254a.613.613,0,0,0,.059.351Z" fill="#d7c13f" />
+					</svg>
+					<p style="margin-right: 20px;">Top Up</p>
+				</button>
+				<button class="History">
+					<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 34.875 34.875">
+						<path id="Icon_awesome-history" data-name="Icon awesome-history" d="M35.438,17.967A17.438,17.438,0,0,1,7.056,31.577a1.686,1.686,0,0,1-.129-2.5l.792-.792a1.69,1.69,0,0,1,2.242-.139A12.938,12.938,0,1,0,9.136,8.573L12.7,12.142a1.125,1.125,0,0,1-.8,1.921H1.688A1.125,1.125,0,0,1,.563,12.938V2.716a1.125,1.125,0,0,1,1.921-.8L5.954,5.392A17.437,17.437,0,0,1,35.438,17.967Zm-12.72,5.539.691-.888a1.687,1.687,0,0,0-.3-2.368L20.25,18.025V10.688A1.687,1.687,0,0,0,18.563,9H17.438a1.687,1.687,0,0,0-1.687,1.688v9.538l4.6,3.577a1.688,1.688,0,0,0,2.368-.3Z" transform="translate(-0.563 -0.563)" fill="#1e2126" />
+					</svg>
+				</button>
+			</div>
+		</div>
+		<div class="profileSeparator" style="margin-bottom: 20px;"></div>
+		<button class="logout">
+			<svg id="logoutIcon" style="margin-left: 20px;" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 34.875 35.438">
+				<path id="Icon_awesome-power-off" data-name="Icon awesome-power-off" d="M28.125,3.8a17.435,17.435,0,1,1-20.264.007,1.693,1.693,0,0,1,2.461.541l1.111,1.976a1.687,1.687,0,0,1-.464,2.18A11.812,11.812,0,1,0,25.024,8.5a1.677,1.677,0,0,1-.457-2.173l1.111-1.976A1.685,1.685,0,0,1,28.125,3.8ZM20.813,18.563V1.688A1.683,1.683,0,0,0,19.125,0h-2.25a1.683,1.683,0,0,0-1.687,1.688V18.563a1.683,1.683,0,0,0,1.688,1.688h2.25A1.683,1.683,0,0,0,20.813,18.563Z" transform="translate(-0.563)" fill="#ECF0F1" />
+			</svg>
+			<p class="logoutText" style="margin-right: 20px;">Logout</p>
+		</button>
+
 	</div>
 	<div class="profilePage">
 
@@ -571,12 +605,46 @@ foreach ($merchant as $mch) {
 
 
 
+		$(".changeProfile").mouseover(function() {
+			if ($(".changeProfileText").html() == "Edit Profile") {
+				$(".changeProfileText").css("color", "#D7C13F");
+				$("#Icon_awesome-user-edit").attr("fill", "#D7C13F");
+			} else {
+				$(".changeProfileText").css("color", "#ECF0F1");
+				$("#Icon_feather-check").attr("stroke", "#ecf0f1");
+			}
+		});
+		$(".changeProfile").mouseout(function() {
+			if ($(".changeProfileText").html() == "Edit Profile") {
+				$(".changeProfileText").css("color", "#ECF0F1");
+				$("#Icon_awesome-user-edit").attr("fill", "#ECF0F1");
+			} else {
+				$(".changeProfileText").css("color", "#1E2126");
+				$("#Icon_feather-check").attr("stroke", "#1E2126");
+			}
+		});
+
+		$(".logout").mouseover(function() {
+			$("#logoutIcon").hide();
+			$(".logoutText").attr("style", "");
+			$(".logoutText").html("Don't go :(");
+		});
+		$(".logout").mouseout(function() {
+			$("#logoutIcon").show();
+			$(".logoutText").attr("style", "margin-right:20px;");
+			$(".logoutText").html("Logout");
+		});
+
+
 		$(".changeProfile").click(function() {
-			if ($(".changeProfile").html() == "Edit Profile") {
-				$(".changeProfile").html("Save Changes");
+			if ($(".changeProfileText").html() == "Edit Profile") {
+				$(".changeProfileText").html("Save Changes");
+				$("#changeProfileIcon").hide();
+				$("#saveChangesIcon").show();
 				$("#profileIcon").attr("hidden", false);
 				$(".changeProfile").css("background-color", "#D7C13F");
-				$(".changeProfile").css("color", "#1E2126");
+				$(".changeProfileText").css("color", "#1E2126");
+				$("#Icon_feather-check").attr("stroke", "#1E2126");
 				$("input").attr("readonly", false);
 			} else {
 				name = $('#nameProfile').val();
@@ -604,9 +672,11 @@ foreach ($merchant as $mch) {
 						foto: foto
 					},
 					success: function(result) {
-						$(".changeProfile").html("Edit Profile");
+						$("#changeProfileIcon").show();
+						$("#saveChangesIcon").hide();
+						$(".changeProfileText").html("Edit Profile");
 						$(".changeProfile").css("background-color", "#1E2126");
-						$(".changeProfile").css("color", "#ECF0F1");
+						$(".changeProfileText").css("color", "#ECF0F1");
 						$("#profileIcon").attr("hidden", true);
 						$("input").attr("readonly", true);
 						alert("SUCCESS EDIT PROFILE !!!!");
@@ -618,27 +688,7 @@ foreach ($merchant as $mch) {
 
 			}
 		});
-		$(".changeProfile").mouseover(function() {
-			if ($(".changeProfile").html() == "Edit Profile") {
-				$(".changeProfile").css("color", "#D7C13F");
-			} else {
-				$(".changeProfile").css("color", "#ECF0F1");
-			}
-		});
-		$(".changeProfile").mouseout(function() {
-			if ($(".changeProfile").html() == "Edit Profile") {
-				$(".changeProfile").css("color", "#ECF0F1");
-			} else {
-				$(".changeProfile").css("color", "#1E2126");
-			}
-		});
 
-		$(".logout").mouseover(function() {
-			$(".logout").html("Don't go :(");
-		});
-		$(".logout").mouseout(function() {
-			$(".logout").html("Logout");
-		});
 
 		$(".logout").click(function() {
 			window.location.href = '<?= base_url(); ?>Login';

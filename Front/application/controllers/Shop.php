@@ -32,6 +32,7 @@ class Shop extends CI_Controller
         $this->load->model('Cart_model');
         $this->load->model('Trans_model');
         $this->load->model('TransItem_model');
+        $this->load->model('History_model');
     }
 
     public function index()
@@ -111,7 +112,6 @@ class Shop extends CI_Controller
         $data['item'] = $this->Item_model->getAllItem();
         $data['cart'] = $this->Cart_model->getCartByIdUser($id);
 
-
         $this->load->view('myCart', $data);
     }
 
@@ -135,6 +135,8 @@ class Shop extends CI_Controller
         $data['item'] = $this->Item_model->getAllItem();
         $data['merchant'] = $this->Merchant_model->getAllMerchant();
         $data['games'] = $this->Game_model->getAllGame();
+        $data['history'] = $this->History_model->getHistoryByUser($id);
+
         $this->load->view('viewHistory', $data);
     }
 

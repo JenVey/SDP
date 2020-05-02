@@ -395,36 +395,6 @@ img{
 	color:#4C525D;
 }
 
-.TopUp{
-	width: 100px;
-	height: 100%;
-	background-color: #585D68;
-	border: none;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	box-sizing: border-box;
-	padding-top: 5px;
-	border-left: solid 2px #353B48;
-	color:#63d99e;
-}
-
-.TopUp:focus{
-	outline: none;
-}
-.TopUp:hover{
-	background-color: #63d99e;
-	cursor: pointer;
-}
-.TopUp:hover .TopupText{
-	color: #585D68;
-}
-.TopUp:hover #Icon_awesome-history{
-	fill : #585D68;
-}
-
-
 .footer{
 	width: 100%;
 	height: 200px;
