@@ -6,15 +6,26 @@
     <title>gather.owl - Merchant</title>
     <link rel="icon" href="<?php echo base_url(); ?>asset/Images/android-chrome-512x512.png">
     <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/bootstrap.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/shopCSS.css">
+
     <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/itemCSS.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/Ours.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/select.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/merchantCSS.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/shopCSS.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="<?php echo base_url(); ?>asset/Js/jquery-min.js"></script>
     <script src="<?php echo base_url(); ?>asset/Js/bootstrap.js"></script>
     <script src="<?php echo base_url(); ?>asset/Js/textFit.js"></script>
 </head>
+<?php
+foreach ($merchant as $mch) {
+    $mchId = $mch['id'];
+    $mchNama = $mch['nama'];
+    $mchDesc = $mch['bio'];
+    $mchFoto = $mch['foto'];
+    $mchRating = $mch['rating'];
+}
+?>
 
 <body>
     <div class="accList">
@@ -65,17 +76,19 @@
     </div>
 
     <div class="profile">
-        <div class="profileImg"><img class="profileImg" src="data:image/jpeg;base64,<?= base64_encode($user['foto']) ?>" width="50" height="50" alt="" /></div>
-        <div class="profileStats">
-            <!-- Max Line 10 -->
-            <h5 class="profileName"><?= $user['nama_user'] ?></h5>
-            <h6 class="profileBalance">IDR <?= $user['saldo'] ?></h6>
+        <div class="wrapProfile" style="display: flex;overflow: hidden; height:100%;width: 80%; align-items: center;">
+            <div class="profileImg"><img class="profileImg" src="data:image/jpeg;base64,<?= base64_encode($user['foto']) ?>" width="50" height="50" alt="" /></div>
+            <div class="profileStats">
+                <!-- Max Line 10 -->
+                <h5 class="profileName"><?= $user['nama_user'] ?></h5>
+                <h6 class="profileBalance">IDR <?= ceil($user['saldo']) ?></h6>
+            </div>
         </div>
         <button class="TopUp">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20.271" height="28" viewBox="0 0 25.271 33">
-                <path id="Icon_metro-money" data-name="Icon metro-money" d="M24.3,20.91c-5.632-1.082-7.443-2.191-7.443-3.932,0-2,2.494-3.4,6.7-3.4,4.416,0,6.054,1.558,6.2,3.85h5.483c-.161-3.162-2.779-6.041-7.964-6.985V6.427H19.831v3.96c-4.813.779-8.684,3.071-8.684,6.618,0,4.235,4.751,6.343,11.661,7.572,6.215,1.1,7.443,2.7,7.443,4.427,0,1.256-1.2,3.272-6.7,3.272-5.111,0-7.133-1.7-7.394-3.85H10.688c.31,4.015,4.367,6.261,9.143,7.022v3.978h7.443V35.485c4.826-.687,8.684-2.75,8.684-6.517,0-5.188-6.029-6.967-11.661-8.057Z" transform="translate(-10.688 -6.427)" fill="#63d99e" />
+            <svg xmlns="http://www.w3.org/2000/svg" width="34.875" height="34.875" viewBox="0 0 34.875 34.875">
+                <path id="Icon_awesome-history" fill="#63D99E" data-name="Icon awesome-history" d="M35.438,17.967A17.438,17.438,0,0,1,7.056,31.577a1.686,1.686,0,0,1-.129-2.5l.792-.792a1.69,1.69,0,0,1,2.242-.139A12.938,12.938,0,1,0,9.136,8.573L12.7,12.142a1.125,1.125,0,0,1-.8,1.921H1.688A1.125,1.125,0,0,1,.563,12.938V2.716a1.125,1.125,0,0,1,1.921-.8L5.954,5.392A17.437,17.437,0,0,1,35.438,17.967Zm-12.72,5.539.691-.888a1.687,1.687,0,0,0-.3-2.368L20.25,18.025V10.688A1.687,1.687,0,0,0,18.563,9H17.438a1.687,1.687,0,0,0-1.687,1.688v9.538l4.6,3.577a1.688,1.688,0,0,0,2.368-.3Z" transform="translate(-0.563 -0.563)" />
             </svg>
-            <h6 class="TopupText">Top-Up</h6>
+            <h6 class="TopupText">History</h6>
         </button>
     </div>
 
@@ -131,32 +144,26 @@
         <div class="filterSearchContainer">
             <div class="merchantInfo">
                 <div class="merchantWrapper">
-                    <img src="Images/untrail.jpeg" width="50" height="50" alt="" class="merchantImg">
-                    <h4 class="merchantName" <?php
-                                                foreach ($merchant as $mch) {
-                                                    echo "idMerchant='" . $mch['id'] . "'";
-                                                }
-                                                ?>>
-                        <?php
-                        foreach ($merchant as $mch) {
-                            echo $mch['nama'];
-                        ?>
+                    <div class="merchantImg">
+                        <img src="data:image/jpeg;base64,<?= base64_encode($mchFoto) ?>" alt="">
+                    </div>
+                    <h4 class="merchantName" idMerchant="<?= $mchId ?>">
+                        <?= $mchNama ?>
                     </h4>
                     <div class="rating">
-                    <?php
-                            if (isset($mch['rating'])) {
-                                for ($i = 0; $i < $mch['rating']; $i++) {
-                                    echo " <svg xmlns='http://www.w3.org/2000/svg' width='37.353' height='30' viewBox='0 0 21 21'>";
-                                    echo "<path class='Icon_awesome-star' data-name='Icon awesome-star' d='M10.815.73,8.252,6.159l-5.735.874a1.329,1.329,0,0,0-.695,2.239L5.971,13.5,4.99,19.463a1.268,1.268,0,0,0,1.821,1.382l5.13-2.817,5.13,2.817a1.269,1.269,0,0,0,1.821-1.382L17.912,13.5l4.149-4.224a1.329,1.329,0,0,0-.695-2.239l-5.735-.874L13.068.73a1.234,1.234,0,0,0-2.253,0Z' transform='translate(-1.441 0.001)' fill='#d7c13f' />";
-                                    echo "</svg>";
-                                }
-                            } else {
-                                echo "<p style='color:#d7c13f; margin-bottom: 0;float: left; font-size: 20pt;'>";
-                                echo "Unrated";
-                                echo "</p>";
+                        <?php
+                        if (isset($mchRating)) {
+                            for ($i = 0; $i < $mchRating; $i++) {
+                                echo " <svg xmlns='http://www.w3.org/2000/svg' width='37.353' height='30' viewBox='0 0 21 21'>";
+                                echo "<path class='Icon_awesome-star' data-name='Icon awesome-star' d='M10.815.73,8.252,6.159l-5.735.874a1.329,1.329,0,0,0-.695,2.239L5.971,13.5,4.99,19.463a1.268,1.268,0,0,0,1.821,1.382l5.13-2.817,5.13,2.817a1.269,1.269,0,0,0,1.821-1.382L17.912,13.5l4.149-4.224a1.329,1.329,0,0,0-.695-2.239l-5.735-.874L13.068.73a1.234,1.234,0,0,0-2.253,0Z' transform='translate(-1.441 0.001)' fill='#d7c13f' />";
+                                echo "</svg>";
                             }
+                        } else {
+                            echo "<p style='color:#d7c13f; margin-bottom: 0;float: left; font-size: 20pt;'>";
+                            echo "Unrated";
+                            echo "</p>";
                         }
-                    ?>
+                        ?>
                     </div>
                 </div>
                 <div class="buttons">
@@ -245,7 +252,20 @@
                         ?>
                     </div>
                     <p class="itemUploadDate">Uploaded at <?= date('d/m/Y', strtotime($itm['tanggal_upload'])) ?></p>
-                    <button class="addtoCart">Add to cart</button>
+                    <div class="addtoCart" idItem="<?= $itm['id_item'] ?>">
+                        <button style="border: none;background: none;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50">
+                                <g id="Group_182" data-name="Group 182" transform="translate(-10402 -997)">
+                                    <g id="Group_181" data-name="Group 181" transform="translate(10402 997)">
+                                        <rect id="Rectangle_302" data-name="Rectangle 302" width="50" height="50" rx="10" fill="#63d99e" />
+                                        <path id="Icon_material-add-shopping-cart" data-name="Icon material-add-shopping-cart" d="M12.115,31.142a3.55,3.55,0,1,0,3.538,3.55A3.539,3.539,0,0,0,12.115,31.142Zm17.691,0a3.55,3.55,0,1,0,3.538,3.55A3.539,3.539,0,0,0,29.806,31.142ZM12.416,25.374l.053-.213,1.592-2.893h13.18a3.52,3.52,0,0,0,3.1-1.828L37.166,8l-3.078-1.7H34.07l-1.946,3.55-4.883,8.875H14.822l-.23-.479-3.963-8.4L8.948,6.294,7.285,2.744H1.5v3.55H5.038l6.369,13.472L9.019,24.114a3.44,3.44,0,0,0-.442,1.7,3.554,3.554,0,0,0,3.538,3.55h21.23v-3.55H12.858A.45.45,0,0,1,12.416,25.374Z" transform="translate(5.012 5.81)" fill="#4c525d" />
+                                        <path id="Icon_awesome-arrow-down" data-name="Icon awesome-arrow-down" d="M12.568,8.543l.663.733a.85.85,0,0,1,0,1.12l-5.8,6.422a.667.667,0,0,1-1.013,0L.608,10.4a.85.85,0,0,1,0-1.12l.663-.733A.671.671,0,0,1,2.3,8.556l3.429,3.981V3.043a.756.756,0,0,1,.717-.793H7.4a.756.756,0,0,1,.717.793v9.494l3.429-3.981a.666.666,0,0,1,1.025-.013Z" transform="translate(19.034 2.114)" fill="#4c525d" />
+                                    </g>
+                                </g>
+                            </svg>
+                        </button>
+                    </div>
+                    <h4 class="stok yellow">Stok : <?= $itm['jumlah_item'] ?></h4>
                 </div>
             <?php endforeach; ?>
         </div>
@@ -259,6 +279,25 @@
         textFit($(".titleGame"));
         textFit($(".profileName"));
 
+        $('.itemContainer').children('.item').each(function() {
+            price = $(this).children(".itemPrice").html();
+            price = price.replace(/[^a-z0-9\s]/gi, '');
+            price = price.substring(4, price.length);
+            $(this).children(".itemPrice").html("IDR " + addCommas(price));
+        });
+
+        function addCommas(nStr) {
+            nStr += '';
+            x = nStr.split('.');
+            x1 = x[0];
+            x2 = x.length > 1 ? '.' + x[1] : '';
+            var rgx = /(\d+)(\d{3})/;
+            while (rgx.test(x1)) {
+                x1 = x1.replace(rgx, '$1' + '.' + '$2');
+            }
+            return x1 + x2;
+        }
+
         $(".filterAlpha").click(function() {
             if (filter == 0) {
                 filter = 1;
@@ -267,6 +306,27 @@
                 filter = 0;
                 $("#solid_filter").css("fill", "#1E2126");
             }
+        });
+
+        $(".addtoCart").click(function() {
+            addCart = 1;
+            id = $(this).attr('idItem');
+            $.ajax({
+                url: "<?= base_url(); ?>Shop/addCart",
+                method: "post",
+                data: {
+                    idItem: id
+                },
+                success: function(result) {
+                    addCart = 0;
+                    $(".success").css({
+                        top: 150,
+                        left: 500
+                    });
+                    $('.success').fadeIn("slow");
+                }
+            });
+
         });
 
         $(".merchantFollow").click(function() {

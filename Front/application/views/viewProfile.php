@@ -17,6 +17,7 @@
 </head>
 <?php
 foreach ($merchant as $mch) {
+	$mchId = $mch['id'];
 	$mchNama = $mch['nama'];
 	$mchDesc = $mch['bio'];
 	$mchFoto = $mch['foto'];
@@ -38,10 +39,10 @@ foreach ($merchant as $mch) {
 				</svg>
 			</button>
 			<div class="profileImg">
-				<img src="data:image/jpeg;base64,<?= base64_encode($user['foto']) ?>" alt="">
+				<img id="profileImg" src="data:image/jpeg;base64,<?= base64_encode($user['foto']) ?>" alt="">
 			</div>
 		</div>
-		<h6 style="opacity: 0.4;">username</h6>
+		<h6 style="opacity: 0.4;"><?= $user['username_user'] ?></h6>
 		<div class="inputContainer">
 			<label for="nameProfile" class="placeholderName">
 				<p style="margin-bottom: 1px; font-size: 14px;">Name</p>
@@ -65,6 +66,12 @@ foreach ($merchant as $mch) {
 				<p style="margin-bottom: 1px; font-size: 14px;">E-mail</p>
 			</label>
 			<input type="email" name="emailProfile" id="emailProfile" value="<?= $user['email_user'] ?>" readonly>
+		</div>
+		<div class="inputContainer">
+			<label for="tradeProfile" class="placeholderName">
+				<p style="margin-bottom: 1px; font-size: 14px;">Trade Link</p>
+			</label>
+			<input type="text" name="tradeProfile" id="tradeProfile" value="<?= $user['trade_link'] ?>" readonly>
 		</div>
 		<button class="changeProfile">Edit Profile</button>
 		<button class="logout">Logout</button>
@@ -93,12 +100,13 @@ foreach ($merchant as $mch) {
 				</div>
 			<?php } ?>
 		</div>
-		<h3 id="merchantName" style="color:#D7C13F; margin-top: 30px;">
-			<?php if (count($merchant) == 0) { ?>
-				Merchant name
-			<?php } else {
-				echo $mchNama;
-			} ?>
+		<h3 id="merchantName" idM="<?php if (isset($mchId)) {
+										echo $mchId;
+									} ?>" style=" color:#D7C13F; margin-top: 30px;">
+			<?php if (count($merchant) == 0) {
+				echo "Merchant Name";
+			}
+			?>
 		</h3>
 		<div class="description">
 			<div id="descriptionArea">
@@ -141,16 +149,19 @@ foreach ($merchant as $mch) {
 						<h5 class="additemTitle" contenteditable="true">Item name</h5>
 						<div class="addItemGame">
 							<select id="addItemGame" class="form-control" style="border: solid 2px #d7c13f;">
-								<option value="Dota 2">Dota 2</option>
-								<option value="CSGO" selected>CSGO</option>
+								<?php
+								foreach ($games as $game) {
+									echo "<option value='" . $game['id_game'] . "'>" . $game['nama_game'] . "</option>";
+								}
+								?>
 							</select>
 						</div>
 					</div>
 					<p class="additemDesc" contenteditable="true">Item Description</p>
 					<div class="addItemMerchantDesc">
-						<h6 class="additemMerchant">Merchant Name</h6>
+						<h6 class="additemMerchant"><?= $mchNama ?></h6>
 						<div class="addmerchantRating">
-							<p style="color:#d7c13f; margin-bottom: 0;float: left; font-size: 10pt;">Rating</p>
+							<p style="color:#d7c13f; margin-bottom: 0;float: left; font-size: 10pt;"><?= $mchRating ?></p>
 							<div>
 								<svg style="float: left;margin-top: 5px;" xmlns="http://www.w3.org/2000/svg" width="10.125" height="8.62" viewBox="0 0 35.125 33.62">
 									<path class="solid_star" data-name="solid star" d="M36.178,1.157,31.891,9.85l-9.592,1.4a2.1,2.1,0,0,0-1.162,3.585l6.94,6.762-1.641,9.553a2.1,2.1,0,0,0,3.046,2.213l8.581-4.51,8.581,4.51a2.1,2.1,0,0,0,3.046-2.213L48.048,21.6l6.94-6.762a2.1,2.1,0,0,0-1.162-3.585l-9.592-1.4L39.947,1.157a2.1,2.1,0,0,0-3.769,0Z" transform="translate(-20.5 0.013)" fill="#d7c13f" />
@@ -193,7 +204,7 @@ foreach ($merchant as $mch) {
 					<?php
 					$ctr = 1;
 					foreach ($item as $itm) { ?>
-						<div class="cartItemWrapper" id="item<?= $ctr ?>">
+						<div class="cartItemWrapper" id="item<?= $ctr ?>" idItem="<?= $itm['id_item'] ?>">
 							<!-- isie id item-amount			-->
 							<input type="hidden" name="item<?= $ctr ?>Storage" />
 							<div class="action">
@@ -254,15 +265,30 @@ foreach ($merchant as $mch) {
 									<h5 class="itemName yellow" id="name<?= $ctr ?>" style="display: inline-block;" contenteditable="true"><?= $itm['nama_item'] ?></h5>
 									<div class="selectGame">
 										<h6 style="margin-bottom: 10px;">Game</h6>
-										<h4 id="item<?= $ctr ?>Game" class="yellow">CSGO</h4>
-										<select id="select1Game" class="form-control" style="border: solid 2px #d7c13f;" hidden="true">
-											<option value="Dota 2">Dota 2</option>
-											<option value="CSGO" selected>CSGO</option>
+
+										<h4 id="item<?= $ctr ?>Game" class="yellow">
+											<?php
+											foreach ($games as $game) {
+												if ($game['id_game'] == $itm['id_game']) {
+													echo $game['nama_game'];
+												}
+											}
+											?></h4>
+										<select id="select<?= $ctr ?>Game" class="form-control" style="border: solid 2px #d7c13f;" hidden="true">
+											<?php
+											foreach ($games as $game) {
+												if ($game['id_game'] == $itm['id_game']) {
+													echo "<option value='" . $game['id_game'] . "' selected >" . $game['nama_game'] . "</option>";
+												} else {
+													echo "<option value='" . $game['id_game'] . "'>" . $game['nama_game'] . "</option>";
+												}
+											}
+											?>
 										</select>
 									</div>
 								</div>
 								<div class="desc">
-									<p id="desc<?= $ctr ?>"><?= $itm['desc_item'] ?></p>
+									<p id="desc<?= $ctr ?>"> <?= $itm['desc_item'] ?> </p>
 								</div>
 								<div class="amount">
 									<h4 id="item<?= $ctr ?>Amount" class="yellow" contenteditable="false"><?= $itm['jumlah_item'] ?></h4>
@@ -290,7 +316,7 @@ foreach ($merchant as $mch) {
 									</div>
 								</div>
 								<div class="subtotal">
-									<h4 id="item<?= $ctr ?>Price" style="color:#63D99E;" onblur="savePrice(<?= $ctr ?>)">IDR <?= $itm['harga_item'] ?></h4>
+									<h4 id="item<?= $ctr ?>Price" style="color:#63D99E;" onblur="savePrice(<?= $ctr ?>)">IDR <?= ceil($itm['harga_item']) ?></h4>
 								</div>
 							</div>
 						</div>
@@ -307,6 +333,15 @@ foreach ($merchant as $mch) {
 		var count = 0;
 		var timer = setInterval(gantiGambar, 1);
 
+		var merchantName = <?php if (isset($mchNama)) {
+								echo "'" . $mchNama . "'";
+							} ?>;
+		var merchantDesc = <?php if (isset($mchNama)) {
+								echo "'" . $mchDesc . "'";
+							} ?>;
+
+		$("#merchantName").html(merchantName);
+		$("#descriptionArea").html(merchantDesc);
 		$(document).ready(function() {
 			var ctr = 1;
 			var ada = true;
@@ -319,6 +354,14 @@ foreach ($merchant as $mch) {
 			}
 			ctr--;
 			count = ctr;
+
+			for (i = 1; i <= count; i++) {
+				var price = $("#item" + i + "Price").html();
+				price = price.replace(/[^a-z0-9\s]/gi, '');
+				price = price.substring(4, price.length);
+				$("#item" + i + "Price").html("IDR " + addCommas(price));
+			}
+
 		});
 
 		function gantiGambar() {
@@ -360,7 +403,34 @@ foreach ($merchant as $mch) {
 			var price = $(".additemPrice").html();
 			var stok = $(".addStok").html();
 			if (!isNaN(price) && !isNaN(stok)) {
-				alert("tambah ke item rob");
+				name = $('.additemTitle').html();
+				id_game = $('.addItemGame option:selected').val();
+				desc = $('.additemDesc').html();
+				id_merchant = $('#merchantName').attr("idM");
+				foto = $("#imgDisplay").find('img').attr('src');
+
+				if (foto.substring(11, 12) == "j") {
+					foto = foto.substring(23, foto.length);
+				} else {
+					foto = foto.substring(22, foto.length);
+				}
+
+				$.ajax({
+					url: "<?= base_url(); ?>Shop/insertItem",
+					method: "post",
+					data: {
+						name: name,
+						id_game: id_game,
+						price: price,
+						stok: stok,
+						desc: desc,
+						id_merchant: id_merchant,
+						foto: foto
+					},
+					success: function(result) {
+						window.location.href = '<?= base_url(); ?>Shop/viewProfile/';
+					}
+				});
 			} else {
 				if (isNaN(price)) alert("Price must be a number");
 				else if (isNaN(stok)) alert("Stok must be a number");
@@ -398,48 +468,67 @@ foreach ($merchant as $mch) {
 			} else if (isNaN(amount)) {
 				alert("Stok must be a number");
 			} else {
-				$("#" + idDiv + "saveChanges").attr("hidden", true);
-				$("#item" + idDiv + "Wrapper").css("border", "none");
-				$("#item" + idDiv + "Wrapper").attr("hovered", "true");
-				$("#edit" + idDiv + "Item").attr("hidden", false);
-				$("#changeItem" + idDiv + "Img").attr("hidden", true);
-				$("#name" + idDiv).attr("contenteditable", false);
-				$("#select" + idDiv + "Game").attr("hidden", true);
-				$("#item" + idDiv + "Game").attr("hidden", false);
-				$("#amountBut" + idDiv).attr("hidden", true);
-				$("#desc" + idDiv).attr("contenteditable", false);
-				$("#item" + idDiv + "Amount").attr("contenteditable", "false");
-				$("#item" + idDiv + "Price").attr("contenteditable", false);
-				$("#item" + idDiv + "Price").html("IDR " + addCommas(price));
+				id = $('#item' + idDiv).attr("idItem");
+				name = $('#name' + idDiv).html();
+				id_game = $('#select' + idDiv + 'Game option:selected').val();
+				desc = $('#desc' + idDiv).html();
+
+				//alert(foto);
+				$.ajax({
+					url: "<?= base_url(); ?>Shop/editItem",
+					method: "post",
+					data: {
+						id: id,
+						name: name,
+						id_game: id_game,
+						price: price,
+						stok: amount,
+						desc: desc
+					},
+					success: function(result) {
+						var selected = $("#select" + idDiv + "Game").children("option:selected").html();
+						$("#item" + idDiv + "Game").html(selected);
+						$("#" + idDiv + "saveChanges").attr("hidden", true);
+						$("#item" + idDiv + "Wrapper").css("border", "none");
+						$("#item" + idDiv + "Wrapper").attr("hovered", "true");
+						$("#edit" + idDiv + "Item").attr("hidden", false);
+						$("#changeItem" + idDiv + "Img").attr("hidden", true);
+						$("#name" + idDiv).attr("contenteditable", false);
+						$("#select" + idDiv + "Game").attr("hidden", true);
+						$("#item" + idDiv + "Game").attr("hidden", false);
+						$("#amountBut" + idDiv).attr("hidden", true);
+						$("#desc" + idDiv).attr("contenteditable", false);
+						$("#item" + idDiv + "Amount").attr("contenteditable", "false");
+						$("#item" + idDiv + "Price").attr("contenteditable", false);
+						$("#item" + idDiv + "Price").html("IDR " + addCommas(price));
+						alert("SUCCESS EDIT ITEM !!!");
+					}
+				});
+
+
+
 			}
 		}
 
 		function viewItem(idDiv) {
 			if ($("#" + idDiv + "saveChanges").attr("hidden") == "hidden") {
-				alert("pindah ke viewItem rob");
+				id = $("#item" + idDiv).attr("idItem");
+				window.location.href = '<?= base_url(); ?>Shop/viewItem/'.concat(id);
 			}
 		}
 
-		//	function editPrice(idDiv){
-		//		if($("#item"+idDiv+"Price").attr("contenteditable")=="true" && check==false){
-		//			check=true;
-		//			var price = $("#item"+idDiv+"Price").html();
-		//			price = price.replace(/[^a-z0-9\s]/gi, '');
-		//			price = price.substring(4,price.length);
-		//			$("#item"+idDiv+"Price").html(price);
-		//		}
-		//	}
-
-		//	function savePrice(idDiv){
-		//		if(check){
-		//			var price = $("#item"+idDiv+"Price").html();
-		//			$("#item"+idDiv+"Price").html("IDR " + addCommas(price));
-		//			check=false;
-		//		}
-		//	}
-
 		function removeItem(idDiv) {
-			$("#item" + idDiv).remove();
+			idI = $("#item" + idDiv).attr("idItem");
+			$.ajax({
+				url: "<?= base_url(); ?>Shop/removeItem",
+				method: "post",
+				data: {
+					idItem: idI
+				},
+				success: function(result) {
+					$("#item" + idDiv).remove();
+				}
+			});
 		}
 
 		function addAmount(id, jenis) {
@@ -480,6 +569,8 @@ foreach ($merchant as $mch) {
 			$("#item" + idDiv + "IMG").trigger("click");
 		}
 
+
+
 		$(".changeProfile").click(function() {
 			if ($(".changeProfile").html() == "Edit Profile") {
 				$(".changeProfile").html("Save Changes");
@@ -488,11 +579,43 @@ foreach ($merchant as $mch) {
 				$(".changeProfile").css("color", "#1E2126");
 				$("input").attr("readonly", false);
 			} else {
-				$(".changeProfile").html("Edit Profile");
-				$(".changeProfile").css("background-color", "#1E2126");
-				$(".changeProfile").css("color", "#ECF0F1");
-				$("#profileIcon").attr("hidden", true);
-				$("input").attr("readonly", true);
+				name = $('#nameProfile').val();
+				phone = $('#phoneNum').val();
+				pass = $('#passProfile').val();
+				email = $('#emailProfile').val();
+				trade = $('#tradeProfile').val();
+				foto = $(".profileImg").find('img').attr('src');
+
+				if (foto.substring(11, 12) == "j") {
+					foto = foto.substring(23, foto.length);
+				} else {
+					foto = foto.substring(22, foto.length);
+				}
+
+				$.ajax({
+					url: "<?= base_url(); ?>Shop/editProfile",
+					method: "post",
+					data: {
+						name: name,
+						phone: phone,
+						pass: pass,
+						email: email,
+						trade: trade,
+						foto: foto
+					},
+					success: function(result) {
+						$(".changeProfile").html("Edit Profile");
+						$(".changeProfile").css("background-color", "#1E2126");
+						$(".changeProfile").css("color", "#ECF0F1");
+						$("#profileIcon").attr("hidden", true);
+						$("input").attr("readonly", true);
+						alert("SUCCESS EDIT PROFILE !!!!");
+					}
+
+
+				});
+
+
 			}
 		});
 		$(".changeProfile").mouseover(function() {
@@ -509,6 +632,7 @@ foreach ($merchant as $mch) {
 				$(".changeProfile").css("color", "#1E2126");
 			}
 		});
+
 		$(".logout").mouseover(function() {
 			$(".logout").html("Don't go :(");
 		});
@@ -516,16 +640,74 @@ foreach ($merchant as $mch) {
 			$(".logout").html("Logout");
 		});
 
+		$(".logout").click(function() {
+			window.location.href = '<?= base_url(); ?>Login';
+		});
+
+		$(".createMerchant").click(function() {
+			name = $("#merchantName").html();
+			desc = $("#descriptionArea").html();
+			foto = $(".merchantImgWrapper").find('img').attr('src');
+
+			if (foto.substring(11, 12) == "j") {
+				foto = foto.substring(23, foto.length);
+			} else {
+				foto = foto.substring(22, foto.length);
+			}
+
+			$.ajax({
+				url: "<?= base_url(); ?>Shop/insertMerchant",
+				method: "post",
+				data: {
+					name: name,
+					desc: desc,
+					foto: foto
+				},
+				success: function(result) {
+					window.location.href = '<?= base_url(); ?>Shop/viewProfile';
+				}
+			});
+		});
+
+
 		$(".editDescription").click(function() {
 			if ($("#Path_1931").css("stroke") == "rgb(215, 193, 63)") {
-				$("#Path_1931").css("stroke", "#ecf0f1");
-				$("#Path_1932").css("stroke", "#ecf0f1");
-				$("#descriptionArea").attr("contenteditable", false);
-				$("#merchantName").attr("contenteditable", false);
-				$("#descriptionArea").css("box-shadow", "none");
-				$("#merchantName").css("box-shadow", "none");
-				$("#merchantIcon").attr("hidden", true);
+
+				id = $("#merchantName").attr("idM");
+				name = $("#merchantName").html();
+				desc = $("#descriptionArea").html();
+				foto = $(".merchantImgWrapper").find('img').attr('src');
+
+				if (foto.substring(11, 12) == "j") {
+					foto = foto.substring(23, foto.length);
+				} else {
+					foto = foto.substring(22, foto.length);
+				}
+
+				$.ajax({
+					url: "<?= base_url(); ?>Shop/editMerchant",
+					method: "post",
+					data: {
+						id: id,
+						name: name,
+						desc: desc,
+						foto: foto
+					},
+					success: function(result) {
+						$("#Path_1931").css("stroke", "#ecf0f1");
+						$("#Path_1932").css("stroke", "#ecf0f1");
+						$("#descriptionArea").attr("contenteditable", false);
+						$("#merchantName").attr("contenteditable", false);
+						$("#descriptionArea").css("box-shadow", "none");
+						$("#merchantName").css("box-shadow", "none");
+						$("#merchantIcon").attr("hidden", true);
+
+						alert("SUCCESS EDIT !!!");
+						window.location.href = '<?= base_url(); ?>Shop/viewProfile';
+					}
+				});
 			} else {
+
 				$("#Path_1931").css("stroke", "#D7C13F");
 				$("#Path_1932").css("stroke", "#D7C13F");
 				$("#descriptionArea").attr("contenteditable", true);
@@ -544,7 +726,6 @@ foreach ($merchant as $mch) {
 					var img = $('<img>').attr('src', e.target.result);
 					$('.profileImg').html(img);
 				};
-
 				reader.readAsDataURL(this.files[0]);
 			}
 		});

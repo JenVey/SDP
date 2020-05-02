@@ -239,6 +239,19 @@
 	overflow: auto;
 }
 
+.itemMerchantContainer::-webkit-scrollbar {
+    width: 2px;
+}
+
+.itemMerchantContainer::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+.itemMerchantContainer::-webkit-scrollbar-thumb {
+      background-color: #D7C13F;
+      outline: 1px solid slategrey;
+      border-radius: 100px;
+}
+
 .changeItemImg:hover #Ellipse_187{
 	fill:#d7c13f;
 }
@@ -462,6 +475,19 @@ input[type=number]::-webkit-inner-spin-button {
 input:focus{
 	box-shadow: none;
 	text-align: left;
+}
+
+.cartItemContainer::-webkit-scrollbar {
+    width: 2px;
+}
+
+.cartItemContainer::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+.cartItemContainer::-webkit-scrollbar-thumb {
+      background-color: #D7C13F;
+      outline: 1px solid slategrey;
+      border-radius: 100px;
 }
 /*
 input:not(:focus){

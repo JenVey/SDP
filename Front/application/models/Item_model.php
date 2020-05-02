@@ -139,4 +139,66 @@ class Item_model extends CI_model
             $this->db->query($query3);
         }
     }
+
+    public function insertItem()
+    {
+        $ctr = 1;
+        $query = $this->db->query("select * from item");
+        $newId = $this->input->post('name');
+
+        $cekNewId = 'I' . substr(strtoupper($newId), 0, 1);
+        foreach ($query->result_array() as $row) {
+            $cekId = substr(strtoupper($row['id_item']), 0, 2);
+            if ($cekId == $cekNewId) {
+                $ctr++;
+            }
+        }
+
+        if ($ctr < 10) {
+            $generateId = $cekNewId . '000' . $ctr;
+        } else if ($ctr < 100) {
+            $generateId = $cekNewId . '00' . $ctr;
+        } else if ($ctr < 1000) {
+            $generateId = $cekNewId . '0' . $ctr;
+        } else {
+            $generateId = $cekNewId . $ctr;
+        }
+        $tgl = date("Y-m-d H:i:s");
+        $foto = $this->input->post('foto');
+        $foto = base64_decode($foto);
+        $data = [
+            "id_item" => $generateId,
+            "id_merchant" => $this->input->post('id_merchant'),
+            "id_game" =>  $this->input->post('id_game'),
+            "nama_item" =>  $this->input->post('name'),
+            "desc_item" =>  $this->input->post('desc'),
+            "harga_item" =>  $this->input->post('price'),
+            "tanggal_upload" =>  $tgl,
+            "jumlah_item" =>  $this->input->post('stok'),
+            "foto_item" => $foto
+        ];
+        $this->db->insert('item', $data);
+    }
+
+    public function removeItem()
+    {
+        $idI = $this->input->post('idItem');
+        $query = "DELETE FROM ITEM WHERE ID_ITEM = '" . $idI . "' ";
+        $this->db->query($query);
+    }
+
+    public function editItem()
+    {
+        $id = $this->input->post('id');
+        $data = [
+            "id_game" =>  $this->input->post('id_game'),
+            "nama_item" =>  $this->input->post('name'),
+            "desc_item" =>  $this->input->post('desc'),
+            "harga_item" =>  $this->input->post('price'),
+            "jumlah_item" =>  $this->input->post('stok')
+        ];
+
+        $this->db->where('id_item', $id);
+        $this->db->update('item', $data);
+    }
 }

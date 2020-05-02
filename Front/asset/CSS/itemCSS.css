@@ -254,3 +254,19 @@ button{
 .bodyContainer{
 	text-align: left;
 }
+
+.soldOut{
+	width: 130px;
+	height: 30px;
+	border-radius: 100px;
+	border: none;
+	background-color:#F25757; 
+	color: white;
+	font-size: 13pt;
+	font-family: Varela;
+	margin-left: 22vw;
+}
+
+.soldOut:hover{
+	color:#4C525D;
+}

@@ -15,6 +15,15 @@
     <script src="<?php echo base_url(); ?>asset/Js/bootstrap.js"></script>
     <script src="<?php echo base_url(); ?>asset/Js/textFit.js"></script>
 </head>
+<?php
+
+foreach ($merchant as $mch) {
+    if ($mch['id_user'] == $user['id_user']) {
+        $mchId = $mch['id'];
+    }
+}
+
+?>
 
 <body>
     <div class="accList">
@@ -65,17 +74,19 @@
     </div>
 
     <div class="profile">
-        <div class="profileImg"><img class="profileImg" src="data:image/jpeg;base64,<?= base64_encode($user['foto']) ?>" width="50" height="50" alt="" /></div>
-        <div class="profileStats">
-            <!-- Max Line 10 -->
-            <h5 class="profileName"><?= $user['nama_user'] ?> </h5>
-            <h6 class="profileBalance">IDR <?= ceil($user['saldo']) ?> </h6>
+        <div class="wrapProfile" style="display: flex;overflow: hidden; height:100%;width: 80%; align-items: center;">
+            <div class="profileImg"><img class="profileImg" src="data:image/jpeg;base64,<?= base64_encode($user['foto']) ?>" width="50" height="50" alt="" /></div>
+            <div class="profileStats">
+                <!-- Max Line 10 -->
+                <h5 class="profileName"><?= $user['nama_user'] ?></h5>
+                <h6 class="profileBalance">IDR <?= ceil($user['saldo']) ?></h6>
+            </div>
         </div>
         <button class="TopUp">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20.271" height="28" viewBox="0 0 25.271 33">
-                <path id="Icon_metro-money" data-name="Icon metro-money" d="M24.3,20.91c-5.632-1.082-7.443-2.191-7.443-3.932,0-2,2.494-3.4,6.7-3.4,4.416,0,6.054,1.558,6.2,3.85h5.483c-.161-3.162-2.779-6.041-7.964-6.985V6.427H19.831v3.96c-4.813.779-8.684,3.071-8.684,6.618,0,4.235,4.751,6.343,11.661,7.572,6.215,1.1,7.443,2.7,7.443,4.427,0,1.256-1.2,3.272-6.7,3.272-5.111,0-7.133-1.7-7.394-3.85H10.688c.31,4.015,4.367,6.261,9.143,7.022v3.978h7.443V35.485c4.826-.687,8.684-2.75,8.684-6.517,0-5.188-6.029-6.967-11.661-8.057Z" transform="translate(-10.688 -6.427)" fill="#63d99e" />
+            <svg xmlns="http://www.w3.org/2000/svg" width="34.875" height="34.875" viewBox="0 0 34.875 34.875">
+                <path id="Icon_awesome-history" fill="#63D99E" data-name="Icon awesome-history" d="M35.438,17.967A17.438,17.438,0,0,1,7.056,31.577a1.686,1.686,0,0,1-.129-2.5l.792-.792a1.69,1.69,0,0,1,2.242-.139A12.938,12.938,0,1,0,9.136,8.573L12.7,12.142a1.125,1.125,0,0,1-.8,1.921H1.688A1.125,1.125,0,0,1,.563,12.938V2.716a1.125,1.125,0,0,1,1.921-.8L5.954,5.392A17.437,17.437,0,0,1,35.438,17.967Zm-12.72,5.539.691-.888a1.687,1.687,0,0,0-.3-2.368L20.25,18.025V10.688A1.687,1.687,0,0,0,18.563,9H17.438a1.687,1.687,0,0,0-1.687,1.688v9.538l4.6,3.577a1.688,1.688,0,0,0,2.368-.3Z" transform="translate(-0.563 -0.563)" />
             </svg>
-            <h6 class="TopupText">Top-Up</h6>
+            <h6 class="TopupText">History</h6>
         </button>
     </div>
     <div class="bodyContainer">
@@ -144,7 +155,7 @@
 
                 <h4 style="color: #42b77c;">IDR <?= ceil($item['harga_item']) ?></h4>
                 <div class="descBox">
-                    <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+                    <p><?= $item['desc_item'] ?></p>
                 </div>
                 <a href="<?= base_url(); ?>/Shop/viewMerchant/<?= $item['id_merchant'] ?>">
                     <h5 style="color: #42b77c;margin-top: 10px;">
@@ -159,19 +170,28 @@
                     </h5>
                 </a>
                 <p style="color: gray;font-size: 10pt; margin: 0;">Uploaded on <?= date('d/m/Y', strtotime($item['tanggal_upload'])) ?></p>
-                <button class="AddtoCart">Add to cart</button>
+                <?php
+                if ($item['jumlah_item'] == 0) {
+                    echo "<button class='soldOut'>Sold Out</button>";
+                } else {
+                    echo "<button class='AddtoCart'>Add to cart</button>";
+                }
+                ?>
+
             </div>
         </div>
         <h3 class="yellow varela" style="margin-left: 2vw;">Comments</h3>
-        <div class="enterComment">
-            <form method="post" action="<?= base_url(); ?>/Shop/insertComment/<?= $item['id_item'] ?>">
-                <textarea name="commentUser" placeholder="Wanna ask about the item?" id="commentMe" cols="169" rows="6"></textarea>
-                <input type="hidden" name="idUser" value="<?= $user['id_user'] ?>">
-                <button class="sendComment" type="submit">
-                    <h5>Send</h5>
-                </button>
-            </form>
-        </div>
+        <?php if ($mchId != $item['id_merchant']) { ?>
+            <div class="enterComment">
+                <form method="post" action="<?= base_url(); ?>/Shop/insertComment/<?= $item['id_item'] ?>">
+                    <textarea name="commentUser" placeholder="Wanna ask about the item?" id="commentMe" cols="169" rows="6"></textarea>
+                    <input type="hidden" name="idUser" value="<?= $user['id_user'] ?>">
+                    <button class="sendComment" type="submit">
+                        <h5>Send</h5>
+                    </button>
+                </form>
+            </div>
+        <?php } ?>
         <div class="commentSection">
             <?php foreach ($komen as $comment) : ?>
                 <div class="commentWrapper">
@@ -206,6 +226,8 @@
         var addCart = 0;
         textFit($(".titleGame"));
         textFit($(".profileName"));
+
+
 
         $(".filterAlpha").click(function() {
             if (filter == 0) {
