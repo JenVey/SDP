@@ -58,7 +58,7 @@ class User_model extends CI_model
             "jenis_kelamin" =>  $jk,
             "foto" =>  $foto,
             "phone" => $phone,
-            "saldo" => 0,
+            "point" => 0,
             "status" => 0
         ];
         $this->db->insert('user', $data);

@@ -45,7 +45,7 @@ class User_model extends CI_model
             "trade_link" => '',
             "jenis_kelamin" =>  $this->input->post('jkUser'),
             "foto" =>  $foto,
-            "saldo" => 0,
+            "point" => 0,
             "status" => 0
         ];
         $this->db->insert('user', $data);

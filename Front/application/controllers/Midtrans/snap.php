@@ -17,6 +17,8 @@ class Snap extends CI_Controller
 		$this->load->helper('url');
 
 		$this->load->model('Cart_model');
+		$this->load->model('Trans_model');
+		$this->load->model('TransItem_model');
 	}
 
 	public function index()
@@ -36,6 +38,7 @@ class Snap extends CI_Controller
 		$cart = $this->input->post('cart');
 		$cart = json_decode($cart, true);
 		$item_details = array();
+
 		//print_r($cart);
 		for ($i = 0; $i < count($cart); $i++) {
 			$row = array();
@@ -46,6 +49,11 @@ class Snap extends CI_Controller
 			$this->Cart_model->updateAmount($row['quantity'], $row['id']);
 			array_push($item_details, $row);
 		}
+
+		//INSERT TRANSAKSI
+		// $gp;
+		// $cashback;
+		$this->Trans_model->insertTrans();
 
 
 		// Optional

@@ -343,7 +343,8 @@
 						id: $("#item" + i).attr("idItem"),
 						price: parseInt($("#item" + i + "Price").attr("harga")),
 						quantity: parseInt(amount),
-						name: $("#item" + i + "Name").attr("nama")
+						name: $("#item" + i + "Name").attr("nama"),
+						subtotal: $("#item" + i + "Subtotal").attr("subtotal")
 					}
 					cart.push(obj);
 				}
