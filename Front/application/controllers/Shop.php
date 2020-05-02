@@ -33,6 +33,7 @@ class Shop extends CI_Controller
         $this->load->model('Trans_model');
         $this->load->model('TransItem_model');
         $this->load->model('History_model');
+        $this->load->model('Gacha_model');
     }
 
     public function index()
@@ -54,7 +55,7 @@ class Shop extends CI_Controller
             $data['item'] = $this->Item_model->getAllItem();
             $data['games'] = $this->Game_model->getAllGame();
             $this->load->view('templates/header', $data);
-            $this->load->view('shop', $data);
+            $this->load->view('shop/shop', $data);
         }
     }
 
@@ -67,7 +68,7 @@ class Shop extends CI_Controller
         $data['item'] = $this->Item_model->getItemById($idI);
         $data['games'] = $this->Game_model->getAllGame();
         $data['komen'] = $this->Komen_model->getKomenByIdItem($idI);
-        $this->load->view('viewItem', $data);
+        $this->load->view('shop/viewItem', $data);
     }
 
     public function viewMerchant($idM)
@@ -78,7 +79,7 @@ class Shop extends CI_Controller
         $data['merchantF'] = $this->Merchant_model->getMerchantByIdUser($id);
         $data['merchant'] = $this->Merchant_model->getMerchantById($idM);
         $data['item'] = $this->Item_model->getItemByIdMerchant($idM);
-        $this->load->view('viewMerchant', $data);
+        $this->load->view('shop/viewMerchant', $data);
     }
 
     public function viewSearchM($keyword)
@@ -90,7 +91,7 @@ class Shop extends CI_Controller
         $data['merchant'] = $this->Merchant_model->getMerchantById($idM);
         $data['item'] = $this->Item_model->getItemBySearchM($keyword);
         $this->session->unset_userdata('id_merchant');
-        $this->load->view('viewSearchM', $data);
+        $this->load->view('shop/viewSearchM', $data);
     }
 
     public function viewSearch($keyword)
@@ -100,7 +101,7 @@ class Shop extends CI_Controller
         $data['merchantF'] = $this->Merchant_model->getMerchantByIdUser($id);
         $data['merchant'] = $this->Merchant_model->getMerchantBySearch($keyword);
         $data['item'] = $this->Item_model->getItemBySearch($keyword);
-        $this->load->view('viewSearch', $data);
+        $this->load->view('shop/viewSearch', $data);
     }
 
     public function viewCart()
@@ -112,7 +113,7 @@ class Shop extends CI_Controller
         $data['item'] = $this->Item_model->getAllItem();
         $data['cart'] = $this->Cart_model->getCartByIdUser($id);
 
-        $this->load->view('myCart', $data);
+        $this->load->view('shop/myCart', $data);
     }
 
     public function viewProfile()
@@ -123,7 +124,7 @@ class Shop extends CI_Controller
         $data['merchant'] = $this->Merchant_model->getMerchantUser($id);
         $data['item'] = $this->Item_model->getItemByIdUser($id);
         $data['games'] = $this->Game_model->getAllGame();
-        $this->load->view('viewProfile', $data);
+        $this->load->view('shop/viewProfile', $data);
     }
 
     public function viewHistory()
@@ -137,7 +138,16 @@ class Shop extends CI_Controller
         $data['games'] = $this->Game_model->getAllGame();
         $data['history'] = $this->History_model->getHistoryByUser($id);
 
-        $this->load->view('viewHistory', $data);
+        $this->load->view('shop/viewHistory', $data);
+    }
+
+    public function viewGacha()
+    {
+        $id = $this->session->userdata('id_user');
+        $data['user'] = $this->User_model->getUserById($id);
+        $data['merchantF'] = $this->Merchant_model->getMerchantByIdUser($id);
+        $data['gacha'] = $this->Gacha_model->getAllGacha();
+        $this->load->view('shop/viewGacha', $data);
     }
 
     public function editProfile()
@@ -171,8 +181,10 @@ class Shop extends CI_Controller
 
     public function topUp()
     {
-
+        $idHis = $this->session->userdata('idHistory');
+        $this->History_model->insertHistory($idHis);
         $this->User_model->updateSaldo();
+        redirect('Shop');
     }
 
     public function setFilter($isi)
@@ -266,15 +278,26 @@ class Shop extends CI_Controller
         $this->Cart_model->removeCart($idI);
     }
 
-    public function finish()
+    public function finish($cek)
     {
         $id = $this->session->userdata('id_user');
-        $total = $this->input->post('total');
-        $this->User_model->updateSaldo($total);
-        $cart = $this->input->post('cart');
+        if ($cek == 'bank') {
+            $cart = $this->input->post('cart');
 
-        for ($i = 0; $i < count($cart); $i++) {
-            $this->Cart_model->updateStatus2($cart[$i]);
+            for ($i = 0; $i < count($cart); $i++) {
+                $this->Cart_model->updateStatus2($cart[$i]);
+            }
+        } else {
+            $cart = array();
+            $cart = $this->input->post('cart');
+            $cart = json_decode($cart, true);
+
+            $this->Trans_model->insertTrans();
+            $this->User_model->updateSaldo();
+
+            for ($i = 0; $i < count($cart); $i++) {
+                $this->Cart_model->updateStatus2($cart[$i]['id']);
+            }
         }
         $this->Item_model->updateAmount();
         redirect('Shop');

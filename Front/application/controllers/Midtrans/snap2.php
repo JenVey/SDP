@@ -1,6 +1,6 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Snap extends CI_Controller
+class Snap2 extends CI_Controller
 {
 
 	public function __construct()
@@ -15,6 +15,7 @@ class Snap extends CI_Controller
 		$this->load->library('midtrans');
 		$this->midtrans->config($params);
 		$this->load->helper('url');
+		$this->load->model('History_model');
 	}
 
 	public function index()
@@ -60,7 +61,7 @@ class Snap extends CI_Controller
 			$generateId = $cekNewId . $ctr;
 		}
 
-		$this->History_model->insertHistory($generateId);
+		$this->session->set_userdata(array('idHistory' => $generateId));
 
 		$item_details = array(
 			'id' => $generateId,

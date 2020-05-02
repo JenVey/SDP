@@ -53,7 +53,6 @@ class Snap extends CI_Controller
 		//INSERT TRANSAKSI
 		$this->Trans_model->insertTrans();
 
-
 		// Optional
 		$customer_details = array(
 			'first_name'    => $this->input->post('nama'),
