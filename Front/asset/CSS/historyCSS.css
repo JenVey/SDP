@@ -32,9 +32,23 @@ h4{
 }
 
 .logout{
-	margin-top: 160px;
+	width: 200px;
+	height: 50px;
+	background-color: #F25757;
+	border-radius: 15px;
+	margin-top: 40px;
+	border: none;
+	color: #ECF0F1;
+	font-family: Varela;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
+.logout:hover{
+	justify-content: center;
+	color: #1e2126;
+}
 .historyContainer{
 	width: 81%;
 	margin-top: 20px;

@@ -1,4 +1,9 @@
 p{margin: 0;}
+
+.white{
+	color: #ecf0f1;
+}
+
 .profileContainer{
 	width: 18vw;
 	height: 96vh;
@@ -15,13 +20,26 @@ p{margin: 0;}
 }
 
 .profileImg{
-	width: 100px!important;
+	width: 100px;
 	position: relative;
-	height: 100px!important;
+	height: 100px;
 	background-color: #ecf0f1;
 	z-index: 1;
-	margin: 0!important;
+	margin: 0;
 	overflow: hidden;
+}
+
+.addMerchant{
+	width: 180px;
+	height: 50px;
+	border: none;
+	background-color: #D7C13F;
+	color: #ECF0F1;
+	border-radius: 15px;
+}
+
+.addMerchant:hover{
+	color: #1E2126;
 }
 
 .merchantImgWrapper{
@@ -124,13 +142,6 @@ p{margin: 0;}
 	align-items: center;
 }
 
-.profileSeparator{
-	width: 90%;
-	height: 1px;
-	background-color: #d7c13f;
-	opacity: 0.5;
-}
-
 .Balance{
 	width: 100%;
 	height: 140px;
@@ -142,11 +153,11 @@ p{margin: 0;}
 	align-items: center;
 }
 
-.butWrapper{
-	width: 100%;
-	display: flex;
-	justify-content: center;
-	margin-top: 20px;
+.profileSeparator{
+	width: 90%;
+	height: 1px;
+	background-color: #d7c13f;
+	opacity: 0.5;
 }
 
 .ProfileTopUp{
@@ -179,7 +190,6 @@ p{margin: 0;}
 	margin-left: 1vw;
 }
 
-
 .logout{
 	width: 200px;
 	height: 50px;
@@ -204,14 +214,13 @@ p{margin: 0;}
 	box-shadow: 0 0 5px #D7C13F;
 }
 
-
 .profilePage{
 	width: 80.5vw;
 	display: flex;
 	align-items: center;
 	justify-content: flex-start;
 	flex-direction: column;
-	margin-left: 20vw;
+	margin-left: 22vw;
 }
 
 .createMerchant{
@@ -286,6 +295,7 @@ p{margin: 0;}
 
 .itemDescWrapper{
 	width: 15vw !important;
+	overflow: hidden;
 }
 
 .action{
@@ -302,19 +312,6 @@ p{margin: 0;}
 	width: 100%;
 	height: 800px;
 	overflow: auto;
-}
-
-.itemMerchantContainer::-webkit-scrollbar {
-    width: 2px;
-}
-
-.itemMerchantContainer::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-}
-.itemMerchantContainer::-webkit-scrollbar-thumb {
-      background-color: #D7C13F;
-      outline: 1px solid slategrey;
-      border-radius: 100px;
 }
 
 .changeItemImg:hover #Ellipse_187{
@@ -508,6 +505,99 @@ p{margin: 0;}
     bottom: 20px;
 }
 
+.transHistoryContainer{
+	width: 90%;
+	height: 600px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-color: #1E2126;
+	margin-top: 4vh;
+	border-radius: 15px;
+	box-shadow:
+	  0 26.7px 22.9px -41px rgba(0, 0, 0, 0.09),
+	  0 51.8px 46.4px -41px rgba(0, 0, 0, 0.058),
+	  0 77.4px 71.4px -41px rgba(0, 0, 0, 0.044),
+	  0 114.1px 101.2px -41px rgba(0, 0, 0, 0.033),
+	  0 261px 172px -41px rgba(0, 0, 0, 0.02)
+	;
+}
+
+.transHistoryWrapper{
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.headerTable{
+	width: 100%;
+	height: 5vh;
+	display: flex;
+	align-items: flex-end;
+	justify-content: flex-start;
+}
+
+.headerSeparator{
+	width: 100%;
+	height: 1px;
+	margin-top: 2vh;
+	background-color: #d7c13f;
+}
+
+.transBlockContainer{
+	width: 100%;
+	height: 90%;
+	overflow: auto;
+}
+
+.transBlockContainer::-webkit-scrollbar {
+    width: 2px;
+}
+
+.transBlockContainer::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+ 
+.transBlockContainer::-webkit-scrollbar-thumb {
+  	background-color: #D7C13F;
+  	outline: 1px solid slategrey;
+  	border-radius: 100px;
+}
+
+.transBlock{
+	width: 100%;
+	height: 8vh;
+	display: flex;
+	align-items: center;
+	border-bottom: solid 1px rgba(215,193,63,0.50);
+}
+
+.transBlock:hover{
+	cursor: pointer;
+	background-color: #22262B;
+}
+
+.Date{
+	width: 14.7vw;
+	color: #ECF0F1;
+}
+
+.game{
+	color: #d7c13f;
+	font-size: 1vw;
+}
+
+.Points{
+	width: 13.7vw;
+}
+
+.butWrapper{
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	margin-top: 20px;
+}
+
 #descriptionArea{
 	margin-top:50px;
 	color: #ecf0f1;
@@ -540,41 +630,6 @@ input[type=number]::-webkit-inner-spin-button {
 input:focus{
 	box-shadow: none;
 	text-align: left;
-}
-
-.cartItemContainer::-webkit-scrollbar {
-    width: 2px;
-}
-
-.cartItemContainer::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-}
-.cartItemContainer::-webkit-scrollbar-thumb {
-      background-color: #D7C13F;
-      outline: 1px solid slategrey;
-      border-radius: 100px;
-}
-
-.backtoShop{
-    width: 200px;
-    height: 50px;
-    background-color: #D7C13F;
-    border-radius: 15px;
-    border: none;
-    margin-top: 160px;
-    color: #1E2126;
-    font-family: Varela;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.backtoShop:hover{
-    color: #ecf0f1;
-}
-
-.backtoShop:hover #Icon_ionic-ios-arrow-round-back{
-    fill: #ecf0f1;
 }
 /*
 input:not(:focus){

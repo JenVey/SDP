@@ -52,8 +52,18 @@
 			</label>
 			<input type="email" name="emailProfile" id="emailProfile" readonly>
 		</div>
-		<button class="backShop">Back to Shop</button>
-		<button class="logout">Logout</button>
+		<button class="backtoShop">
+			<svg style="margin-left: 20px;" xmlns="http://www.w3.org/2000/svg" width="20.243" height="13.501" viewBox="0 0 20.243 13.501">
+				<path id="Icon_ionic-ios-arrow-round-back" data-name="Icon ionic-ios-arrow-round-back" d="M15.216,11.51a.919.919,0,0,1,.007,1.294l-4.268,4.282H27.218a.914.914,0,0,1,0,1.828H10.955L15.23,23.2a.925.925,0,0,1-.007,1.294.91.91,0,0,1-1.287-.007L8.142,18.647h0a1.026,1.026,0,0,1-.19-.288.872.872,0,0,1-.07-.352.916.916,0,0,1,.26-.64l5.794-5.836A.9.9,0,0,1,15.216,11.51Z" transform="translate(-7.882 -11.252)" fill="#1E2126" />
+			</svg>
+			<p style="margin-right: 20px;">Back</p>
+		</button>
+		<button class="logout">
+			<svg id="logoutIcon" style="margin-left: 20px;" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 34.875 35.438">
+				<path id="Icon_awesome-power-off" data-name="Icon awesome-power-off" d="M28.125,3.8a17.435,17.435,0,1,1-20.264.007,1.693,1.693,0,0,1,2.461.541l1.111,1.976a1.687,1.687,0,0,1-.464,2.18A11.812,11.812,0,1,0,25.024,8.5a1.677,1.677,0,0,1-.457-2.173l1.111-1.976A1.685,1.685,0,0,1,28.125,3.8ZM20.813,18.563V1.688A1.683,1.683,0,0,0,19.125,0h-2.25a1.683,1.683,0,0,0-1.687,1.688V18.563a1.683,1.683,0,0,0,1.688,1.688h2.25A1.683,1.683,0,0,0,20.813,18.563Z" transform="translate(-0.563)" fill="#ECF0F1" />
+			</svg>
+			<p class="logoutText" style="margin-right: 20px;">Logout</p>
+		</button>
 	</div>
 	<div class="historyContainer">
 		<div class="headerContainer">
@@ -62,33 +72,37 @@
 			</button>
 		</div>
 		<div class="headerTransaction">
-			<h2 style="color: #ecf0f1;">Points History</h2>
+			<h2 style="color: #ecf0f1;">Top-Up History</h2>
 		</div>
 		<div class="transHistoryWrapper" style="width: 75%; margin-left: 1vw;margin-bottom: 2vw;">
 			<div class="transHistoryContainer">
 				<div class="headerTable">
-					<h4 class="white" style="margin-left: 2vw;">Date</h4>
-					<h4 class="white" style="margin-left: 10vw;">Amount</h4>
-					<h4 class="white" style="margin-left: 9vw;">Annotation</h4>
+					<h4 class="white" style="margin-left: 2vw;">ID History</h4>
+					<h4 class="white" style="margin-left: 10vw;">Top Up</h4>
+					<h4 class="white" style="margin-left: 9vw;">Date</h4>
 					<h4 class="white" style="margin-left: 10vw;">Status</h4>
 				</div>
 				<div class="headerSeparator"></div>
-				<div class="transBlockContainer">
-					<div class="transBlock">
-						<div class="Date">
-							<p style="margin-left: 2vw;">18 October 2020</p>
+				<?php if (!empty($history)) {
+					foreach ($history as $his) { ?>
+						<div class="transBlockContainer">
+							<div class="transBlock">
+								<div class="Date">
+									<p style="margin-left: 2vw;">HU0001</p>
+								</div>
+								<div class="Points">
+									<p style="color: #63D99E;margin-left: 3vw;">GP 30.000</p>
+								</div>
+								<div class="GrandTotal">
+									<p style="margin-left: 2.5vw;">18 October 2020</p>
+								</div>
+								<div class="statusTrans" id="statusPoints1" style="margin-left: -0.6vw;">
+								</div>
+								<input type="hidden" name="status" id="inputPoints1" value="1">
+							</div>
 						</div>
-						<div class="Points">
-							<p style="color: #63D99E;">GP 30.000</p>
-						</div>
-						<div class="GrandTotal">
-							<p>Tournament Vorhees</p>
-						</div>
-						<div class="statusTrans" id="statusPoints1" style="margin-left: 0.8vw;">
-						</div>
-						<input type="hidden" name="status" id="inputPoints1" value="1">
-					</div>
-				</div>
+				<?php }
+				} ?>
 			</div>
 		</div>
 		<div class="headerTransaction">
@@ -98,7 +112,7 @@
 			<div class="transHistoryContainer">
 				<div class="headerTable">
 					<h4 class="white" style="margin-left: 2vw;">Date</h4>
-					<h4 class="white" style="margin-left: 10vw;">Points Used</h4>
+					<h4 class="white" style="margin-left: 10vw;">Kode Promo</h4>
 					<h4 class="white" style="margin-left: 9vw;">Grand Total</h4>
 					<h4 class="white" style="margin-left: 9vw;">Cashback</h4>
 					<h4 class="white" style="margin-left: 10vw;">Status</h4>
@@ -113,13 +127,13 @@
 									<p style="margin-left: 2vw;"><?= $trans['tanggal_transaksi'] ?></p>
 								</div>
 								<div class="PointsUsed">
-									<p>GP <?= $trans['used_point']  ?></p>
+									<p><?= $trans['id_promo']  ?></p>
 								</div>
 								<div class="GrandTotal">
 									<p>IDR <?= $trans['Gross_Amount'] ?></p>
 								</div>
 								<div class="CashBack">
-									<p>GP <?= $trans['cashback'] ?></p>
+									<p>IDR <?= $trans['cashback'] ?></p>
 								</div>
 								<div class="statusTrans" id="statusTrans<?= $ctr ?>">
 								</div>
@@ -214,10 +228,19 @@
 		});
 
 		$(".logout").mouseover(function() {
-			$(".logout").html("Don't go :(");
+			$("#logoutIcon").hide();
+			$(".logoutText").attr("style", "");
+			$(".logoutText").html("Don't go :(");
 		});
 		$(".logout").mouseout(function() {
-			$(".logout").html("Logout");
+			$("#logoutIcon").show();
+			$(".logoutText").attr("style", "margin-right:20px;");
+			$(".logoutText").html("Logout");
+		});
+
+
+		$(".homeButton").click(function() {
+			window.location.href = '<?= base_url(); ?>Shop/unsetGame/';
 		});
 	</script>
 </body>

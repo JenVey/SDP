@@ -10,8 +10,12 @@
 	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/Ours.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/cartCSS.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/checkBox.css">
+	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/alertify.css">
+	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/alertify.min.css.css">
+
 	<script src="<?php echo base_url(); ?>asset/Js/jquery-min.js"></script>
 	<script src="<?php echo base_url(); ?>asset/Js/bootstrap.js"></script>
+	<script src="<?php echo base_url(); ?>asset/Js/alertify.js"></script>
 	<script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-3P7SuUbxsTWXgTf3"></script>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 </head>

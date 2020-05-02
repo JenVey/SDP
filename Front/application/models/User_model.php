@@ -41,7 +41,6 @@ class User_model extends CI_model
         } else {
             $generateId = $cekNewId . $ctr;
         }
-
         //default.jpg
         $foto = $this->input->post('photoUser');
         if ($foto == '') {
@@ -58,7 +57,7 @@ class User_model extends CI_model
             "jenis_kelamin" =>  $jk,
             "foto" =>  $foto,
             "phone" => $phone,
-            "point" => 0,
+            "saldo" => 0,
             "status" => 0
         ];
         $this->db->insert('user', $data);
