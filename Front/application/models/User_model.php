@@ -77,8 +77,9 @@ class User_model extends CI_model
         $this->db->update('user', $data);
     }
 
-    public function updateSaldo($total)
+    public function updateSaldo()
     {
+        $total = $this->input->post('total');
         $id = $this->session->userdata('id_user');
         $cekquery = $this->db->query("select * from user");
         foreach ($cekquery->result_array() as $row) {

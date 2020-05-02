@@ -65,18 +65,14 @@
     </div>
 
     <div class="profile">
-        <div class="profileImg"><img class="profileImg" src="data:image/jpeg;base64,<?= base64_encode($user['foto']) ?>" width="50" height="50" alt="" /></div>
-        <div class="profileStats">
-            <!-- Max Line 10 -->
-            <h5 class="profileName"><?= $user['nama_user'] ?></h5>
-            <h6 class="profileBalance">IDR <?= $user['saldo'] ?></h6>
+        <div class="wrapProfile" style="display: flex;overflow: hidden; height:100%;width: 100%; align-items: center;">
+            <div class="profileImg"><img class="profileImg" src="data:image/jpeg;base64,<?= base64_encode($user['foto']) ?>" width="50" height="50" alt="" /></div>
+            <div class="profileStats">
+                <!-- Max Line 10 -->
+                <h5 class="profileName"><?= $user['nama_user'] ?></h5>
+                <h6 class="profileBalance">GP <?= ceil($user['saldo']) ?></h6>
+            </div>
         </div>
-        <button class="TopUp">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20.271" height="28" viewBox="0 0 25.271 33">
-                <path id="Icon_metro-money" data-name="Icon metro-money" d="M24.3,20.91c-5.632-1.082-7.443-2.191-7.443-3.932,0-2,2.494-3.4,6.7-3.4,4.416,0,6.054,1.558,6.2,3.85h5.483c-.161-3.162-2.779-6.041-7.964-6.985V6.427H19.831v3.96c-4.813.779-8.684,3.071-8.684,6.618,0,4.235,4.751,6.343,11.661,7.572,6.215,1.1,7.443,2.7,7.443,4.427,0,1.256-1.2,3.272-6.7,3.272-5.111,0-7.133-1.7-7.394-3.85H10.688c.31,4.015,4.367,6.261,9.143,7.022v3.978h7.443V35.485c4.826-.687,8.684-2.75,8.684-6.517,0-5.188-6.029-6.967-11.661-8.057Z" transform="translate(-10.688 -6.427)" fill="#63d99e" />
-            </svg>
-            <h6 class="TopupText">Top-Up</h6>
-        </button>
     </div>
 
     <div class="bodyContainer">
@@ -245,7 +241,20 @@
                         ?>
                     </div>
                     <p class="itemUploadDate">Uploaded at <?= date('d/m/Y', strtotime($itm['tanggal_upload'])) ?></p>
-                    <button class="addtoCart">Add to cart</button>
+                    <div class="addtoCart" idItem="<?= $itm['id_item'] ?>">
+                        <button style="border: none;background: none;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50">
+                                <g id="Group_182" data-name="Group 182" transform="translate(-10402 -997)">
+                                    <g id="Group_181" data-name="Group 181" transform="translate(10402 997)">
+                                        <rect id="Rectangle_302" data-name="Rectangle 302" width="50" height="50" rx="10" fill="#63d99e" />
+                                        <path id="Icon_material-add-shopping-cart" data-name="Icon material-add-shopping-cart" d="M12.115,31.142a3.55,3.55,0,1,0,3.538,3.55A3.539,3.539,0,0,0,12.115,31.142Zm17.691,0a3.55,3.55,0,1,0,3.538,3.55A3.539,3.539,0,0,0,29.806,31.142ZM12.416,25.374l.053-.213,1.592-2.893h13.18a3.52,3.52,0,0,0,3.1-1.828L37.166,8l-3.078-1.7H34.07l-1.946,3.55-4.883,8.875H14.822l-.23-.479-3.963-8.4L8.948,6.294,7.285,2.744H1.5v3.55H5.038l6.369,13.472L9.019,24.114a3.44,3.44,0,0,0-.442,1.7,3.554,3.554,0,0,0,3.538,3.55h21.23v-3.55H12.858A.45.45,0,0,1,12.416,25.374Z" transform="translate(5.012 5.81)" fill="#4c525d" />
+                                        <path id="Icon_awesome-arrow-down" data-name="Icon awesome-arrow-down" d="M12.568,8.543l.663.733a.85.85,0,0,1,0,1.12l-5.8,6.422a.667.667,0,0,1-1.013,0L.608,10.4a.85.85,0,0,1,0-1.12l.663-.733A.671.671,0,0,1,2.3,8.556l3.429,3.981V3.043a.756.756,0,0,1,.717-.793H7.4a.756.756,0,0,1,.717.793v9.494l3.429-3.981a.666.666,0,0,1,1.025-.013Z" transform="translate(19.034 2.114)" fill="#4c525d" />
+                                    </g>
+                                </g>
+                            </svg>
+                        </button>
+                    </div>
+                    <h4 class="stok yellow">Stok : <?= $itm['jumlah_item'] ?></h4>
                 </div>
             <?php endforeach; ?>
         </div>
@@ -301,6 +310,10 @@
                 $("#Icon_awesome-heart").css("fill", "#3e3e3e");
             }
 
+        });
+
+        $(".wrapProfile").click(function() {
+            window.location.href = '<?= base_url(); ?>Shop/viewProfile/'.concat();
         });
 
         $(".backtoMenu").click(function() {

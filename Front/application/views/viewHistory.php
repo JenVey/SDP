@@ -25,32 +25,39 @@
 				</svg>
 			</button>
 			<div class="profileImg">
+				<img id="profileImg" src="data:image/jpeg;base64,<?= base64_encode($user['foto']) ?>" alt="">
 			</div>
 		</div>
-		<h6 style="opacity: 0.4;">username</h6>
+		<h6 style="opacity: 0.4;"><?= $user['username_user'] ?></h6>
 		<div class="inputContainer">
 			<label for="nameProfile" class="placeholderName">
 				<p style="margin-bottom: 1px; font-size: 14px;">Name</p>
 			</label>
-			<input type="text" name="nameProfile" id="nameProfile" value="Yosua Yuwono" readonly>
+			<input type="text" name="nameProfile" id="nameProfile" value="<?= $user['nama_user'] ?>" readonly>
 		</div>
 		<div class="inputContainer">
 			<label for="phoneNum" class="placeholderName">
 				<p style="margin-bottom: 1px; font-size: 14px;">Phone Number</p>
 			</label>
-			<input type="number" name="phoneNum" id="phoneNum" readonly>
+			<input type="number" name="phoneNum" id="phoneNum" value="<?= $user['phone'] ?>" readonly>
 		</div>
 		<div class="inputContainer">
 			<label for="passProfile" class="placeholderName">
 				<p style="margin-bottom: 1px; font-size: 14px;">Password</p>
 			</label>
-			<input type="password" name="passProfile" id="passProfile" readonly>
+			<input type="password" name="passProfile" id="passProfile" value="<?= $user['pass_user'] ?>" readonly>
 		</div>
 		<div class="inputContainer">
 			<label for="emailProfile" class="placeholderName">
 				<p style="margin-bottom: 1px; font-size: 14px;">E-mail</p>
 			</label>
-			<input type="email" name="emailProfile" id="emailProfile" readonly>
+			<input type="email" name="emailProfile" id="emailProfile" value="<?= $user['email_user'] ?>" readonly>
+		</div>
+		<div class="inputContainer">
+			<label for="tradeProfile" class="placeholderName">
+				<p style="margin-bottom: 1px; font-size: 14px;">Trade Link</p>
+			</label>
+			<input type="text" name="tradeProfile" id="tradeProfile" value="<?= $user['trade_link'] ?>" readonly>
 		</div>
 		<button class="backtoShop">
 			<svg style="margin-left: 20px;" xmlns="http://www.w3.org/2000/svg" width="20.243" height="13.501" viewBox="0 0 20.243 13.501">
@@ -83,22 +90,23 @@
 					<h4 class="white" style="margin-left: 10vw;">Status</h4>
 				</div>
 				<div class="headerSeparator"></div>
-				<?php if (!empty($history)) {
+				<?php $ctr3 = 1;
+				if (!empty($history)) {
 					foreach ($history as $his) { ?>
 						<div class="transBlockContainer">
 							<div class="transBlock">
 								<div class="Date">
-									<p style="margin-left: 2vw;">HU0001</p>
+									<p style="margin-left: 2vw;"><?= $his['id_history'] ?></p>
 								</div>
 								<div class="Points">
-									<p style="color: #63D99E;margin-left: 3vw;">GP 30.000</p>
+									<p style="color: #63D99E;margin-left: 3vw;">GP <?= $his['saldo'] ?></p>
 								</div>
 								<div class="GrandTotal">
-									<p style="margin-left: 2.5vw;">18 October 2020</p>
+									<p style="margin-left: 2.5vw;"><?= date('d/m/Y', strtotime($his['date'])) ?></p>
 								</div>
-								<div class="statusTrans" id="statusPoints1" style="margin-left: -0.6vw;">
+								<div class="statusTrans" id="statusPoints<?= $ctr3 ?>" style="margin-left: -0.6vw;">
 								</div>
-								<input type="hidden" name="status" id="inputPoints1" value="1">
+								<input type="hidden" name="status" id="inputPoints<?= $ctr3 ?>" value="<?= $his['status'] ?>">
 							</div>
 						</div>
 				<?php }
@@ -122,7 +130,7 @@
 					<?php if (!empty($transaksi)) {
 						$ctr = 1;
 						foreach ($transaksi as $trans) { ?>
-							<div class="transBlock" id="transBlock<?= $ctr ?>" data-toggle="collapse" data-target="#itemBlockContainer<?= $ctr ?>" aria-expanded="false" aria-controls="itemBlockContainer1">
+							<div class="transBlock" id="transBlock<?= $ctr ?>" data-toggle="collapse" data-target="#itemBlockContainer<?= $ctr ?>" aria-expanded="false" aria-controls="itemBlockContainer<?= $ctr ?>">
 								<div class="Date">
 									<p style="margin-left: 2vw;"><?= $trans['tanggal_transaksi'] ?></p>
 								</div>
@@ -140,45 +148,46 @@
 								<input type="hidden" name="status" id="status<?= $ctr ?>" value="<?= $trans['status'] ?>">
 							</div>
 							<?php
-							$ctr2 = 1;
 							foreach ($transaksiItem as $transItem) {
-								foreach ($item as $itm) {
-									if ($transItem['id_item'] == $itm['id_item']) {
+								if ($transItem['id_transaksi'] == $trans['id_transaksi']) {
+									foreach ($item as $itm) {
+										if ($transItem['id_item'] == $itm['id_item']) {
 							?>
-										<div class="itemBlockContainer collapse" id="itemBlockContainer<?= $ctr2 ?>">
-											<div class="itemBlock">
-												<div class="itemName">
-													<p>
-														<?= $itm['nama_item'] ?>(3x)
-													</p>
-												</div>
-												<div class="itemDesc">
-													<p style="font-size: 0.8vw;">
-														<?= $itm['desc_item'] ?>
-													</p>
-												</div>
-												<div class="Price">
-													<p>IDR <?= $itm['harga_item'] ?></p>
-												</div>
-												<div class="merchantName">
-													<a href="#">
-														<?php foreach ($merchant as $mch) {
-															if ($itm['id_merchant'] == $mch['id_merchant']) {
-																echo $mch['nama_merchant'];
-															}
-														} ?>
-													</a>
-												</div>
-												<div class="game"><strong>
-														<?php foreach ($games as $game) {
-															if ($itm['id_game'] == $game['id_game']) {
-																echo $game['nama_game'];
-															}
-														} ?></strong>
+											<div class="itemBlockContainer collapse" id="itemBlockContainer<?= $ctr ?>">
+												<div class="itemBlock">
+													<div class="itemName">
+														<p>
+															<?= $itm['nama_item'] ?>(<?= $transItem['jumlah'] ?>x)
+														</p>
+													</div>
+													<div class="itemDesc">
+														<p style="font-size: 0.8vw;">
+															<?= $itm['desc_item'] ?>
+														</p>
+													</div>
+													<div class="Price">
+														<p>IDR <?= $transItem['subtotal'] ?></p>
+													</div>
+													<div class="merchantName">
+														<a href="<?= base_url() . "/Shop/viewMerchant/" . $itm['id_merchant'] ?>">
+															<?php foreach ($merchant as $mch) {
+																if ($itm['id_merchant'] == $mch['id']) {
+																	echo $mch['nama'];
+																}
+															} ?>
+														</a>
+													</div>
+													<div class="game"><strong>
+															<?php foreach ($games as $game) {
+																if ($itm['id_game'] == $game['id_game']) {
+																	echo $game['nama_game'];
+																}
+															} ?></strong>
+													</div>
 												</div>
 											</div>
-										</div>
-							<?php $ctr2++;
+							<?php
+										}
 									}
 								}
 							} ?>
@@ -241,6 +250,10 @@
 
 		$(".homeButton").click(function() {
 			window.location.href = '<?= base_url(); ?>Shop/unsetGame/';
+		});
+
+		$(".backtoShop").click(function() {
+			window.location.href = '<?= base_url(); ?>Shop/viewHistory/';
 		});
 	</script>
 </body>

@@ -70,7 +70,7 @@
             <div class="profileStats">
                 <!-- Max Line 10 -->
                 <h5 class="profileName"><?= $user['nama_user'] ?></h5>
-                <h6 class="profileBalance">IDR <?= ceil($user['point']) ?></h6>
+                <h6 class="profileBalance">GP <?= ceil($user['saldo']) ?></h6>
             </div>
         </div>
     </div>
@@ -243,7 +243,7 @@
 
         textFit($(".titleGame"));
         textFit($(".profileName"));
-
+        $('.success').hide();
         $('.itemContainer').children('.item').each(function() {
             price = $(this).children(".itemPrice").html();
             price = price.replace(/[^a-z0-9\s]/gi, '');

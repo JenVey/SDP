@@ -76,22 +76,15 @@ foreach ($merchant as $mch) {
     </div>
 
     <div class="profile">
-        <div class="wrapProfile" style="display: flex;overflow: hidden; height:100%;width: 80%; align-items: center;">
+        <div class="wrapProfile" style="display: flex;overflow: hidden; height:100%;width: 100%; align-items: center;">
             <div class="profileImg"><img class="profileImg" src="data:image/jpeg;base64,<?= base64_encode($user['foto']) ?>" width="50" height="50" alt="" /></div>
             <div class="profileStats">
                 <!-- Max Line 10 -->
                 <h5 class="profileName"><?= $user['nama_user'] ?></h5>
-                <h6 class="profileBalance">IDR <?= ceil($user['saldo']) ?></h6>
+                <h6 class="profileBalance">GP <?= ceil($user['saldo']) ?></h6>
             </div>
         </div>
-        <button class="TopUp">
-            <svg xmlns="http://www.w3.org/2000/svg" width="34.875" height="34.875" viewBox="0 0 34.875 34.875">
-                <path id="Icon_awesome-history" fill="#63D99E" data-name="Icon awesome-history" d="M35.438,17.967A17.438,17.438,0,0,1,7.056,31.577a1.686,1.686,0,0,1-.129-2.5l.792-.792a1.69,1.69,0,0,1,2.242-.139A12.938,12.938,0,1,0,9.136,8.573L12.7,12.142a1.125,1.125,0,0,1-.8,1.921H1.688A1.125,1.125,0,0,1,.563,12.938V2.716a1.125,1.125,0,0,1,1.921-.8L5.954,5.392A17.437,17.437,0,0,1,35.438,17.967Zm-12.72,5.539.691-.888a1.687,1.687,0,0,0-.3-2.368L20.25,18.025V10.688A1.687,1.687,0,0,0,18.563,9H17.438a1.687,1.687,0,0,0-1.687,1.688v9.538l4.6,3.577a1.688,1.688,0,0,0,2.368-.3Z" transform="translate(-0.563 -0.563)" />
-            </svg>
-            <h6 class="TopupText">History</h6>
-        </button>
     </div>
-
     <div class="bodyContainer">
         <div class="headerContainer">
 
@@ -204,11 +197,6 @@ foreach ($merchant as $mch) {
                             <path id="Icon_material-rate-review" data-name="Icon material-rate-review" d="M41.838,3H7.315A4.283,4.283,0,0,0,3.022,7.262L3,45.621,11.631,37.1H41.838a4.3,4.3,0,0,0,4.315-4.262V7.262A4.3,4.3,0,0,0,41.838,3ZM11.631,28.572V23.309L26.475,8.647a1.078,1.078,0,0,1,1.532,0l3.819,3.772a1.046,1.046,0,0,1,0,1.513L16.96,28.572Zm25.892,0H21.34l4.315-4.262H37.523Z" transform="translate(-3 -3)" fill="#fff" />
                         </svg>
                     </button>
-                    <button class="merchantReport">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="37.353" height="30" viewBox="0 0 45.466 45.121">
-                            <path id="Icon_material-report" data-name="Icon material-report" d="M36.654,4.5H17.811L4.5,17.71v18.7l13.311,13.21H36.654L49.966,36.41V17.71ZM27.233,40.346a3.259,3.259,0,1,1,3.284-3.259A3.265,3.265,0,0,1,27.233,40.346Zm2.526-10.779H24.707V14.527h5.052Z" transform="translate(-4.5 -4.5)" fill="#ff5858" />
-                        </svg>
-                    </button>
                 </div>
             </div>
         </div>
@@ -297,6 +285,10 @@ foreach ($merchant as $mch) {
             }
             return x1 + x2;
         }
+
+        $(".wrapProfile").click(function() {
+            window.location.href = '<?= base_url(); ?>Shop/viewProfile/'.concat();
+        });
 
         $(".filterAlpha").click(function() {
             if (filter == 0) {

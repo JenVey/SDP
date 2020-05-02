@@ -10,10 +10,14 @@
 	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/profileCSS.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/Ours.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/cartCSS.css">
+	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/alertify.css">
+	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/alertify.min.css.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script src="<?php echo base_url(); ?>asset/Js/jquery-min.js"></script>
 	<script src="<?php echo base_url(); ?>asset/Js/bootstrap.js"></script>
 	<script src="<?php echo base_url(); ?>asset/Js/textFit.js"></script>
+	<script src="<?php echo base_url(); ?>asset/Js/alertify.js"></script>
+	<script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-3P7SuUbxsTWXgTf3"></script>
 </head>
 <?php
 foreach ($merchant as $mch) {
@@ -359,8 +363,14 @@ foreach ($merchant as $mch) {
 				</div>
 			</div>
 		<?php } ?>
-	</div>
 
+	</div>
+	<form id="payment-form" method="post" action="<?= site_url() ?>Shop/topUp/">
+		<input type="hidden" name="result_data" id="result-type" value="">
+		</div>
+		<input type="hidden" name="result_data" id="result-data" value=""></div>
+		<input type="hidden" name="total" id="total" value=""></div>
+	</form>
 	<script>
 		var check = false;
 		var id = 0;
@@ -605,6 +615,7 @@ foreach ($merchant as $mch) {
 
 
 
+
 		$(".changeProfile").mouseover(function() {
 			if ($(".changeProfileText").html() == "Edit Profile") {
 				$(".changeProfileText").css("color", "#D7C13F");
@@ -687,6 +698,74 @@ foreach ($merchant as $mch) {
 
 
 			}
+		});
+
+
+		$(".ProfileTopUp").click(function() {
+			event.preventDefault();
+			$(this).attr("disabled", "disabled");
+
+			var gross_amount;
+			$("#total").val(grandtotal);
+			total = $("#total").val();
+
+			alert(gross_amount);
+
+			nama = $(".profile").attr("nama");
+			phone = $(".profile").attr("phone");
+			email = $(".profile").attr("email");
+			$.ajax({
+				method: 'POST',
+				url: '<?= base_url() ?>Midtrans/snap2/token',
+				data: {
+					gross_amount: gross_amount,
+					nama: nama,
+					phone: phone,
+					email: email
+				},
+				cache: false,
+
+				success: function(data) {
+					console.log('token = ' + data);
+
+					var resultType = document.getElementById('result-type');
+					var resultData = document.getElementById('result-data');
+
+					function changeResult(type, data) {
+						$("#result-type").val(type);
+						$("#result-data").val(JSON.stringify(data));
+						//resultType.innerHTML = type;
+						//resultData.innerHTML = JSON.stringify(data);
+					}
+
+					snap.pay(data, {
+						onSuccess: function(result) {
+							changeResult('success', result);
+							console.log(result.status_message);
+							console.log(result);
+							$("#payment-form").submit();
+						},
+						onPending: function(result) {
+							changeResult('pending', result);
+							console.log(result.status_message);
+							$("#payment-form").submit();
+						},
+						onError: function(result) {
+							changeResult('error', result);
+							console.log(result.status_message);
+							$("#payment-form").submit();
+						}
+					});
+
+					window.location.href = '<?= base_url(); ?>Shop/TopUp';
+				}
+			});
+		});
+
+
+
+		$(".History").click(function() {
+			window.location.href = '<?= base_url(); ?>Shop/viewHistory';
 		});
 
 

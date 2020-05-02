@@ -74,20 +74,14 @@ foreach ($merchant as $mch) {
     </div>
 
     <div class="profile">
-        <div class="wrapProfile" style="display: flex;overflow: hidden; height:100%;width: 80%; align-items: center;">
+        <div class="wrapProfile" style="display: flex;overflow: hidden; height:100%;width: 100%; align-items: center;">
             <div class="profileImg"><img class="profileImg" src="data:image/jpeg;base64,<?= base64_encode($user['foto']) ?>" width="50" height="50" alt="" /></div>
             <div class="profileStats">
                 <!-- Max Line 10 -->
                 <h5 class="profileName"><?= $user['nama_user'] ?></h5>
-                <h6 class="profileBalance">IDR <?= ceil($user['saldo']) ?></h6>
+                <h6 class="profileBalance">GP <?= ceil($user['saldo']) ?></h6>
             </div>
         </div>
-        <button class="TopUp">
-            <svg xmlns="http://www.w3.org/2000/svg" width="34.875" height="34.875" viewBox="0 0 34.875 34.875">
-                <path id="Icon_awesome-history" fill="#63D99E" data-name="Icon awesome-history" d="M35.438,17.967A17.438,17.438,0,0,1,7.056,31.577a1.686,1.686,0,0,1-.129-2.5l.792-.792a1.69,1.69,0,0,1,2.242-.139A12.938,12.938,0,1,0,9.136,8.573L12.7,12.142a1.125,1.125,0,0,1-.8,1.921H1.688A1.125,1.125,0,0,1,.563,12.938V2.716a1.125,1.125,0,0,1,1.921-.8L5.954,5.392A17.437,17.437,0,0,1,35.438,17.967Zm-12.72,5.539.691-.888a1.687,1.687,0,0,0-.3-2.368L20.25,18.025V10.688A1.687,1.687,0,0,0,18.563,9H17.438a1.687,1.687,0,0,0-1.687,1.688v9.538l4.6,3.577a1.688,1.688,0,0,0,2.368-.3Z" transform="translate(-0.563 -0.563)" />
-            </svg>
-            <h6 class="TopupText">History</h6>
-        </button>
     </div>
     <div class="bodyContainer">
         <div class="headerContainer">
@@ -237,6 +231,10 @@ foreach ($merchant as $mch) {
                 filter = 0;
                 $("#solid_filter").css("fill", "#1E2126");
             }
+        });
+
+        $(".wrapProfile").click(function() {
+            window.location.href = '<?= base_url(); ?>Shop/viewProfile/'.concat();
         });
 
         $(".backtoMenu").click(function() {

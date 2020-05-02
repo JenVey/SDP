@@ -247,7 +247,7 @@
 				}
 			}
 			$(".GrandTotal").html("IDR " + addCommas(grandtotal));
-			checkSufficient(grandtotal);
+
 		}
 
 		$('#checkAll').change(function() {

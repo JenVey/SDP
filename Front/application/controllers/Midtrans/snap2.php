@@ -15,10 +15,6 @@ class Snap extends CI_Controller
 		$this->load->library('midtrans');
 		$this->midtrans->config($params);
 		$this->load->helper('url');
-
-		$this->load->model('Cart_model');
-		$this->load->model('Trans_model');
-		$this->load->model('TransItem_model');
 	}
 
 	public function index()
@@ -34,27 +30,44 @@ class Snap extends CI_Controller
 			'gross_amount' => $this->input->post('gross_amount') // no decimal allowed for creditcard
 		);
 
-		$cart = array();
-		$cart = $this->input->post('cart');
-		$cart = json_decode($cart, true);
-		$item_details = array();
+		//GENERATE ID HISTORY
+		$ctr = 1;
+		$query = $this->db->query("select * from user");
+		$idUser = $this->session->userdata('id_user');
 
-		//print_r($cart);
-		for ($i = 0; $i < count($cart); $i++) {
-			$row = array();
-			$row['id'] = $cart[$i]['id'];
-			$row['price'] = $cart[$i]['price'];
-			$row['quantity'] = $cart[$i]['quantity'];
-			$row['name'] = $cart[$i]['name'];
-			$this->Cart_model->updateAmount($row['quantity'], $row['id']);
-			array_push($item_details, $row);
+		foreach ($query->result_array() as $row) {
+			if ($row['id_user'] == $idUser) {
+				$newId = $row['nama_user'];
+			}
 		}
 
-		//INSERT TRANSAKSI
-		// $gp;
-		// $cashback;
-		$this->Trans_model->insertTrans();
+		$query = $this->db->query("select * from history");
+		$cekNewId = 'H' . substr(strtoupper($newId), 0, 1);
+		foreach ($query->result_array() as $row) {
+			$cekId = substr(strtoupper($row['id_history']), 0, 2);
+			if ($cekId == $cekNewId) {
+				$ctr++;
+			}
+		}
 
+		if ($ctr < 10) {
+			$generateId = $cekNewId . '000' . $ctr;
+		} else if ($ctr < 100) {
+			$generateId = $cekNewId . '00' . $ctr;
+		} else if ($ctr < 1000) {
+			$generateId = $cekNewId . '0' . $ctr;
+		} else {
+			$generateId = $cekNewId . $ctr;
+		}
+
+		$this->History_model->insertHistory($generateId);
+
+		$item_details = array(
+			'id' => $generateId,
+			'price' => $this->input->post('price'),
+			'quantity' => '1',
+			'name' => 'Top-Up GP'
+		);
 
 		// Optional
 		$customer_details = array(

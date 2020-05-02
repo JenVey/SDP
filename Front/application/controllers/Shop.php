@@ -169,6 +169,12 @@ class Shop extends CI_Controller
         $this->Merchant_model->editMerchant();
     }
 
+    public function topUp()
+    {
+
+        $this->User_model->updateSaldo();
+    }
+
     public function setFilter($isi)
     {
         $keyword = $this->uri->segment('4');
