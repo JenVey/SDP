@@ -7,8 +7,16 @@ class TeamMember_model extends CI_model
         return $this->db->get('team_members')->result_array();
     }
 
-    public function getAllTeamMemberbyTeam()
+    public function getAllTeamMemberbyTeam($idTeam)
     {
+        $query = "SELECT U.NAMA_USER AS 'nama_user', U.STATUS AS 'status'
+        FROM TEAM_MEMBERS TR
+        JOIN TEAM T ON T.ID_TEAM = TR.ID_TEAM 
+        JOIN USER U ON U.ID_USER = TR.ID_USER
+        WHERE T.ID_TEAM = '" . $idTeam . "' ";
+
+        $res = $this->db->query($query);
+        return $res->result_array();
     }
 
     public function insertTeamMember($idTeam)
@@ -27,10 +35,5 @@ class TeamMember_model extends CI_model
         $this->db->where('id_team', $idTeam);
         $this->db->where('id_user', $idUser);
         $this->db->delete('team_members');
-    }
-
-    public function getTeamById($id)
-    {
-        return $this->db->get_where('team', ['id_team' => $id])->row_array();
     }
 }

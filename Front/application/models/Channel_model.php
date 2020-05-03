@@ -6,7 +6,7 @@ class Channel_model extends CI_model
         return $this->db->get('channel')->result_array();
     }
 
-    public function getAllChannelByUser($id)
+    public function getAllChannelByIdUser($id)
     {
         $id = $this->session->userdata('id_user');
         $query = "SELECT C.NAMA_CHANNEL AS 'nama_channel',C.FOTO_CHANNEL AS 'foto_channel'
