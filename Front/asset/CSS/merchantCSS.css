@@ -60,3 +60,63 @@
 	box-sizing: border-box;
 	margin-left: 20px;
 }
+
+.rate{
+	width: 50%;
+	height: 40vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	position: relative;
+	animation-duration: 1s;
+}
+
+#stars{
+	display: flex;
+	justify-content: space-around;
+	width: 60%;
+}
+
+.starsText{
+	margin: 2vw 0;
+}
+
+#commentMe{
+	outline: none;
+	resize: none;
+	background-color:#26292F;
+	border-radius: 15px;
+	border: none;
+	padding: 10px;
+	color: white;
+}
+
+#commentMe::placeholder{
+	color: white;
+}
+
+.sendComment{
+	width: 100px;
+	background-color: #D7C13F;
+	color: white;
+	border-radius: 100px;
+	border: none;
+	position: absolute;
+	right: 2vw;
+	bottom: 2vh;
+}
+
+.sendComment:hover{
+	color: #383D47;
+}
+
+.commentUser{
+	width: 62%;
+	margin-left: 2vw;
+	padding: 20px;
+	box-sizing: border-box;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	color: #ecf0f1;
+}

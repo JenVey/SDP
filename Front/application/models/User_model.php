@@ -77,8 +77,9 @@ class User_model extends CI_model
         $this->db->update('user', $data);
     }
 
-    public function updateSaldo($total)
+    public function updateSaldo()
     {
+        $total = $this->input->post('gross_amount');
         $id = $this->session->userdata('id_user');
         $cekquery = $this->db->query("select * from user");
         foreach ($cekquery->result_array() as $row) {
@@ -87,14 +88,19 @@ class User_model extends CI_model
             }
         }
 
-        $saldo = $saldo - intval($total);
+        if (isset($_SESSION['idHistory'])) {
+            $saldo = $saldo + intval($total);
+        } else {
+            $saldo = $saldo - intval($total);
 
-        if ($saldo < 0) {
-            $saldo = 0;
+            if ($saldo < 0) {
+                $saldo = 0;
+            }
         }
 
         $query = "UPDATE USER SET SALDO = '" . $saldo . "' WHERE ID_USER = '" . $id . "' ";
         $this->db->query($query);
+        $this->session->unset_userdata('idHistory');
     }
 
     public function editUser()

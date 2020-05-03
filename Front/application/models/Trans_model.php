@@ -8,7 +8,7 @@ class Trans_model extends CI_model
 
     public function getTransByUser($id)
     {
-        return $this->db->get_where('transaksi', ['id_user' => $id])->row_array();
+        return $this->db->get_where('transaksi', ['id_user' => $id])->result_array();
     }
 
     public function insertTrans()
@@ -27,7 +27,6 @@ class Trans_model extends CI_model
         $cart = $this->input->post('cart');
         $cart = json_decode($cart, true);
         $gross = $this->input->post('gross_amount');
-
         $cashback =  $gross * 10 / 100;
 
         $tgl = date("Y-m-d H:i:s");
@@ -54,11 +53,11 @@ class Trans_model extends CI_model
         $data = [
             "id_transaksi" => $generateId,
             "id_user" => $idUser,
-            //"id_promo" => $idPromo,
+            "id_promo" => 'PD0001',
             "Gross_Amount" => $gross,
             "tanggal_transaksi" => $tgl,
             "cashback" =>  $cashback,
-            "status" =>  '0'
+            "status" =>  '1'
 
         ];
         $this->db->insert('transaksi', $data);

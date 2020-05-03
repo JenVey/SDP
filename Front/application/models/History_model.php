@@ -7,6 +7,22 @@ class History_model extends CI_model
     }
     public function getHistoryByUser($id)
     {
-        return $this->db->get_where('history', ['id_user' => $id])->row_array();
+        return $this->db->get_where('history', ['id_user' => $id])->result_array();
+    }
+
+    public function insertHistory($id)
+    {
+        $idUser = $this->session->userdata('id_user');
+        $saldo = $this->input->post('total');
+        $tgl = date("Y-m-d H:i:s");
+        $data = [
+            "id_history" => $id,
+            "id_user" => $idUser,
+            "saldo" => $saldo,
+            "date" => $tgl,
+            "status" =>  '1'
+        ];
+
+        $this->db->insert('history', $data);
     }
 }

@@ -517,19 +517,19 @@ p{margin: 0;}
 	outline: none;
 }
 
-input{
-	width: 300px;
-	height: 35px;
-	padding: 10px;
-	padding-bottom: 5px;
-	font-size: 13pt;
-	left: 0;
-	top: 0;
-	background: none;
-	color: #ecf0f1;
-	border: none;
-	z-index: 2;
-	position: absolute;
+.inputContainer input{
+    width: 300px;
+    height: 35px;
+    padding: 10px;
+    padding-bottom: 5px;
+    font-size: 13pt;
+    left: 0;
+    top: 0;
+    background: none;
+    color: #ecf0f1;
+    border: none;
+    z-index: 2;
+    position: absolute;
 }
 
 input[type=number]::-webkit-inner-spin-button {

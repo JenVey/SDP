@@ -255,7 +255,11 @@ button{
 	text-align: left;
 }
 
-.soldOut{
+
+.soldOut:hover:enabled {
+	color:#4C525D;
+}
+.soldOut:enabled {
 	width: 130px;
 	height: 30px;
 	border-radius: 100px;
@@ -267,6 +271,16 @@ button{
 	margin-left: 22vw;
 }
 
-.soldOut:hover{
-	color:#4C525D;
+.soldOut:disabled{
+	opacity: 0.3;
+	width: 130px;
+	height: 30px;
+	border-radius: 100px;
+	border: none;
+	background-color:#F25757; 
+	color: white;
+	font-size: 13pt;
+	font-family: Varela;
+	margin-left: 22vw;
 }
+

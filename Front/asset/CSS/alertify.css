@@ -17,7 +17,7 @@
 }
 .alertify .ajs-modal {
   position: fixed;
-  top: -80px;
+  top: 0;
   right: 0;
   left: 0;
   bottom: 0;
@@ -32,7 +32,7 @@
   max-width: 500px;
   padding: 24px 24px 0 24px;
   outline: 0;
-  background-color: #2E353E;
+  background-color: #fff;
 }
 .alertify .ajs-dialog.ajs-capture:before {
   content: '';
@@ -79,13 +79,10 @@
   margin: -24px;
   margin-bottom: 0;
   padding: 16px 24px;
-  background-color: #585D68;
-	border-bottom: none;
-	color: #D7C13F;
+  background-color: #fff;
 }
 .alertify .ajs-body {
   min-height: 56px;
-	color: #ECF0F1;
 }
 .alertify .ajs-body .ajs-content {
   padding: 16px 24px 16px 16px;
@@ -95,15 +92,13 @@
   margin-left: -24px;
   margin-right: -24px;
   min-height: 43px;
-  background-color: #585D68;
-	border-top: none;
+  background-color: #fff;
 }
 .alertify .ajs-footer .ajs-buttons.ajs-primary {
   text-align: right;
 }
 .alertify .ajs-footer .ajs-buttons.ajs-primary .ajs-button {
   margin: 4px;
-	color: #D7C13F;
 }
 .alertify .ajs-footer .ajs-buttons.ajs-auxiliary {
   float: left;
