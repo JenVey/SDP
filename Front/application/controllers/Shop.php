@@ -33,6 +33,7 @@ class Shop extends CI_Controller
         $this->load->model('Trans_model');
         $this->load->model('TransItem_model');
         $this->load->model('History_model');
+        $this->load->model('Rating_model');
         $this->load->model('Gacha_model');
     }
 
@@ -79,6 +80,7 @@ class Shop extends CI_Controller
         $data['merchantF'] = $this->Merchant_model->getMerchantByIdUser($id);
         $data['merchant'] = $this->Merchant_model->getMerchantById($idM);
         $data['item'] = $this->Item_model->getItemByIdMerchant($idM);
+        $data['rating'] = $this->Rating_model->getRatingByUser($id, $idM);
         $this->load->view('shop/viewMerchant', $data);
     }
 
@@ -90,6 +92,7 @@ class Shop extends CI_Controller
         $data['merchantF'] = $this->Merchant_model->getMerchantByIdUser($id);
         $data['merchant'] = $this->Merchant_model->getMerchantById($idM);
         $data['item'] = $this->Item_model->getItemBySearchM($keyword);
+
         $this->session->unset_userdata('id_merchant');
         $this->load->view('shop/viewSearchM', $data);
     }
@@ -178,6 +181,8 @@ class Shop extends CI_Controller
     {
         $this->Merchant_model->editMerchant();
     }
+
+
 
     public function topUp()
     {
@@ -301,5 +306,16 @@ class Shop extends CI_Controller
         }
         $this->Item_model->updateAmount();
         redirect('Shop');
+    }
+
+
+    public function insertRating()
+    {
+        $this->Rating_model->insertRating();
+    }
+
+    public function updateRating()
+    {
+        $this->Rating_model->updateRating();
     }
 }

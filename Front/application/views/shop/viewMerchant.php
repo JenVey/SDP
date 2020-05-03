@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/bootstrap.css">
 
     <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/itemCSS.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/animation.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/Ours.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/select.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/merchantCSS.css">
@@ -29,6 +30,18 @@ foreach ($merchant as $mch) {
     $mchFoto = $mch['foto'];
     $mchRating = $mch['rating'];
 }
+
+$rate;
+if (!empty($rating)) {
+    foreach ($rating as $rate) {
+        $rate = $rate['bintang'];
+    }
+} else {
+    $rate = 0;
+}
+
+echo $rate;
+
 ?>
 
 <body>
@@ -204,8 +217,62 @@ foreach ($merchant as $mch) {
                 </div>
             </div>
         </div>
+        <?php if (!empty($rating)) {
+            foreach ($rating as $rate) { ?>
+                <div class="rate" style="margin-left: 19vw;margin-top: 8vh; display: none;">
+                    <div id="stars" cek="update" idRate="<?= $rate['id_rating'] ?>">
+                        <?php
+                        $sisa = 5 - $rate['bintang'];
+                        $ctr = 1;
+                        for ($i = 0; $i < $rate['bintang']; $i++) { ?>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="60.27" height="55.66" viewBox="0 0 32.5 30.25">
+                                <path id="Icon_ionic-ios-star<?= $ctr ?>" data-name="Icon ionic-ios-star" d="M32.555,13.5H22.212L19.069,4.12a1.139,1.139,0,0,0-2.138,0L13.788,13.5H3.375A1.128,1.128,0,0,0,2.25,14.625a.827.827,0,0,0,.021.19,1.081,1.081,0,0,0,.471.795l8.5,5.991L7.98,31.085a1.128,1.128,0,0,0,.387,1.266A1.088,1.088,0,0,0,9,32.625a1.378,1.378,0,0,0,.7-.253L18,26.459l8.3,5.913a1.318,1.318,0,0,0,.7.253,1.01,1.01,0,0,0,.626-.274,1.114,1.114,0,0,0,.387-1.266L24.75,21.6l8.43-6.047.2-.176a1.18,1.18,0,0,0,.366-.752A1.191,1.191,0,0,0,32.555,13.5Z" transform="translate(-1.75 -2.875)" fill="#D9AC18" stroke="#d7c13f" stroke-width="1" />
+                            </svg>
+                        <?php $ctr++;
+                        } ?>
+                        <?php
+                        for ($i = 0; $i < $sisa; $i++) { ?>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="60.27" height="55.66" viewBox="0 0 32.5 30.25">
+                                <path id="Icon_ionic-ios-star<?= $ctr ?>" data-name="Icon ionic-ios-star" d="M32.555,13.5H22.212L19.069,4.12a1.139,1.139,0,0,0-2.138,0L13.788,13.5H3.375A1.128,1.128,0,0,0,2.25,14.625a.827.827,0,0,0,.021.19,1.081,1.081,0,0,0,.471.795l8.5,5.991L7.98,31.085a1.128,1.128,0,0,0,.387,1.266A1.088,1.088,0,0,0,9,32.625a1.378,1.378,0,0,0,.7-.253L18,26.459l8.3,5.913a1.318,1.318,0,0,0,.7.253,1.01,1.01,0,0,0,.626-.274,1.114,1.114,0,0,0,.387-1.266L24.75,21.6l8.43-6.047.2-.176a1.18,1.18,0,0,0,.366-.752A1.191,1.191,0,0,0,32.555,13.5Z" transform="translate(-1.75 -2.875)" fill="#353B48" stroke="#d7c13f" stroke-width="1" />
+                            </svg>
+                        <?php $ctr++;
+                        } ?>
+                    </div>
+                    <h6 class="starsText" style="color: #ecf0f1; font-family: Roboto;">You rated this merchant <?= $rate['bintang'] ?> Star. Thank you!</h6>
+                    <textarea name="commentUser" placeholder="Rate the merchant" id="commentMe" cols="89" rows="6"><?= $rate['komentar'] ?></textarea>
+                    <button class="sendComment">
+                        <h5>Rate</h5>
+                    </button>
+                </div>
+            <?php }
+        } else { ?>
+            <div class="rate" style="margin-left: 19vw;margin-top: 8vh; display: none;">
+                <div id="stars" cek="insert">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="60.27" height="55.66" viewBox="0 0 32.5 30.25">
+                        <path id="Icon_ionic-ios-star1" data-name="Icon ionic-ios-star" d="M32.555,13.5H22.212L19.069,4.12a1.139,1.139,0,0,0-2.138,0L13.788,13.5H3.375A1.128,1.128,0,0,0,2.25,14.625a.827.827,0,0,0,.021.19,1.081,1.081,0,0,0,.471.795l8.5,5.991L7.98,31.085a1.128,1.128,0,0,0,.387,1.266A1.088,1.088,0,0,0,9,32.625a1.378,1.378,0,0,0,.7-.253L18,26.459l8.3,5.913a1.318,1.318,0,0,0,.7.253,1.01,1.01,0,0,0,.626-.274,1.114,1.114,0,0,0,.387-1.266L24.75,21.6l8.43-6.047.2-.176a1.18,1.18,0,0,0,.366-.752A1.191,1.191,0,0,0,32.555,13.5Z" transform="translate(-1.75 -2.875)" fill="#353B48" stroke="#d7c13f" stroke-width="1" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="60.27" height="55.66" viewBox="0 0 32.5 30.25">
+                        <path id="Icon_ionic-ios-star2" data-name="Icon ionic-ios-star" d="M32.555,13.5H22.212L19.069,4.12a1.139,1.139,0,0,0-2.138,0L13.788,13.5H3.375A1.128,1.128,0,0,0,2.25,14.625a.827.827,0,0,0,.021.19,1.081,1.081,0,0,0,.471.795l8.5,5.991L7.98,31.085a1.128,1.128,0,0,0,.387,1.266A1.088,1.088,0,0,0,9,32.625a1.378,1.378,0,0,0,.7-.253L18,26.459l8.3,5.913a1.318,1.318,0,0,0,.7.253,1.01,1.01,0,0,0,.626-.274,1.114,1.114,0,0,0,.387-1.266L24.75,21.6l8.43-6.047.2-.176a1.18,1.18,0,0,0,.366-.752A1.191,1.191,0,0,0,32.555,13.5Z" transform="translate(-1.75 -2.875)" fill="#353B48" stroke="#d7c13f" stroke-width="1" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="60.27" height="55.66" viewBox="0 0 32.5 30.25">
+                        <path id="Icon_ionic-ios-star3" data-name="Icon ionic-ios-star" d="M32.555,13.5H22.212L19.069,4.12a1.139,1.139,0,0,0-2.138,0L13.788,13.5H3.375A1.128,1.128,0,0,0,2.25,14.625a.827.827,0,0,0,.021.19,1.081,1.081,0,0,0,.471.795l8.5,5.991L7.98,31.085a1.128,1.128,0,0,0,.387,1.266A1.088,1.088,0,0,0,9,32.625a1.378,1.378,0,0,0,.7-.253L18,26.459l8.3,5.913a1.318,1.318,0,0,0,.7.253,1.01,1.01,0,0,0,.626-.274,1.114,1.114,0,0,0,.387-1.266L24.75,21.6l8.43-6.047.2-.176a1.18,1.18,0,0,0,.366-.752A1.191,1.191,0,0,0,32.555,13.5Z" transform="translate(-1.75 -2.875)" fill="#353B48" stroke="#d7c13f" stroke-width="1" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="60.27" height="55.66" viewBox="0 0 32.5 30.25">
+                        <path id="Icon_ionic-ios-star4" data-name="Icon ionic-ios-star" d="M32.555,13.5H22.212L19.069,4.12a1.139,1.139,0,0,0-2.138,0L13.788,13.5H3.375A1.128,1.128,0,0,0,2.25,14.625a.827.827,0,0,0,.021.19,1.081,1.081,0,0,0,.471.795l8.5,5.991L7.98,31.085a1.128,1.128,0,0,0,.387,1.266A1.088,1.088,0,0,0,9,32.625a1.378,1.378,0,0,0,.7-.253L18,26.459l8.3,5.913a1.318,1.318,0,0,0,.7.253,1.01,1.01,0,0,0,.626-.274,1.114,1.114,0,0,0,.387-1.266L24.75,21.6l8.43-6.047.2-.176a1.18,1.18,0,0,0,.366-.752A1.191,1.191,0,0,0,32.555,13.5Z" transform="translate(-1.75 -2.875)" fill="#353B48" stroke="#d7c13f" stroke-width="1" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="60.27" height="55.66" viewBox="0 0 32.5 30.25">
+                        <path id="Icon_ionic-ios-star5" data-name="Icon ionic-ios-star" d="M32.555,13.5H22.212L19.069,4.12a1.139,1.139,0,0,0-2.138,0L13.788,13.5H3.375A1.128,1.128,0,0,0,2.25,14.625a.827.827,0,0,0,.021.19,1.081,1.081,0,0,0,.471.795l8.5,5.991L7.98,31.085a1.128,1.128,0,0,0,.387,1.266A1.088,1.088,0,0,0,9,32.625a1.378,1.378,0,0,0,.7-.253L18,26.459l8.3,5.913a1.318,1.318,0,0,0,.7.253,1.01,1.01,0,0,0,.626-.274,1.114,1.114,0,0,0,.387-1.266L24.75,21.6l8.43-6.047.2-.176a1.18,1.18,0,0,0,.366-.752A1.191,1.191,0,0,0,32.555,13.5Z" transform="translate(-1.75 -2.875)" fill="#353B48" stroke="#d7c13f" stroke-width="1" />
+                    </svg>
+                </div>
+                <h6 class="starsText" style="color: #ecf0f1; font-family: Roboto;">How many stars would you want to give?</h6>
+                <textarea name="commentUser" placeholder="Rate the merchant" id="commentMe" cols="89" rows="6"></textarea>
+                <button class="sendComment">
+                    <h5>Rate</h5>
+                </button>
+            </div>
+        <?php } ?>
 
-        <h2 class=" itemHeader">Recent Items</p>
+        <h2 class=" itemHeader">Recent Items</php?>
         </h2>
         <div class="itemContainer">
             <?php foreach ($item as $itm) : ?>
@@ -263,6 +330,7 @@ foreach ($merchant as $mch) {
         </div>
 
     </div>
+
     <script src="<?= base_url(); ?>/asset/Js/select.js"></script>
     <script>
         var filter = 0;
@@ -387,6 +455,158 @@ foreach ($merchant as $mch) {
 
                 } else {
                     window.location.href = '<?= base_url(); ?>Shop/setMerchant/'.concat(idM.concat("/")).concat(isi);
+                }
+
+            }
+        });
+
+        $(".merchantRate").click(function() {
+            if ($(".rate").css("display") == "flex") {
+                $(".rate").css("display", "none");
+            } else {
+                $(".rate").css("display", "flex");
+                $(".rate").addClass("fadeIn");
+            }
+
+        });
+
+        $("#Icon_ionic-ios-star1").mouseenter(function() {
+            rates(1, 1);
+        });
+
+        $("#Icon_ionic-ios-star1").mouseleave(function() {
+            rates(1, 0);
+        });
+
+        $("#Icon_ionic-ios-star1").click(function() {
+            rates(1, 2);
+        });
+
+        $("#Icon_ionic-ios-star2").mouseenter(function() {
+            rates(2, 1);
+        });
+
+        $("#Icon_ionic-ios-star2").mouseleave(function() {
+            rates(2, 0);
+        });
+
+        $("#Icon_ionic-ios-star2").click(function() {
+            rates(2, 2);
+        });
+
+        $("#Icon_ionic-ios-star3").mouseenter(function() {
+            rates(3, 1);
+        });
+
+        $("#Icon_ionic-ios-star3").mouseleave(function() {
+            rates(3, 0);
+        });
+
+        $("#Icon_ionic-ios-star3").click(function() {
+            rates(3, 2);
+        });
+
+        $("#Icon_ionic-ios-star4").mouseenter(function() {
+            rates(4, 1);
+        });
+
+        $("#Icon_ionic-ios-star4").mouseleave(function() {
+            rates(4, 0);
+        });
+
+        $("#Icon_ionic-ios-star4").click(function() {
+            rates(4, 2);
+        });
+
+        $("#Icon_ionic-ios-star5").mouseenter(function() {
+            rates(5, 1);
+        });
+
+        $("#Icon_ionic-ios-star5").mouseleave(function() {
+            rates(5, 0);
+        });
+
+        $("#Icon_ionic-ios-star5").click(function() {
+            rates(5, 2);
+        });
+        var rating = 0;
+
+        function rates(idDiv, jenis) {
+            for (var i = 1; i <= 5; i++) {
+                if (i <= idDiv && jenis == 1 && $("#Icon_ionic-ios-star" + i).css("fill") == "rgb(53, 59, 72)") {
+                    $("#Icon_ionic-ios-star" + i).css("fill", "#D7C13F");
+                }
+                if (i <= idDiv && jenis == 0 && $("#Icon_ionic-ios-star" + i).css("fill") == "rgb(215, 193, 63)") {
+                    $("#Icon_ionic-ios-star" + i).css("fill", "#353B48");
+                }
+                if (jenis == 2) {
+                    if (i <= idDiv) $("#Icon_ionic-ios-star" + i).css("fill", "#D9AC18");
+                    else if (i > idDiv) {
+                        $("#Icon_ionic-ios-star" + i).css("fill", "#353B48");
+                    }
+                }
+            }
+            if (jenis == 2) {
+                rating = idDiv;
+                if (idDiv == 1) {
+                    $(".starsText").html("You rated this merchant 1 Star. We will inform the merchant to improve themselves.");
+                    $("#commentMe").attr("placeholder", "We are deeply sorry, Tell us what happened.");
+                } else if (idDiv == 2) {
+                    $(".starsText").html("You rated this merchant 2 Star. Sorry for the inconvenience");
+                    $("#commentMe").attr("placeholder", "What happened?");
+                } else if (idDiv == 3) {
+                    $(".starsText").html("You rated this merchant 3 Star. Thank you!");
+                    $("#commentMe").attr("placeholder", "Tell us about the merchant");
+                } else if (idDiv == 4) {
+                    $(".starsText").html("You rated this merchant 4 Star. Thank you!");
+                    $("#commentMe").attr("placeholder", "Tell us why they're awesome");
+                } else if (idDiv == 5) {
+                    $(".starsText").html("Fantastic! You rated 5 Star.");
+                    $("#commentMe").attr("placeholder", "Tell us why they're awesome");
+                }
+            }
+        }
+
+        $(".sendComment").click(function() {
+            if (rating == 0) {
+                alertify.error("You haven't click the star yet");
+            } else {
+                cek = $("#stars").attr("cek");
+                id = $(".merchantName").attr("idMerchant");
+                komen = $("#commentMe").val();
+
+                if (cek == "update") {
+                    idRate = cek = $("#stars").attr("idRate");
+                    $.ajax({
+                        url: "<?= base_url(); ?>Shop/updateRating",
+                        method: "post",
+                        data: {
+                            komentar: komen,
+                            bintang: rating,
+                            idRate: idRate
+                        },
+                        success: function(result) {
+                            $(".rate").css("display", "none");
+                            alertify.success("Successfully update rate merchant");
+                            $("#commentMe").val(komen);
+                        }
+                    });
+                } else {
+                    $.ajax({
+                        url: "<?= base_url(); ?>Shop/insertRating",
+                        method: "post",
+                        data: {
+                            idMerchant: id,
+                            komentar: komen,
+                            bintang: rating
+                        },
+                        success: function(result) {
+                            //window.location.href = '<?= base_url(); ?>Shop/viewMerchant/'.concat(id);
+                            $(".rate").css("display", "none");
+                            alertify.success("Successfully rate merchant");
+                            $("#commentMe").val(komen);
+                        }
+                    });
                 }
 
             }

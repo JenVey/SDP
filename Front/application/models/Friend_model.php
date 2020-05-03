@@ -9,7 +9,6 @@ class Friend_model extends CI_model
     {
         return $this->db->get_where('friend', ['id_user1' => $id])->row_array();
     }
-
     public function unlikeMerchant($idM)
     {
         $id = $this->session->userdata('id_user');
