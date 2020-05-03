@@ -7,7 +7,7 @@ class TeamRemin_model extends CI_model
         return $this->db->get('team_reminder')->result_array();
     }
 
-    public function getAllTeamReminByTeam($idTeam)
+    public function getAllTeamReminByIdTeam($idTeam)
     {
         $query = "SELECT T.NAMA_TEAM AS 'nama_team', T.BIO AS 'bio', T.TANGGAL_PEMBUATAN AS 'tgl',T.ID_TEAM AS 'id_team'
         FROM TEAM_REMINDER TR
