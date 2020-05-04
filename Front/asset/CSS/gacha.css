@@ -1,47 +1,94 @@
+body{
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+}
+.obj{
+	width: 13.8vw;
+	height: 14.6vh;
+	background-color: #d7c13f;
+	border-radius: 15px;
+	box-shadow:
+	  0 7.6px 2.2px rgba(0, 0, 0, 0.02),
+	  0 15.2px 5.3px rgba(0, 0, 0, 0.028),
+	  0 23.4px 10px rgba(0, 0, 0, 0.035),
+	  0 33.2px 17.9px rgba(0, 0, 0, 0.042),
+	  0 48.3px 33.4px rgba(0, 0, 0, 0.05),
+	  0 110px 80px rgba(0, 0, 0, 0.07)
+	;
+}
 
-@keyframes scroll {
-    0% {
-        transform: translateX(0);
-   }
-    100% {
-        transform: translateX(calc(-250px * 6));
-   }
+#map .obj:hover{
+	opacity: 0.5;
+	cursor: pointer;
 }
-.slider {
-    top: 20vh;
-    background: white;
-    box-shadow: 0 10px 20px -5px rgba(0, 0, 0, .125);
-    height: 100px;
-    margin: auto;
-    overflow: hidden;
-    position: relative;
-    width: 960px;
-    justify-content: center;
-    border-radius: 20px;
+
+#map{
+	margin-top: 4vw;
+	width: 100%;
+	height: 90vh;
+	position: relative;
 }
-.slider::before, .slider::after {
-    background: linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
-    content: "";
-    height: 100px;
-    position: absolute;
-    width: 200px;
-    z-index: 2;
+
+img{
+	max-width: 100%;
+	max-height: 100%;
 }
-.slider::after {
-    right: 0;
-    top: 0;
-    transform: rotateZ(180deg);
+
+h1{
+	font-size: 84px;
 }
-.slider::before {
-    left: 0;
-    top: 0;
+
+.buttons{
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	margin-top: 10%;
 }
-.slider .slide-track {
-    animation: scroll 1s linear infinite;
-    display: flex;
-    width: calc(250px * 12);
+
+.button{
+	width: 13vw;
+	height: 10vh;
+	border: none;
+	border-radius: 15px;
 }
-.slider .slide {
-    height: 100px;
-    width: 250px;
+
+.buttons #play{
+	background-color: #d7c13f;
+	color: #1e2126;
+}
+
+.buttons #back{
+	background-color: #ecf0f1;
+	color: #1e2126;
+	margin-left: 2vw;
+}
+
+#play:hover{
+	background-color: #1e2126;
+	color: #d7c13f;
+	cursor: pointer;
+}
+
+#back:hover{
+	background-color: #1e2126;
+	color: #d7c13f;
+	cursor: pointer;
+}
+
+.desc{
+	text-align: center;
+	font-size: 38px;
+	font-family: Roboto;
+	font-weight: lighter;
+	color: #ecf0f1;
+}
+
+.prizerow{
+	margin-top: 4vw;
+	width: 100%;
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
 }

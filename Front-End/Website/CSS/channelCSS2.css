@@ -1,0 +1,526 @@
+.buttonShop{
+	width: 100%;
+	height: 10%;
+	border: none;
+	background: transparent;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.buttonShop:hover{
+	background-color: #D7C13F;
+}
+
+.buttonShop:hover .shop{
+	color: #585D68;
+}
+
+.buttonShop:hover #Icon_metro-shop{
+	fill: #585D68;
+}
+
+.shop{
+	color: #D7C13F;
+	margin-bottom: 0;
+	margin-left: 30px;
+}
+
+.buttonFriend{
+	width: 100%;
+	height: 10%;
+	border: none;
+	background: transparent;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.buttonFriend:hover{
+	background-color: #D7C13F;
+}
+
+.buttonFriend:hover .friend{
+	color: #585D68;
+}
+
+.buttonFriend:hover #solid_child{
+	fill: #585D68;
+}
+
+.friend{
+	color: #D7C13F;
+	margin-bottom: 0;
+	margin-left: 30px;
+}
+
+.active{
+    background-color : rgba(76,82,93,0.44);
+}
+
+.coba{
+	width: 48%;
+	height: 80%;
+    border: none;
+	background-color: rgba(76,82,93,0.44);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.menu{
+    width: 100%;
+    height: 8%;
+    display: flex;
+	justify-content: center;
+    align-items: center;
+}
+
+.coba:hover{
+	background-color: #D7C13F;
+}
+
+.coba:hover .text{
+	color: #585D68;
+}
+
+.coba:hover #Icon_ionic-md-create{
+	fill: #585D68;
+}
+
+.coba:hover #Icon_material-group-add{
+	fill: #585D68;
+}
+
+.text{
+	color: #FFFFFF;
+	margin-bottom: 0;
+	margin-left: 30px;
+}
+
+.channelName{
+    font-weight: bold;
+	margin-bottom: 0;
+	color: #ecf0f1;
+	white-space: nowrap;
+}
+
+.profileImg2{
+	background-color: lightgray;
+	border-radius: 100px;
+	margin-left: 7%;
+	width: 50px;
+	height: 50px;
+}
+
+.profileID{
+	color: darkgray;
+}
+
+.profileStats2{
+    text-align: right;
+    padding-top: 10px;
+	width: 70%;
+	height: 50%;
+}
+
+.setting{
+	width: 100px;
+	height: 100%;
+	background-color: #585D68;
+	border: none;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	box-sizing: border-box;
+	padding-top: 5px;
+	border-left: solid 2px #353B48;
+}
+
+.setting:focus{
+	outline: none;
+}
+.setting:hover{
+	background-color: rgba(76,82,93,0.44);
+	cursor: pointer;
+}
+.setting:hover #Path_1130{
+	stroke: #000000;
+}
+.setting:hover #Path_1131{
+	stroke: #000000;
+}
+
+.bodyContainer2{
+	width: 84%;
+	height: auto;
+	position: absolute;
+	margin-left: 16vw;
+	text-align: center;
+	padding:0 5vh 0 5vh;
+}
+
+.buttonHead{
+	width: 50%;
+	height: 100%;
+	background-color: #585D68;
+	border: none;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	box-sizing: border-box;
+    padding-top: 5px;
+}
+
+.rightButton{
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.buttonHead:focus{
+	outline: none;
+}
+
+.buttonHead:hover{
+	background-color: rgba(76,82,93,0.44);
+	cursor: pointer;
+}
+
+.buttonHead:hover #Path_1130{
+	stroke: #000000;
+}
+
+.buttonHead:hover #Path_1131{
+	stroke: #000000;
+}
+
+.buttonHead:hover #Icon_ionic-ios-trophy{
+	fill: #000000;
+}
+
+.buttonHead:hover #Icon_awesome-user-friends{
+	fill: #000000;
+}
+
+.header{
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	width: 58vw;
+	height: 13vh;
+	background-color: #585D68;
+	margin-top: 2vh;
+	margin-left: 2vh;
+	text-align: left;
+	border-radius: 15px;
+	display: flex;
+	z-index: 2;
+}
+
+.buttonList{
+    width: 33%;
+    height: 100%;
+	display: flex;
+    flex-direction: row;
+    margin-right: 0;
+    align-items: right;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.chanProfile{
+    width: 67%;
+    height: 100%;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+	display: flex;
+    justify-content: center;
+}
+
+.chanID{
+	color: darkgray;
+}
+
+.chanStats{
+    margin-top: 4%;
+	margin-left: 5%;
+	width: 70%;
+	height: 50%;
+}
+
+.chanImg{
+	background-color: lightgray;
+    margin-top: 1.5%;
+	border-radius: 100px;
+	width: 100px;
+    height: 100px;
+}
+
+.chanName{
+    font-size: 20pt;
+	margin-bottom: 0;
+	color: #ecf0f1;
+	white-space: nowrap;
+}
+
+.center{
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	width: 58vw;
+	height: 81vh;
+	background-color: #585D68;
+	margin-top: 2vh;
+	margin-left: 2vh;
+	text-align: left;
+	border-radius: 15px;
+	display: flex;
+	z-index: 2;
+}
+
+.message{
+    opacity: 65%;
+	width: 98%;
+	height: 83%;
+	margin: 1% 1% 2% 1%;
+	text-align: left;
+	border-radius: 15px;
+    background-color: #737488;
+	display: flex;
+	flex-direction: column;
+	z-index: 2;
+}
+
+.chat{
+    opacity: 80%;
+	width: 98%;
+    height: 10%;
+    margin-bottom: 1%;
+	text-align: left;
+	border-radius: 15px;
+    background-color: #3e3f4c;
+	display: flex;
+}
+
+.add{
+	width: 7%;
+	height: 100%;
+	background-color: transparent;
+	border: none;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	box-sizing: border-box;
+    padding-top: 5px;
+}
+
+.add:focus{
+	outline: none;
+}
+.add:hover{
+	background-color: rgba(76,82,93,0.44);
+	cursor: pointer;
+}
+.add:hover #Path_1130{
+	stroke: #000000;
+}
+.add:hover #Path_1131{
+	stroke: #000000;
+}
+
+.line{
+    margin-top: 1.3%;
+	width: 0.15%;
+	height: 50px;
+	border-radius: 100%;
+	background-color: black;
+}
+
+::placeholder{
+    color: lightgray;
+}
+
+.sendChat{
+    margin-top: 1%;
+    margin-left: 3%;
+    width: 80%;
+    height: 80%;
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 16pt;
+}
+
+.memList{
+	width: 18vw;
+	height: 95.8vh;
+	position: fixed;
+	background-color: #585D68;
+	padding-top: 2vh;
+	margin-top: 2vh;
+	margin-left: 159.5vh;
+	overflow: auto;
+	text-align: center;
+	border-radius: 15px;
+	display: flex;
+	flex-direction: column;
+	z-index: 2;
+}
+
+.memList::-webkit-scrollbar {
+    width: 5px;
+	height: 5px;
+}
+ 
+.memList::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+ 
+.memList::-webkit-scrollbar-thumb {
+  	background-color: #D7C13F;
+  	outline: 1px solid slategrey;
+  	border-radius: 100px;
+}
+
+.onOff{
+	font-family: Varela;
+	width: 100%;
+	height: 10%;
+    display: flex;
+    padding-left: 6%;
+	align-items: center;
+}
+
+.line2{
+	width: 30px;
+	height: 3px;
+	border-radius: 100%;
+    background-color: #353B48;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.profImg{
+    margin-top: 1.5%;
+	border-radius: 100px;
+	width: 100px;
+    height: 100px;
+}
+
+.onList{
+	width: 100%;
+	height: auto;
+}
+
+.onList::-webkit-scrollbar {
+    width: 5px;
+	height: 5px;
+}
+ 
+.onList::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+ 
+.onList::-webkit-scrollbar-thumb {
+  	background-color: #D7C13F;
+  	outline: 1px solid slategrey;
+  	border-radius: 100px;
+}
+
+.offList{
+	width: 100%;
+	height: auto;
+	display: grid;
+	grid-gap: 10px;
+}
+
+.offList::-webkit-scrollbar {
+    width: 5px;
+	height: 5px;
+}
+ 
+.offList::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+ 
+.offList::-webkit-scrollbar-thumb {
+  	background-color: #D7C13F;
+  	outline: 1px solid slategrey;
+  	border-radius: 100px;
+}
+
+.member{
+	width: 100%;
+	height: 80px;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	border-radius: 15px;
+	text-align: left;
+}
+
+.member:hover{
+	background-color:rgba(76,82,93,0.44);
+	cursor: pointer;
+}
+
+.chatPhoto{
+	background-color: lightgray;
+	border-radius: 100px;
+	margin-left: 2%;
+	width: 50px;
+	height: 50px;
+	margin-top: 3%;
+}
+
+.pesan{
+    opacity: 80%;
+	width: 80%;
+    height: 10%;
+    margin-bottom: 1%;
+	text-align: left;
+    background-color: transparent;
+	display: flex;
+	flex-direction: row;
+}
+
+.name{
+	font-size: 10pt;
+}
+
+.isi{
+	padding-top: 2%;
+	width: 70%;
+	margin-left: 2%;
+	height: auto;
+	display: flex;
+	flex-direction: column;
+}
+
+.chat2{
+	padding-left: 2%;
+	border-radius: 15px;
+	color: white;
+	width: auto;
+	height: auto;
+	background-color: #1e2126;
+}
+
+.waktu{
+	font-size: 10pt;
+	text-align: right;
+}
+
+.tgl{
+	font-size: 15pt;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+.tglIsi{
+	margin-left: 20px;
+	margin-right: 20px;
+}

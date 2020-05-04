@@ -386,6 +386,28 @@ foreach ($merchant as $mch) {
 		</div>
 	</div>
 	<script>
+		$(document).ready(function() {
+			var ctr = 1;
+			var ada = true;
+			while (ada) {
+				if ($("#item" + ctr + "Wrapper").length) {
+					ctr++;
+				} else {
+					ada = false;
+				}
+			}
+			ctr--;
+			count = ctr;
+
+			for (i = 1; i <= count; i++) {
+				var price = $("#item" + i + "Price").html();
+				price = price.replace(/[^a-z0-9\s]/gi, '');
+				price = price.substring(4, price.length);
+				$("#item" + i + "Price").html("IDR " + addCommas(price));
+			}
+
+		});
+
 		var check = false;
 		var id = 0;
 		var count = 0;
@@ -426,7 +448,6 @@ foreach ($merchant as $mch) {
 				nama = $("#nameProfile").val();
 				phone = $("#phoneNum").val();
 				email = $("#emailProfile").val();
-				alert(nama);
 				$.ajax({
 					method: 'POST',
 					url: '<?= base_url() ?>Midtrans/snap2/token',
@@ -483,27 +504,7 @@ foreach ($merchant as $mch) {
 			});
 
 		});
-		$(document).ready(function() {
-			var ctr = 1;
-			var ada = true;
-			while (ada) {
-				if ($("#item" + ctr + "Wrapper").length) {
-					ctr++;
-				} else {
-					ada = false;
-				}
-			}
-			ctr--;
-			count = ctr;
 
-			for (i = 1; i <= count; i++) {
-				var price = $("#item" + i + "Price").html();
-				price = price.replace(/[^a-z0-9\s]/gi, '');
-				price = price.substring(4, price.length);
-				$("#item" + i + "Price").html("IDR " + addCommas(price));
-			}
-
-		});
 
 		function gantiGambar() {
 			if (id != 0) {

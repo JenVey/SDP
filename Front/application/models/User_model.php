@@ -79,7 +79,7 @@ class User_model extends CI_model
 
     public function updateSaldo()
     {
-        $total = $this->input->post('gross_amount');
+        $total = $this->input->post('total');
         $id = $this->session->userdata('id_user');
         $cekquery = $this->db->query("select * from user");
         foreach ($cekquery->result_array() as $row) {
@@ -101,6 +101,28 @@ class User_model extends CI_model
         $query = "UPDATE USER SET SALDO = '" . $saldo . "' WHERE ID_USER = '" . $id . "' ";
         $this->db->query($query);
         $this->session->unset_userdata('idHistory');
+    }
+
+    public function updateSaldoG($cek)
+    {
+        $id = $this->session->userdata('id_user');
+        $cekquery = $this->db->query("select * from user");
+        foreach ($cekquery->result_array() as $row) {
+            if ($id == $row['id_user']) {
+                $saldo = $row['saldo'];
+            }
+        }
+
+        if ($cek == "kurang") {
+            $saldo = $saldo - 5000;
+        } else {
+            $total = $this->input->post('total');
+            $saldo = $saldo + intval($total);
+            echo $saldo;
+        }
+
+        $query = "UPDATE USER SET SALDO = '" . $saldo . "' WHERE ID_USER = '" . $id . "' ";
+        $this->db->query($query);
     }
 
     public function editUser()

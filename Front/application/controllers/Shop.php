@@ -148,9 +148,12 @@ class Shop extends CI_Controller
     {
         $id = $this->session->userdata('id_user');
         $data['user'] = $this->User_model->getUserById($id);
-        $data['merchantF'] = $this->Merchant_model->getMerchantByIdUser($id);
-        $data['gacha'] = $this->Gacha_model->getAllGacha();
         $this->load->view('shop/viewGacha', $data);
+    }
+
+    public function updateSaldoG($cek)
+    {
+        $this->User_model->updateSaldoG($cek);
     }
 
     public function editProfile()
@@ -181,7 +184,6 @@ class Shop extends CI_Controller
     {
         $this->Merchant_model->editMerchant();
     }
-
 
 
     public function topUp()
