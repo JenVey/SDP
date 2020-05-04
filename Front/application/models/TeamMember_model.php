@@ -4,7 +4,12 @@ class TeamMember_model extends CI_model
 
     public function getAllTeamMember()
     {
-        return $this->db->get('team_members')->result_array();
+        $query = "SELECT U.NAMA_USER AS 'nama_user', U.STATUS AS 'status', TR.ID_TEAM AS 'id_team'
+        FROM TEAM_MEMBERS TR
+        JOIN USER U ON U.ID_USER = TR.ID_USER";
+
+        $res = $this->db->query($query);
+        return $res->result_array();
     }
 
     public function getAllTeamMemberbyIdTeam($idTeam)

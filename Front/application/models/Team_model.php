@@ -7,6 +7,13 @@ class Team_model extends CI_model
         return $this->db->get('team')->result_array();
     }
 
+    public function getTeamById()
+    {
+        $id = $this->session->userdata('idTeam');
+        return $this->db->get_where('team', ['id_team' => $id])->row_array();
+    }
+
+
     public function insertTeam()
     {
         //GENERATE ID

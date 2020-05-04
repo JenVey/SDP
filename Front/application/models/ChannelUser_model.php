@@ -3,9 +3,8 @@ class ChannelUser_model extends CI_model
 {
     public function getAllChannelUser()
     {
-        $query = "SELECT U.NAMA_USER AS 'nama_user', CU.JENIS AS 'jenis'
+        $query = "SELECT U.NAMA_USER AS 'nama_user', CU.JENIS AS 'jenis', CU.ID_CHANNEL AS 'id_channel',U.STATUS AS 'status'
         FROM CHANNEL_USER CU
-        JOIN CHANNEL C ON C.ID_CHANNEL = CU.ID_CHANNEL 
         JOIN USER U ON U.ID_USER = CU.ID_USER";
 
         $res = $this->db->query($query);

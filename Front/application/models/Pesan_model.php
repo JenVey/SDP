@@ -3,7 +3,13 @@ class Pesan_model extends CI_model
 {
     public function getAllPesan()
     {
-        return $this->db->get('pesan')->result_array();
+        $query = "SELECT U.NAMA_USER AS 'pengirim', P.PESAN AS 'pesan', P.TANGGAL AS 'tgl', P.STATUS AS 'status', P.ID_PENERIMA AS 'id_penerima', U.FOTO AS 'foto'
+        FROM PESAN P
+        LEFT JOIN USER U ON U.ID_USER = P.ID_PENGIRIM 
+        ORDER BY P.TANGGAL";
+
+        $res = $this->db->query($query);
+        return $res->result_array();
     }
 
     public function getAllPesanByIdPengirim($id)
@@ -32,7 +38,7 @@ class Pesan_model extends CI_model
         // }
 
         $id = $this->input->post('');
-        $query = "SELECT U.NAMA 'pengirim', P.PESAN AS 'pesan', P.TANGGAL AS 'tgl', P.STATUS AS 'status'
+        $query = "SELECT U.NAMA_USER AS 'pengirim', P.PESAN AS 'pesan', P.TANGGAL AS 'tgl', P.STATUS AS 'status'
         FROM PESAN P
         JOIN USER U ON U.ID_USER = P.ID_PENERIMA
         WHERE P.ID_PENERIMA = '" . $id . "'
@@ -68,14 +74,15 @@ class Pesan_model extends CI_model
         }
 
         $tgl = date("Y-m-d H:i:s");
+
         $data = [
             "id_pesan" => $generateId,
-            "id_pengirim" => $this->input->post('idPengirim'),
-            "id_penerima" => $this->input->post('idPenerima'),
-            "tipe_penerima" => $this->input->post(''),
+            "id_pengirim" => $this->input->post('id_pengirim'),
+            "id_penerima" => $this->input->post('id_penerima'),
+            "tipe_penerima" => $this->input->post('tipe_penerima'),
             "pesan" =>  $this->input->post('pesan'),
             "tanggal" =>  $tgl,
-            "status" =>  $this->input->post('0')
+            "status" =>  "1"
         ];
         $this->db->insert('pesan', $data);
     }

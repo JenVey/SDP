@@ -1,7 +1,6 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
-
-class Shop extends CI_Controller
+class Community extends CI_Controller
 {
 
     /**
@@ -25,44 +24,62 @@ class Shop extends CI_Controller
         $this->load->library('form_validation');
         $this->load->model('User_model');
         $this->load->model('Channel_model');
+        $this->load->model('ChannelUser_model');
         $this->load->model('ChannelEvent_model');
         $this->load->model('Team_model');
         $this->load->model('TeamMember_model');
         $this->load->model('TeamRemin_model');
         $this->load->model('Tournament_model');
         $this->load->model('Standing_model');
-        $this->load->model('Petandingan_model');
+        $this->load->model('Pertandingan_model');
         $this->load->model('Pesan_model');
         $this->load->model('Friend_model');
     }
 
     public function viewChannel()
     {
+        if (isset($_SESSION['idFriend'])) {
+            $this->session->unset_userdata('idFriend');
+        }
+        if (isset($_SESSION['idTeam'])) {
+            $this->session->unset_userdata('idTeam');
+        }
+
         $id = $this->session->userdata('id_user');
         $data['user'] = $this->User_model->getUserById($id);
+        if (isset($_SESSION['idChannel'])) {
+            $data['channelA'] = $this->Channel_model->getChannelById();
+        }
         $data['channel'] = $this->Channel_model->getAllChannelByIdUser($id);
         $data['channelU'] = $this->ChannelUser_model->getAllChannelUser();
         $data['channelE'] = $this->ChannelEvent_model->getAllChannelEvent();
-        $data['tournament'] = $this->Tournament_model->getAllTournament();
-        $data['standing'] = $this->Standing_model->getAllStanding();
-        $data['pertandingan'] = $this->Petandingan_model->getAllPertandingan();
-        $data['team'] = $this->Team_model->getAllTeam();
         $data['pesan'] = $this->Pesan_model->getAllPesan();
+        // $data['tournament'] = $this->Tournament_model->getAllTournament();
+        // $data['standing'] = $this->Standing_model->getAllStanding();
+        // $data['pertandingan'] = $this->Petandingan_model->getAllPertandingan();
+        // $data['team'] = $this->Team_model->getAllTeam();
+
 
         //$this->load->view('templates/header', $data);
-        $this->load->view('channel/viewChannel', $data);
+        $this->load->view('community/viewChannel', $data);
+    }
+
+    public function chooseChannel()
+    {
+        $idChannel =  $this->input->post('idChannel');
+        $this->session->set_userdata(array('idChannel' => $idChannel));
     }
 
     public function insertEvent()
     {
         $this->ChannelEvent_model->insertChannelEvent();
-        redirect('channel/viewChannel');
+        redirect('community/viewChannel');
     }
 
     public function deleteEvent()
     {
         $this->ChannelEvent_model->deleteChannelEvent();
-        redirect('channel/viewChannel');
+        redirect('community/viewChannel');
     }
 
     public function insertTournament()
@@ -116,23 +133,47 @@ class Shop extends CI_Controller
 
     public function viewTeam()
     {
+        if (isset($_SESSION['idChannel'])) {
+            $this->session->unset_userdata('idChannel');
+        }
+        if (isset($_SESSION['idFriend'])) {
+            $this->session->unset_userdata('idFriend');
+        }
+
         $id = $this->session->userdata('id_user');
         $data['user'] = $this->User_model->getUserById($id);
-        $data['channel'] = $this->Channel_model->getAllChannelByIdUser($id);
-        $data['channelU'] = $this->ChannelUser_model->getAllChannelUser();
-        $data['channelE'] = $this->ChannelEvent_model->getAllChannelEvent();
-        $data['tournament'] = $this->Tournament_model->getAllTournament();
-        $data['standing'] = $this->Standing_model->getAllStanding();
-        $data['pertandingan'] = $this->Petandingan_model->getAllPertandingan();
         $data['team'] = $this->Team_model->getAllTeam();
+        if (isset($_SESSION['idTeam'])) {
+            $data['teamA'] = $this->Team_model->getTeamById();
+        }
+        $data['teamM'] = $this->TeamMember_model->getAllTeamMember();
+        $data['teamR'] = $this->TeamRemin_model->getAllTeamRemin();
         $data['pesan'] = $this->Pesan_model->getAllPesan();
 
+        // $data['tournament'] = $this->Tournament_model->getAllTournament();
+        // $data['standing'] = $this->Standing_model->getAllStanding();
+        // $data['pertandingan'] = $this->Petandingan_model->getAllPertandingan();
+
         //$this->load->view('templates/header', $data);
-        $this->load->view('channel/viewTeam', $data);
+        $this->load->view('community/viewTeam', $data);
     }
+
+    public function chooseTeam()
+    {
+        $idTeam =  $this->input->post('idTeam');
+        $this->session->set_userdata(array('idTeam' => $idTeam));
+    }
+
 
     public function viewFriend()
     {
+        if (isset($_SESSION['idChannel'])) {
+            $this->session->unset_userdata('idChannel');
+        }
+        if (isset($_SESSION['idTeam'])) {
+            $this->session->unset_userdata('idTeam');
+        }
+
         $id = $this->session->userdata('id_user');
         $data['user'] = $this->User_model->getUserById($id);
         $data['channel'] = $this->Channel_model->getAllChannelByIdUser($id);
@@ -145,7 +186,13 @@ class Shop extends CI_Controller
         $data['pesan'] = $this->Pesan_model->getAllPesan();
 
         //$this->load->view('templates/header', $data);
-        $this->load->view('channel/viewTeam', $data);
+        $this->load->view('community/viewTeam', $data);
+    }
+
+    public function chooseFriend()
+    {
+        $idFriend =  $this->input->post('idFriend');
+        $this->session->set_userdata(array('idFriend' => $idFriend));
     }
 
     public function addFriend()
@@ -153,25 +200,28 @@ class Shop extends CI_Controller
         $this->Friend_model->addFriend();
     }
 
-    public function sendChat()
+    public function insertPesan()
     {
         $this->Pesan_model->insertPesan();
-        redirect('channel/refreshChat');
+
+        redirect('community/refreshChat');
     }
 
-    public function refreshChat($id)
+    public function refreshChat()
     {
-        $data['pesan'] = $this->Pesan_model->getAllPesanByIdPengirim($id);
-        $this->load->view('channel/bodyPesan', $data);
+        $id = $this->session->userdata('id_user');
+        $data['user'] = $this->User_model->getUserById($id);
+        if (isset($_SESSION['idChannel'])) {
+            $data['channelA'] = $this->Channel_model->getChannelById();
+            $data['pesan'] = $this->Pesan_model->getAllPesan();
+            $this->load->view('community/bodyPesanC', $data);
+        }
+        if (isset($_SESSION['idTeam'])) {
+            $data['teamA'] = $this->Team_model->getTeamById();
+            $data['pesan'] = $this->Pesan_model->getAllPesan();
+            $this->load->view('community/bodyPesanT', $data);
+        }
     }
-
-    public function refreshMemberChannel()
-    {
-        $data['channelU'] = $this->ChannelUser_model->getAllChannelUserbyIdChannel();
-        $this->load->view('channel/bodyMember', $data);
-    }
-
-
 
     public function insertReminder()
     {
