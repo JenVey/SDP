@@ -25,12 +25,12 @@ class ChannelEvent_model extends CI_model
         return $res->result_array();
     }
 
-    public function insertEvent($idChannel)
+    public function insertChannelEvent($idChannel)
     {
         $ctr = 1;
         $id = $this->session->userdata('id_user');
         $query = $this->db->query("select * from channel_event");
-        $newId = $this->input->post('');
+        $newId = $this->input->post('judul');
         $cekNewId = 'E' . substr(strtoupper($newId), 0, 1);
         foreach ($query->result_array() as $row) {
             $cekId = substr(strtoupper($row['id_event']), 0, 2);
@@ -51,12 +51,12 @@ class ChannelEvent_model extends CI_model
 
         $data = [
             "id_event" => $generateId,
-            "id_channel" => $idChannel,
+            "id_channel" => $this->input->post('idChannel'),
             "id_user" => $id,
-            "judul" => $this->input->post('nameChannel'),
-            "pesan" => $this->input->post('nameChannel'),
+            "judul" => $this->input->post('judul'),
+            "pesan" => $this->input->post('pesan'),
             "tanggal" => $tgl,
-            "foto" => $this->input->post('nameChannel'),
+            "foto" => $this->input->post('foto'),
 
         ];
         $this->db->insert('channel_event', $data);
@@ -64,17 +64,19 @@ class ChannelEvent_model extends CI_model
 
     public function editChannelEvent($id)
     {
+        $id = $this->input->post('');
         $data = [
-            "judul" => $this->input->post('nameChannel'),
-            "pesan" => $this->input->post('nameChannel'),
-            "foto" => $this->input->post('nameChannel')
+            "judul" => $this->input->post('judul'),
+            "pesan" => $this->input->post('pesan'),
+            "foto" => $this->input->post('foto')
         ];
         $this->db->where('id_event', $id);
         $this->db->update('channel_event', $data);
     }
 
-    public function deleteChannelEvent($id)
+    public function deleteChannelEvent()
     {
+        $id = $this->input->post('');
         $this->db->where('id_event', $id);
         $this->db->delete('channel_event');
     }

@@ -6,16 +6,52 @@ class Pesan_model extends CI_model
         return $this->db->get('pesan')->result_array();
     }
 
+    public function getAllPesanByIdPengirim($id)
+    {
+        $cek = substr($id, 0, 1);
+        // if ($cek == "C") {
+        //     $query = "SELECT U.NAMA 'pengirim', P.PESAN AS 'pesan', P.TANGGAL AS 'tgl', P.STATUS AS 'status'
+        //     FROM PESAN P
+        //     JOIN CHANNEL C ON C.ID_CHANNEL = P.ID_PENERIMA
+        //     JOIN USER U ON U.ID_USER = P.ID_PENGIRIM
+        //     WHERE P.ID_PENERIMA = '" . $id . "'
+        //     ORDER BY P.TANGGAL";
+        // } else if ($cek == "T") {
+        //     $query = "SELECT U.NAMA 'pengirim', P.PESAN AS 'pesan', P.TANGGAL AS 'tgl', P.STATUS AS 'status'
+        //     FROM PESAN P
+        //     JOIN TEAM T ON T.ID_TEAM = P.ID_PENERIMA
+        //     JOIN USER U ON U.ID_USER = P.ID_PENGIRIM
+        //     WHERE P.ID_PENERIMA = '" . $id . "'
+        //     ORDER BY P.TANGGAL";
+        // } else if ($cek == "U") {
+        //     $query = "SELECT U.NAMA 'pengirim', P.PESAN AS 'pesan', P.TANGGAL AS 'tgl', P.STATUS AS 'status'
+        //     FROM PESAN P
+        //     JOIN USER U ON U.ID_USER = P.ID_PENERIMA
+        //     WHERE P.ID_PENERIMA = '" . $id . "'
+        //     ORDER BY P.TANGGAL";
+        // }
+
+        $id = $this->input->post('');
+        $query = "SELECT U.NAMA 'pengirim', P.PESAN AS 'pesan', P.TANGGAL AS 'tgl', P.STATUS AS 'status'
+        FROM PESAN P
+        JOIN USER U ON U.ID_USER = P.ID_PENERIMA
+        WHERE P.ID_PENERIMA = '" . $id . "'
+        ORDER BY P.TANGGAL";
+
+        $res = $this->db->query($query);
+        return $res->result_array();
+    }
+
     public function insertPesan()
     {
         //GENERATE ID
         $idUser = $this->session->userdata('id_user');
         $ctr = 1;
         $query = $this->db->query("select * from pesan");
-        $newId = $this->input->post('');
+        $newId = $this->input->post('pesan');
         $cekNewId = 'P' . substr(strtoupper($newId), 0, 1);
         foreach ($query->result_array() as $row) {
-            $cekId = substr(strtoupper($row['id_team']), 0, 2);
+            $cekId = substr(strtoupper($row['id_pesan']), 0, 2);
             if ($cekId == $cekNewId) {
                 $ctr++;
             }
@@ -34,12 +70,12 @@ class Pesan_model extends CI_model
         $tgl = date("Y-m-d H:i:s");
         $data = [
             "id_pesan" => $generateId,
-            "id_pengirim" => $this->input->post(''),
-            "id_penerima" => $this->input->post(''),
+            "id_pengirim" => $this->input->post('idPengirim'),
+            "id_penerima" => $this->input->post('idPenerima'),
             "tipe_penerima" => $this->input->post(''),
-            "pesan" =>  $this->input->post(''),
+            "pesan" =>  $this->input->post('pesan'),
             "tanggal" =>  $tgl,
-            "status" =>  $this->input->post('')
+            "status" =>  $this->input->post('0')
         ];
         $this->db->insert('pesan', $data);
     }
