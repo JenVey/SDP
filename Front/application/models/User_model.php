@@ -12,6 +12,19 @@ class User_model extends CI_model
         return $this->db->get_where('user', ['id_user' => $id])->row_array();
     }
 
+
+    public function getUserByIdFriend($id)
+    {
+
+        $query = "SELECT U.NAMA_USER AS 'nama_user', U.FOTO 'foto'
+        FROM USER U 
+        JOIN FRIEND F ON U.ID_USER = F.ID_USER2
+        WHERE F.ID_USER1 = '" . $id . "'";
+
+        $res = $this->db->query($query);
+        return $res->result_array();
+    }
+
     public function insertUser()
     {
         //GENERATE ID

@@ -207,6 +207,9 @@ $id = $user['id_user'];
 	$('.gridShopMainMenu').click(function() {
 		window.location.href = '<?= base_url(); ?>Shop';
 	});
+	$('.gridCommMainMenu').click(function() {
+		window.location.href = '<?= base_url(); ?>Community/viewChannel';
+	});
 	$('.logout').click(function() {
 		window.location.href = '<?= base_url(); ?>Login';
 	});

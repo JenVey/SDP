@@ -51,17 +51,17 @@ class Tournament_model extends CI_model
         } else {
             $generateId = $cekNewId . $ctr;
         }
-
         // $tgl = date("Y-m-d H:i:s");
+        $this->session->set_userdata(array('idTurnament' => $generateId));
         $data = [
             "id_turnament" => $generateId,
             "id_channel" => $this->input->post(''),
             "id_game" => $this->input->post(''),
-            "nama_turnament" => $this->input->post(''),
-            "keterangan" =>  $this->input->post(''),
-            "jumlah_pemain" =>  $this->input->post(''),
-            "tanggal_mulai" =>  $this->input->post(''),
-            "jumlah_slot" =>  $this->input->post('')
+            "nama_turnament" => $this->input->post('nama_turnament'),
+            "keterangan" =>  $this->input->post('keterangan'),
+            "jumlah_pemain" =>  $this->input->post('jumlah_pemain'),
+            "tanggal_mulai" =>  $this->input->post('tanggal_mulai'),
+            "jumlah_slot" =>  $this->input->post('jumlah_slot')
         ];
         $this->db->insert('tournament', $data);
     }

@@ -11,16 +11,16 @@ class Pertandingan_model extends CI_model
         return $res->result_array();
     }
 
-    public function insertPertandingan()
+    public function insertPertandingan($bagian)
     {
         //GENERATE ID
         $idUser = $this->session->userdata('id_user');
         $ctr = 1;
-        $query = $this->db->query("select * from team_reminder");
+        $query = $this->db->query("select * from pertandingan");
         $newId = $this->input->post('');
-        $cekNewId = 'R' . substr(strtoupper($newId), 0, 1);
+        $cekNewId = 'B' . substr(strtoupper($newId), 0, 1);
         foreach ($query->result_array() as $row) {
-            $cekId = substr(strtoupper($row['id_team']), 0, 2);
+            $cekId = substr(strtoupper($row['id_pertandingan']), 0, 2);
             if ($cekId == $cekNewId) {
                 $ctr++;
             }
@@ -35,21 +35,20 @@ class Pertandingan_model extends CI_model
         } else {
             $generateId = $cekNewId . $ctr;
         }
-        // $tgl = date("Y-m-d H:i:s");
-        $jmlTeam = $this->input->post('');
-        for ($i = 0; $i < $jmlTeam - 1; $i++) {
-        }
 
+        $idTurnament = $this->session->userdata('idTurnament');
+
+        // $tgl = date("Y-m-d H:i:s");
         $data = [
             "id_match" => $generateId,
-            "id_turnament" => $this->input->post(''),
-            "waktu_mulai" => $this->input->post(''),
-            "bagian" => $this->input->post(''),
-            "status" =>  $this->input->post(''),
-            "skor_1" =>  $this->input->post(''),
-            "skor_2" =>  $this->input->post(''),
-            "tim_1" =>  $this->input->post(''),
-            "tim_2" =>  $this->input->post('')
+            "id_turnament" => $idTurnament,
+            "waktu_mulai" => '',
+            "bagian" => $bagian,
+            "status" =>  0,
+            "skor_1" =>  '',
+            "skor_2" =>  '',
+            "tim_1" =>  '',
+            "tim_2" =>  ''
         ];
         $this->db->insert('pertandingan', $data);
     }

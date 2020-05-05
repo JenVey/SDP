@@ -6,10 +6,16 @@ class Channel_model extends CI_model
         return $this->db->get('channel')->result_array();
     }
 
+    public function getChannelById()
+    {
+        $id = $this->session->userdata('idChannel');
+        return $this->db->get_where('channel', ['id_channel' => $id])->row_array();
+    }
+
     public function getAllChannelByIdUser($id)
     {
         $id = $this->session->userdata('id_user');
-        $query = "SELECT C.NAMA_CHANNEL AS 'nama_channel',C.FOTO_CHANNEL AS 'foto_channel'
+        $query = "SELECT C.ID_CHANNEL AS 'id_channel', C.NAMA_CHANNEL AS 'nama_channel' , C.FOTO_CHANNEL AS 'foto_channel'
         FROM CHANNEL C 
         LEFT JOIN CHANNEL_USER CU ON CU.ID_CHANNEL = C.ID_CHANNEL 
         WHERE CU.ID_USER= '" . $id . "' ";
