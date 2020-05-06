@@ -27,11 +27,11 @@ class Email extends CI_Controller
 
     public function index()
     {
-        $data = $this->uri->segment('3');
+        $email = $this->uri->segment('3');
 
         $query = $this->db->query("select * from user");
         foreach ($query->result_array() as $row) {
-            if ($row['email_user'] == $data) {
+            if ($row['email_user'] == $email) {
                 $id = $row['id_user'];
             }
         }
@@ -40,8 +40,8 @@ class Email extends CI_Controller
         $config['smtp_host']    = 'ssl://smtp.gmail.com';
         $config['smtp_port']    = '465';
         $config['smtp_timeout'] = '7';
-        $config['smtp_user']    = 'canonbot69@gmail.com';
-        $config['smtp_pass']    = 'namikaze31';
+        $config['smtp_user']    = 'morningowl.company@gmail.com';
+        $config['smtp_pass']    = 'satvelrobyos';
         $config['charset']    = 'utf-8';
         $config['newline']    = "\r\n";
         $config['mailtype'] = 'text'; // or html
@@ -49,10 +49,43 @@ class Email extends CI_Controller
 
         $this->load->library('email', $config);
         $this->email->set_newline("\r\n");
-        $this->email->from('canonbot69@gmail.com', 'ADMIN');
-        $this->email->to($data);
+        $this->email->from('morningowl.company@gmail.com', 'ADMIN');
+        $this->email->to($email);
         $this->email->subject('FORGOT PASSWORD');
         $this->email->message('http://localhost/Github/SDP_Proyek/Front/Forgot/Index/' . $id);
+
+        $this->email->send();
+        $this->email->print_debugger();
+        redirect('login');
+    }
+
+    public function verifikasi($id)
+    {
+        //$data = $this->uri->segment('3');
+        $query = $this->db->query("select * from user");
+        foreach ($query->result_array() as $row) {
+            if ($row['id_user'] == $id) {
+                $email = $row['email_user'];
+            }
+        }
+
+        $config['protocol']    = 'smtp';
+        $config['smtp_host']    = 'ssl://smtp.gmail.com';
+        $config['smtp_port']    = '465';
+        $config['smtp_timeout'] = '7';
+        $config['smtp_user']    = 'morningowl.company@gmail.com';
+        $config['smtp_pass']    = 'satvelrobyos';
+        $config['charset']    = 'utf-8';
+        $config['newline']    = "\r\n";
+        $config['mailtype'] = 'text'; // or html
+        $config['validation'] = TRUE; // bool whether to validate email or not      
+
+        $this->load->library('email', $config);
+        $this->email->set_newline("\r\n");
+        $this->email->from('morningowl.company@gmail.com', 'ADMIN');
+        $this->email->to($email);
+        $this->email->subject('VERIFIKASI EMAIL');
+        $this->email->message('http://localhost/Github/SDP_Proyek/Front/Shop/verifikasi/' . $id);
 
         $this->email->send();
         $this->email->print_debugger();

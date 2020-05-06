@@ -801,8 +801,6 @@ foreach ($merchant as $mch) {
 		});
 
 
-		$(".ProfileTopUp").click(function() {});
-
 
 
 		$(".History").click(function() {

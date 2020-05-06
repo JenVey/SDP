@@ -1,0 +1,30 @@
+.chatHeader{
+	width: 100%;
+}
+
+.chatSection{width: 100%;}
+
+.inputField{
+	width: 97.5%;
+}
+
+.channelAction{
+	width: 30%;
+	margin-left: 9vw;
+}
+
+#action1:hover #Path_1939{
+	fill:#d7c13f;
+}
+
+#action1:hover #Path_1940{
+	fill:#d7c13f;
+}
+
+.channelAction{
+	justify-content: flex-end;
+}
+
+.actionButs{
+	justify-content: center;
+}

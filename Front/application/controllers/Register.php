@@ -34,73 +34,53 @@ class Register extends CI_Controller
 
 	public function insertUser()
 	{
-		$this->form_validation->set_rules('regUsername', 'Username', '	');
+
 		$this->form_validation->set_rules('regUsername', 'Username', 'callback_username_check');
 		$this->form_validation->set_rules('regName', 'Nama', 'required');
-		$this->form_validation->set_rules('regEmail', 'Email', 'callback_email_check');
+		$this->form_validation->set_rules('regEmail', 'Email', 'callback_username_check');
 		$this->form_validation->set_rules('regEmail', 'Email', 'required|valid_email');
 		$this->form_validation->set_rules('regPass', 'Password', 'required');
 		$this->form_validation->set_rules('regCPass', 'Password Confirmation', 'required|matches[regPass]');
+		$this->form_validation->set_rules('regPhone', 'Nomor HP', 'required');
+		$this->form_validation->set_rules('regPhone', 'Nomor HP', 'callback_username_check');
+
 
 		if ($this->form_validation->run() == FALSE) {
 			$this->load->view('templates/header');
 			$this->load->view('register');
 		} else {
 			$this->User_model->insertUser();
-			redirect('login');
+			$id = $this->session->userdata('user');
+			redirect('Email/verifikasi/' . $id);
 		}
 	}
 
 	public function username_check()
 	{
-		$ada = false;
+
+		$ada = 0;
 		$query = $this->db->query("select * from user");
 		foreach ($query->result_array() as $row) {
 			if ($row['username_user'] == $this->input->post('regUsername')) {
-				$ada = true;
+				echo "A";
+				$ada = 1;
+			}
+			if ($row['email_user'] == $this->input->post('regEmail')) {
+				$ada = 2;
+			}
+			if ($row['phone'] == $this->input->post('regPhone')) {
+				$ada = 3;
 			}
 		}
 
-		if ($ada == true) {
+		if ($ada == 1) {
 			$this->form_validation->set_message('username_check', 'Usename sudah ada !!!');
 			return false;
-		} else {
-			return true;
-		}
-	}
-
-	public function email_check()
-	{
-		$ada = false;
-		$query = $this->db->query("select * from user");
-
-		foreach ($query->result_array() as $row) {
-			if ($row['email_user'] == $this->input->post('regEmail')) {
-				$ada = true;
-			}
-		}
-
-		if ($ada == true) {
-			$this->form_validation->set_message('email_check', 'Email telah dipakai !!!');
+		} else if ($ada == 2) {
+			$this->form_validation->set_message('username_check', 'Email telah dipakai !!!');
 			return false;
-		} else {
-			return true;
-		}
-	}
-
-	public function phone_check()
-	{
-		$ada = false;
-		$query = $this->db->query("select * from user");
-
-		foreach ($query->result_array() as $row) {
-			if ($row['phone'] == $this->input->post('regPhone')) {
-				$ada = true;
-			}
-		}
-
-		if ($ada == true) {
-			$this->form_validation->set_message('phone_check', 'Nomor HP telah dipakai !!!');
+		} else if ($ada == 3) {
+			$this->form_validation->set_message('username_check', 'Nomor HP telah dipakai !!!');
 			return false;
 		} else {
 			return true;

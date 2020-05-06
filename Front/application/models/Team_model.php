@@ -13,6 +13,18 @@ class Team_model extends CI_model
         return $this->db->get_where('team', ['id_team' => $id])->row_array();
     }
 
+    public function getAllTeamByIdUser()
+    {
+        $id = $this->session->userdata('id_user');
+        $query = "SELECT *
+        FROM TEAM T
+        LEFT JOIN TEAM_MEMBERS TM ON TM.ID_TEAM = T.ID_TEAM 
+        WHERE TM.ID_USER= '" . $id . "' ";
+
+        $res = $this->db->query($query);
+        return $res->result_array();
+    }
+
 
     public function insertTeam()
     {
@@ -81,5 +93,22 @@ class Team_model extends CI_model
         ];
         $this->db->where('id_team', $id);
         $this->db->update('team', $data);
+    }
+
+    public function cekTeam()
+    {
+        $idTeam =  $this->input->post('idTeam');
+        $ada = false;
+        $query = $this->db->query("select * from team");
+        foreach ($query->result_array() as $row) {
+            if ($idTeam == $row['id_team']) {
+                $ada = true;
+            }
+        }
+        if ($ada) {
+            $this->TeamMember_model->insertTeamMember();
+        } else {
+            echo false;
+        }
     }
 }

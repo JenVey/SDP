@@ -3,7 +3,7 @@ class ChannelEvent_model extends CI_model
 {
     public function getAllChannelEvent()
     {
-        $query = "SELECT CE.JUDUL AS 'judul', CE.PESAN AS 'pesan', CE.FOTO AS 'foto', CE.TANGGAL AS 'tanggal'
+        $query = "SELECT CE.JUDUL AS 'judul', CE.PESAN AS 'pesan', CE.FOTO AS 'foto', CE.TANGGAL AS 'tanggal', CE.ID_EVENT AS  'id_event', CE.ID_CHANNEL AS 'id_channel' , U.NAMA_USER AS 'nama_user'
         FROM CHANNEL_EVENT CE
         JOIN CHANNEL C ON C.ID_CHANNEL = CE.ID_CHANNEL
         JOIN USER U ON U.ID_USER = CE.ID_USER";
@@ -25,10 +25,10 @@ class ChannelEvent_model extends CI_model
         return $res->result_array();
     }
 
-    public function insertChannelEvent($idChannel)
+    public function insertChannelEvent()
     {
         $ctr = 1;
-        $id = $this->session->userdata('id_user');
+        //$id = $this->session->userdata('id_user');
         $query = $this->db->query("select * from channel_event");
         $newId = $this->input->post('judul');
         $cekNewId = 'E' . substr(strtoupper($newId), 0, 1);
@@ -47,16 +47,18 @@ class ChannelEvent_model extends CI_model
         } else {
             $generateId = $cekNewId . $ctr;
         }
-        $tgl = date("Y-m-d H:i:s");
 
+        $foto = $this->input->post('foto');
+        $foto = base64_decode($foto);
+        $tgl = date("Y-m-d H:i:s");
         $data = [
             "id_event" => $generateId,
             "id_channel" => $this->input->post('idChannel'),
-            "id_user" => $id,
+            "id_user" => $this->input->post('idUser'),
             "judul" => $this->input->post('judul'),
             "pesan" => $this->input->post('pesan'),
             "tanggal" => $tgl,
-            "foto" => $this->input->post('foto'),
+            "foto" => $foto,
 
         ];
         $this->db->insert('channel_event', $data);

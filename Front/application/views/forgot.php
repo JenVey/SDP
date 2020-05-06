@@ -7,6 +7,9 @@
     <link rel="icon" href="<?php echo base_url(); ?>asset/Images/android-chrome-512x512.png">
     <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/bootstrap.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/Ours.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/alertify.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/themes/default.css">
+    <script src="<?php echo base_url(); ?>asset/Js/alertify.js"></script>
     <script src="<?php echo base_url(); ?>asset/Js/jquery-min.js"></script>
 
 </head>
@@ -43,7 +46,7 @@
     <script>
         $('.success').hide();
         $('.reset').click(function() {
-            $('.success').fadeIn("fast");
+            alertify.success("Success Change Your Password");
         });
     </script>
 </body>

@@ -13,6 +13,12 @@ class User_model extends CI_model
     }
 
 
+    public function getFriendById()
+    {
+        $id = $this->session->userdata('idFriend');
+        return $this->db->get_where('user', ['id_user' => $id])->row_array();
+    }
+
     public function getUserByIdFriend($id)
     {
 
@@ -71,9 +77,10 @@ class User_model extends CI_model
             "foto" =>  $foto,
             "phone" => $phone,
             "saldo" => 0,
-            "status" => 0
+            "status" => -1
         ];
         $this->db->insert('user', $data);
+        $this->session->set_userdata(array('user' => $generateId));
     }
 
 
@@ -160,5 +167,39 @@ class User_model extends CI_model
 
         $this->db->where('id_user', $id);
         $this->db->update('user', $data);
+    }
+
+    public function updateStatusById($id)
+    {
+        $query = $this->db->query("select * from user");
+        $pass = $this->input->post('forPass');
+
+        $data = [
+            "status" => 0
+        ];
+
+        $this->db->where('id_user', $id);
+        $this->db->update('user', $data);
+
+        $this->session->unset_userdata('user');
+    }
+
+    public function cekUsername()
+    {
+        $username =  $this->input->post('username');
+        $ada = false;
+        $query = $this->db->query("select * from user");
+        foreach ($query->result_array() as $row) {
+            if ($username == $row['username_user']) {
+                $id = $row['id_user'];
+                $ada = true;
+            }
+        }
+
+        if ($ada) {
+            $this->Friend_model->addFriend($id);
+        } else {
+            echo false;
+        }
     }
 }

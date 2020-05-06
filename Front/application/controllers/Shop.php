@@ -320,4 +320,10 @@ class Shop extends CI_Controller
     {
         $this->Rating_model->updateRating();
     }
+
+    public function verifikasi($id)
+    {
+        $this->User_model->updateStatusById($id);
+        redirect('Login');
+    }
 }

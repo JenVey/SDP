@@ -8,15 +8,30 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/bootstrap.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/Ours.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/channelCSS.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/teamCSS.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/animation.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/alertify.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/themes/default.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/themes/default.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/datepicker.css">
     <script src="<?php echo base_url(); ?>asset/Js/alertify.js"></script>
     <script src="<?php echo base_url(); ?>asset/Js/jquery-min.js"></script>
     <script src="<?php echo base_url(); ?>asset/Js/bootstrap.js"></script>
     <script src="<?php echo base_url(); ?>asset/Js/textFit.js"></script>
+    <script src="<?php echo base_url(); ?>asset/Js/datepicker.js"></script>
+    <script src="<?php echo base_url(); ?>asset/Js/jquery-clockpicker.min.js"></script>
 
 </head>
 <?php
+
+// if (isset($teamA)) {
+//     foreach ($team as $tim) {
+//         if ($tim['id_user'] && $user['id_user']) {
+//                 $_SESSION["master"] = "true";
+//             }
+//         }
+//     }
+// }
 
 ?>
 
@@ -156,52 +171,217 @@
                 </div>
             </div>
             <div class="chatSection">
-                <div class="chatField">
-                    <?php $cekTgl = "";
-                    foreach ($pesan as $psn) {
-                        if ($psn['id_penerima'] == $teamA['id_team']) {
-                            $tgl = date_create($psn['tgl']);
-                            if ($tgl != $cekTgl) {
-                                $cekTgl = $tgl; ?>
-                                <div class="dateChat">
-                                    <div style="width: 5vw; height: 1px; background-color: #ecf0f1;"></div>
-                                    <h6 style="color: #ecf0f1;"><?= date_format($tgl, "d F Y"); ?></h6>
-                                    <div style="width: 5vw; height: 1px; background-color: #ecf0f1;"></div>
-                                </div>
-                            <?php }
-                            if ($psn['pengirim'] != $user['nama_user']) { ?>
-                                <div class="othersText">
-                                    <div class="senderImg"></div>
-                                    <div class="nameText">
-                                        <h6 class="senderName"><?= $psn['pengirim'] ?></h6>
-                                        <div class="text">
-                                            <p><?= $psn['pesan'] ?></p>
-                                            <p class="textDate"><?= date('H:i', strtotime($psn['tgl'])) ?></p>
+                <div class="chatWrapper">
+                    <div class="chatField">
+                        <?php $cekTgl = "";
+                        foreach ($pesan as $psn) {
+                            if ($psn['id_penerima'] == $teamA['id_team']) {
+                                $tgl = date('d F Y', strtotime($psn['tgl']));
+                                if ($tgl != $cekTgl) {
+                                    $cekTgl = $tgl; ?>
+                                    <div class="dateChat">
+                                        <div style="width: 5vw; height: 1px; background-color: #ecf0f1;"></div>
+                                        <h6 style="color: #ecf0f1;"><?= date_format(date_create($psn['tgl']), "d F Y"); ?></h6>
+                                        <div style="width: 5vw; height: 1px; background-color: #ecf0f1;"></div>
+                                    </div>
+                                <?php }
+                                if ($psn['pengirim'] != $user['nama_user']) { ?>
+                                    <div class="othersText">
+                                        <div class="senderImg"><img src="data:image/jpeg;base64,<?= base64_encode($psn['foto']) ?>" /></div>
+                                        <div class="nameText">
+                                            <h6 class="senderName"><?= $psn['pengirim'] ?></h6>
+                                            <div class="text">
+                                                <p><?= $psn['pesan'] ?></p>
+                                                <p class="textDate"><?= date('H:i', strtotime($psn['tgl'])) ?></p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            <?php } else { ?>
-                                <div class="myText">
-                                    <div class="my nameText">
-                                        <div class="text mine">
-                                            <h6 class="mySenderName"><?= $psn['pengirim'] ?></h6>
-                                            <p><?= $psn['pesan'] ?></p>
-                                            <p class="myTextDate"><?= date('H:i', strtotime($psn['tgl'])) ?></p>
+                                <?php } else { ?>
+                                    <div class="myText">
+                                        <div class="my nameText">
+                                            <div class="text mine">
+                                                <h6 class="mySenderName"><?= $psn['pengirim'] ?></h6>
+                                                <p><?= $psn['pesan'] ?></p>
+                                                <p class="myTextDate"><?= date('H:i', strtotime($psn['tgl'])) ?></p>
+                                            </div>
                                         </div>
+                                        <div class="senderImg" style="margin:0 1vw 0 1vw;"><img src="data:image/jpeg;base64,<?= base64_encode($psn['foto']) ?>" /></div>
                                     </div>
-                                    <div class="senderImg" style="margin:0 1vw 0 1vw;"></div>
-                                </div>
-                            <?php } ?>
-                    <?php }
-                    } ?>
+                                <?php } ?>
+                        <?php }
+                        } ?>
+                    </div>
                 </div>
                 <div class="inputField">
                     <textarea name="inputText" id="inputText" cols="132" rows="1"></textarea>
                 </div>
                 <button id="sendButton">
                 </button>
+                <div id="tournament" class="settings">
+                    <h3 class="yellow">Tournament</h3>
+                    <div id="tournamentContainer">
+                        <div class="tourneys">
+                            <div class="tourneyItem">
+                                <h2 class="yellow varela" style="margin-top: 2vh;">CS:GO</h2>
+                                <h6 class="varela" style="margin-top: 1vh;color: #ecf0f1;">Tournament Name</h6>
+                                <h6 style="font-size: 12px; color: rgba(236,240,241,0.37);">10 Slots</h6>
+                                <div class="standingsContainer">
+                                    <h6 class="varela" style="color: #ecf0f1;">Standings</h6>
+                                    <div class="standings">
+                                        <div class="place" style="color: #D1D1D1;">
+                                            2
+                                            <h6>Faze</h6>
+                                        </div>
+                                        <div class="place" style="color: #d7c13f;">
+                                            1
+                                            <h6>Astralis</h6>
+                                        </div>
+                                        <div class="place" style="color: #B98316;">
+                                            3
+                                            <h6>Team Liquid</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="startDate">
+                                    <p class="finished">Finished</p>
+                                    <p>Start: <span style="color: rgba(215,193,63,0.70);">18 January 2020</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="settings" id="reminder">
+                    <h3 class="yellow">reminder</h3>
+                    <div id="reminderContainer">
+                        <div class="createTournamentForm collapse" id="reminderForm">
+                            <div class="tourname">
+                                <h5 class="varela">Reminder Name</h5>
+                                <input type="text" name="tourName" id="tourName">
+                            </div>
+                            <div class="tourname" style="width: 80%;justify-content: flex-end;">
+                                <h5 class="varela">Message</h5>
+                                <textarea name="messagereminder" id="message" cols="30" rows="10" style="margin-left: 2.8vw;"></textarea>
+                            </div>
+                            <div class="tourname" style="margin-top: 8vh;width: 80%; justify-content: flex-end;">
+                                <h6 class="varela imgText">Time Trigger</h6>
+                                <div class="form-group mb-4" style="margin: 0!important;">
+                                    <div class="datepicker date input-group p-0 shadow-sm" data-date-start-date="+1d">
+                                        <input type="text" placeholder="Date" class="form-control" name="reminderDate" id="tourDate">
+                                        <div class="input-group-append" style="overflow: visible;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="32.5" viewBox="0 0 61 46">
+                                                <g id="Group_190" data-name="Group 190" transform="translate(-6632 2629)">
+                                                    <path id="Rectangle_348" data-name="Rectangle 348" d="M0,0H46A15,15,0,0,1,61,15V31A15,15,0,0,1,46,46H0a0,0,0,0,1,0,0V0A0,0,0,0,1,0,0Z" transform="translate(6632 -2629)" fill="#d7c13f" />
+                                                    <path id="Icon_material-date-range" data-name="Icon material-date-range" d="M13.5,16.5h-3v3h3Zm6,0h-3v3h3Zm6,0h-3v3h3ZM28.5,6H27V3H24V6H12V3H9V6H7.5A2.986,2.986,0,0,0,4.515,9L4.5,30a3,3,0,0,0,3,3h21a3.009,3.009,0,0,0,3-3V9A3.009,3.009,0,0,0,28.5,6Zm0,24H7.5V13.5h21Z" transform="translate(6644.3 -2624)" fill="#1e2126" />
+                                                </g>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="input-group clockpicker">
+                                    <input type="text" class="form-control" placeholder="Time" name="reminderTime" id="tourDate">
+                                    <span class="input-group-addon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="32.5" viewBox="0 0 61 46">
+                                            <g id="Group_189" data-name="Group 189" transform="translate(-6526 2629)">
+                                                <path id="Rectangle_347" data-name="Rectangle 347" d="M0,0H46A15,15,0,0,1,61,15V31A15,15,0,0,1,46,46H0a0,0,0,0,1,0,0V0A0,0,0,0,1,0,0Z" transform="translate(6526 -2629)" fill="#d7c13f" />
+                                                <path id="Icon_material-access-time" data-name="Icon material-access-time" d="M17.985,3A15,15,0,1,0,33,18,14.993,14.993,0,0,0,17.985,3ZM18,30A12,12,0,1,1,30,18,12,12,0,0,1,18,30Zm.75-19.5H16.5v9l7.875,4.725L25.5,22.38l-6.75-4.005Z" transform="translate(6539 -2623.75)" fill="#1e2126" />
+                                            </g>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <script type="text/javascript">
+                                    $('.clockpicker').clockpicker({
+                                        placement: 'top',
+                                        align: 'left',
+                                        donetext: 'Done'
+                                    });
+                                </script>
+                            </div>
+                        </div>
+                        <button id="createReminder">
+                            <h6 class="varela">Create Reminder</h6>
+                        </button>
+                        <div class="reminders">
+                            <?php foreach ($teamR as $timR) {
+                                if ($timR['id_team'] == $teamA['id_team']) { ?>
+                                    <div class="reminderItem">
+                                        <div class="reminderTime">
+                                            <h4 class="varela" style="color: #ecf0f1;"><?= date_format(date_create($timR['waktu']), "H:i") ?></h4>
+                                            <h6 class="varela" style="font-size: 14px;color: #d7c13f;"> <?= date_format(date_create($timR['waktu']), "d/m/Y") ?> </h6>
+                                        </div>
+                                        <div class="reminderDetails" id="reminder1">
+                                            <input type="hidden" id="reminderValue1" value="2020-05-06T16:19:20Z">
+                                            <h5 class="yellow" id="reminder1Name"><?= $timR['judul'] ?></h5>
+                                            <div class="reminderDesc" id="reminder1Desc">
+                                                <p><?= $timR['keterangan'] ?></p>
+                                            </div>
+                                        </div>
+                                        <p class="dateReminder">Created on <?= date_format(date_create($timR['waktu']), "d F Y") ?> by Yosua</p>
+                                    </div>
+                            <?php }
+                            } ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="settings" id="settings">
+                    <h3 class="yellow">Settings</h3>
+                    <div id="settingsContainer">
+                        <div class="channelImg">
+                            <input type="file" name="inputChannelImg" accept="image/x-png,image/jpg,image/jpeg" id="inputChannelImg" hidden>
+                            <div id="imgContainer">
+
+                            </div>
+                            <button id="changeImg">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 30 30">
+                                    <g id="Group_185" data-name="Group 185" transform="translate(-15861 4733)">
+                                        <circle id="Ellipse_187" data-name="Ellipse 187" cx="15" cy="15" r="15" transform="translate(15861 -4733)" fill="#1e2126" />
+                                        <path id="Icon_material-add-a-photo" data-name="Icon material-add-a-photo" d="M2.516,3.855V1.5H4.194V3.855H6.71v1.57H4.194V7.78H2.516V5.425H0V3.855Zm2.516,4.71V6.21H7.549V3.855H13.42l1.535,1.57h2.659A1.631,1.631,0,0,1,19.291,7v9.421a1.631,1.631,0,0,1-1.677,1.57H4.194a1.631,1.631,0,0,1-1.677-1.57V8.565ZM10.9,15.631A4.068,4.068,0,0,0,15.1,11.706,4.068,4.068,0,0,0,10.9,7.78,4.068,4.068,0,0,0,6.71,11.706,4.068,4.068,0,0,0,10.9,15.631ZM8.22,11.706A2.6,2.6,0,0,0,10.9,14.218a2.6,2.6,0,0,0,2.684-2.512A2.6,2.6,0,0,0,10.9,9.193,2.6,2.6,0,0,0,8.22,11.706Z" transform="translate(15866.434 -4728.954)" fill="#d7c13f" />
+                                    </g>
+                                </svg>
+                            </button>
+                        </div>
+                        <h5 id="channelName" style="margin-top: 2vh;color: #ecf0f1;" contenteditable></h5>
+                        <div style="margin-top: 4vh;width: 75%;height: 1px;background: #d7c13f;"></div>
+                        <h3 class="yellow" style="margin: 4vh 0;">Members</h3>
+                        <div class="members" id="listMember" style="margin-bottom: 8vh;">
+                            <div class="memberItem admin" id="admin1">
+                                <div class="memberImg">
+                                    <img src="Images/contohIklan1.png" alt="">
+                                </div>
+                                <div class="memberDetails">
+                                    <h5 style="margin-left: 1vw;color: #ecf0f1;">Member Name</h5>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27.007" viewBox="0 0 27 27.007">
+                                        <path id="admin" data-name="Icon ionic-ios-settings" d="M29.271,18A3.474,3.474,0,0,1,31.5,14.759a13.772,13.772,0,0,0-1.666-4.015,3.521,3.521,0,0,1-1.413.3,3.467,3.467,0,0,1-3.171-4.88A13.73,13.73,0,0,0,21.241,4.5a3.471,3.471,0,0,1-6.483,0,13.772,13.772,0,0,0-4.015,1.666,3.467,3.467,0,0,1-3.171,4.88,3.406,3.406,0,0,1-1.413-.3A14.076,14.076,0,0,0,4.5,14.766a3.473,3.473,0,0,1,.007,6.483,13.772,13.772,0,0,0,1.666,4.015,3.468,3.468,0,0,1,4.577,4.577,13.852,13.852,0,0,0,4.015,1.666,3.465,3.465,0,0,1,6.469,0,13.772,13.772,0,0,0,4.015-1.666,3.472,3.472,0,0,1,4.577-4.577,13.852,13.852,0,0,0,1.666-4.015A3.491,3.491,0,0,1,29.271,18ZM18.063,23.618a5.625,5.625,0,1,1,5.625-5.625A5.623,5.623,0,0,1,18.063,23.618Z" transform="translate(-4.5 -4.5)" fill="#d7c13f" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="memberItem regular" id="regular1">
+                                <div class="memberImg">
+                                    <img src="Images/contohIklan1.png" alt="">
+                                </div>
+                                <div class="memberDetails">
+                                    <h5 style="margin-left: 1vw;color: #ecf0f1;">Member Name</h5>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="27.899" height="27.899" viewBox="0 0 27.899 27.899">
+                                        <path id="member" data-name="Icon awesome-user-alt" d="M13.949,15.693A7.847,7.847,0,1,0,6.1,7.847,7.849,7.849,0,0,0,13.949,15.693Zm6.975,1.744h-3a9.485,9.485,0,0,1-7.945,0h-3A6.974,6.974,0,0,0,0,24.412v.872A2.616,2.616,0,0,0,2.616,27.9H25.283A2.616,2.616,0,0,0,27.9,25.283v-.872A6.974,6.974,0,0,0,20.924,17.437Z" fill="#d7c13f" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         <?php } ?>
+    </div>
+    <div style="display: none;">
+        <div id="topUpHeader">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 23.245 15">
+                <path id="Icon_material-group-add" data-name="Icon material-group-add" d="M7.748,13.269H4.843V9.808H2.906v3.462H0v2.308H2.906v3.462H4.843V15.577H7.748Zm9.685,1.154a3.209,3.209,0,0,0,2.9-3.462,3.209,3.209,0,0,0-2.9-3.462,2.472,2.472,0,0,0-.881.162,6.47,6.47,0,0,1,.872,3.3,6.6,6.6,0,0,1-.872,3.3A2.472,2.472,0,0,0,17.434,14.423Zm-4.843,0a3.209,3.209,0,0,0,2.9-3.462,3.209,3.209,0,0,0-2.9-3.462,3.216,3.216,0,0,0-2.906,3.462A3.216,3.216,0,0,0,12.591,14.423ZM19,16.915a4.61,4.61,0,0,1,1.337,3.277V22.5h2.906V20.192C23.245,18.415,20.95,17.319,19,16.915Zm-6.412-.185c-1.937,0-5.811,1.154-5.811,3.462V22.5H18.4V20.192C18.4,17.885,14.528,16.731,12.591,16.731Z" transform="translate(0 -7.5)" fill="#d7c13f" />
+            </svg>
+            <h5 class="yellow" style="margin-left: 1vw;">Join</h5>
+        </div>
+        <div id="topUpBody">
+            <h6 style="color: #ecf0f1">Input Team ID </h6>
+            <input type="text" name="topUpAmount" id="idTim">
+        </div>
     </div>
 
 </body>
@@ -210,14 +390,69 @@
     var keys = {};
     var ctr = 0;
     var select = -1;
+    var timer = {};
+    var tourney = false;
+
+    <?php if (isset($user) && isset($teamA)) { ?>
+        userA = '<?= $user['id_user'] ?>';
+        teamA = '<?= $teamA['id_team'] ?>';
+    <?php } ?>
 
     $(document).ready(function() {
         <?php if (!isset($_SESSION['idTeam'])) { ?>
             $(".memberlist").css("display", "none");
             $(".chatHeader").css("display", "none");
             $(".chatSection").css("display", "none");
+        <?php } else { ?>
+            $(".memberlist").addClass("slideInRight animated");
+            $(".chatHeader").addClass("slideInDown animated");
+            $(".chatSection").addClass("slideInUp animated");
+            $("#banner").addClass("fadeOut animated");
         <?php } ?>
+
+        $("#tournament").hide();
+        $("#reminder").hide();
+        $("#settings").hide();
     });
+
+    timer[11] = setInterval(checkreminder, 1000);
+
+    function checkreminder() {
+        var ctr = 1;
+        var ada = true;
+        while (ada) {
+            if ($("#reminderValue" + ctr).length) {
+                ctr++;
+            } else {
+                ada = false;
+            }
+        }
+        ctr--;
+        console.log(ctr);
+        var d = new Date();
+
+        for (var i = 1; i <= ctr; i++) {
+            var newdate = new Date($("#reminderValue" + i).val());
+            newdate.setMilliseconds(0);
+            d.setMilliseconds(0);
+            if (newdate.getTime() === d.getTime()) {
+                alertify.alert($("#reminder" + i + "Name").html(), $("#reminder" + i + "Desc").html());
+            }
+            console.log(d);
+            console.log(newdate);
+        }
+    }
+    var date = new Date();
+    var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    //	alert(today);
+    //	alert(d);
+
+    $('.datepicker').datepicker({
+        clearBtn: true,
+        format: "dd/mm/yyyy",
+        minDate: today
+    });
+
 
     $("#inputText").keydown(function(e) {
         keys[e.which] = true;
@@ -238,6 +473,10 @@
                 height -= 26;
                 $(".chatField").css("height", height);
             }
+        } else if (keys[8] && $(this).val().length == 1) {
+            $(".chatField").css("height", 702.75);
+            $(".inputField").css("height", 46.8438);
+            $("#inputText").css("height", 28);
         }
     });
 
@@ -301,19 +540,14 @@
         $(".chatField").css("height", height);
         ctr = 0;
 
-        <?php if (isset($user) && isset($teamA)) { ?>
-            idUser = '<?= $user['id_user'] ?>';
-            idTeam = '<?= $teamA['id_team'] ?>';
-        <?php } ?>
-
         pesan = $("#inputText").val();
         //alert(pesan);
         $.ajax({
             url: "<?= base_url(); ?>Community/insertPesan",
             method: "post",
             data: {
-                id_pengirim: idUser,
-                id_penerima: idTeam,
+                id_pengirim: userA,
+                id_penerima: teamA,
                 tipe_penerima: "Team",
                 pesan: pesan
             },
@@ -326,16 +560,7 @@
         alertify.success("Message sent");
     });
 
-    $(".listChannel").click(function() {
-        // if ($(".memberlist").css("display") == "none") {
-        //     $(".memberlist").css("display", "block");
-        //     $(".chatHeader").css("display", "flex");
-        //     $(".chatSection").css("display", "flex");
-        //     $("#banner").hide();
-
-        // }
-        // $(".accItemContainer").children().attr("id", "");
-        // $(this).attr("id", "active");
+    $(".accItemContainer").on("click", ".listChannel", function() {
         idTeam = $(this).attr("idTeam");
         $.ajax({
             url: "<?= base_url(); ?>Community/chooseTeam",
@@ -366,7 +591,317 @@
         window.location.href = '<?= base_url(); ?>MainMenu/';
     });
 
-    //member list,chat header, chat section
+    var headerTopUp = $("#topUpHeader").html();
+    var bodyTopUp = $("#topUpBody").html();
+    $("#topUpHeader").html("");
+    $("#topUpBody").html("");
+
+    $("#join").click(function() {
+        alertify.confirm(bodyTopUp).set('onok', function(closeevent, value) {
+            idTeam = $("#idTim").val();
+            $.ajax({
+                url: "<?= base_url(); ?>Community/joinTeam",
+                method: "post",
+                data: {
+                    idTeam: idTeam
+                },
+                success: function(result) {
+                    if (result == false) {
+                        alertify.error("Can't find ID Team");
+
+                    } else {
+                        $(".accItemContainer").html(result);
+                        alertify.success("Success join team");
+                    }
+                }
+            });
+
+
+        }).set({
+            onfocus: function() {
+                $(".ajs-input").attr("id", "idChannel");
+            },
+            'title': headerTopUp
+        });
+    });
+
+
+
+    var animated = false;
+    var action1 = false;
+    var action2 = false;
+    var action3 = false;
+    var action4 = false;
+
+    $("#action1").click(function() {
+        $("#action1").css("outline", "none");
+        if (!animated) {
+            if (!action1) {
+                action1 = true;
+                $("#Icon_ionic-ios-trophy").attr("fill", "#d7c13f");
+                $("#tournament").removeClass("fadeOut");
+                if (action2) {
+                    action2 = false;
+                    $("#Icon_material-event-available").attr("fill", "#fff");
+                    $("#event").addClass("fadeOut");
+                    timer[4] = setTimeout("$('#event').hide();", 1000);
+                } else if (action3) {
+                    action3 = false;
+                    $("#Path_1010").attr("stroke", "#fff");
+                    $("#Path_1011").attr("stroke", "#fff");
+                    $("#settings").addClass("fadeOut");
+                    timer[4] = setTimeout("$('#settings').hide();", 1000);
+                } else if (action4) {
+                    action4 = false;
+                    $("#Icon_material-access-alarm").attr("fill", "#fff");
+                    $("#reminder").addClass("fadeOut");
+                    timer[4] = setTimeout("$('#reminder').hide();", 1000);
+                } else {
+                    main = false;
+                    $(".chatWrapper").addClass("fadeOut animated");
+                    $(".inputField").addClass("fadeOut animated");
+                    timer[2] = setTimeout("$('.chatWrapper').hide();", 1000);
+                    timer[3] = setTimeout("$('.inputField').hide();", 1000);
+                    animated = true;
+                }
+                timer[0] = setTimeout("$('#tournament').show();", 1000);
+                timer[1] = setTimeout("$('#tournament').addClass('fadeIn animated');", 1000);
+            } else if (action1) {
+                action1 = false;
+                $("#Icon_ionic-ios-trophy").attr("fill", "#fff");
+                $("#tournament").removeClass("fadeIn");
+                $("#tournament").addClass("fadeOut");
+                timer[4] = setTimeout("$('#tournament').hide();", 1000);
+                timer[5] = setTimeout(fadeInFrame, 1000);
+
+                function fadeInFrame() {
+                    $('.chatWrapper').show()
+                    $('.inputField').show()
+                    $(".chatWrapper").removeClass("fadeOut");
+                    $(".inputField").removeClass("fadeOut");
+                    $(".chatField").addClass("fadeIn");
+                    $(".inputField").addClass("fadeIn");
+                }
+                animated = true;
+            }
+            timer[6] = setTimeout("animated=false;", 2000);
+        }
+    });
+
+    $("#action3").click(function() {
+        $("#action3").css("outline", "none");
+        if (!animated) {
+            if (!action3) {
+                action3 = true;
+                $("#Path_1010").attr("stroke", "#d7c13f");
+                $("#Path_1011").attr("stroke", "#d7c13f");
+                $("#settings").removeClass("fadeOut");
+                if (action1) {
+                    action1 = false;
+                    $("#Icon_ionic-ios-trophy").attr("fill", "#fff");
+                    $("#tournament").addClass("fadeOut");
+                    timer[4] = setTimeout("$('#tournament').hide();", 1000);
+                } else if (action4) {
+                    action4 = false;
+                    $("#Icon_material-access-alarm").attr("fill", "#fff");
+                    $("#reminder").addClass("fadeOut");
+                    timer[4] = setTimeout("$('#reminder').hide();", 1000);
+                } else if (action2) {
+                    action2 = false;
+                    $("#Icon_material-event-available").attr("fill", "#fff");
+                    $("#event").addClass("fadeOut");
+                    timer[4] = setTimeout("$('#event').hide();", 1000);
+                } else {
+                    main = false;
+                    $(".chatWrapper").addClass("fadeOut animated");
+                    $(".inputField").addClass("fadeOut animated");
+                    timer[2] = setTimeout("$('.chatWrapper').hide();", 1000);
+                    timer[3] = setTimeout("$('.inputField').hide();", 1000);
+                    animated = true;
+                }
+                timer[0] = setTimeout("$('#settings').show();", 1000);
+                timer[1] = setTimeout("$('#settings').addClass('fadeIn animated');", 1000);
+            } else if (action3) {
+                action3 = false;
+                $("#Path_1010").attr("stroke", "#fff");
+                $("#Path_1011").attr("stroke", "#fff");
+                $("#settings").removeClass("fadeIn");
+                $("#settings").addClass("fadeOut");
+                timer[4] = setTimeout("$('#settings').hide();", 1000);
+                timer[5] = setTimeout(fadeInFrame, 1000);
+
+                function fadeInFrame() {
+                    $('.chatWrapper').show()
+                    $('.inputField').show()
+                    $(".chatWrapper").removeClass("fadeOut");
+                    $(".inputField").removeClass("fadeOut");
+                    $(".chatField").addClass("fadeIn");
+                    $(".inputField").addClass("fadeIn");
+                }
+                animated = true;
+            }
+            timer[6] = setTimeout("animated=false;", 2000);
+        }
+    });
+
+    $("#action4").click(function() {
+        $("#action4").css("outline", "none");
+        if (!animated) {
+            if (!action4) {
+                action4 = true;
+                $("#Icon_material-access-alarm").attr("fill", "#d7c13f");
+                $("#reminder").removeClass("fadeOut");
+                if (action1) {
+                    action1 = false;
+                    $("#Icon_ionic-ios-trophy").attr("fill", "#fff");
+                    $("#tournament").addClass("fadeOut");
+                    timer[4] = setTimeout("$('#tournament').hide();", 1000);
+                } else if (action3) {
+                    action3 = false;
+                    $("#Path_1010").attr("stroke", "#fff");
+                    $("#Path_1011").attr("stroke", "#fff");
+                    $("#settings").addClass("fadeOut");
+                    timer[4] = setTimeout("$('#settings').hide();", 1000);
+                } else if (action2) {
+                    action2 = false;
+                    $("#Icon_material-event-available").attr("fill", "#fff");
+                    $("#event").addClass("fadeOut");
+                    timer[4] = setTimeout("$('#event').hide();", 1000);
+                } else {
+                    main = false;
+                    $(".chatWrapper").addClass("fadeOut animated");
+                    $(".inputField").addClass("fadeOut animated");
+                    timer[2] = setTimeout("$('.chatWrapper').hide();", 1000);
+                    timer[3] = setTimeout("$('.inputField').hide();", 1000);
+                    animated = true;
+                }
+                timer[0] = setTimeout("$('#reminder').show();", 1000);
+                timer[1] = setTimeout("$('#reminder').addClass('fadeIn animated');", 1000);
+            } else if (action4) {
+                action4 = false;
+                $("#Icon_material-access-alarm").attr("fill", "#fff");
+                $("#reminder").removeClass("fadeIn");
+                $("#reminder").addClass("fadeOut");
+                timer[4] = setTimeout("$('#reminder').hide();", 1000);
+                timer[5] = setTimeout(fadeInFrame, 1000);
+
+                function fadeInFrame() {
+                    $('.chatWrapper').show()
+                    $('.inputField').show()
+                    $(".chatWrapper").removeClass("fadeOut");
+                    $(".inputField").removeClass("fadeOut");
+                    $(".chatField").addClass("fadeIn");
+                    $(".inputField").addClass("fadeIn");
+                }
+                animated = true;
+            }
+            timer[6] = setTimeout("animated=false;", 2000);
+        }
+    });
+
+    $("#slotTour").on("input", function() {
+        if (this.value.length > 3) {
+            this.value = this.value.slice(0, 3);
+        }
+    });
+
+    $("#message").on("input", function() {
+        if (this.value.length > 250) {
+            this.value = this.value.slice(0, 250);
+        }
+    });
+
+
+    var createReminder = false;
+    $("#createReminder").click(function() {
+        if (createReminder == false) {
+            $("#reminderForm").collapse();
+            createReminder = true;
+        } else {
+            judul = $('[name="tourName"]').val();
+            desc = $('[name="messagereminder"]').val();
+            waktu = $('[name="reminderDate"]').val();
+            // alert(waktu);
+            // foto = $(".imageContainer").find('img').attr('src');
+
+            // if (foto.substring(11, 12) == "j") {
+            //     foto = foto.substring(23, foto.length);
+            // } else {
+            //     foto = foto.substring(22, foto.length);
+            // }
+
+            $.ajax({
+                url: "<?= base_url(); ?>Community/insertReminder",
+                method: "post",
+                data: {
+                    id_team: teamA,
+                    id_user: userA,
+                    judul: judul,
+                    keterangan: desc,
+                    waktu: waktu
+                },
+                success: function(result) {
+                    $(".reminders").html(result);
+                    alertify.success("Success add reminder");
+                }
+            });
+        }
+    });
+
+    $(".imageShow").click(function() {
+        $("#imgEvent").trigger("click");
+    });
+
+    $("#imgEvent").change(function() {
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                $('.img').attr('src', e.target.result);
+                $('.img').attr('hidden', false);
+                $(".imgText").hide();
+            };
+            reader.readAsDataURL(this.files[0]);
+        }
+    });
+
+    var minimize = false;
+
+    $(".minimize").click(function() {
+        if (minimize) {
+            $(".request").show();
+            minimize = false;
+        } else {
+            $(".request").hide();
+            minimize = true;
+        }
+    });
+
+
+    $("#inputChannelImg").change(function() {
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                var img = $('<img>').attr('src', e.target.result);
+                $("#imgContainer").html(img)
+            };
+            reader.readAsDataURL(this.files[0]);
+        }
+    });
+
+
+    $(".admin").click(function() {
+        alert($(this).attr("id"));
+    });
+
+    $(".regular").click(function() {
+        alert($(this).attr("id"));
+    });
+
+    $(".request").click(function() {
+        alert($(this).attr("id"));
+    });
 </script>
 
 </html>

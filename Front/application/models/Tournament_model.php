@@ -33,10 +33,10 @@ class Tournament_model extends CI_model
         $idUser = $this->session->userdata('id_user');
         $ctr = 1;
         $query = $this->db->query("select * from tournament");
-        $newId = $this->input->post('');
+        $newId = $this->input->post('nama_turnament');
         $cekNewId = 'O' . substr(strtoupper($newId), 0, 1);
         foreach ($query->result_array() as $row) {
-            $cekId = substr(strtoupper($row['id_turnamnent']), 0, 2);
+            $cekId = substr(strtoupper($row['id_turnament']), 0, 2);
             if ($cekId == $cekNewId) {
                 $ctr++;
             }
@@ -51,17 +51,21 @@ class Tournament_model extends CI_model
         } else {
             $generateId = $cekNewId . $ctr;
         }
-        // $tgl = date("Y-m-d H:i:s");
+
+        $tgl = $this->input->post('tanggal_mulai');
+        $tgl = strtotime($tgl);
+        $tgl = date("Y-m-d H:i:s", $tgl);
+
         $this->session->set_userdata(array('idTurnament' => $generateId));
         $data = [
             "id_turnament" => $generateId,
-            "id_channel" => $this->input->post(''),
-            "id_game" => $this->input->post(''),
+            "id_channel" => $this->input->post('id_channel'),
+            "id_game" => $this->input->post('id_game'),
             "nama_turnament" => $this->input->post('nama_turnament'),
-            "keterangan" =>  $this->input->post('keterangan'),
-            "jumlah_pemain" =>  $this->input->post('jumlah_pemain'),
-            "tanggal_mulai" =>  $this->input->post('tanggal_mulai'),
-            "jumlah_slot" =>  $this->input->post('jumlah_slot')
+            "jumlah_pemain" =>  "0",
+            "tanggal_mulai" =>  $tgl,
+            "jumlah_slot" =>  $this->input->post('jumlah_slot'),
+            "status" => -1
         ];
         $this->db->insert('tournament', $data);
     }
