@@ -28,7 +28,7 @@ class Channel_model extends CI_model
     {
         $ctr = 1;
         $query = $this->db->query("select * from channel");
-        $newId = $this->input->post('nameChannel');
+        $newId = $this->input->post('nama_channel');
         $cekNewId = 'C' . substr(strtoupper($newId), 0, 1);
         foreach ($query->result_array() as $row) {
             $cekId = substr(strtoupper($row['id_channel']), 0, 2);
@@ -46,17 +46,34 @@ class Channel_model extends CI_model
             $generateId = $cekNewId . $ctr;
         }
 
-        $foto = $this->input->post('photoChannel');
-        if ($foto == '') {
-            $foto = 'default.jpg';
-        }
+
+        $foto = $this->input->post('foto');
+        $foto = base64_decode($foto);
 
         $data = [
             "id_channel" => $generateId,
-            "nama_channel" => $this->input->post('nameChannel'),
+            "nama_channel" => $this->input->post('nama_channel'),
             "foto_channel" => $foto
         ];
         $this->db->insert('channel', $data);
+
+        $this->session->set_userdata(array('newChannel' => $generateId));
+        $this->session->set_userdata(array('idChannel' => $generateId));
+    }
+
+    public function editChannel()
+    {
+        $id = $this->input->post('id_channel');
+        $foto = $this->input->post('foto');
+        $foto = base64_decode($foto);
+
+        $data = [
+            "nama_channel" => $this->input->post('nama_channel'),
+            "foto_channel" => $foto
+        ];
+
+        $this->db->where('id_channel', $id);
+        $this->db->update('channel', $data);
     }
 
     public function cekChannel()

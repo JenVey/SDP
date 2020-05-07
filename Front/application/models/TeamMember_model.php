@@ -4,7 +4,7 @@ class TeamMember_model extends CI_model
 
     public function getAllTeamMember()
     {
-        $query = "SELECT U.NAMA_USER AS 'nama_user', U.STATUS AS 'status', TR.ID_TEAM AS 'id_team',U.ID_USER AS 'id_user',U.FOTO AS 'foto'
+        $query = "SELECT U.NAMA_USER AS 'nama_user', U.STATUS AS 'status', TR.ID_TEAM AS 'id_team' ,U.ID_USER AS 'id_user' ,U.FOTO AS 'foto'
         FROM TEAM_MEMBERS TR
         JOIN USER U ON U.ID_USER = TR.ID_USER";
 
@@ -37,7 +37,6 @@ class TeamMember_model extends CI_model
             }
         }
 
-
         if (!$ada) {
             $data = [
                 "id_user" => $idUser,
@@ -47,11 +46,13 @@ class TeamMember_model extends CI_model
         }
     }
 
-    public function deleteTeamMember()
+    public function kickMember()
     {
-        $idTeam = $this->input->post('idTeam');
-        $idUser = $this->input->post('idUser');
+        $idTeam = $this->input->post('id_team');
+        $idUser = $this->input->post('id_user');
+
         $query = "DELETE FROM TEAM_MEMBERS WHERE ID_TEAM = '" . $idTeam . "' AND ID_USER = '" . $idUser . "' ";
+
         $this->db->query($query);
     }
 }

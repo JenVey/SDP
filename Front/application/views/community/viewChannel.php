@@ -20,8 +20,9 @@
     <script src="<?php echo base_url(); ?>asset/Js/jquery-clockpicker.min.js"></script>
 </head>
 <?php
-
+date_default_timezone_set('Asia/Jakarta');
 if (isset($channelA)) {
+
     foreach ($channelU as $chnU) {
         if ($chnU['id_channel'] == $channelA['id_channel'] && $chnU['id_user'] == $user['id_user']) {
             if ($chnU['jenis'] == 2) {
@@ -113,7 +114,7 @@ if (isset($channelA)) {
     <div class="bodyContainer">
         <?php if (!isset($channelA)) { ?>
             <div id="banner">
-                <object data="Images/undraw_having_fun_iais.svg" type="image/svg+xml"></object>
+                <object data="<?= base_url(); ?>/asset/Images/SVG/undraw_having_fun_iais.svg" type="image/svg+xml"></object>
                 <svg style="margin-top: 5vh;" xmlns="http://www.w3.org/2000/svg" width="606" height="105" viewBox="0 0 606 105">
                     <text id="Give_all_of_em_a_toast" data-name="Give all of &apos;em a toast" transform="translate(0 74)" fill="#fff" font-size="94" font-family="Cookie-Regular, Cookie">
                         <tspan x="0" y="0">Give all of &apos;em a toast</tspan>
@@ -303,20 +304,30 @@ if (isset($channelA)) {
                                         <div class="standings">
                                             <div class="place" style="color: #D1D1D1;">
                                                 2
-                                                <!-- <h6><?php //foreach ($standing as $stand) {
-                                                            //if ($stand['id_turnament'] == $turney['id_turnament']) {
-                                                            //echo $stand['juara2'];
-                                                            //}
-                                                            //}  
-                                                            ?></h6> -->
+                                                <h6><?php foreach ($standing as $stand) {
+                                                        if ($stand['id_turnament'] == $turney['id_turnament']) {
+                                                            echo $stand['juara2'];
+                                                        }
+                                                    }
+                                                    ?></h6>
                                             </div>
                                             <div class="place" style="color: #d7c13f;">
                                                 1
-                                                <h6>Astralis</h6>
+                                                <h6><?php foreach ($standing as $stand) {
+                                                        if ($stand['id_turnament'] == $turney['id_turnament']) {
+                                                            echo $stand['juara1'];
+                                                        }
+                                                    }
+                                                    ?></h6>
                                             </div>
                                             <div class="place" style="color: #B98316;">
                                                 3
-                                                <h6>Team Liquid</h6>
+                                                <h6><?php foreach ($standing as $stand) {
+                                                        if ($stand['id_turnament'] == $turney['id_turnament']) {
+                                                            echo $stand['juara3'];
+                                                        }
+                                                    }
+                                                    ?></h6>
                                             </div>
                                         </div>
                                     </div>
@@ -385,16 +396,21 @@ if (isset($channelA)) {
                             <div id="imgContainer">
                                 <img src="data:image/jpeg;base64,<?= base64_encode($channelA['foto_channel']) ?>" alt="">
                             </div>
-                            <button id="changeImg">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 30 30">
-                                    <g id="Group_185" data-name="Group 185" transform="translate(-15861 4733)">
-                                        <circle id="Ellipse_187" data-name="Ellipse 187" cx="15" cy="15" r="15" transform="translate(15861 -4733)" fill="#1e2126" />
-                                        <path id="Icon_material-add-a-photo" data-name="Icon material-add-a-photo" d="M2.516,3.855V1.5H4.194V3.855H6.71v1.57H4.194V7.78H2.516V5.425H0V3.855Zm2.516,4.71V6.21H7.549V3.855H13.42l1.535,1.57h2.659A1.631,1.631,0,0,1,19.291,7v9.421a1.631,1.631,0,0,1-1.677,1.57H4.194a1.631,1.631,0,0,1-1.677-1.57V8.565ZM10.9,15.631A4.068,4.068,0,0,0,15.1,11.706,4.068,4.068,0,0,0,10.9,7.78,4.068,4.068,0,0,0,6.71,11.706,4.068,4.068,0,0,0,10.9,15.631ZM8.22,11.706A2.6,2.6,0,0,0,10.9,14.218a2.6,2.6,0,0,0,2.684-2.512A2.6,2.6,0,0,0,10.9,9.193,2.6,2.6,0,0,0,8.22,11.706Z" transform="translate(15866.434 -4728.954)" fill="#d7c13f" />
-                                    </g>
-                                </svg>
-                            </button>
+                            <?php if (isset($_SESSION['master'])) { ?>
+                                <button id="changeImg">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 30 30">
+                                        <g id="Group_185" data-name="Group 185" transform="translate(-15861 4733)">
+                                            <circle id="Ellipse_187" data-name="Ellipse 187" cx="15" cy="15" r="15" transform="translate(15861 -4733)" fill="#1e2126" />
+                                            <path id="Icon_material-add-a-photo" data-name="Icon material-add-a-photo" d="M2.516,3.855V1.5H4.194V3.855H6.71v1.57H4.194V7.78H2.516V5.425H0V3.855Zm2.516,4.71V6.21H7.549V3.855H13.42l1.535,1.57h2.659A1.631,1.631,0,0,1,19.291,7v9.421a1.631,1.631,0,0,1-1.677,1.57H4.194a1.631,1.631,0,0,1-1.677-1.57V8.565ZM10.9,15.631A4.068,4.068,0,0,0,15.1,11.706,4.068,4.068,0,0,0,10.9,7.78,4.068,4.068,0,0,0,6.71,11.706,4.068,4.068,0,0,0,10.9,15.631ZM8.22,11.706A2.6,2.6,0,0,0,10.9,14.218a2.6,2.6,0,0,0,2.684-2.512A2.6,2.6,0,0,0,10.9,9.193,2.6,2.6,0,0,0,8.22,11.706Z" transform="translate(15866.434 -4728.954)" fill="#d7c13f" />
+                                        </g>
+                                    </svg>
+                                </button>
+                            <?php } ?>
                         </div>
-                        <h5 id="channelName" style="margin-top: 2vh;color: #ecf0f1;" contenteditable><?= $channelA['nama_channel'] ?></h5>
+                        <h5 id="channelName" style="margin-top: 2vh;color: #ecf0f1;" <?php if (isset($_SESSION['master'])) {
+                                                                                            echo "contenteditable";
+                                                                                        } ?>><?= $channelA['nama_channel'] ?></h5>
+                        <button id="saveChange">Save Change</button>
                         <div style="margin-top: 4vh;width: 75%;height: 1px;background: #d7c13f;"></div>
                         <h3 class="yellow" style="margin: 4vh 0;">Members</h3>
                         <div id="settingsContainer" class="listMember">
@@ -482,36 +498,23 @@ if (isset($channelA)) {
             <h1 class="yellow newName" contenteditable>Channel Name</h1>
         </div>
         <div style="position: absolute; bottom: -10vh; right: -8vw;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="542.2" height="531.5" viewBox="0 0 42.2 31.5">
-                <path id="Icon_material-group" data-name="Icon material-group" d="M30.273,21c3.184,0,5.735-3.015,5.735-6.75S33.457,7.5,30.273,7.5s-5.755,3.015-5.755,6.75S27.089,21,30.273,21ZM14.927,21c3.184,0,5.735-3.015,5.735-6.75S18.111,7.5,14.927,7.5s-5.755,3.015-5.755,6.75S11.743,21,14.927,21Zm0,4.5C10.458,25.5,1.5,28.132,1.5,33.375V39H28.355V33.375C28.355,28.133,19.4,25.5,14.927,25.5Zm15.345,0c-.556,0-1.189.045-1.861.113a9.93,9.93,0,0,1,3.779,7.763V39H43.7V33.375C43.7,28.133,34.742,25.5,30.273,25.5Z" transform="translate(-1.5 -7.5)" fill="rgba(215,193,63,0.19)" />
+
+
+            <svg xmlns="http://www.w3.org/2000/svg" width="1008.299" height="1005.162" viewBox="0 0 48.299 45.162">
+                <g id="channel" transform="translate(0 -1.86)">
+                    <g id="Group_137" data-name="Group 137" transform="translate(0 1.86)">
+                        <path id="Path_1398" data-name="Path 1398" d="M128.573,13.933a6.238,6.238,0,0,0-3.544-5.545,3.836,3.836,0,0,0,.979-2.548,4.212,4.212,0,0,0-8.412,0,3.841,3.841,0,0,0,1.037,2.612,6.228,6.228,0,0,0-3.419,5.482v3.338h13.358ZM121.8,4.012a1.884,1.884,0,0,1,1.931,1.827,1.934,1.934,0,0,1-3.863,0A1.884,1.884,0,0,1,121.8,4.012Zm4.5,11.107H117.49V13.933a4.242,4.242,0,0,1,4.349-4.115h.111a4.242,4.242,0,0,1,4.349,4.115v1.186Z" transform="translate(-97.745 -1.86)" fill="rgba(215,193,63,0.19)" />
+                        <path id="Path_1399" data-name="Path 1399" d="M9.814,215.768a3.836,3.836,0,0,0,.979-2.548,4.1,4.1,0,0,0-4.206-3.979,4.1,4.1,0,0,0-4.206,3.979,3.841,3.841,0,0,0,1.037,2.612A6.227,6.227,0,0,0,0,221.313v3.338H13.358v-3.338A6.238,6.238,0,0,0,9.814,215.768Zm-3.227-4.376a1.83,1.83,0,1,1,0,3.654,1.83,1.83,0,1,1,0-3.654Zm4.5,11.107H2.275v-1.186A4.241,4.241,0,0,1,6.624,217.2h.111a4.242,4.242,0,0,1,4.349,4.115S11.083,222.5,11.083,222.5Z" transform="translate(0 -179.489)" fill="rgba(215,193,63,0.19)" />
+                        <path id="Path_1400" data-name="Path 1400" d="M240.244,215.768a3.836,3.836,0,0,0,.979-2.548,4.212,4.212,0,0,0-8.412,0,3.841,3.841,0,0,0,1.037,2.612,6.228,6.228,0,0,0-3.419,5.482v3.338h13.358v-3.338A6.239,6.239,0,0,0,240.244,215.768Zm-3.227-4.376a1.83,1.83,0,1,1-1.931,1.827A1.883,1.883,0,0,1,237.017,211.392Zm4.5,11.107H232.7v-1.186a4.241,4.241,0,0,1,4.349-4.115h.111a4.242,4.242,0,0,1,4.349,4.115V222.5Z" transform="translate(-195.489 -179.489)" fill="rgba(215,193,63,0.19)" />
+                        <path id="Path_1401" data-name="Path 1401" d="M109.639,134.949h-2.275v7.086l-7.935,7.508,1.608,1.522L108.5,144l7.464,7.062,1.609-1.522-7.936-7.508Z" transform="translate(-84.352 -115.856)" fill="rgba(215,193,63,0.19)" />
+                    </g>
+                </g>
             </svg>
 
-            <!--
-			<svg xmlns="http://www.w3.org/2000/svg" width="1008.299" height="1005.162" viewBox="0 0 48.299 45.162">
-			  <g id="channel" transform="translate(0 -1.86)">
-				<g id="Group_137" data-name="Group 137" transform="translate(0 1.86)">
-				  <path id="Path_1398" data-name="Path 1398" d="M128.573,13.933a6.238,6.238,0,0,0-3.544-5.545,3.836,3.836,0,0,0,.979-2.548,4.212,4.212,0,0,0-8.412,0,3.841,3.841,0,0,0,1.037,2.612,6.228,6.228,0,0,0-3.419,5.482v3.338h13.358ZM121.8,4.012a1.884,1.884,0,0,1,1.931,1.827,1.934,1.934,0,0,1-3.863,0A1.884,1.884,0,0,1,121.8,4.012Zm4.5,11.107H117.49V13.933a4.242,4.242,0,0,1,4.349-4.115h.111a4.242,4.242,0,0,1,4.349,4.115v1.186Z" transform="translate(-97.745 -1.86)" fill="rgba(215,193,63,0.19)"/>
-				  <path id="Path_1399" data-name="Path 1399" d="M9.814,215.768a3.836,3.836,0,0,0,.979-2.548,4.1,4.1,0,0,0-4.206-3.979,4.1,4.1,0,0,0-4.206,3.979,3.841,3.841,0,0,0,1.037,2.612A6.227,6.227,0,0,0,0,221.313v3.338H13.358v-3.338A6.238,6.238,0,0,0,9.814,215.768Zm-3.227-4.376a1.83,1.83,0,1,1,0,3.654,1.83,1.83,0,1,1,0-3.654Zm4.5,11.107H2.275v-1.186A4.241,4.241,0,0,1,6.624,217.2h.111a4.242,4.242,0,0,1,4.349,4.115S11.083,222.5,11.083,222.5Z" transform="translate(0 -179.489)" fill="rgba(215,193,63,0.19)"/>
-				  <path id="Path_1400" data-name="Path 1400" d="M240.244,215.768a3.836,3.836,0,0,0,.979-2.548,4.212,4.212,0,0,0-8.412,0,3.841,3.841,0,0,0,1.037,2.612,6.228,6.228,0,0,0-3.419,5.482v3.338h13.358v-3.338A6.239,6.239,0,0,0,240.244,215.768Zm-3.227-4.376a1.83,1.83,0,1,1-1.931,1.827A1.883,1.883,0,0,1,237.017,211.392Zm4.5,11.107H232.7v-1.186a4.241,4.241,0,0,1,4.349-4.115h.111a4.242,4.242,0,0,1,4.349,4.115V222.5Z" transform="translate(-195.489 -179.489)" fill="rgba(215,193,63,0.19)"/>
-				  <path id="Path_1401" data-name="Path 1401" d="M109.639,134.949h-2.275v7.086l-7.935,7.508,1.608,1.522L108.5,144l7.464,7.062,1.609-1.522-7.936-7.508Z" transform="translate(-84.352 -115.856)" fill="rgba(215,193,63,0.19)"/>
-				</g>
-			  </g>
-			</svg>
--->
         </div>
         <button class="createButton">Create</button>
     </div>
-    <div class="subs">
-        <input type="file" name="bannerImg" id="bannerImg" accept="image/x-png,image/jpg,image/jpeg" hidden>
-        <p id="countdown">Subscribe to our <span style="color: #d7c13f;">MONTHLY PLAN</span></p>
-        <h5 class="varela" id="desc">Create your own ad banner and display it on the shop page</h5>
-        <div class="banner">
-            <h2 style="color: #ecf0f1;">Click here to upload your own image</h2>
-            <h5 style="color: #ecf0f1;">(900px X 200px)</h5>
-        </div>
-        <h5 class="varela" id="priceTag">Only GP 30.000 / month</h5>
-        <button class="subscribe">SUBSCRIBE</button>
-    </div>
+
     <div class="bgblur"></div>
 
     <div style="display: none;">
@@ -529,75 +532,6 @@ if (isset($channelA)) {
 
 </body>
 <script>
-    var bannerReady = false;
-
-    var subs = false;
-
-    var countDownDate;
-
-    var x;
-
-    function countdown() {
-        if (subs) {
-            var now = new Date().getTime();
-
-            var distance = countDownDate - now;
-
-            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            document.getElementById("countdown").innerHTML = days + "d " + hours + "h " +
-                minutes + "m " + seconds + "s left";
-
-            if (distance < 0) {
-                clearInterval(x);
-                document.getElementById("countdown").innerHTML = "EXPIRED";
-            }
-        } else {
-            clearInterval(x);
-        }
-
-    }
-
-    $(".subscribe").click(function() {
-        if (bannerReady) {
-            alertify.confirm('Subscribe', 'Are you sure to subscribe by paying GP 30.000/Month?',
-                function() {
-                    alertify.success('Subscribed!');
-                    x = setInterval(countdown, 1000);
-                    subs = true;
-                    var today = new Date();
-                    countDownDate = today.setDate(today.getDate() + 31);
-                    $("#desc").html("Change the banner below to replace your current banner");
-                    $("#countdown").css("color", "#d7c13f");
-                    $("#priceTag").css("display", "none");
-                    $(".subscribe").css("display", "none");
-                },
-                function() {});
-        } else {
-            alertify.error("You haven't selected any image as a banner");
-        }
-    });
-
-    $("#bannerImg").change(function() {
-        if (this.files && this.files[0]) {
-            var reader = new FileReader();
-
-            reader.onload = function(e) {
-                var img = $('<img>').attr('src', e.target.result);
-                $(".banner").html(img);
-                bannerReady = true;
-            };
-            reader.readAsDataURL(this.files[0]);
-        }
-    });
-
-    $(".banner").click(function() {
-        $("#bannerImg").trigger("click");
-    });
-
     var keys = {};
     var ctr = 0;
     var select = -1;
@@ -610,13 +544,37 @@ if (isset($channelA)) {
     <?php } ?>
 
     $(".createButton").click(function() {
-        alert("CREATE");
-        $(".create").removeClass("slideInDown animated");
-        $(".create").addClass("slideOutUp animated");
-        $(".bgblur").removeClass("fadeInBG animated");
-        $(".bgblur").addClass("fadeOutBG animated");
-        timer[10] = setTimeout("$('.create').hide();", 1000);
-        timer[11] = setTimeout("$('.bgblur').hide();", 1000);
+        nama_channel = $(".newName").html();
+        foto = $(".imageWrapper").find('img').attr('src');
+
+        if (foto.substring(11, 12) == "j") {
+            foto = foto.substring(23, foto.length);
+        } else {
+            foto = foto.substring(22, foto.length);
+        }
+
+        alert(nama_channel);
+        $.ajax({
+            url: "<?= base_url(); ?>Community/insertChannel",
+            method: "post",
+            data: {
+                nama_channel: nama_channel,
+                foto: foto
+            },
+            success: function(result) {
+                $(".accItemContainer").html(result);
+                alertify.success('Channel created!');
+
+                $(".create").removeClass("slideInDown animated");
+                $(".create").addClass("slideOutUp animated");
+                $(".bgblur").removeClass("fadeInBG animated");
+                $(".bgblur").addClass("fadeOutBG animated");
+                timer[10] = setTimeout("$('.create').hide();", 1000);
+                timer[11] = setTimeout("$('.bgblur').hide();", 1000);
+            }
+        });
+
+
     });
 
     $(".bgblur").click(function() {
@@ -1375,6 +1333,30 @@ if (isset($channelA)) {
 
     });
 
+    $("#saveChange").click(function() {
+        nama_channel = $('#channelName').html();
+        foto = $("#imgContainer").find('img').attr('src');
+        // alert(nama_channel);
+        // alert(foto);
+        if (foto.substring(11, 12) == "j") {
+            foto = foto.substring(23, foto.length);
+        } else {
+            foto = foto.substring(22, foto.length);
+        }
+
+        $.ajax({
+            url: "<?= base_url(); ?>Community/editChannel",
+            method: "post",
+            data: {
+                id_channel: channelA,
+                nama_channel: nama_channel,
+                foto: foto
+            },
+            success: function(result) {
+                alertify.success("Success edit channel");
+            }
+        });
+    });
 
     $(".minusBut").click(function() {
         var slot = $("#slotTour").val();
@@ -1386,7 +1368,7 @@ if (isset($channelA)) {
 
     $(".plusBut").click(function() {
         var slot = $("#slotTour").val();
-        if (slot < 16) {
+        if (slot < 32) {
             slot *= 2;
             $("#slotTour").val(slot);
         }

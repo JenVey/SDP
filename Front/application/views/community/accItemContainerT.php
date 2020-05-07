@@ -4,7 +4,7 @@
                                                                                 echo "id='active'";
                                                                             }
                                                                         } ?>>
-        <div class="profileImg" style="margin-left: 0;"><img src="" width="50" height="50" alt="" /></div>
+        <div class="profileImg" style="margin-left: 0;"><img src="data:image/jpeg;base64,<?= base64_encode($tim['foto_team']) ?>" width="50" height="50" alt="" /></div>
         <h6 class="profileName"><?= $tim['nama_team'] ?></h6>
     </div>
 <?php } ?>

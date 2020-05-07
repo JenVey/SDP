@@ -17,6 +17,27 @@
     <script src="<?php echo base_url(); ?>asset/Js/jquery-min.js"></script>
     <script src="<?php echo base_url(); ?>asset/Js/bootstrap.js"></script>
     <script src="<?php echo base_url(); ?>asset/Js/textFit.js"></script>
+    <style>
+        #action1:hover #Path_1943 {
+            fill: #d7c13f;
+        }
+
+        #action2:hover #Icon_awesome-exchange-alt {
+            fill: #d7c13f;
+        }
+
+        #action3:hover #Icon_material-report {
+            fill: #d7c13f;
+        }
+
+        #action1:hover #Path_1944 {
+            fill: #d7c13f;
+        }
+
+        .channelAction {
+            justify-content: space-around;
+        }
+    </style>
 
 </head>
 <?php
@@ -77,7 +98,8 @@ date_default_timezone_set('Asia/Jakarta');
                         <h6 class="profileName"><?= $frn['nama_user'] ?></h6>
                     </div>
             <?php }
-            } ?>
+            }
+            ?>
         </div>
     </div>
     <div class="profile">
@@ -112,7 +134,31 @@ date_default_timezone_set('Asia/Jakarta');
                     <h4 class="yellow"><?= $friendA['nama_user'] ?></h4>
                 </div>
                 <div class="channelAction">
+                    <?php foreach ($friend as $frn) {
+                        if ($frn['status'] == 0) { ?>
+                            <button id="action1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="56.503" height="50.474" viewBox="0 0 33.75 27">
+                                    <g id="Icon_ionic-md-person-add" data-name="Icon ionic-md-person-add" transform="translate(-1.125 -4.5)">
+                                        <path id="Path_1943" data-name="Path 1943" d="M21.375,18a6.75,6.75,0,1,0-6.75-6.75A6.77,6.77,0,0,0,21.375,18Zm0,3.375c-4.472,0-13.5,2.278-13.5,6.75V31.5h27V28.125C34.875,23.653,25.847,21.375,21.375,21.375Z" fill="#fff" />
+                                        <path id="Path_1944" data-name="Path 1944" d="M7.875,15.75v-4.5H5.625v4.5h-4.5V18h4.5v4.5h2.25V18h4.5V15.75Z" fill="#fff" />
+                                    </g>
+                                </svg>
+                            </button>
 
+                        <?php } else if ($frn['status'] == 2) { ?>
+                            <button id="action2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="56.503" height="50.474" viewBox="0 0 77.304 59.142">
+                                    <path id="Icon_awesome-exchange-alt" data-name="Icon awesome-exchange-alt" d="M0,20.5V18.132a3.586,3.586,0,0,1,3.624-3.548H57.978v-7.1a3.637,3.637,0,0,1,6.186-2.509L76.242,16.806a3.5,3.5,0,0,1,0,5.018L64.164,33.65a3.636,3.636,0,0,1-6.186-2.509v-7.1H3.624A3.586,3.586,0,0,1,0,20.5ZM73.68,42.969H19.326v-7.1a3.637,3.637,0,0,0-6.186-2.509L1.061,45.191a3.5,3.5,0,0,0,0,5.018L13.14,62.035a3.636,3.636,0,0,0,6.186-2.509v-7.1H73.68A3.586,3.586,0,0,0,77.3,48.882V46.517A3.586,3.586,0,0,0,73.68,42.969Z" transform="translate(0 -3.936)" fill="#fff" />
+                                </svg>
+                            </button>
+                        <?php } ?>
+                        <button id="action3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="56.503" height="50.474" viewBox="0 0 27 27">
+                                <path id="Icon_material-report" data-name="Icon material-report" d="M23.595,4.5H12.4L4.5,12.4v11.19L12.4,31.5h11.19L31.5,23.595V12.4ZM18,25.95A1.95,1.95,0,1,1,19.95,24,1.946,1.946,0,0,1,18,25.95Zm1.5-6.45h-3v-9h3Z" transform="translate(-4.5 -4.5)" fill="#fff" />
+                            </svg>
+                        </button>
+
+                    <?php } ?>
                 </div>
             </div>
             <div class="chatSection">
@@ -170,10 +216,10 @@ date_default_timezone_set('Asia/Jakarta');
             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 23.245 15">
                 <path id="Icon_material-group-add" data-name="Icon material-group-add" d="M7.748,13.269H4.843V9.808H2.906v3.462H0v2.308H2.906v3.462H4.843V15.577H7.748Zm9.685,1.154a3.209,3.209,0,0,0,2.9-3.462,3.209,3.209,0,0,0-2.9-3.462,2.472,2.472,0,0,0-.881.162,6.47,6.47,0,0,1,.872,3.3,6.6,6.6,0,0,1-.872,3.3A2.472,2.472,0,0,0,17.434,14.423Zm-4.843,0a3.209,3.209,0,0,0,2.9-3.462,3.209,3.209,0,0,0-2.9-3.462,3.216,3.216,0,0,0-2.906,3.462A3.216,3.216,0,0,0,12.591,14.423ZM19,16.915a4.61,4.61,0,0,1,1.337,3.277V22.5h2.906V20.192C23.245,18.415,20.95,17.319,19,16.915Zm-6.412-.185c-1.937,0-5.811,1.154-5.811,3.462V22.5H18.4V20.192C18.4,17.885,14.528,16.731,12.591,16.731Z" transform="translate(0 -7.5)" fill="#d7c13f" />
             </svg>
-            <h5 class="yellow" style="margin-left: 1vw;">Join</h5>
+            <h5 class="yellow" style="margin-left: 1vw;">Add Friend</h5>
         </div>
         <div id="topUpBody">
-            <h6 style="color: #ecf0f1">Input Channel ID</h6>
+            <h6 style="color: #ecf0f1">Input Username </h6>
             <input type="text" name="topUpAmount" id="username">
         </div>
     </div>
@@ -183,6 +229,14 @@ date_default_timezone_set('Asia/Jakarta');
     var keys = {};
     var ctr = 0;
     var select = -1;
+
+    <?php if (isset($user)) { ?>
+        userA = '<?= $user['id_user'] ?>';
+    <?php } ?>
+
+    <?php if (isset($friendA)) { ?>
+        friendA = '<?= $friendA['id_user'] ?>';
+    <?php } ?>
 
     $(document).ready(function() {
         <?php if (!isset($_SESSION['idFriend'])) { ?>
@@ -364,6 +418,40 @@ date_default_timezone_set('Asia/Jakarta');
                 $(".ajs-input").attr("id", "idChannel");
             },
             'title': headerTopUp
+        });
+    });
+
+    $("#action1").click(function() {
+        alert("a");
+    });
+
+    $("#action2").click(function() {
+        alert("b");
+    });
+
+    $("#action3").click(function() {
+        alertify.confirm('Confirmation', 'Are you sure block User?',
+            function() {
+                $.ajax({
+                    url: "<?= base_url(); ?>Community/blockUser",
+                    method: "post",
+                    data: {
+                        id_user1: userA,
+                        id_user2: friendA
+                    },
+                    success: function(result) {
+                        $(".listMember").html(result);
+                        alertify.success('Accepted!');
+                    }
+                });
+
+            },
+            function() {
+                alertify.error('Cancel');
+            }
+        ).set('labels', {
+            ok: 'Block',
+            cancel: 'Cancel'
         });
     });
 </script>

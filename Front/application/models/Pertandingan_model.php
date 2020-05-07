@@ -15,6 +15,7 @@ class Pertandingan_model extends CI_model
     {
         //GENERATE ID
         $idUser = $this->session->userdata('id_user');
+        $idTurnament = $this->session->userdata('idTurnament');
         $ctr = 1;
         $query = $this->db->query("select * from pertandingan");
         $newId = $bagian;
@@ -36,7 +37,7 @@ class Pertandingan_model extends CI_model
             $generateId = $cekNewId . $ctr;
         }
 
-        $idTurnament = $this->session->userdata('idTurnament');
+
 
         // $tgl = date("Y-m-d H:i:s");
         $data = [

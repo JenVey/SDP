@@ -28,7 +28,16 @@ class ChannelUser_model extends CI_model
     public function insertChannelUser()
     {
         $idUser = $this->session->userdata('id_user');
-        $idChannel = $this->input->post('idChannel');
+
+        if (isset($_SESSION['newChannel'])) {
+            $idChannel = $this->session->userdata('newChannel');
+            $this->session->unset_userdata('newChannel');
+            $jenis = 2;
+        } else {
+            $idChannel = $this->input->post('idChannel');
+            $jenis = -1;
+        }
+
 
         $ada = false;
         $query = $this->db->query("select * from channel_user");
@@ -38,26 +47,20 @@ class ChannelUser_model extends CI_model
             }
         }
 
+
         if (!$ada) {
             $data = [
                 "id_user" => $idUser,
                 "id_channel" => $idChannel,
-                "jenis" => -1
+                "jenis" => $jenis
             ];
             $this->db->insert('channel_user', $data);
         }
     }
 
-    public function deleteChannelUser($idChannel)
-    {
-        $idUser = $this->input->post('');
-        $this->db->where('id_channel', $idChannel);
-        $this->db->where('id_user', $idUser);
-        $this->db->delete('channel_user');
-    }
-
     public function accMember()
     {
+
         $idChannel = $this->input->post('idChannel');
         $idUser = $this->input->post('idUser');
         $query = "UPDATE CHANNEL_USER SET JENIS = 0 WHERE ID_CHANNEL = '" . $idChannel . "' AND ID_USER = '" . $idUser . "' ";
@@ -92,12 +95,7 @@ class ChannelUser_model extends CI_model
         $this->db->query($query);
     }
 
-    public function kickMember()
-    {
-        $idChannel = $this->input->post('idChannel');
-        $idUser = $this->input->post('idUser');
-        $query = "DELETE FROM CHANNEL_USER WHERE ID_CHANNEL = '" . $idChannel . "' AND ID_USER = '" . $idUser . "' ";
 
-        $this->db->query($query);
-    }
+    //JENIS
+    // -1 = REQ , 0 = MEMBER, 1 = ADMIN, 2 = CREATOR
 }

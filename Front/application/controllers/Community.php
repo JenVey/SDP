@@ -44,7 +44,8 @@ class Community extends CI_Controller
         if (isset($_SESSION['idTeam'])) {
             $this->session->unset_userdata('idTeam');
         }
-        //$this->session->unset_userdata('admin');
+        $this->session->unset_userdata('master');
+        $this->session->unset_userdata('admin');
         $id = $this->session->userdata('id_user');
         $data['user'] = $this->User_model->getUserById($id);
         if (isset($_SESSION['idChannel'])) {
@@ -56,12 +57,24 @@ class Community extends CI_Controller
         $data['pesan'] = $this->Pesan_model->getAllPesan();
         $data['game'] = $this->Game_model->getAllGame();
         $data['tournament'] = $this->Tournament_model->getAllTournament();
-        //$data['standing'] = $this->Standing_model->getAllStanding();
-        // $data['pertandingan'] = $this->Petandingan_model->getAllPertandingan();
-        // $data['team'] = $this->Team_model->getAllTeam();
+        $data['standing'] = $this->Standing_model->getAllStanding();
+        //$data['pertandingan'] = $this->Petandingan_model->getAllPertandingan();
+        //$data['team'] = $this->Team_model->getAllTeam();
 
         //$this->load->view('templates/header', $data);
         $this->load->view('community/viewChannel', $data);
+    }
+
+    public function insertChannel()
+    {
+        $this->Channel_model->insertChannel();
+        $this->ChannelUser_model->insertChannelUser();
+        redirect('Community/refreshAccItem');
+    }
+
+    public function editChannel()
+    {
+        $this->Channel_model->editChannel();
     }
 
     public function chooseChannel()
@@ -83,8 +96,14 @@ class Community extends CI_Controller
 
     public function decMember()
     {
-        $this->ChannelUser_model->decMember();
-        redirect('Community/refreshListMemberContainer');
+        if (isset($_SESSION['idChannel'])) {
+            $this->ChannelUser_model->decMember();
+            redirect('Community/refreshListMemberContainer');
+        }
+        if (isset($_SESSION['idTeam'])) {
+            $this->TeamMember_model->kickMember();
+            redirect('Community/refreshListMemberContainer');
+        }
     }
 
     public function insertEvent()
@@ -129,12 +148,6 @@ class Community extends CI_Controller
     public function demoteAdmin()
     {
         $this->ChannelUser_model->demoteAdmin();
-        redirect('Community/refreshListMemberContainer');
-    }
-
-    public function kickMember()
-    {
-        $this->ChannelUser_model->kickMember();
         redirect('Community/refreshListMemberContainer');
     }
 
@@ -190,7 +203,7 @@ class Community extends CI_Controller
             if ($ada == true) {
                 $ctr -= 1;
                 $ctr2 = 4;
-                for ($i = $ctr; $i <= 1; $i++) {
+                for ($i = $ctr; $i >= 1; $i--) {
                     for ($j = 1; $j <= $ctr2; $j++) {
                         $this->Pertandingan_model->insertPertandingan('round' . $i . 'kiri' . $j);
                     }
@@ -215,7 +228,7 @@ class Community extends CI_Controller
             if ($ada == true) {
                 $ctr -= 1;
                 $ctr2 = 4;
-                for ($i = $ctr; $i <= 1; $i++) {
+                for ($i = $ctr; $i >= 1; $i--) {
                     for ($j = 1; $j <= $ctr2; $j++) {
                         $this->Pertandingan_model->insertPertandingan('round' . $i . 'kanan' . $j);
                     }
@@ -246,7 +259,7 @@ class Community extends CI_Controller
         if (isset($_SESSION['idFriend'])) {
             $this->session->unset_userdata('idFriend');
         }
-
+        $this->session->unset_userdata('master');
         $id = $this->session->userdata('id_user');
         $data['user'] = $this->User_model->getUserById($id);
         $data['team'] = $this->Team_model->getAllTeamByIdUser();
@@ -265,6 +278,16 @@ class Community extends CI_Controller
         $this->load->view('community/viewTeam', $data);
     }
 
+    public function insertTeam()
+    {
+        $this->Team_model->insertTeam();
+        redirect('Community/refreshAccItem');
+    }
+    public function editTeam()
+    {
+        $this->Team_model->editTeam();
+    }
+
     public function chooseTeam()
     {
         $idTeam =  $this->input->post('idTeam');
@@ -281,7 +304,6 @@ class Community extends CI_Controller
     {
         $this->Team_model->kickMember();
     }
-
 
     public function viewFriend()
     {
@@ -318,6 +340,17 @@ class Community extends CI_Controller
         }
     }
 
+    public function blockUser()
+    {
+        $this->Friend_model->blockUser();
+    }
+
+    public function unblockUser()
+    {
+        $this->Friend_model->blockUser();
+    }
+
+
     public function insertPesan()
     {
         $this->Pesan_model->insertPesan();
@@ -336,7 +369,7 @@ class Community extends CI_Controller
         }
         if (isset($_SESSION['idTeam'])) {
             $data['teamA'] = $this->Team_model->getTeamById();
-            $data['team'] = $this->Team_model->getAllTeam();
+            $data['team'] = $this->Team_model->getAllTeamByIdUser();
             $this->load->view('community/accItemContainerT', $data);
         }
         if (isset($_SESSION['idFriend'])) {
