@@ -45,11 +45,11 @@ class Login extends CI_Controller
 
 		//echo $pass;
 		foreach ($query->result_array() as $row) {
-			if ($row['email_user'] == $user && $row['pass_user'] == $pass) {
+			if ($row['email_user'] == $user && $row['pass_user'] == $pass && $row['status'] != -1) {
 				$ada = true;
 				$id = $row['id_user'];
 			}
-			if ($row['username_user'] == $user && $row['pass_user'] == $pass) {
+			if ($row['username_user'] == $user && $row['pass_user'] == $pass && $row['status'] != -1) {
 				$ada = true;
 				$id = $row['id_user'];
 			}

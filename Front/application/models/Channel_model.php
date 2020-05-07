@@ -12,7 +12,7 @@ class Channel_model extends CI_model
         return $this->db->get_where('channel', ['id_channel' => $id])->row_array();
     }
 
-    public function getAllChannelByIdUser($id)
+    public function getAllChannelByIdUser()
     {
         $id = $this->session->userdata('id_user');
         $query = "SELECT C.ID_CHANNEL AS 'id_channel', C.NAMA_CHANNEL AS 'nama_channel' , C.FOTO_CHANNEL AS 'foto_channel'
@@ -57,5 +57,24 @@ class Channel_model extends CI_model
             "foto_channel" => $foto
         ];
         $this->db->insert('channel', $data);
+    }
+
+    public function cekChannel()
+    {
+        $idChannel =  $this->input->post('idChannel');
+        $ada = false;
+        $query = $this->db->query("select * from channel");
+        foreach ($query->result_array() as $row) {
+            if ($idChannel == $row['id_channel']) {
+                $ada = true;
+            }
+        }
+
+        if ($ada) {
+            $this->ChannelUser_model->insertChannelUser();
+            echo true;
+        } else {
+            echo false;
+        }
     }
 }

@@ -17,10 +17,10 @@ class Pertandingan_model extends CI_model
         $idUser = $this->session->userdata('id_user');
         $ctr = 1;
         $query = $this->db->query("select * from pertandingan");
-        $newId = $this->input->post('');
+        $newId = $bagian;
         $cekNewId = 'B' . substr(strtoupper($newId), 0, 1);
         foreach ($query->result_array() as $row) {
-            $cekId = substr(strtoupper($row['id_pertandingan']), 0, 2);
+            $cekId = substr(strtoupper($row['id_match']), 0, 2);
             if ($cekId == $cekNewId) {
                 $ctr++;
             }
@@ -47,8 +47,8 @@ class Pertandingan_model extends CI_model
             "status" =>  0,
             "skor_1" =>  '',
             "skor_2" =>  '',
-            "tim_1" =>  '',
-            "tim_2" =>  ''
+            "team_1" =>  '',
+            "team_2" =>  ''
         ];
         $this->db->insert('pertandingan', $data);
     }
@@ -62,8 +62,8 @@ class Pertandingan_model extends CI_model
             "status" =>  $this->input->post(''),
             "skor_1" =>  $this->input->post(''),
             "skor_2" =>  $this->input->post(''),
-            "tim_1" =>  $this->input->post(''),
-            "tim_2" =>  $this->input->post('')
+            "team_1" =>  $this->input->post(''),
+            "team_2" =>  $this->input->post('')
         ];
         $this->db->where('id_match', $id);
         $this->db->update('pertandingan', $data);

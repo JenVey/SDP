@@ -51,6 +51,7 @@ class Pesan_model extends CI_model
     public function insertPesan()
     {
         //GENERATE ID
+        date_default_timezone_set('Asia/Jakarta');
         $idUser = $this->session->userdata('id_user');
         $ctr = 1;
         $query = $this->db->query("select * from pesan");

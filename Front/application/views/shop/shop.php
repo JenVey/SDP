@@ -292,7 +292,7 @@
                     function() {
                         alertify.success('Ok, Take Your Time.');
                     }
-                ).set({
+                ).set('labels', {
                     ok: 'Yes!',
                     cancel: 'Nope!'
                 });

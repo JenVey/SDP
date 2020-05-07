@@ -7,7 +7,15 @@ class Friend_model extends CI_model
     }
     public function getFriendByIdUser($id)
     {
-        return $this->db->get_where('friend', ['id_user1' => $id])->result_array();
+        //return $this->db->get_where('friend', ['id_user1' => $id])->result_array();
+
+        $query = "SELECT U.NAMA_USER AS 'nama_user', U.ID_USER AS 'id_user', U.FOTO AS 'foto', F.STATUS AS 'status'
+        FROM FRIEND F
+        JOIN USER U ON U.ID_USER = F.ID_USER2
+        WHERE F.ID_USER1 = '" . $id . "' ";
+
+        $res = $this->db->query($query);
+        return $res->result_array();
     }
     public function unlikeMerchant($idM)
     {
@@ -25,9 +33,25 @@ class Friend_model extends CI_model
 
     public function addFriend($idU)
     {
+        // 0 blm diterima
+        // 1 diterima
+
         $id = $this->session->userdata('id_user');
-        $idU = $this->input->post('');
-        $query = "INSERT INTO FRIEND(ID_USER1,ID_USER2,STATUS) VALUES('" . $id . "' , '" . $idU . "',0)";
-        $this->db->query($query);
+
+        $ada = false;
+        $query = $this->db->query("select * from friend");
+        foreach ($query->result_array() as $row) {
+            if ($id == $row['id_user1'] && $idU == $row['id_user2']) {
+                $ada = true;
+            }
+        }
+
+        if (!$ada) {
+
+            $query = "INSERT INTO FRIEND(ID_USER1,ID_USER2,STATUS) VALUES('" . $id . "' , '" . $idU . "',0)";
+            $this->db->query($query);
+
+            $this->session->set_userdata(array('friend' => "ada"));
+        }
     }
 }

@@ -25,7 +25,7 @@ class TeamRemin_model extends CI_model
         $idUser = $this->session->userdata('id_user');
         $ctr = 1;
         $query = $this->db->query("select * from team_reminder");
-        $newId = $this->input->post('');
+        $newId = $this->input->post('judul');
         $cekNewId = 'R' . substr(strtoupper($newId), 0, 1);
         foreach ($query->result_array() as $row) {
             $cekId = substr(strtoupper($row['id_team']), 0, 2);
@@ -47,10 +47,10 @@ class TeamRemin_model extends CI_model
         // $tgl = date("Y-m-d H:i:s");
         $data = [
             "id_reminder" => $generateId,
-            "judul" => $this->input->post(''),
-            "id_team" => $this->input->post(''),
-            "waktu" => $this->input->post(''),
-            "keterangan" =>  $this->input->post('')
+            "judul" => $this->input->post('judul'),
+            "id_team" => $this->input->post('id_team'),
+            "waktu" => $this->input->post('waktu'),
+            "keterangan" =>  $this->input->post('keterangan')
         ];
         $this->db->insert('team_reminder', $data);
     }
