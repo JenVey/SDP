@@ -32,7 +32,7 @@ class Team_model extends CI_model
         $idUser = $this->session->userdata('id_user');
         $ctr = 1;
         $query = $this->db->query("select * from team");
-        $newId = $this->input->post('nameTeam');
+        $newId = $this->input->post('nama_team');
         $cekNewId = 'T' . substr(strtoupper($newId), 0, 1);
         foreach ($query->result_array() as $row) {
             $cekId = substr(strtoupper($row['id_team']), 0, 2);
@@ -51,12 +51,16 @@ class Team_model extends CI_model
             $generateId = $cekNewId . $ctr;
         }
 
+        $foto = $this->input->post('foto');
+        $foto = base64_decode($foto);
+
         $tgl = date("Y-m-d H:i:s");
         $data = [
             "id_team" => $generateId,
-            "nama_team" => $this->input->post('nameTeam'),
+            "id_user" => $this->input->post('id_user'),
+            "nama_team" => $this->input->post('nama_team'),
             "tanggal_pembuatan" => $tgl,
-            "bio" =>  $this->input->post('bioTeam')
+            "foto_team" => $foto
         ];
         $this->db->insert('team', $data);
 
@@ -65,6 +69,24 @@ class Team_model extends CI_model
             "id_team" => $generateId
         ];
         $this->db->insert('team_members', $data);
+
+        $this->session->set_userdata(array('idTeam' => $generateId));
+    }
+
+
+    public function editTeam()
+    {
+        $id = $this->input->post('id_team');
+        $foto = $this->input->post('foto');
+        $foto = base64_decode($foto);
+
+        $data = [
+            "nama_team" => $this->input->post('nama_team'),
+            "foto_team" => $foto
+        ];
+
+        $this->db->where('id_team', $id);
+        $this->db->update('team', $data);
     }
 
     public function deleteTeam($id)
@@ -85,15 +107,6 @@ class Team_model extends CI_model
         return $res->result_array();
     }
 
-    public function editTeam($id)
-    {
-        $data = [
-            "nama_team" => $this->input->post('nameTeam'),
-            "bio" =>  $this->input->post('bioTeam')
-        ];
-        $this->db->where('id_team', $id);
-        $this->db->update('team', $data);
-    }
 
     public function cekTeam()
     {
@@ -106,6 +119,7 @@ class Team_model extends CI_model
             }
         }
         if ($ada) {
+            $this->session->set_userdata(array('idTeam' => $idTeam));
             $this->TeamMember_model->insertTeamMember();
         } else {
             echo false;

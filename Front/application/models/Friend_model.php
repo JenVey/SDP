@@ -48,10 +48,35 @@ class Friend_model extends CI_model
 
         if (!$ada) {
 
-            $query = "INSERT INTO FRIEND(ID_USER1,ID_USER2,STATUS) VALUES('" . $id . "' , '" . $idU . "',0)";
+            $query = "INSERT INTO FRIEND(ID_USER1,ID_USER2,STATUS) VALUES('" . $id . "' , '" . $idU . "',1)"; // YANG ADD
             $this->db->query($query);
 
-            $this->session->set_userdata(array('friend' => "ada"));
+            $query = "INSERT INTO FRIEND(ID_USER1,ID_USER2,STATUS) VALUES('" . $idU . "' , '" . $id . "',0)"; // YANG DI ADD
+            $this->db->query($query);
+
+            // $this->session->set_userdata(array('friend' => "ada"));
+            // $this->session->set_userdata(array('idFriend' => $idU));
         }
+
+        $this->session->set_userdata(array('friend' => "ada"));
+        $this->session->set_userdata(array('idFriend' => $idU));
+    }
+
+    public function blockUser()
+    {
+        $id = $this->session->userdata('id_user');
+        $idU = $this->input->post('id_user2');
+
+        $query = "UPDATE FRIEND SET STATUS = -1 WHERE ID_USER1 =  '" . $id . "' AND ID_USER2 = '" . $idU . "' "; // YANG BLOCK
+        $this->db->query($query);
+    }
+
+    public function unblockUser()
+    {
+        $id = $this->session->userdata('id_user');
+        $idU = $this->input->post('id_user2');
+
+        $query = "UPDATE FRIEND SET STATUS = 0 WHERE ID_USER1 =  '" . $id . "' AND ID_USER2 = '" . $idU . "' "; // YANG BLOCK
+        $this->db->query($query);
     }
 }

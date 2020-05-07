@@ -1,6 +1,6 @@
 <?php foreach ($teamM as $timM) {
     if ($timM['id_team'] == $teamA['id_team']) {
-        if ($timA['id_user'] == $user['id_user']) { ?>
+        if ($teamA['id_user'] == $user['id_user']) { ?>
             <div class="memberItem master" idUser="<?= $timM['id_user'] ?>">
                 <div class="memberImg">
                     <img src="data:image/jpeg;base64,<?= base64_encode($timM['foto']) ?>" alt="">

@@ -24,14 +24,14 @@
 </head>
 <?php
 
-// if (isset($teamA)) {
-//     foreach ($team as $tim) {
-//         if ($tim['id_user'] && $user['id_user']) {
-//                 $_SESSION["master"] = "true";
-//             }
-//         }
-//     }
-// }
+if (isset($teamA)) {
+    foreach ($team as $tim) {
+        if ($tim['id_user'] && $user['id_user']) {
+            $_SESSION["master"] = "true";
+        }
+    }
+}
+
 
 ?>
 
@@ -90,7 +90,7 @@
                                                                                             echo "id='active'";
                                                                                         }
                                                                                     } ?>>
-                    <div class="profileImg" style="margin-left: 0;"><img src="" width="50" height="50" alt="" /></div>
+                    <div class="profileImg" style="margin-left: 0;"><img src="data:image/jpeg;base64,<?= base64_encode($tim['foto_team']) ?>" width="50" height="50" alt="" /></div>
                     <h6 class="profileName"><?= $tim['nama_team'] ?></h6>
                 </div>
             <?php } ?>
@@ -328,49 +328,89 @@
                         <div class="channelImg">
                             <input type="file" name="inputChannelImg" accept="image/x-png,image/jpg,image/jpeg" id="inputChannelImg" hidden>
                             <div id="imgContainer">
-
+                                <img src="data:image/jpeg;base64,<?= base64_encode($teamA['foto_team']) ?>" />
                             </div>
-                            <button id="changeImg">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 30 30">
-                                    <g id="Group_185" data-name="Group 185" transform="translate(-15861 4733)">
-                                        <circle id="Ellipse_187" data-name="Ellipse 187" cx="15" cy="15" r="15" transform="translate(15861 -4733)" fill="#1e2126" />
-                                        <path id="Icon_material-add-a-photo" data-name="Icon material-add-a-photo" d="M2.516,3.855V1.5H4.194V3.855H6.71v1.57H4.194V7.78H2.516V5.425H0V3.855Zm2.516,4.71V6.21H7.549V3.855H13.42l1.535,1.57h2.659A1.631,1.631,0,0,1,19.291,7v9.421a1.631,1.631,0,0,1-1.677,1.57H4.194a1.631,1.631,0,0,1-1.677-1.57V8.565ZM10.9,15.631A4.068,4.068,0,0,0,15.1,11.706,4.068,4.068,0,0,0,10.9,7.78,4.068,4.068,0,0,0,6.71,11.706,4.068,4.068,0,0,0,10.9,15.631ZM8.22,11.706A2.6,2.6,0,0,0,10.9,14.218a2.6,2.6,0,0,0,2.684-2.512A2.6,2.6,0,0,0,10.9,9.193,2.6,2.6,0,0,0,8.22,11.706Z" transform="translate(15866.434 -4728.954)" fill="#d7c13f" />
-                                    </g>
-                                </svg>
-                            </button>
+                            <?php if ($teamA['id_user'] == $user['id_user']) { ?>
+                                <button id="changeImg">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 30 30">
+                                        <g id="Group_185" data-name="Group 185" transform="translate(-15861 4733)">
+                                            <circle id="Ellipse_187" data-name="Ellipse 187" cx="15" cy="15" r="15" transform="translate(15861 -4733)" fill="#1e2126" />
+                                            <path id="Icon_material-add-a-photo" data-name="Icon material-add-a-photo" d="M2.516,3.855V1.5H4.194V3.855H6.71v1.57H4.194V7.78H2.516V5.425H0V3.855Zm2.516,4.71V6.21H7.549V3.855H13.42l1.535,1.57h2.659A1.631,1.631,0,0,1,19.291,7v9.421a1.631,1.631,0,0,1-1.677,1.57H4.194a1.631,1.631,0,0,1-1.677-1.57V8.565ZM10.9,15.631A4.068,4.068,0,0,0,15.1,11.706,4.068,4.068,0,0,0,10.9,7.78,4.068,4.068,0,0,0,6.71,11.706,4.068,4.068,0,0,0,10.9,15.631ZM8.22,11.706A2.6,2.6,0,0,0,10.9,14.218a2.6,2.6,0,0,0,2.684-2.512A2.6,2.6,0,0,0,10.9,9.193,2.6,2.6,0,0,0,8.22,11.706Z" transform="translate(15866.434 -4728.954)" fill="#d7c13f" />
+                                        </g>
+                                    </svg>
+                                </button>
+                            <?php } ?>
                         </div>
-                        <h5 id="channelName" style="margin-top: 2vh;color: #ecf0f1;" contenteditable></h5>
+                        <h5 id="channelName" style="margin-top: 2vh;color: #ecf0f1;" <?php if ($teamA['id_user'] == $user['id_user']) {
+                                                                                            echo "contenteditable";
+                                                                                        } ?>><?= $teamA['nama_team'] ?></h5>
+                        <button id="saveChange">Save Change</button>
                         <div style="margin-top: 4vh;width: 75%;height: 1px;background: #d7c13f;"></div>
                         <h3 class="yellow" style="margin: 4vh 0;">Members</h3>
-                        <div class="members" id="listMember" style="margin-bottom: 8vh;">
-                            <div class="memberItem admin" id="admin1">
-                                <div class="memberImg">
-                                    <img src="Images/contohIklan1.png" alt="">
-                                </div>
-                                <div class="memberDetails">
-                                    <h5 style="margin-left: 1vw;color: #ecf0f1;">Member Name</h5>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27.007" viewBox="0 0 27 27.007">
-                                        <path id="admin" data-name="Icon ionic-ios-settings" d="M29.271,18A3.474,3.474,0,0,1,31.5,14.759a13.772,13.772,0,0,0-1.666-4.015,3.521,3.521,0,0,1-1.413.3,3.467,3.467,0,0,1-3.171-4.88A13.73,13.73,0,0,0,21.241,4.5a3.471,3.471,0,0,1-6.483,0,13.772,13.772,0,0,0-4.015,1.666,3.467,3.467,0,0,1-3.171,4.88,3.406,3.406,0,0,1-1.413-.3A14.076,14.076,0,0,0,4.5,14.766a3.473,3.473,0,0,1,.007,6.483,13.772,13.772,0,0,0,1.666,4.015,3.468,3.468,0,0,1,4.577,4.577,13.852,13.852,0,0,0,4.015,1.666,3.465,3.465,0,0,1,6.469,0,13.772,13.772,0,0,0,4.015-1.666,3.472,3.472,0,0,1,4.577-4.577,13.852,13.852,0,0,0,1.666-4.015A3.491,3.491,0,0,1,29.271,18ZM18.063,23.618a5.625,5.625,0,1,1,5.625-5.625A5.623,5.623,0,0,1,18.063,23.618Z" transform="translate(-4.5 -4.5)" fill="#d7c13f" />
-                                    </svg>
-                                </div>
-                            </div>
-                            <div class="memberItem regular" id="regular1">
-                                <div class="memberImg">
-                                    <img src="Images/contohIklan1.png" alt="">
-                                </div>
-                                <div class="memberDetails">
-                                    <h5 style="margin-left: 1vw;color: #ecf0f1;">Member Name</h5>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="27.899" height="27.899" viewBox="0 0 27.899 27.899">
-                                        <path id="member" data-name="Icon awesome-user-alt" d="M13.949,15.693A7.847,7.847,0,1,0,6.1,7.847,7.849,7.849,0,0,0,13.949,15.693Zm6.975,1.744h-3a9.485,9.485,0,0,1-7.945,0h-3A6.974,6.974,0,0,0,0,24.412v.872A2.616,2.616,0,0,0,2.616,27.9H25.283A2.616,2.616,0,0,0,27.9,25.283v-.872A6.974,6.974,0,0,0,20.924,17.437Z" fill="#d7c13f" />
-                                    </svg>
-                                </div>
+                        <div id="settingsContainer" class="listMember">
+                            <div class="members" style="margin-bottom: 8vh;">
+                                <?php foreach ($teamM as $timM) {
+                                    if ($timM['id_team'] == $teamA['id_team']) {
+                                        if ($timM['id_user'] == $teamA['id_user']) { ?>
+                                            <div class="memberItem master" idUser="<?= $timM['id_user'] ?>">
+                                                <div class="memberImg">
+                                                    <img src="data:image/jpeg;base64,<?= base64_encode($timM['foto']) ?>" alt="">
+                                                </div>
+                                                <div class="memberDetails">
+                                                    <h5 style="margin-left: 1vw;color: #ecf0f1;"><?= $timM['nama_user'] ?></h5>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="31" height="31" viewBox="0 0 30.892 42.171">
+                                                        <g id="Group_191" data-name="Group 191" transform="translate(-10453.899 -1088.228)">
+                                                            <path id="Icon_awesome-crown" data-name="Icon awesome-crown" d="M13.747,11.664H2.916a.418.418,0,0,0-.417.417v.833a.418.418,0,0,0,.417.417H13.747a.418.418,0,0,0,.417-.417v-.833A.418.418,0,0,0,13.747,11.664Zm1.666-8.331a1.25,1.25,0,0,0-1.25,1.25,1.224,1.224,0,0,0,.115.516l-1.885,1.13a.832.832,0,0,1-1.151-.3L9.12,2.213a1.25,1.25,0,1,0-1.578,0L5.421,5.926a.833.833,0,0,1-1.151.3L2.387,5.1a1.249,1.249,0,1,0-1.138.734,1.276,1.276,0,0,0,.2-.021l1.882,5.02h10l1.882-5.02a1.276,1.276,0,0,0,.2.021,1.25,1.25,0,0,0,0-2.5Z" transform="translate(10469.689 1088.228) rotate(25)" fill="#d7c13f" />
+                                                            <path id="Icon_awesome-user-alt" data-name="Icon awesome-user-alt" d="M13.949,15.693A7.847,7.847,0,1,0,6.1,7.847,7.849,7.849,0,0,0,13.949,15.693Zm6.975,1.744h-3a9.485,9.485,0,0,1-7.945,0h-3A6.974,6.974,0,0,0,0,24.412v.872A2.616,2.616,0,0,0,2.616,27.9H25.283A2.616,2.616,0,0,0,27.9,25.283v-.872A6.974,6.974,0,0,0,20.924,17.437Z" transform="translate(10453.899 1102.5)" fill="#d7c13f" />
+                                                        </g>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                        <?php } else { ?>
+                                            <div class="memberItem regular" idUser="<?= $timM['id_user'] ?>">
+                                                <div class="memberImg">
+                                                    <img src="data:image/jpeg;base64,<?= base64_encode($timM['foto']) ?>" alt="">
+                                                </div>
+                                                <div class="memberDetails">
+                                                    <h5 style="margin-left: 1vw;color: #ecf0f1;"><?= $timM['nama_user'] ?></h5>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="27.899" height="27.899" viewBox="0 0 27.899 27.899">
+                                                        <path id="member" data-name="Icon awesome-user-alt" d="M13.949,15.693A7.847,7.847,0,1,0,6.1,7.847,7.849,7.849,0,0,0,13.949,15.693Zm6.975,1.744h-3a9.485,9.485,0,0,1-7.945,0h-3A6.974,6.974,0,0,0,0,24.412v.872A2.616,2.616,0,0,0,2.616,27.9H25.283A2.616,2.616,0,0,0,27.9,25.283v-.872A6.974,6.974,0,0,0,20.924,17.437Z" fill="#d7c13f" />
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                <?php }
+                                    }
+                                } ?>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
         <?php } ?>
     </div>
+    <div class="create">
+        <p style="position: absolute;top: 1vw;right: 1vw; color: #777D8A;">*You can still change it later on settings tab</p>
+        <h1 class="header">Creating <span style="color: #d7c13f;">TEAM</span></h1>
+        <div class="horizonline"></div>
+        <div class="container" style="z-index: 4;">
+            <input type="file" name="imageInput" id="imageInput" accept="image/x-png,image/jpg,image/jpeg" hidden>
+            <div class="imageWrapper">
+                <div class="image">
+                </div>
+            </div>
+        </div>
+        <div class="container" style="margin-top: 3vh;z-index: 4;">
+            <h1 class="yellow newName" contenteditable>Team Name</h1>
+        </div>
+        <div style="position: absolute; bottom: -10vh; right: -8vw;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="542.2" height="531.5" viewBox="0 0 42.2 31.5">
+                <path id="Icon_material-group" data-name="Icon material-group" d="M30.273,21c3.184,0,5.735-3.015,5.735-6.75S33.457,7.5,30.273,7.5s-5.755,3.015-5.755,6.75S27.089,21,30.273,21ZM14.927,21c3.184,0,5.735-3.015,5.735-6.75S18.111,7.5,14.927,7.5s-5.755,3.015-5.755,6.75S11.743,21,14.927,21Zm0,4.5C10.458,25.5,1.5,28.132,1.5,33.375V39H28.355V33.375C28.355,28.133,19.4,25.5,14.927,25.5Zm15.345,0c-.556,0-1.189.045-1.861.113a9.93,9.93,0,0,1,3.779,7.763V39H43.7V33.375C43.7,28.133,34.742,25.5,30.273,25.5Z" transform="translate(-1.5 -7.5)" fill="rgba(215,193,63,0.19)" />
+            </svg>
+        </div>
+        <button class="createButton">Create</button>
+    </div>
+    <div class="bgblur"></div>
     <div style="display: none;">
         <div id="topUpHeader">
             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 23.245 15">
@@ -393,8 +433,11 @@
     var timer = {};
     var tourney = false;
 
-    <?php if (isset($user) && isset($teamA)) { ?>
+    <?php if (isset($user)) { ?>
         userA = '<?= $user['id_user'] ?>';
+    <?php } ?>
+
+    <?php if (isset($teamA)) { ?>
         teamA = '<?= $teamA['id_team'] ?>';
     <?php } ?>
 
@@ -413,7 +456,85 @@
         $("#tournament").hide();
         $("#reminder").hide();
         $("#settings").hide();
+        $(".bgblur").hide();
+        $(".create").hide();
     });
+
+
+    $(".createButton").click(function() {
+        nama_team = $(".newName").html();
+        foto = $(".imageWrapper").find('img').attr('src');
+
+        if (foto.substring(11, 12) == "j") {
+            foto = foto.substring(23, foto.length);
+        } else {
+            foto = foto.substring(22, foto.length);
+        }
+
+        $.ajax({
+            url: "<?= base_url(); ?>Community/insertTeam",
+            method: "post",
+            data: {
+                id_user: userA,
+                nama_team: nama_team,
+                foto: foto
+            },
+            success: function(result) {
+                $(".accItemContainer").html(result);
+                alertify.success('Team created!');
+                $(".create").removeClass("slideInDown animated");
+                $(".create").addClass("slideOutUp animated");
+                $(".bgblur").removeClass("fadeInBG animated");
+                $(".bgblur").addClass("fadeOutBG animated");
+                timer[10] = setTimeout("$('.create').hide();", 1000);
+                timer[11] = setTimeout("$('.bgblur').hide();", 1000);
+            }
+        });
+    });
+
+    $("#saveChange").click(function() {
+        nama_team = $('#channelName').html();
+        foto = $("#imgContainer").find('img').attr('src');
+        alert(nama_team);
+        // alert(foto);
+        if (foto.substring(11, 12) == "j") {
+            foto = foto.substring(23, foto.length);
+        } else {
+            foto = foto.substring(22, foto.length);
+        }
+
+        $.ajax({
+            url: "<?= base_url(); ?>Community/editTeam",
+            method: "post",
+            data: {
+                id_team: teamA,
+                nama_team: nama_team,
+                foto: foto
+            },
+            success: function(result) {
+                alertify.success("Success edit team");
+            }
+        });
+    });
+
+    $(".bgblur").click(function() {
+        $(".create").removeClass("slideInDown animated");
+        $(".create").addClass("slideOutUp animated");
+        $(".bgblur").removeClass("fadeInBG animated");
+        $(".bgblur").addClass("fadeOutBG animated");
+        timer[10] = setTimeout("$('.create').hide();", 1000);
+        timer[11] = setTimeout("$('.bgblur').hide();", 1000);
+    });
+
+    $("#create").click(function() {
+        $(".create").show();
+        $(".create").addClass("slideInDown animated");
+        $(".create").removeClass("slideOutUp");
+        $(".bgblur").show();
+        $(".bgblur").removeClass("fadeOutBG");
+        $(".bgblur").addClass("fadeInBG animated");
+    });
+
 
     timer[11] = setInterval(checkreminder, 1000);
 
@@ -451,6 +572,40 @@
         clearBtn: true,
         format: "dd/mm/yyyy",
         minDate: today
+    });
+
+
+    $("#changeImg").click(function() {
+        $("#inputChannelImg").trigger("click");
+    });
+
+    $(".image").click(function() {
+        $("#imageInput").trigger("click");
+    });
+
+
+    $("#imageInput").change(function() {
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                var img = $('<img>').attr('src', e.target.result);
+                $(".image").html(img)
+            };
+            reader.readAsDataURL(this.files[0]);
+        }
+    });
+
+    $("#inputChannelImg").change(function() {
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                var img = $('<img>').attr('src', e.target.result);
+                $("#imgContainer").html(img)
+            };
+            reader.readAsDataURL(this.files[0]);
+        }
     });
 
 
@@ -599,6 +754,7 @@
     $("#join").click(function() {
         alertify.confirm(bodyTopUp).set('onok', function(closeevent, value) {
             idTeam = $("#idTim").val();
+            alert(idTeam);
             $.ajax({
                 url: "<?= base_url(); ?>Community/joinTeam",
                 method: "post",
@@ -624,6 +780,35 @@
             'title': headerTopUp
         });
     });
+
+    <?php if (isset($_SESSION['master'])) { ?>
+
+        $(".listMember").on("click", ".regular", function() {
+            idUser = $(this).attr("idUser");
+            alertify.confirm('Confirmation', 'Kick user ?',
+                function() {
+                    $.ajax({
+                        url: "<?= base_url(); ?>Community/decMember",
+                        method: "post",
+                        data: {
+                            id_team: teamA,
+                            id_user: idUser
+                        },
+                        success: function(result) {
+                            $(".listMember").html(result);
+                            alertify.error('Kicked!');
+                        }
+                    });
+                },
+                function() {}
+            ).set('labels', {
+                ok: 'Kick',
+                cancel: 'Cancel'
+            });
+        });
+
+    <?php } ?>
+
 
 
 
@@ -888,19 +1073,6 @@
             };
             reader.readAsDataURL(this.files[0]);
         }
-    });
-
-
-    $(".admin").click(function() {
-        alert($(this).attr("id"));
-    });
-
-    $(".regular").click(function() {
-        alert($(this).attr("id"));
-    });
-
-    $(".request").click(function() {
-        alert($(this).attr("id"));
     });
 </script>
 

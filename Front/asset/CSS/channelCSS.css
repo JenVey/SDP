@@ -1215,3 +1215,17 @@ img{
   -webkit-animation-name: fadeOutBG;
   animation-name: fadeOutBG;
 }
+
+
+#saveChange{
+    width: 8vw;
+    height: 5vh;
+    background-color: rgba(30,33,38,0.2);
+    border-radius: 15px;
+    margin: 4vh 0;
+    color: #d7c13f;
+}
+
+#saveChange:hover{
+    background-color: rgba(215,193,63,0.10);
+}

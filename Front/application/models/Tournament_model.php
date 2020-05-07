@@ -1,7 +1,6 @@
 <?php
 class Tournament_model extends CI_model
 {
-
     public function getAllTournament()
     {
         $query = "SELECT T.NAMA_TURNAMENT AS 'nama_turnament', T.JUMLAH_PEMAIN AS 'jml_pemain', T.TANGGAL_MULAI AS 'tgl_mulai' , T.JUMLAH_SLOT AS 'jumlah_slot', T.TANGGAL_MULAI AS 'tanggal_mulai' ,G.NAMA_GAME AS 'nama_game'
@@ -64,8 +63,8 @@ class Tournament_model extends CI_model
             "nama_turnament" => $this->input->post('nama_turnament'),
             "jumlah_pemain" =>  "0",
             "tanggal_mulai" =>  $tgl,
-            "jumlah_slot" =>  $this->input->post('jumlah_slot'),
-            "status" => -1
+            "jumlah_slot" =>  $this->input->post('jumlah_slot')
+            //"status" => -1
         ];
         $this->db->insert('tournament', $data);
     }

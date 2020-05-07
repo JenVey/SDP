@@ -19,8 +19,7 @@ class History_model extends CI_model
             "id_history" => $id,
             "id_user" => $idUser,
             "saldo" => $saldo,
-            "date" => $tgl,
-            "status" =>  '1'
+            "date" => $tgl
         ];
 
         $this->db->insert('history', $data);
