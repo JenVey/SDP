@@ -132,7 +132,7 @@
                     if ($timM['id_team'] == $teamA['id_team']) { ?>
                         <div class="accItem member">
                             <div class="Details">
-                                <div class="profileImg" style="margin-left: 0;"><img src="../R6.jpg" alt="" /></div>
+                                <div class="profileImg" style="margin-left: 0;"><img src="data:image/jpeg;base64,<?= base64_encode($timM['foto']) ?>" alt="" /></div>
                                 <h6 class="profileName <?php if ($timM['status'] == 0) {
                                                             echo "offline";
                                                         } ?>"><?= $timM['nama_user'] ?></h6>
@@ -142,7 +142,7 @@
                 } ?>
             </div>
             <div class="chatHeader">
-                <div class="chatLogo"><img src="" /></div>
+                <div class="chatLogo"><img src="data:image/jpeg;base64,<?= base64_encode($teamA['foto_team']) ?>" /></div>
                 <div class="channelHeader">
                     <p style="color: rgba(216,216,216,0.61);"><?= $teamA['id_team'] ?></p>
                     <h4 class="yellow"><?= $teamA['nama_team'] ?></h4>

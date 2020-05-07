@@ -4,7 +4,7 @@ class Tournament_model extends CI_model
 
     public function getAllTournament()
     {
-        $query = "SELECT T.NAMA_TURNAMENT AS 'nama_turnament', T.JUMLAH_PEMAIN AS 'jml_pemain', T.TANGGAL_MULAI AS 'tgl_mulai' , T.JUMLAH_SLOT AS 'jml_slot'
+        $query = "SELECT T.NAMA_TURNAMENT AS 'nama_turnament', T.JUMLAH_PEMAIN AS 'jml_pemain', T.TANGGAL_MULAI AS 'tgl_mulai' , T.JUMLAH_SLOT AS 'jumlah_slot', T.TANGGAL_MULAI AS 'tanggal_mulai' ,G.NAMA_GAME AS 'nama_game'
         FROM TOURNAMENT T
         JOIN CHANNEL C ON C.ID_CHANNEL = T.ID_CHANNEL 
         JOIN GAME G ON G.ID_GAME = T.ID_GAME ";

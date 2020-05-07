@@ -55,8 +55,8 @@ class Community extends CI_Controller
         $data['channelE'] = $this->ChannelEvent_model->getAllChannelEvent();
         $data['pesan'] = $this->Pesan_model->getAllPesan();
         $data['game'] = $this->Game_model->getAllGame();
-        // $data['tournament'] = $this->Tournament_model->getAllTournament();
-        // $data['standing'] = $this->Standing_model->getAllStanding();
+        $data['tournament'] = $this->Tournament_model->getAllTournament();
+        //$data['standing'] = $this->Standing_model->getAllStanding();
         // $data['pertandingan'] = $this->Petandingan_model->getAllPertandingan();
         // $data['team'] = $this->Team_model->getAllTeam();
 
@@ -78,13 +78,13 @@ class Community extends CI_Controller
     public function accMember()
     {
         $this->ChannelUser_model->accMember();
-        redirect('Community/refreshMember');
+        redirect('Community/refreshListMemberContainer');
     }
 
     public function decMember()
     {
         $this->ChannelUser_model->decMember();
-        redirect('Community/refreshMember');
+        redirect('Community/refreshListMemberContainer');
     }
 
     public function insertEvent()
@@ -119,7 +119,6 @@ class Community extends CI_Controller
             $this->load->view('community/bodyMemberT', $data);
         }
     }
-
 
     public function promoteMember()
     {
@@ -226,6 +225,16 @@ class Community extends CI_Controller
         }
 
         $this->session->unset_userdata('idTurnament');
+        redirect('Community/refreshTournament');
+    }
+
+
+    public function refreshTournament()
+    {
+        $data['game'] = $this->Game_model->getAllGame();
+        $data['tournament'] = $this->Tournament_model->getAllTournament();
+        //$data['standing'] = $this->Standing_model->getAllStanding();
+        $this->load->view('community/tournamentContainer', $data);
     }
 
 
@@ -308,8 +317,6 @@ class Community extends CI_Controller
             redirect('Community/refreshAccItem');
         }
     }
-
-
 
     public function insertPesan()
     {
