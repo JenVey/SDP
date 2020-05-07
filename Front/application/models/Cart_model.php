@@ -63,6 +63,7 @@ class Cart_model extends CI_model
         $id = $this->session->userdata('id_user');
         $cekQuery = $this->db->query("select * from USER_CART");
 
+        //BUKA CART
         foreach ($cekQuery->result_array() as $row) {
             $query = "UPDATE USER_CART SET STATUS = 1 
             WHERE ID_USER = '" . $row['id_user'] . "' 
@@ -81,6 +82,7 @@ class Cart_model extends CI_model
 
     public function updateStatus2($idI)
     {
+        //YANG JADI DIBELI
         $id = $this->session->userdata('id_user');
 
         $query = "UPDATE USER_CART SET STATUS = 2 

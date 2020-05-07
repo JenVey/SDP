@@ -6,7 +6,7 @@
 <?php
 foreach ($channelU as $chnU) {
     if ($chnU['id_channel'] == $channelA['id_channel']) {
-        if ($chnU['jenis'] == 1) { ?>
+        if ($chnU['jenis'] == 2) { ?>
             <div class="accItem member">
                 <div class="Details">
                     <div class="profileImg" style="margin-left: 0;"><img src="data:image/jpeg;base64,<?= base64_encode($chnU['foto']) ?>" alt="" /></div>
@@ -20,7 +20,7 @@ foreach ($channelU as $chnU) {
                     </svg>
                 </div>
             </div>
-        <?php } elseif ($chnU['jenis'] == 0) { ?>
+        <?php } elseif ($chnU['jenis'] == 0 || $chnU['jenis'] == 1) { ?>
             <div class="accItem member" idUser="<?= $chnU['id_user'] ?>">
                 <div class="Details">
                     <div class="profileImg" style="margin-left: 0;"><img src="data:image/jpeg;base64,<?= base64_encode($chnU['foto']) ?>" alt="" /></div>

@@ -53,8 +53,8 @@ class ChannelEvent_model extends CI_model
         $tgl = date("Y-m-d H:i:s");
         $data = [
             "id_event" => $generateId,
-            "id_channel" => $this->input->post('idChannel'),
-            "id_user" => $this->input->post('idUser'),
+            "id_channel" => $this->input->post('id_channel'),
+            "id_user" => $this->input->post('id_user'),
             "judul" => $this->input->post('judul'),
             "pesan" => $this->input->post('pesan'),
             "tanggal" => $tgl,
