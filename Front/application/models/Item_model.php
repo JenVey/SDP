@@ -81,6 +81,7 @@ class Item_model extends CI_model
             ORDER BY CASE WHEN I.NAMA_ITEM LIKE '" . $keyword . "%' THEN 0 ELSE 1 END, I.NAMA_ITEM";
         }
 
+
         $res = $this->db->query($query);
         return $res->result_array();
     }
@@ -200,5 +201,25 @@ class Item_model extends CI_model
 
         $this->db->where('id_item', $id);
         $this->db->update('item', $data);
+    }
+
+
+    public function getItem($limit, $start)
+    {
+
+        $this->db->select('*');
+        $this->db->from('ITEM I');
+        $this->db->join('MERCHANT M', 'M.ID_MERCHANT = I.ID_MERCHANT');
+        $this->db->join('GAME G', ' G.ID_GAME = I.ID_GAME');
+        $this->db->where('I.JUMLAH_ITEM >', 0);
+        $this->db->limit($limit, $start);
+        return  $this->db->get()->result_array();
+        // $res = $this->db->query($query);
+        // return $res->result_array();
+    }
+
+    public function countAllItem()
+    {
+        return $this->db->get('item')->num_rows();
     }
 }

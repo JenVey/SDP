@@ -13,7 +13,7 @@ class History_model extends CI_model
     public function insertHistory($id)
     {
         $idUser = $this->session->userdata('id_user');
-        $saldo = $this->input->post('total');
+        $saldo = $this->input->post('gross_amount');
         $tgl = date("Y-m-d H:i:s");
         $data = [
             "id_history" => $id,

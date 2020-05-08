@@ -74,6 +74,10 @@ date_default_timezone_set('Asia/Jakarta');
                 <h6 class="varela" style="color: #ecf0f1;margin-top: 3.5vh;">Channels</h6>
             </button>
         </div>
+        <div class="form-group">
+            <input id="namaUser" class="form-control" type="text" placeholder="Default input">
+        </div>
+        <button class="btn btn-primary btnSearch">Search</button>
         <div class="titleAccList">
             <div class="hl"></div>
             <h4 style="color: #ecf0f1;">Friends</h4>
@@ -89,16 +93,34 @@ date_default_timezone_set('Asia/Jakarta');
         </div>
         <div class="accItemContainer friendList">
             <?php foreach ($friend as $frn) {
-                if ($frn['status'] != -1) { ?>
-                    <div class="accItem listChannel" idFriend="<?= $frn['id_user'] ?>" <?php if (isset($friendA)) {
-                                                                                            if ($frn['id_user'] == $friendA['id_user']) {
-                                                                                                echo "id='active'";
-                                                                                            }
-                                                                                        } ?>>
-                        <div class="profileImg" style="margin-left: 0;"><img src="data:image/jpeg;base64,<?= base64_encode($frn['foto']) ?>" width="50" height="50" alt="" /></div>
-                        <h6 class="profileName"><?= $frn['nama_user'] ?></h6>
-                    </div>
-            <?php }
+                if ($frn['status'] != -1) {
+                    $cekNotif = false;
+                    foreach ($pesan as $psn) {
+                        if ($psn['id_pengirim'] == $frn['id_user'] && $psn['id_penerima'] == $user['id_user'] && $psn['status'] == 0) {
+                            $cekNotif = true;
+                        }
+                    } ?>
+                    <?php if ($cekNotif == false) {  ?>
+                        <div class="accItem listChannel" idFriend="<?= $frn['id_user'] ?>" <?php if (isset($friendA)) {
+                                                                                                if ($frn['id_user'] == $friendA['id_user']) {
+                                                                                                    echo "id='active'";
+                                                                                                }
+                                                                                            } ?>>
+                            <div class="profileImg" style="margin-left: 0;"><img src="data:image/jpeg;base64,<?= base64_encode($frn['foto']) ?>" width="50" height="50" alt="" /></div>
+                            <h6 class="profileName"><?= $frn['nama_user'] ?></h6>
+                        </div>
+                    <?php } else { ?>
+                        <div class="accItem listChannel" idFriend="<?= $frn['id_user'] ?>" <?php if (isset($friendA)) {
+                                                                                                if ($frn['id_user'] == $friendA['id_user']) {
+                                                                                                    echo "id='active'";
+                                                                                                }
+                                                                                            } ?>>
+                            <div class="profileImg" style="margin-left: 0;"><img src="data:image/jpeg;base64,<?= base64_encode($frn['foto']) ?>" width="50" height="50" alt="" /></div>
+                            <h6 class="profileName"><?= $frn['nama_user'] . " (ADA PESAN BARU)" ?></h6>
+                        </div>
+                    <?php } ?>
+            <?php
+                }
             }
             ?>
         </div>
@@ -199,7 +221,7 @@ date_default_timezone_set('Asia/Jakarta');
                     <div class="chatField">
                         <?php $cekTgl = "";
                         foreach ($pesan as $psn) {
-                            if ($psn['id_penerima'] == $friendA['id_user']) {
+                            if ($psn['id_penerima'] == $friendA['id_user'] || $psn['id_pengirim'] == $friendA['id_user']) {
                                 $tgl = date('d F Y', strtotime($psn['tgl']));
                                 if ($tgl != $cekTgl) {
                                     $cekTgl = $tgl; ?>
@@ -379,7 +401,7 @@ date_default_timezone_set('Asia/Jakarta');
             data: {
                 id_pengirim: idUser,
                 id_penerima: idFriend,
-                tipe_penerima: "Channel",
+                tipe_penerima: "User",
                 pesan: pesan
             },
             success: function(result) {
@@ -541,6 +563,21 @@ date_default_timezone_set('Asia/Jakarta');
             ok: 'Block',
             cancel: 'Cancel'
         });
+    });
+
+    $(".btnSearch").click(function() {
+        keyword = $("#namaUser").val();
+        $.ajax({
+            url: "<?= base_url(); ?>Community/searchFriend",
+            method: "post",
+            data: {
+                keyword: keyword
+            },
+            success: function(result) {
+                $(".friendList").html(result);
+            }
+        });
+
     });
 </script>
 

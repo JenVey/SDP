@@ -22,6 +22,7 @@ class Shop extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+
         $this->load->library('form_validation');
         $this->load->model('User_model');
         $this->load->model('Friend_model');
@@ -39,11 +40,53 @@ class Shop extends CI_Controller
 
     public function index()
     {
+        //PAGINATION
+        $this->load->library('pagination');
+        $config['base_url'] = "http://localhost/Github/SDP_Proyek/Front/Shop/index";
+        $config['total_rows'] = $this->Item_model->countAllItem();
+        $config['per_page'] = 10;
+
+        $start = $this->uri->segment(3);
+
+        //STYLE PAGINATION
+        $config['full_tag_open'] = '<nav><ul class="pagination justify-content-center">';
+        $config['full_tag_close'] = '</ul></nav>';
+
+        $config['first_link'] = 'First';
+        $config['first_tag_open'] = '<li class="page-item">';
+        $config['first_tag_close'] = '</li>';
+
+        $config['last_link'] = 'Last';
+        $config['last_tag_open'] = '<li class="page-item">';
+        $config['last_tag_close'] = '</li>';
+
+
+        $config['next_link'] = '&raquo';
+        $config['next_tag_open'] = '<li class="page-item">';
+        $config['next_tag_close'] = '</li>';
+
+        $config['prev_link'] = '&laquo';
+        $config['prev_tag_open'] = '<li class="page-item">';
+        $config['prev_tag_close'] = '</li>';
+
+
+        $config['cur_tag_open'] = '<li class="page-item active"><a class="page-link">';
+        $config['cur_tag_close'] = '</a></li>';
+
+        $config['num_tag_open'] = '<li class="page-item">';
+        $config['num_tag_close'] = '</li>';
+
+        $config['attributes'] = array('class' => 'page-link');
+
+        $this->pagination->initialize($config);
+
+
         if (isset($_SESSION['id_game'])) {
             $id = $this->session->userdata('id_user');
             $data['user'] = $this->User_model->getUserById($id);
             $data['merchantF'] = $this->Merchant_model->getMerchantByIdUser($id);
             $data['merchant'] = $this->Merchant_model->getAllMerchant();
+            //$data['item'] = $this->Item_model->getItemByIdGame($_SESSION['id_game']);
             $data['item'] = $this->Item_model->getItemByIdGame($_SESSION['id_game']);
             $data['games'] = $this->Game_model->getAllGame();
             $this->load->view('templates/header', $data);
@@ -53,8 +96,10 @@ class Shop extends CI_Controller
             $data['user'] = $this->User_model->getUserById($id);
             $data['merchantF'] = $this->Merchant_model->getMerchantByIdUser($id);
             $data['merchant'] = $this->Merchant_model->getAllMerchant();
-            $data['item'] = $this->Item_model->getAllItem();
+            $data['item'] = $this->Item_model->getItem($config['per_page'], $start);
+            //$data['item'] = $this->Item_model->getAllItem();
             $data['games'] = $this->Game_model->getAllGame();
+            $data['pagination'] = $this->pagination->create_links();
             $this->load->view('templates/header', $data);
             $this->load->view('shop/shop', $data);
         }
@@ -86,6 +131,7 @@ class Shop extends CI_Controller
 
     public function viewSearchM($keyword)
     {
+        $start = $this->uri->segment(3);
         $id = $this->session->userdata('id_user');
         $idM = $this->session->userdata('id_merchant');
         $data['user'] = $this->User_model->getUserById($id);
@@ -99,11 +145,54 @@ class Shop extends CI_Controller
 
     public function viewSearch($keyword)
     {
+        //PAGINATION
+        $this->load->library('pagination');
+        $config['base_url'] = "http://localhost/Github/SDP_Proyek/Front/Shop/index";
+        $config['total_rows'] = $this->Item_model->countAllItem();
+        $config['per_page'] = 10;
+
+        $start = $this->uri->segment(3);
+
+        //STYLE PAGINATION
+        $config['full_tag_open'] = '<nav><ul class="pagination justify-content-center">';
+        $config['full_tag_close'] = '</ul></nav>';
+
+        $config['first_link'] = 'First';
+        $config['first_tag_open'] = '<li class="page-item">';
+        $config['first_tag_close'] = '</li>';
+
+        $config['last_link'] = 'Last';
+        $config['last_tag_open'] = '<li class="page-item">';
+        $config['last_tag_close'] = '</li>';
+
+
+        $config['next_link'] = '&raquo';
+        $config['next_tag_open'] = '<li class="page-item">';
+        $config['next_tag_close'] = '</li>';
+
+        $config['prev_link'] = '&laquo';
+        $config['prev_tag_open'] = '<li class="page-item">';
+        $config['prev_tag_close'] = '</li>';
+
+
+        $config['cur_tag_open'] = '<li class="page-item active"><a class="page-link">';
+        $config['cur_tag_close'] = '</a></li>';
+
+        $config['num_tag_open'] = '<li class="page-item">';
+        $config['num_tag_close'] = '</li>';
+
+        $config['attributes'] = array('class' => 'page-link');
+
+        $this->pagination->initialize($config);
+
+
         $id = $this->session->userdata('id_user');
         $data['user'] = $this->User_model->getUserById($id);
         $data['merchantF'] = $this->Merchant_model->getMerchantByIdUser($id);
         $data['merchant'] = $this->Merchant_model->getMerchantBySearch($keyword);
+        //$data['item'] = $this->Item_model->getItemBySearch($keyword, 10, $start);
         $data['item'] = $this->Item_model->getItemBySearch($keyword);
+        $data['pagination'] = $this->pagination->create_links();
         $this->load->view('shop/viewSearch', $data);
     }
 

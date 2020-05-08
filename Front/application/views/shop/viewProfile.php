@@ -23,11 +23,16 @@
 <?php
 foreach ($merchant as $mch) {
 	$mchId = $mch['id'];
+	//echo "A";
 	$mchNama = $mch['nama'];
 	$mchDesc = $mch['bio'];
 	$mchFoto = $mch['foto'];
 	$mchRating = $mch['rating'];
 }
+
+// echo $mchNama;
+// echo $mchId;
+// echo $mchDesc;
 ?>
 
 <body>
@@ -142,10 +147,6 @@ foreach ($merchant as $mch) {
 		<h3 id="merchantName" idM="<?php if (isset($mchId)) {
 										echo $mchId;
 									} ?>" style=" color:#D7C13F; margin-top: 30px;">
-			<?php if (count($merchant) == 0) {
-				echo "Merchant Name";
-			}
-			?>
 		</h3>
 		<div class="description">
 			<div id="descriptionArea">
@@ -370,7 +371,7 @@ foreach ($merchant as $mch) {
 		<input type="hidden" name="result_data" id="result-type" value="">
 		</div>
 		<input type="hidden" name="result_data" id="result-data" value=""></div>
-		<input type="hidden" name="total" id="total" value=""></div>
+		<input type="hidden" name="gross_amount" id="total" value=""></div>
 		<input type="hidden" name="idHistory" id="idHistory" value=""></div>
 	</form>
 	<div style="display: none;">
@@ -420,9 +421,12 @@ foreach ($merchant as $mch) {
 			var merchantDesc = <?php if (isset($mchNama)) {
 									echo "'" . $mchDesc . "'";
 								} ?>;
-
+			//alert("A");
 			$("#merchantName").html(merchantName);
 			$("#descriptionArea").html(merchantDesc);
+		<?php } else { ?>
+			$("#merchantName").html("Merchant Name");
+			$("#descriptionArea").html("YOURR DESCRIPTION </br> YOURR DESCRIPTION </br> YOURR DESCRIPTION");
 		<?php } ?>
 
 
@@ -717,8 +721,6 @@ foreach ($merchant as $mch) {
 		}
 
 
-
-
 		$(".changeProfile").mouseover(function() {
 			if ($(".changeProfileText").html() == "Edit Profile") {
 				$(".changeProfileText").css("color", "#D7C13F");
@@ -768,11 +770,12 @@ foreach ($merchant as $mch) {
 				trade = $('#tradeProfile').val();
 
 				foto = $(".profileImg").find('img').attr('src');
-
-				if (foto.substring(11, 12) == "j") {
-					foto = foto.substring(23, foto.length);
-				} else {
-					foto = foto.substring(22, foto.length);
+				if (foto != null) {
+					if (foto.substring(11, 12) == "j") {
+						foto = foto.substring(23, foto.length);
+					} else {
+						foto = foto.substring(22, foto.length);
+					}
 				}
 
 				$.ajax({
@@ -818,13 +821,17 @@ foreach ($merchant as $mch) {
 		$(".createMerchant").click(function() {
 			name = $("#merchantName").html();
 			desc = $("#descriptionArea").html();
-
-			foto = $(".merchantImgWrapper").find('img').attr('src');
+			alert(name);
+			alert(desc);
+			foto = $(".merchantImg").find('img').attr('src');
 			alert(foto);
-			if (foto.substring(11, 12) == "j") {
-				foto = foto.substring(23, foto.length);
-			} else {
-				foto = foto.substring(22, foto.length);
+
+			if (foto != null) {
+				if (foto.substring(11, 12) == "j") {
+					foto = foto.substring(23, foto.length);
+				} else {
+					foto = foto.substring(22, foto.length);
+				}
 			}
 
 			$.ajax({
@@ -848,12 +855,14 @@ foreach ($merchant as $mch) {
 				id = $("#merchantName").attr("idM");
 				name = $("#merchantName").html();
 				desc = $("#descriptionArea").html();
-				foto = $(".merchantImgWrapper").find('img').attr('src');
+				foto = $(".merchantImg").find('img').attr('src');
 
-				if (foto.substring(11, 12) == "j") {
-					foto = foto.substring(23, foto.length);
-				} else {
-					foto = foto.substring(22, foto.length);
+				if (foto != null) {
+					if (foto.substring(11, 12) == "j") {
+						foto = foto.substring(23, foto.length);
+					} else {
+						foto = foto.substring(22, foto.length);
+					}
 				}
 
 				$.ajax({
@@ -908,7 +917,7 @@ foreach ($merchant as $mch) {
 
 				reader.onload = function(e) {
 					var img = $('<img>').attr('src', e.target.result);
-					$('.merchantImgWrapper').html(img);
+					$('.merchantImg').html(img);
 				};
 
 				reader.readAsDataURL(this.files[0]);

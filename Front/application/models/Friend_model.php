@@ -91,4 +91,24 @@ class Friend_model extends CI_model
         $query = "UPDATE FRIEND SET STATUS = 2 WHERE ID_USER1 =  '" . $id . "' AND ID_USER2 = '" . $idU . "' "; // YANG BLOCK
         $this->db->query($query);
     }
+
+    public function searchFriend()
+    {
+        $id = $this->session->userdata('id_user');
+        $keyword = $this->input->post('keyword');
+
+        $query = "SELECT U.NAMA_USER AS 'nama_user', U.ID_USER AS 'id_user', U.FOTO AS 'foto', F.STATUS AS 'status', F.ID_USER2 AS 'id_user2'
+        FROM FRIEND F
+        JOIN USER U ON U.ID_USER = F.ID_USER2
+        WHERE F.ID_USER1 = '" . $id . "' 
+        AND U.NAMA_USER LIKE '%" . $keyword . "%' ";
+
+
+        $res = $this->db->query($query);
+        return $res->result_array();
+    }
+
+    public function cekInbox()
+    {
+    }
 }

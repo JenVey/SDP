@@ -210,6 +210,8 @@
                 </div>
             <?php endforeach; ?>
         </div>
+
+        <?= $pagination ?>
     </div>
     <script src="<?= base_url(); ?>/asset/Js/select.js"></script>
     <script>

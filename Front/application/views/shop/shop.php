@@ -222,7 +222,7 @@
                 </div>
             <?php endforeach; ?>
         </div>
-
+        <?= $pagination ?>
         <div class="footer">
             Copyright MorningOwl
         </div>

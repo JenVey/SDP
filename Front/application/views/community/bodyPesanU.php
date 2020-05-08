@@ -1,6 +1,6 @@
 <?php $cekTgl = "";
 foreach ($pesan as $psn) {
-    if ($psn['id_penerima'] == $friendA['id_user']) {
+    if ($psn['id_penerima'] == $friendA['id_user'] || $psn['id_pengirim'] == $friendA['id_user']) {
         $tgl = date('d F Y', strtotime($psn['tgl']));
         if ($tgl != $cekTgl) {
             $cekTgl = $tgl; ?>

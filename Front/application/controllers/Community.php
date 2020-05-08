@@ -334,6 +334,7 @@ class Community extends CI_Controller
     {
         $idFriend =  $this->input->post('idFriend');
         $this->session->set_userdata(array('idFriend' => $idFriend));
+        $this->Pesan_model->readPesan();
     }
 
     public function cekUsername()
@@ -362,6 +363,13 @@ class Community extends CI_Controller
         redirect('Community/refreshBlock');
     }
 
+    public function searchFriend()
+    {
+        $data['friend'] = $this->Friend_model->searchFriend();
+        $data['friendA'] = $this->User_model->getFriendById();
+        $this->load->view('community/accItemContainerF', $data);
+    }
+
     public function refreshBlock()
     {
         $id = $this->session->userdata('id_user');
@@ -375,6 +383,10 @@ class Community extends CI_Controller
     public function insertPesan()
     {
         $this->Pesan_model->insertPesan();
+        // if ($_SESSION['idFriend']) {
+        //     $this->session->set_userdata(array('friend' => "true"));
+        //     $this->Pesan_model->insertPesan();
+        // }
         redirect('community/refreshChat');
     }
 
@@ -415,6 +427,7 @@ class Community extends CI_Controller
             $this->load->view('community/bodyPesanT', $data);
         }
         if (isset($_SESSION['idFriend'])) {
+
             $data['friendA'] = $this->User_model->getFriendById();
             $data['pesan'] = $this->Pesan_model->getAllPesan();
             $this->load->view('community/bodyPesanU', $data);

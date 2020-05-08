@@ -3,7 +3,7 @@ class Pesan_model extends CI_model
 {
     public function getAllPesan()
     {
-        $query = "SELECT U.NAMA_USER AS 'pengirim', P.PESAN AS 'pesan', P.TANGGAL AS 'tgl', P.STATUS AS 'status', P.ID_PENERIMA AS 'id_penerima', U.FOTO AS 'foto'
+        $query = "SELECT U.NAMA_USER AS 'pengirim', P.PESAN AS 'pesan', P.TANGGAL AS 'tgl', P.STATUS AS 'status', P.ID_PENERIMA AS 'id_penerima', U.FOTO AS 'foto', P.ID_PENGIRIM AS 'id_pengirim'
         FROM PESAN P
         LEFT JOIN USER U ON U.ID_USER = P.ID_PENGIRIM 
         ORDER BY P.TANGGAL";
@@ -83,8 +83,9 @@ class Pesan_model extends CI_model
             "tipe_penerima" => $this->input->post('tipe_penerima'),
             "pesan" =>  $this->input->post('pesan'),
             "tanggal" =>  $tgl,
-            "status" =>  "1"
+            "status" =>  "0"
         ];
+
         $this->db->insert('pesan', $data);
     }
 
@@ -106,5 +107,13 @@ class Pesan_model extends CI_model
     {
         $this->db->where('id_pesan', $id);
         $this->db->delete('pesan');
+    }
+
+    public function readPesan()
+    {
+        $id = $this->session->userdata('id_user');
+        $idFriend =  $this->input->post('idFriend');
+        $query = "UPDATE PESAN SET STATUS = 1 WHERE ID_PENGIRIM = '" . $idFriend . "' AND ID_PENERIMA = '" . $id . "'";
+        $this->db->query($query);
     }
 }
