@@ -27,7 +27,7 @@ class Trans_model extends CI_model
         $cart = $this->input->post('cart');
         $cart = json_decode($cart, true);
         $gross = $this->input->post('gross_amount');
-        $cashback =  $gross * 10 / 100;
+        //$cashback =  $gross * 10 / 100;
 
         $tgl = date("Y-m-d H:i:s");
 
@@ -53,15 +53,14 @@ class Trans_model extends CI_model
         $data = [
             "id_transaksi" => $generateId,
             "id_user" => $idUser,
-            "id_promo" => 'PD0001',
+            "id_promo" => '',
             "Gross_Amount" => $gross,
             "tanggal_transaksi" => $tgl,
-            "cashback" =>  $cashback,
+            "cashback" =>  0,
             "status" =>  '1'
 
         ];
         $this->db->insert('transaksi', $data);
-
 
         for ($i = 0; $i < count($cart); $i++) {
             $data = [

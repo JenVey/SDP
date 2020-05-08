@@ -413,15 +413,19 @@ foreach ($merchant as $mch) {
 		var count = 0;
 		var timer = setInterval(gantiGambar, 1);
 
-		var merchantName = <?php if (isset($mchNama)) {
-								echo "'" . $mchNama . "'";
-							} ?>;
-		var merchantDesc = <?php if (isset($mchNama)) {
-								echo "'" . $mchDesc . "'";
-							} ?>;
+		<?php if (isset($mchNama)) { ?>
+			var merchantName = <?php if (isset($mchNama)) {
+									echo "'" . $mchNama . "'";
+								} ?>;
+			var merchantDesc = <?php if (isset($mchNama)) {
+									echo "'" . $mchDesc . "'";
+								} ?>;
 
-		$("#merchantName").html(merchantName);
-		$("#descriptionArea").html(merchantDesc);
+			$("#merchantName").html(merchantName);
+			$("#descriptionArea").html(merchantDesc);
+		<?php } ?>
+
+
 
 		var headerTopUp = $("#topUpHeader").html();
 		var bodyTopUp = $("#topUpBody").html();
@@ -762,6 +766,7 @@ foreach ($merchant as $mch) {
 				pass = $('#passProfile').val();
 				email = $('#emailProfile').val();
 				trade = $('#tradeProfile').val();
+
 				foto = $(".profileImg").find('img').attr('src');
 
 				if (foto.substring(11, 12) == "j") {
@@ -801,8 +806,6 @@ foreach ($merchant as $mch) {
 		});
 
 
-
-
 		$(".History").click(function() {
 			window.location.href = '<?= base_url(); ?>Shop/viewHistory';
 		});
@@ -815,8 +818,9 @@ foreach ($merchant as $mch) {
 		$(".createMerchant").click(function() {
 			name = $("#merchantName").html();
 			desc = $("#descriptionArea").html();
-			foto = $(".merchantImgWrapper").find('img').attr('src');
 
+			foto = $(".merchantImgWrapper").find('img').attr('src');
+			alert(foto);
 			if (foto.substring(11, 12) == "j") {
 				foto = foto.substring(23, foto.length);
 			} else {

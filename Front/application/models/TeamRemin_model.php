@@ -28,7 +28,7 @@ class TeamRemin_model extends CI_model
         $newId = $this->input->post('judul');
         $cekNewId = 'R' . substr(strtoupper($newId), 0, 1);
         foreach ($query->result_array() as $row) {
-            $cekId = substr(strtoupper($row['id_team']), 0, 2);
+            $cekId = substr(strtoupper($row['id_reminder']), 0, 2);
             if ($cekId == $cekNewId) {
                 $ctr++;
             }
@@ -44,12 +44,15 @@ class TeamRemin_model extends CI_model
             $generateId = $cekNewId . $ctr;
         }
 
-        // $tgl = date("Y-m-d H:i:s");
+        $tgl = $this->input->post('waktu');
+        $tgl = strtotime($tgl);
+        $tgl = date("Y-d-m H:i", $tgl);
+
         $data = [
             "id_reminder" => $generateId,
             "judul" => $this->input->post('judul'),
             "id_team" => $this->input->post('id_team'),
-            "waktu" => $this->input->post('waktu'),
+            "waktu" => $tgl,
             "keterangan" =>  $this->input->post('keterangan')
         ];
         $this->db->insert('team_reminder', $data);

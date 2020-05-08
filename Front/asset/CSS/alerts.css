@@ -18,6 +18,17 @@
 	overflow: hidden;
 }
 
+
+.topUpAmount{
+    height: 4vh;
+    background: none;
+    color: #ecf0f1;
+    border: solid 2px #d7c13f;
+    padding-left: 8px;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+
 .pilihTrans{
 	width: 25vw;
 	height: 60vh;

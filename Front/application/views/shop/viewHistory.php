@@ -84,11 +84,10 @@
 		</div>
 		<div class="transHistoryWrapper" style="width: 75%; margin-left: 1vw;margin-bottom: 2vw;">
 			<div class="transHistoryContainer" style="height: 70vh;">
-				<div class="headerTable" style="height: 30vh;">
+				<div class="headerTable">
 					<h4 class="white" style="margin-left: 2vw;">ID History</h4>
 					<h4 class="white" style="margin-left: 10vw;">Top Up</h4>
 					<h4 class="white" style="margin-left: 9vw;">Date</h4>
-					<h4 class="white" style="margin-left: 10vw;">Status</h4>
 				</div>
 				<div class="headerSeparator"></div>
 				<?php $ctr3 = 1;
@@ -105,9 +104,6 @@
 								<div class="GrandTotal">
 									<p style="margin-left: 2.5vw;"><?= date('d/m/Y', strtotime($his['date'])) ?></p>
 								</div>
-								<div class="statusTrans" id="statusPoints<?= $ctr3 ?>" style="margin-left: -0.6vw;">
-								</div>
-								<input type="hidden" name="status" id="inputPoints<?= $ctr3 ?>" value="<?= $his['status'] ?>">
 							</div>
 						</div>
 				<?php $ctr3++;

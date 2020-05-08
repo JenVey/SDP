@@ -255,7 +255,7 @@
         }
 
         $(".wrapProfile").click(function() {
-            window.location.href = '<?= base_url(); ?>Shop/viewProfile/'.concat();
+            window.location.href = '<?= base_url(); ?>Shop/viewProfile/';
         });
 
         $(".filterAlpha").click(function() {
@@ -273,10 +273,10 @@
             balance = "<?= $user['saldo']; ?>";
             balance = parseInt(balance);
 
-            if (balance >= 2000) {
+            if (balance >= 5000) {
                 alertify.confirm('Confirmation', 'Are you sure? GP 5.000 will be taken from your balance.',
                     function() {
-                        alert(balance);
+                        //alert(balance);
                         $.ajax({
                             url: "<?= base_url(); ?>Shop/updateSaldoG/kurang",
                             method: "post",

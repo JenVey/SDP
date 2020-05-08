@@ -307,7 +307,7 @@ class Shop extends CI_Controller
             }
         }
         $this->Item_model->updateAmount();
-        redirect('Shop');
+        //redirect('Shop');
     }
 
 

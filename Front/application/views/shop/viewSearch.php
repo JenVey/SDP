@@ -257,6 +257,38 @@
             window.location.href = '<?= base_url(); ?>Shop/viewMerchant/'.concat(id);
         });
 
+        $(".gachaContainer").click(function() {
+            balance = "<?= $user['saldo']; ?>";
+            balance = parseInt(balance);
+
+            if (balance >= 5000) {
+                alertify.confirm('Confirmation', 'Are you sure? GP 5.000 will be taken from your balance.',
+                    function() {
+                        //alert(balance);
+                        $.ajax({
+                            url: "<?= base_url(); ?>Shop/updateSaldoG/kurang",
+                            method: "post",
+                            success: function(result) {
+                                $(".buttons").css("display", "none");
+                                $("#logo").css("display", "none");
+                                $(".wrapper").css("display", "flex");
+                                window.location.href = '<?= base_url(); ?>Shop/viewGacha/';
+                            }
+                        });
+
+                    },
+                    function() {
+                        alertify.success('Ok, Take Your Time.');
+                    }
+                ).set('labels', {
+                    ok: 'Yes!',
+                    cancel: 'Nope!'
+                });
+            } else {
+                alertify.error("Insufficient Balance");
+            }
+        });
+
 
         $(".addtoCart").click(function() {
             addCart = 1;
@@ -290,6 +322,11 @@
                 }
 
             }
+        });
+
+
+        $(".cartButton").click(function() {
+            window.location.href = '<?= base_url(); ?>Shop/viewCart/';
         });
     </script>
 </body>

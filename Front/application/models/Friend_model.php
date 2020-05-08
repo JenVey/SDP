@@ -9,7 +9,7 @@ class Friend_model extends CI_model
     {
         //return $this->db->get_where('friend', ['id_user1' => $id])->result_array();
 
-        $query = "SELECT U.NAMA_USER AS 'nama_user', U.ID_USER AS 'id_user', U.FOTO AS 'foto', F.STATUS AS 'status'
+        $query = "SELECT U.NAMA_USER AS 'nama_user', U.ID_USER AS 'id_user', U.FOTO AS 'foto', F.STATUS AS 'status', F.ID_USER2 AS 'id_user2'
         FROM FRIEND F
         JOIN USER U ON U.ID_USER = F.ID_USER2
         WHERE F.ID_USER1 = '" . $id . "' ";
@@ -62,6 +62,18 @@ class Friend_model extends CI_model
         $this->session->set_userdata(array('idFriend' => $idU));
     }
 
+    public function updateAddfriend()
+    {
+        $id = $this->session->userdata('id_user');
+        $idU = $this->input->post('id_user2');
+
+        $query = "UPDATE FRIEND SET STATUS = 2 WHERE ID_USER1 =  '" . $id . "' AND ID_USER2 = '" . $idU . "' "; // ACCEPT FRIEND
+        $this->db->query($query);
+
+        $query = "UPDATE FRIEND SET STATUS = 2 WHERE ID_USER1 =  '" . $idU . "' AND ID_USER2 = '" . $id . "' "; // ACCEPT FRIEND
+        $this->db->query($query);
+    }
+
     public function blockUser()
     {
         $id = $this->session->userdata('id_user');
@@ -76,7 +88,7 @@ class Friend_model extends CI_model
         $id = $this->session->userdata('id_user');
         $idU = $this->input->post('id_user2');
 
-        $query = "UPDATE FRIEND SET STATUS = 0 WHERE ID_USER1 =  '" . $id . "' AND ID_USER2 = '" . $idU . "' "; // YANG BLOCK
+        $query = "UPDATE FRIEND SET STATUS = 2 WHERE ID_USER1 =  '" . $id . "' AND ID_USER2 = '" . $idU . "' "; // YANG BLOCK
         $this->db->query($query);
     }
 }
