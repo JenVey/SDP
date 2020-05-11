@@ -25,6 +25,21 @@ class Team_model extends CI_model
         return $res->result_array();
     }
 
+    public function searchTeam()
+    {
+        $id = $this->session->userdata('id_user');
+        $keyword = $this->input->post("keyword");
+
+        $query = "SELECT *
+        FROM TEAM T
+        LEFT JOIN TEAM_MEMBERS TM ON TM.ID_TEAM = T.ID_TEAM 
+        WHERE TM.ID_USER= '" . $id . "' 
+        AND T.NAMA_TEAM = '%" . $keyword . "%' ";
+
+        $res = $this->db->query($query);
+        return $res->result_array();
+    }
+
 
     public function insertTeam()
     {
@@ -68,9 +83,13 @@ class Team_model extends CI_model
             "id_user" => $idUser,
             "id_team" => $generateId
         ];
+
+
         $this->db->insert('team_members', $data);
 
+        $this->session->set_userdata(array('insertTeam' => "true"));
         $this->session->set_userdata(array('idTeam' => $generateId));
+        $this->TeamMember_model->insertTeamMember();
     }
 
 

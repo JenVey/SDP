@@ -83,6 +83,19 @@ class Community extends CI_Controller
         $this->session->set_userdata(array('idChannel' => $idChannel));
     }
 
+    public function searchChannelUser()
+    {
+        $keyword = $this->input->post('keyword');
+        $this->ChannelUser_model->searchChannelUser($keyword);
+    }
+
+    public function searchChannel()
+    {
+        $data['channelA'] = $this->Channel_model->getChannelById();
+        $data['channel'] =  $this->Channel_model->searchChannel();
+        $this->load->view('community/accItemContainerC', $data);
+    }
+
     public function joinChannel()
     {
         $this->Channel_model->cekChannel();
@@ -293,6 +306,18 @@ class Community extends CI_Controller
         $this->Team_model->editTeam();
     }
 
+    // public function searchTeamMember()
+    // {
+    //     $this->TeamMember_model->searchTeamMember();
+    // }
+
+    public function searchTeam()
+    {
+        $data['teamA'] = $this->Team_model->getTeamById();
+        $data['team'] = $this->Team_model->searchTeam();
+        $this->load->view('community/accItemContainerT', $data);
+    }
+
     public function chooseTeam()
     {
         $idTeam =  $this->input->post('idTeam');
@@ -365,8 +390,11 @@ class Community extends CI_Controller
 
     public function searchFriend()
     {
+        $id = $this->session->userdata('id_user');
+        $data['user'] = $this->User_model->getUserById($id);
         $data['friend'] = $this->Friend_model->searchFriend();
         $data['friendA'] = $this->User_model->getFriendById();
+        $data['pesan'] = $this->Pesan_model->getAllPesan();
         $this->load->view('community/accItemContainerF', $data);
     }
 
@@ -383,10 +411,6 @@ class Community extends CI_Controller
     public function insertPesan()
     {
         $this->Pesan_model->insertPesan();
-        // if ($_SESSION['idFriend']) {
-        //     $this->session->set_userdata(array('friend' => "true"));
-        //     $this->Pesan_model->insertPesan();
-        // }
         redirect('community/refreshChat');
     }
 

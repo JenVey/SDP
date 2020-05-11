@@ -37,6 +37,7 @@ button:focus{
 	0 8.4px 5.6px rgba(0, 0, 0, 0.054),
 	0 27px 25px rgba(0, 0, 0, 0.08)
   ;
+	border: solid 2px #1e2126;
 }
 
 .gachaContainer:hover{
@@ -46,7 +47,7 @@ button:focus{
 .filterContainer{
 	width: 17vw;
 	height: 50px;
-	margin-left: 1vw;
+	margin-left: 1.5vw;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -61,6 +62,7 @@ button:focus{
 	0 8.4px 5.6px rgba(0, 0, 0, 0.054),
 	0 27px 25px rgba(0, 0, 0, 0.08)
   ;
+	border: solid 2px #1e2126;
 }
 
 .filterAlpha:hover{
@@ -86,12 +88,14 @@ button:focus{
 	0 8.4px 5.6px rgba(0, 0, 0, 0.054),
 	0 27px 25px rgba(0, 0, 0, 0.08)
   ;
+	border: solid 2px #1e2126;
+	border-left: none;
 }
 
 .searchButton{
 	width: 3vw;
 	height: 50px;
-	margin-left: 1vw;
+	margin-left: 1.5vw;
 	border-top-left-radius: 15px;
 	border-bottom-left-radius: 15px;
 	border: none;
@@ -104,6 +108,8 @@ button:focus{
 	0 8.4px 5.6px rgba(0, 0, 0, 0.054),
 	0 27px 25px rgba(0, 0, 0, 0.08)
   ;
+	border: solid 2px #1e2126;
+	border-right: none;
 }
 
 .searchButton:hover{
@@ -113,7 +119,7 @@ button:focus{
 .cartButton{
 	width: 70px;
 	height: 50px;
-	margin-left: 1vw;
+	margin-left: 1.5vw;
 	border-radius: 15px;
 	background-color: #585D68;
 	border: none;
@@ -122,9 +128,14 @@ button:focus{
 	0 8.4px 5.6px rgba(0, 0, 0, 0.054),
 	0 27px 25px rgba(0, 0, 0, 0.08)
   ;
+	border: solid 2px #1e2126;
 }
 .cartButton:focus{
 	outline:none;
+	box-shadow: 0 0 3px #D7C13F;
+}
+
+.cartButton:hover{
 	box-shadow: 0 0 3px #D7C13F;
 }
 
@@ -157,16 +168,16 @@ select:focus{
 }
 .Searchinput:focus{
 	outline:none;
-	box-shadow: 0 0 3px #D7C13F;
 }
 
 
 .iklan{
 	display: inline-block;
-	width: 900px;
-	height: 200px;
+	width: 50vw;
+	height: 23.1vh;
 	background-color: #585D68;
 	margin-top: 10vh;
+	border: solid 2px #1e2126;
 }
 
 #iklanDisplay{
@@ -193,7 +204,7 @@ select:focus{
 .gamesContainer{
 	width: 90%;
 	height: 600px;
-	margin: 7vh 0 7vh 6vw;
+	margin: 7vh 0 7vh 4vw;
 	display:flex;
 	background-color: #585D68;
 	align-items: center;
@@ -205,7 +216,7 @@ select:focus{
 	  0 111.9px 109.9px -27px rgba(0, 0, 0, 0.039),
 	  0 256px 223px -27px rgba(0, 0, 0, 0.024)
 	;
-
+	border: solid 2px #1e2126;
 	
 }
 
@@ -221,13 +232,12 @@ select:focus{
 	padding-right: 7.25%;
 	overflow: auto;
 	background-color: transparent;
-	
 }
 
 .itemGame{
 	width: 180px;
 	height: 180px;
-	background:#1E2126;
+	background-color: #1e2126;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
@@ -235,10 +245,17 @@ select:focus{
 	padding: 30px 0 30px 0;
 	transform: skewX(-5deg);
 	overflow: hidden;
+	border-radius: 15px;
+}
+
+.titleGame{
+	color: #ecf0f1;
+	transform: skewX(5deg);
 }
 
 .itemGame:hover{
 	cursor: pointer;
+	box-shadow: 0 0 3px #D7C13F;
 }
 
 .gamescollection::-webkit-scrollbar {
@@ -267,21 +284,22 @@ select:focus{
 .itemContainer{
 	width: 86%;
 	height: auto;
-	margin: 7vh 0 7vh 9vw;
+	margin: 7vh 0 4vh 7vw;
 	display: grid;
-	grid-gap: 50px;
-	grid-template-rows: repeat(2, 550px);
+	grid-gap: 2vw;
+	grid-auto-rows: 550px;
 	grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-	grid-row-gap: 80px;
+	grid-row-gap: 10vh;
 }
 
 .item{
 	position: relative;
-	width: 350px;
-	height: 550px;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	width: 18.2vw;
 	background-color: #4C525D;
-	border-radius: 28px;
-	padding: 15px;
+	border-radius: 15px;
 	border: none;
 	box-shadow:
 	  0 26.7px 22.9px -41px rgba(0, 0, 0, 0.09),
@@ -290,22 +308,40 @@ select:focus{
 	  0 114.1px 101.2px -41px rgba(0, 0, 0, 0.033),
 	  0 261px 172px -41px rgba(0, 0, 0, 0.02)
 	;
+	border: solid 2px #1e2126;
 }
 
-.item:hover{
+.itemHover{
+	position: absolute;
+	left: 0;
+	top:0;
+	width: 100%;
+	height: 100%;
+	border-radius: 15px;
+	padding: 15px;
+}
+
+.itemHover:hover{
 	cursor: pointer;
+	box-shadow: 0 0 3px #D7C13F;
 }
 
 .itemPrice{
 	color: #63D99E;
 	text-align: center;
+	position: absolute;
+	left: 1vw;
+	bottom: 4vh;
 }
 
 .itemImgContainer{
 	display:flex;
 	justify-content: center;
-	width: 320px;
-	height: 180px;
+	width: 16.6vw;
+	height: 18vh;
+	overflow: hidden;
+	border-radius: 15px;
+	border: solid 2px #d7c13f;
 }
 
 img{
@@ -314,6 +350,8 @@ img{
 }
 
 .itemTitle{
+	width: 100%;
+	word-break: break-all;
 	text-align: left;
 	color: #ecf0f1;
 	margin-bottom: 0;
@@ -322,6 +360,7 @@ img{
 }
 
 .itemGameType{
+	margin: 1vh 0;
 	color: #D7C13F;
 	text-align: left;
 }
@@ -353,54 +392,54 @@ img{
 	text-align: left;
 	color: #63D99E;
 	margin-bottom: 0;
-	float: left;
+	z-index: 2;
+}
+
+.itemMerchant:hover{
+	color: #63D99E;
 }
 
 .merchantRating{
-	width: 70px;
-	height: 30px;
-	float: left;
-	text-align: left;
-	margin-left: 10px;
+	width: 100%;
+	display: flex;
+	justify-content: flex-start;
+	align-content: center;
 }
 
 .itemUploadDate{
-	text-align: left;
-	font-size: 12pt;
-	color:rgba(157,157,157,1.00);
-	margin-bottom: 30px;
-	clear: left;
+	position: absolute;
+	font-size: 12px;
+	color:rgba(157,157,157,0.5);
+	left: 1vw;
+	bottom: 0;
 }
 
 .addtoCart{
     position: absolute;
-    bottom: 20px;
-    right: 20px;
-    border-radius: 100px;
+    bottom: 2vh;
+    right: 1vw;
+    border-radius: 15px;
     border: none;
     background:none;
     color: white;
     font-size: 13pt;
     font-family: Varela;
-    margin-top: 20px;
 }
 
 .stok{
-    position: absolute;
-    left: 20px;
-    bottom: 20px;
+	color: #ecf0f1;
+	position: absolute;
+	left: 1vw;
+	bottom: 7vh;
 }
 
-.addtoCart:hover{
-	color:#4C525D;
+.addtoCart:hover #cartIcon{
+	box-shadow: 0 0 3px #D7C13F;
+	border-radius: 10px;
 }
 
-.footer{
-	width: 100%;
-	height: 200px;
-	color:#D7C13F;
-	text-align: center;
-	padding-top: 10%;
+.addtoCart:hover #Icon_awesome-arrow-down{
+	fill:#d7c13f;
 }
 
 .backtoMenu{
@@ -450,7 +489,8 @@ img{
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    background-color: #1E2126;
+    background-color:#585D68;
+	border: solid 2px #1e2126;
     border-radius: 15px;
     box-shadow:
       0 3.3px 1.7px rgba(0, 0, 0, 0.035),
@@ -462,20 +502,24 @@ img{
 .merchantIMG{
     width: 60px;
     height: 60px;
-    border-radius: 100%;
+    border-radius: 15px;
     overflow: hidden;
     margin-left: 1vw;
+	border: solid 1px #d7c13f;
 }
 
 .merchantIMG img{
     max-width: 100%;
     max-height: 100%;
+	display: block;
+  	margin-left: auto;
+  	margin-right: auto;
 }
 
 
 .merchantAcc:hover{
-    background-color: #585D68;
     cursor: pointer;
+	box-shadow: 0 0 3px #D7C13F;
 }
 
 .merchantDetails{
@@ -485,4 +529,44 @@ img{
     align-items: flex-start;
     margin-left: 2vw;
     height: 100%;
+}
+
+.pagination{
+	height: 6vh;
+	margin: 2vh 0 4vh 0;
+	display: inline-flex;
+	align-items: center;
+}
+
+.pageblock{
+	width: 2.5vw;
+	height: 80%;
+	background-color: #585D68;
+	border-radius: 15px;
+	margin: 0 0.5vw;
+	box-shadow: 0 0 3px #D7C13F;
+	color: #ecf0f1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	box-shadow:
+      0 3.3px 1.7px rgba(0, 0, 0, 0.055),
+      0 8.4px 5.6px rgba(0, 0, 0, 0.074),
+      0 27px 25px rgba(0, 0, 0, 0.1)
+    ;
+	border: solid 2px #1e2126;
+}
+
+.pageblock:hover{
+	background-color: #d7c13f;
+	color: #1e2126;
+	cursor: pointer;
+}
+
+.pageblock:hover #Icon_ionic-ios-arrow-round-back{
+	fill:#1e2126;
+}
+
+.pageblock.active{
+    background-color: #d7c13f;
 }

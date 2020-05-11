@@ -107,8 +107,4 @@ class Friend_model extends CI_model
         $res = $this->db->query($query);
         return $res->result_array();
     }
-
-    public function cekInbox()
-    {
-    }
 }

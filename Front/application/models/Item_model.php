@@ -122,22 +122,39 @@ class Item_model extends CI_model
 
     public function updateAmount()
     {
-        $cekQuery =  $this->db->query("SELECT * FROM USER_CART WHERE STATUS = 2 ");
-        foreach ($cekQuery->result_array() as $row) {
 
-            $amount = $row['amount'];
-            var_dump($row['id_item']);
-            $query = $this->db->query("SELECT * FROM ITEM I  WHERE I.ID_ITEM = '" . $row['id_item'] . "' ");
-            foreach ($query->result_array() as $row2) {
-                $amountItem = $row2['jumlah_item'];
+        if (isset($_SESSION['idTransaksi'])) {
+            $idTrans = $this->session->userdata('idTransaksi');
+            $cekQuery =  $this->db->query("SELECT * FROM TRANSAKSI_ITEM WHERE ID_TRANSAKSI = '" . $idTrans . "' ");
+
+            foreach ($cekQuery->result_array() as $row) {
+                $amount = $row['jumlah'];
+                var_dump($row['id_item']);
+                $query = $this->db->query("SELECT * FROM ITEM I  WHERE I.ID_ITEM = '" . $row['id_item'] . "' ");
+                foreach ($query->result_array() as $row2) {
+                    $amountItem = $row2['jumlah_item'];
+                }
+
+                $newAmount = $amountItem - $amount;
+                $query2 = "UPDATE ITEM I SET JUMLAH_ITEM = " . $newAmount . " WHERE I.ID_ITEM = '" . $row['id_item'] . "' ";
+                $this->db->query($query2);
             }
+        } else {
+            $cart = $this->input->post('cart');
+            $cart = json_decode($cart, true);
+            for ($i = 0; $i < count($cart); $i++) {
+                $amount = $cart[$i]['quantity'];
+                var_dump($row['id_item']);
+                $query = $this->db->query("SELECT * FROM ITEM I  WHERE I.ID_ITEM = '" . $cart[$i]['id'] . "' ");
 
-            $newAmount = $amountItem - $amount;
-            $query2 = "UPDATE ITEM I SET JUMLAH_ITEM = " . $newAmount . " WHERE I.ID_ITEM = '" . $row['id_item'] . "' ";
-            $this->db->query($query2);
+                foreach ($query->result_array() as $row2) {
+                    $amountItem = $row2['jumlah_item'];
+                }
 
-            $query3 = "UPDATE USER_CART SET STATUS = 3 WHERE ID_USER = '" . $row['id_user'] . "' AND ID_ITEM = '" . $row['id_item'] . "' ";
-            $this->db->query($query3);
+                $newAmount = $amountItem - $amount;
+                $query2 = "UPDATE ITEM I SET JUMLAH_ITEM = " . $newAmount . " WHERE I.ID_ITEM = '" . $cart[$i]['id'] . "' ";
+                $this->db->query($query2);
+            }
         }
     }
 

@@ -92,13 +92,23 @@ if (isset($channelA)) {
                 <h6 class="varela">Join</h6>
             </button>
         </div>
-        <div class="accItemContainer">
+        <div class="actionButs">
+            <div class="searchBar">
+                <button class="search">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 27 27.007">
+                        <path id="Icon_ionic-ios-search" data-name="Icon ionic-ios-search" d="M31.184,29.545l-7.509-7.58a10.7,10.7,0,1,0-1.624,1.645l7.46,7.53a1.156,1.156,0,0,0,1.631.042A1.163,1.163,0,0,0,31.184,29.545ZM15.265,23.7a8.45,8.45,0,1,1,5.977-2.475A8.4,8.4,0,0,1,15.265,23.7Z" transform="translate(-4.5 -4.493)" fill="#d7c13f" />
+                    </svg>
+                </button>
+                <input type="text" placeholder="Search your channel" name="searchBar" class="searchBarInput">
+            </div>
+        </div>
+        <div class="accItemContainer listChannel">
             <?php foreach ($channel as $chn) { ?>
-                <div class="accItem listChannel" idChannel="<?= $chn['id_channel'] ?>" <?php if (isset($channelA)) {
-                                                                                            if ($chn['id_channel'] == $channelA['id_channel']) {
-                                                                                                echo "id='active'";
-                                                                                            }
-                                                                                        } ?>>
+                <div class="accItem" idChannel="<?= $chn['id_channel'] ?>" <?php if (isset($channelA)) {
+                                                                                if ($chn['id_channel'] == $channelA['id_channel']) {
+                                                                                    echo "id='active'";
+                                                                                }
+                                                                            } ?>>
                     <div class="profileImg" style="margin-left: 0;"><img src="data:image/jpeg;base64,<?= base64_encode($chn['foto_channel']) ?>" width="50" height="50" alt="" /></div>
                     <h6 class="profileName"><?= $chn['nama_channel'] ?></h6>
                 </div>
@@ -1441,6 +1451,22 @@ if (isset($channelA)) {
             slot *= 2;
             $("#slotTour").val(slot);
         }
+    });
+
+    $(".search").click(function() {
+        keyword = $(".searchBarInput").val();
+        //alert(keyword);
+        $.ajax({
+            url: "<?= base_url(); ?>Community/searchChannel",
+            method: "post",
+            data: {
+                keyword: keyword
+            },
+            success: function(result) {
+                $(".listChannel").html(result);
+                $(".searchBarInput").val("");
+            }
+        });
     });
 
 

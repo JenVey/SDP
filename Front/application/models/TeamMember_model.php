@@ -24,10 +24,31 @@ class TeamMember_model extends CI_model
         return $res->result_array();
     }
 
+    public function searchTeamMember()
+    {
+        $idTeam = $this->input->post("idTeam");
+        $keyword = $this->input->post("keyword");
+
+        $query = "SELECT U.NAMA_USER AS 'nama_user', U.STATUS AS 'status',U.ID_USER AS 'id_user',U.FOTO AS 'foto'
+        FROM TEAM_MEMBERS TR
+        JOIN TEAM T ON T.ID_TEAM = TR.ID_TEAM 
+        JOIN USER U ON U.ID_USER = TR.ID_USER
+        WHERE T.ID_TEAM = '" . $idTeam . "'
+        AND U.NAMA_USER LIKE '%" . $keyword . "%' ";
+
+        $res = $this->db->query($query);
+        return $res->result_array();
+    }
+
     public function insertTeamMember()
     {
         $idUser = $this->session->userdata('id_user');
-        $idTeam = $this->input->post('idTeam');
+        if (isset($_SESSION['insertTeam'])) {
+            $idTeam = $this->session->userdata('idTeam');
+        } else {
+            $idTeam = $this->input->post('idTeam');
+        }
+
 
         $ada = false;
         $query = $this->db->query("select * from team_members");
@@ -44,6 +65,8 @@ class TeamMember_model extends CI_model
             ];
             $this->db->insert('team_members', $data);
         }
+
+        $this->session->unset_userdata('insertTeam');
     }
 
     public function kickMember()

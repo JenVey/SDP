@@ -7,6 +7,15 @@ p{
 body{
 	overflow: hidden;
 }
+
+.profile{
+	padding: 0!important;
+}
+
+.wrapProfile{
+	padding-left: 1vw;
+}
+
 .Home{
 	width: 30%;
 	height: 100%;
@@ -43,9 +52,6 @@ body{
 	height:100%;
 	width: 70%; 
 	align-items: center;
-}
-.profileStats{
-	margin-left: 0.5vw;
 }
 
 .wrapProfile:hover{
@@ -120,12 +126,12 @@ body{
 
 .accItemContainer{
 	width: 100%;
-	margin-top: 2vh;
 	height: 65%;
 	box-sizing: border-box;
 	grid-gap: 0;
 	grid-template-rows: none;
 	overflow: auto;
+	margin-top: 4vh;
 }
 .accItem{
 	padding-left: 1vw;
@@ -168,6 +174,7 @@ body{
 	background-color: #585D68;
 	box-sizing: border-box;
 	overflow: hidden;
+	border: solid 2px #1e2126;
 }
 
 .chatLogo{
@@ -186,6 +193,7 @@ body{
 	border-radius: 15px;
 	top: 2vh;
 	right: 1vw;
+	border: solid 2px #1e2126;
 }
 
 .memberlist::-webkit-scrollbar {
@@ -212,6 +220,7 @@ body{
 	box-sizing: border-box;
 	display: flex;
 	overflow: hidden;
+	border: solid 2px #1e2126;
 }
 
 .inputField{
@@ -1216,16 +1225,46 @@ img{
   animation-name: fadeOutBG;
 }
 
-
 #saveChange{
-    width: 8vw;
-    height: 5vh;
-    background-color: rgba(30,33,38,0.2);
-    border-radius: 15px;
-    margin: 4vh 0;
-    color: #d7c13f;
+	width: 8vw;
+	height: 5vh;
+	background-color: rgba(30,33,38,0.2);
+	border-radius: 15px;
+	margin: 4vh 0;
+	color: #d7c13f;
 }
 
 #saveChange:hover{
-    background-color: rgba(215,193,63,0.10);
+	background-color: rgba(215,193,63,0.10);
+}
+
+.searchBar{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(30,33,38,0.2);
+	border: none;
+	margin: 2vh 0 1vh;
+	color: #ecf0f1;
+	border-radius: 15px;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	padding: 0 0.5vw;
+}
+
+.searchBarInput{
+	width: 90%;
+	height: 100%;
+	color: #ecf0f1;
+	background: none;
+	border: none;
+	padding-left: 0.5vw;
+	margin-left: 0.5vw;
+}
+.searchBarInput:focus{
+	outline: none;
+}
+
+.search:focus{
+	box-shadow: none!important;
 }

@@ -810,8 +810,21 @@ foreach ($merchant as $mch) {
 
 
 		$(".History").click(function() {
-			window.location.href = '<?= base_url(); ?>Shop/viewHistory';
+			id_user = '<?= $user['id_user'] ?>';
+			$.ajax({
+				url: "<?= base_url(); ?>Shop/refreshStatus",
+				method: "post",
+				data: {
+					//id_user: id_user
+				},
+				success: function(result) {
+					window.location.href = '<?= base_url(); ?>Shop/viewHistory';
+				}
+			});
+
 		});
+
+
 
 
 		$(".logout").click(function() {

@@ -7,7 +7,7 @@
 <body>
 
 	<h1>Transaction action</h1>
-	<form action="<?php echo site_url() ?>/transaction/process" method="POST">
+	<form action="<?php echo base_url() ?>midtrans/transaction/process" method="POST">
 		<p>
 			<label>Order id</label>
 			<input value="" size="20" type="text" name="order_id" autocomplete="off" />

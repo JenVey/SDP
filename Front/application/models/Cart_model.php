@@ -28,7 +28,7 @@ class Cart_model extends CI_model
         $amount = 1;
 
         foreach ($cekQuery->result_array() as $row) {
-            if ($id == $row['id_user'] && $idI == $row['id_item'] && $row['status'] != 3) {
+            if ($id == $row['id_user'] && $idI == $row['id_item'] && $row['status'] == 1) {
                 $ada = true;
                 $amount = $row['amount'];
             }
