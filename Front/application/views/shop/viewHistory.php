@@ -13,6 +13,11 @@
 	<script src="<?php echo base_url(); ?>asset/Js/jquery-min.js"></script>
 	<script src="<?php echo base_url(); ?>asset/Js/bootstrap.js"></script>
 </head>
+<?php
+
+//var_dump($totalItem);
+
+?>
 
 <body>
 	<div class="profileContainer">
@@ -86,29 +91,34 @@
 			<div class="transHistoryContainer" style="height: 70vh;">
 				<div class="headerTable">
 					<h4 class="white" style="margin-left: 2vw;">ID History</h4>
-					<h4 class="white" style="margin-left: 10vw;">Top Up</h4>
-					<h4 class="white" style="margin-left: 9vw;">Date</h4>
+					<h4 class="white" style="margin-left: 7vw;">Amount</h4>
+					<h4 class="white" style="margin-left: 8.8vw;">Date</h4>
+					<h4 class="white" style="margin-left: 10vw;">Status</h4>
 				</div>
 				<div class="headerSeparator"></div>
-				<?php $ctr3 = 1;
-				if (!empty($history)) {
-					foreach ($history as $his) { ?>
-						<div class="transBlockContainer">
+				<div class="transBlockContainer">
+					<?php $ctr3 = 1;
+					if (!empty($history)) {
+						foreach ($history as $his) { ?>
+
 							<div class="transBlock">
-								<div class="Date">
+								<div class="orderID">
 									<p style="margin-left: 2vw;"><?= $his['id_history'] ?></p>
 								</div>
-								<div class="Points">
-									<p style="color: #63D99E;margin-left: 3vw;">GP <?= $his['saldo'] ?></p>
+								<div class="Amount">
+									<p style="color: #63D99E; margin-left: 2.3vw;">GP <?= number_format(ceil($his['saldo']), 0, ".", ".")   ?></p>
 								</div>
-								<div class="GrandTotal">
-									<p style="margin-left: 2.5vw;"><?= date('d/m/Y', strtotime($his['date'])) ?></p>
+								<div class="Date">
+									<p><?= date('d/m/Y', strtotime($his['date'])) ?></p>
 								</div>
+								<div class="statusTrans" id="statusHis<?= $ctr3 ?>" style="margin-left: 0.3vw;">
+								</div>
+								<input type="hidden" name="status" id="statusH<?= $ctr3 ?>" value="<?= $his['status'] ?>">
 							</div>
-						</div>
-				<?php $ctr3++;
-					}
-				} ?>
+					<?php $ctr3++;
+						}
+					} ?>
+				</div>
 			</div>
 		</div>
 		<div class="headerTransaction">
@@ -117,11 +127,12 @@
 		<div class="transHistoryWrapper" style="margin-bottom: 1vw;">
 			<div class="transHistoryContainer">
 				<div class="headerTable">
-					<h4 class="white" style="margin-left: 2vw;">Date</h4>
-					<h4 class="white" style="margin-left: 10vw;">Kode Promo</h4>
-					<h4 class="white" style="margin-left: 9vw;">Grand Total</h4>
-					<h4 class="white" style="margin-left: 9vw;">Cashback</h4>
-					<h4 class="white" style="margin-left: 10vw;">Status</h4>
+					<h5 class="white" style="margin-left: 2vw;">Order ID</h5>
+					<h5 class="white" style="margin-left: 8vw;">Date</h5>
+					<h5 class="white" style="margin-left: 10vw;">Kode Promo</h5>
+					<h5 class="white" style="margin-left: 6.1vw;">Grand Total</h5>
+					<h5 class="white" style="margin-left: 7vw;">CashBack</h5>
+					<h5 class="white" style="margin-left: 7vw;">Status</h5>
 				</div>
 				<div class="headerSeparator"></div>
 				<div class="transBlockContainer">
@@ -129,17 +140,27 @@
 						$ctr = 1;
 						foreach ($transaksi as $trans) { ?>
 							<div class="transBlock" id="transBlock<?= $ctr ?>" data-toggle="collapse" data-target="#itemBlockContainer<?= $ctr ?>" aria-expanded="false" aria-controls="itemBlockContainer<?= $ctr ?>">
-								<div class="Date">
-									<p style="margin-left: 2vw;"><?= $trans['tanggal_transaksi'] ?></p>
+
+
+								<div class="orderID">
+									<p style="margin-left: 2vw;"><?php if ($trans['order_id'] != 0) {
+																		echo $trans['order_id'];
+																	} else {
+																		echo $trans['id_transaksi'];
+																	} ?></p>
+									</p>
 								</div>
-								<div class="PointsUsed">
-									<p><?= $trans['id_promo']  ?></p>
+								<div class="Date">
+									<p style="margin-left: 2vw;"><?= date('d/m/Y', strtotime($trans['tanggal_transaksi'])) ?> </p>
+								</div>
+								<div class="kodePromo">
+									<p style="margin-left: 2vw;"><?= $trans['id_promo']  ?></p>
 								</div>
 								<div class="GrandTotal">
-									<p>IDR <?= $trans['Gross_Amount'] ?></p>
+									<p>IDR <?= number_format(ceil($trans['Gross_Amount']), 0, ".", ".") ?></p>
 								</div>
 								<div class="CashBack">
-									<p>IDR <?= $trans['cashback'] ?></p>
+									<p>GP <?= number_format(ceil($trans['cashback']), 0, ".", ".") ?></p>
 								</div>
 								<div class="statusTrans" id="statusTrans<?= $ctr ?>">
 								</div>
@@ -164,7 +185,7 @@
 														</p>
 													</div>
 													<div class="Price">
-														<p>IDR <?= $transItem['subtotal'] ?></p>
+														<p>IDR <?= ceil($transItem['subtotal']) ?></p>
 													</div>
 													<div class="merchantName">
 														<a href="<?= base_url() . "/Shop/viewMerchant/" . $itm['id_merchant'] ?>">
@@ -218,20 +239,22 @@
 			ada = true;
 			ctr = 1;
 			while (ada) {
-				if ($("#inputPoints" + ctr).length) {
-					var status = $("#inputPoints" + ctr).val();
+				if ($("#statusH" + ctr).length) {
+					var status = $("#statusH" + ctr).val();
 					if (status == 1) {
-						$("#statusPoints" + ctr).css("background-color", "#42b77c");
-						$("#statusPoints" + ctr).append("<p>Successful</p>");
+						$("#statusHis" + ctr).css("background-color", "#42b77c");
+						$("#statusHis" + ctr).append("<p>Successful</p>");
 					} else if (status == 2) {
-						$("#statusPoints" + ctr).css("background-color", "#F25757");
-						$("#statusPoints" + ctr).append("<p>Failed</p>");
+						$("#statusHis" + ctr).css("background-color", "#F25757");
+						$("#statusHis" + ctr).append("<p>Failed</p>");
 					} else {
-						$("#statusPoints" + ctr).append("<p>Pending</p>");
+						$("#statusHis" + ctr).append("<p>Pending</p>");
 					}
 					ctr++;
 				} else ada = false;
 			}
+
+			createfirstChart();
 		});
 
 		$(".logout").mouseover(function() {
@@ -252,6 +275,23 @@
 
 		$(".backtoShop").click(function() {
 			window.location.href = '<?= base_url(); ?>Shop/viewProfile/';
+		});
+
+
+		$("#nextYear").click(function() {
+			modifyYear(1);
+		});
+
+		$("#prevYear").click(function() {
+			modifyYear(-1);
+		});
+
+		$("#next10Year").click(function() {
+			modifyYear(10);
+		});
+
+		$("#prev10Year").click(function() {
+			modifyYear(-10);
 		});
 	</script>
 </body>

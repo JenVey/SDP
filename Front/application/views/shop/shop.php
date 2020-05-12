@@ -74,7 +74,7 @@
             <div class="profileStats">
                 <!-- Max Line 10 -->
                 <h5 class="profileName"><?= $user['nama_user'] ?></h5>
-                <h6 class="profileBalance">GP <?= ceil($user['saldo']) ?></h6>
+                <h6 class="profileBalance">GP <?= number_format(ceil($user['saldo']), 0, ".", ".") ?></h6>
             </div>
         </div>
     </div>
@@ -184,7 +184,7 @@
                         <h6 class="itemGameType"><?= $itm['nama_game'] ?></h6>
                         <p class="itemDesc"><?= $itm['desc_item'] ?></p>
                         <div class="merchantRating">
-                            <a href="#" class="itemMerchant"><?= $itm['nama_merchant'] ?></a>
+                            <a href="<?= base_url(); ?>/Shop/viewMerchant/<?= $itm['id_merchant'] ?>" class="itemMerchant"><?= $itm['nama_merchant'] ?></a>
                             <?php
                             foreach ($merchant as $mch) {
                                 if ($mch['nama'] == $itm['nama_merchant']) {
@@ -335,7 +335,7 @@
 
 
         $(".itemHover").click(function() {
-            alert("A");
+            //alert("A");
             if (addCart == 0) {
                 id = $(this).parent().attr('idItem');
                 window.location.href = '<?= base_url(); ?>Shop/viewItem/'.concat(id);

@@ -82,7 +82,9 @@ class Cart_model extends CI_model
 
     public function updateStatus2($idI)
     {
-        //YANG JADI DIBELI
+        //SUDAH DIBELI ENTAH ITU SUDAH DI BAYAR ATAU BELUM (JIKA TRANSFER)
+        //JIKA BLM BAYAR TIDAK AKAN KURANGAI DI AMOUNT ITEM
+
         $id = $this->session->userdata('id_user');
 
         $query = "UPDATE USER_CART SET STATUS = 2 

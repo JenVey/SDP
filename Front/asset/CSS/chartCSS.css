@@ -1,0 +1,105 @@
+.chartWrapper{
+  	height: 70vh; 
+  	width: 80%;
+	background: #585D68;
+	margin-top: 4vh;
+	border-radius: 15px;
+	box-shadow:
+	0 3.3px 1.7px rgba(0, 0, 0, 0.035),
+	0 8.4px 5.6px rgba(0, 0, 0, 0.054),
+	0 27px 25px rgba(0, 0, 0, 0.08)
+  ;
+	box-sizing: border-box;
+	padding: 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+#containerChart{
+	width: 100%;
+	height: 90%;
+}
+
+.highcharts-title tspan{
+    fill: #ecf0f1;
+}
+
+tspan{
+    font-family: Roboto;
+}
+
+.highcharts-subtitle tspan{
+    fill: #ecf0f1;
+}
+
+.highcharts-axis-title tspan{
+    fill: #ecf0f1;
+}
+
+.highcharts-background{
+    fill: #585D68;
+}
+
+.highcharts-data-table table {
+  font-family: Verdana, sans-serif;
+  border-collapse: collapse;
+  border: 1px solid #EBEBEB;
+  margin: 10px auto;
+  text-align: center;
+  width: 100%;
+  max-width: 500px;
+}
+.highcharts-data-table caption {
+  padding: 1em 0;
+  font-size: 1.2em;
+  color: #d7c13f;
+}
+.highcharts-data-table th {
+	font-weight: 200;
+  padding: 0.5em;
+}
+.highcharts-data-table td, .highcharts-data-table th, .highcharts-data-table caption {
+  padding: 0.5em;
+}
+.highcharts-data-table thead tr, .highcharts-data-table tr:nth-child(even) {
+  background: #1e2126;
+}
+.highcharts-data-table tr:hover {
+  background: #1e2126;
+}
+
+.highcharts-point{
+    fill:#1e2126;
+    stroke: #585D68;
+}
+
+.highcharts-text-outline{
+    stroke: none;
+}
+
+.highcharts-yaxis-grid .highcharts-grid-line{
+    stroke:#d7c13f;
+}
+
+.highcharts-axis-line{
+    stroke:#d7c13f;
+}
+
+.highcharts-xaxis-labels text{
+    fill: #d7c13f!important;
+}
+
+.highcharts-yaxis-labels text{
+    fill: #d7c13f!important;
+}
+
+.highcharts-credits{
+    display: none;
+}
+
+.highcharts-tooltip-box{
+    stroke: none;
+    fill: rgba(215,193,63,0.30);
+}

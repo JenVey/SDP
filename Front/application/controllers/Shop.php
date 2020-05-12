@@ -85,17 +85,20 @@ class Shop extends CI_Controller
 
         $this->pagination->initialize($config);
 
+        // CEK STATUS DI MIDTRANS
+        $this->Trans_model->refreshStatus();
+        $this->History_model->refreshStatus();
 
         if (isset($_SESSION['id_game'])) {
             $id = $this->session->userdata('id_user');
             $data['user'] = $this->User_model->getUserById($id);
             $data['merchantF'] = $this->Merchant_model->getMerchantByIdUser($id);
             $data['merchant'] = $this->Merchant_model->getAllMerchant();
-            //$data['item'] = $this->Item_model->getItemByIdGame($_SESSION['id_game']);
-            $data['item'] = $this->Item_model->getItemByIdGame($_SESSION['id_game']);
+            $data['item'] = $this->Item_model->getItemByIdGame($config['per_page'], $start);
             $data['games'] = $this->Game_model->getAllGame();
+            $data['pagination'] = $this->pagination->create_links();
             $this->load->view('templates/header', $data);
-            $this->load->view('shop', $data);
+            $this->load->view('shop/shop', $data);
         } else {
             $id = $this->session->userdata('id_user');
             $data['user'] = $this->User_model->getUserById($id);
@@ -222,6 +225,8 @@ class Shop extends CI_Controller
         $data['user'] = $this->User_model->getUserById($id);
         $data['merchantF'] = $this->Merchant_model->getMerchantByIdUser($id);
         $data['merchant'] = $this->Merchant_model->getMerchantUser($id);
+        $data['allTrans'] = $this->Trans_model->getAllTrans();
+        $data['transaksiItem'] = $this->TransItem_model->getAllTransItem();
         $data['item'] = $this->Item_model->getItemByIdUser($id);
         $data['games'] = $this->Game_model->getAllGame();
         $this->load->view('shop/viewProfile', $data);
@@ -287,7 +292,6 @@ class Shop extends CI_Controller
     {
         $idHis = $this->session->userdata('idHistory');
         $this->History_model->insertHistory($idHis);
-        $this->User_model->updateSaldo();
         redirect('Shop');
     }
 
@@ -398,7 +402,7 @@ class Shop extends CI_Controller
             $this->session->set_userdata(array('gp' => "true"));
 
             $this->Trans_model->insertTrans("0");
-            $this->User_model->updateSaldo();
+            $this->User_model->updateSaldo(0);
 
             for ($i = 0; $i < count($cart); $i++) {
                 $this->Cart_model->updateStatus2($cart[$i]['id']);
@@ -412,6 +416,7 @@ class Shop extends CI_Controller
     public function refreshStatus()
     {
         $this->Trans_model->refreshStatus();
+        $this->History_model->refreshStatus();
     }
 
     public function insertRating()
@@ -428,5 +433,17 @@ class Shop extends CI_Controller
     {
         $this->User_model->updateStatusById($id);
         redirect('Login');
+    }
+
+    public function modifYear()
+    {
+        $id = $this->session->userdata('id_user');
+        $data['user'] = $this->User_model->getUserById($id);
+        $data['merchant'] = $this->Merchant_model->getMerchantUser($id);
+        $data['allTrans'] = $this->Trans_model->getAllTrans();
+        $data['transaksiItem'] = $this->TransItem_model->getAllTransItem();
+        $data['item'] = $this->Item_model->getItemByIdUser($id);
+
+        $this->load->view('shop/chartMerchant', $data);
     }
 }

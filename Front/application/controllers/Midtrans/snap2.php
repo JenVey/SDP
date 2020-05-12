@@ -30,41 +30,42 @@ class Snap2 extends CI_Controller
 			'order_id' => rand(),
 			'gross_amount' => $this->input->post('gross_amount') // no decimal allowed for creditcard
 		);
+		$order_id = $transaction_details['order_id'];
 
 		//GENERATE ID HISTORY
-		$ctr = 1;
-		$query = $this->db->query("select * from user");
-		$idUser = $this->session->userdata('id_user');
+		// $ctr = 1;
+		// $query = $this->db->query("select * from user");
+		// $idUser = $this->session->userdata('id_user');
 
-		foreach ($query->result_array() as $row) {
-			if ($row['id_user'] == $idUser) {
-				$newId = $row['nama_user'];
-			}
-		}
+		// foreach ($query->result_array() as $row) {
+		// 	if ($row['id_user'] == $idUser) {
+		// 		$newId = $row['nama_user'];
+		// 	}
+		// }
 
-		$query = $this->db->query("select * from history");
-		$cekNewId = 'H' . substr(strtoupper($newId), 0, 1);
-		foreach ($query->result_array() as $row) {
-			$cekId = substr(strtoupper($row['id_history']), 0, 2);
-			if ($cekId == $cekNewId) {
-				$ctr++;
-			}
-		}
+		// $query = $this->db->query("select * from history");
+		// $cekNewId = 'H' . substr(strtoupper($newId), 0, 1);
+		// foreach ($query->result_array() as $row) {
+		// 	$cekId = substr(strtoupper($row['id_history']), 0, 2);
+		// 	if ($cekId == $cekNewId) {
+		// 		$ctr++;
+		// 	}
+		// }
 
-		if ($ctr < 10) {
-			$generateId = $cekNewId . '000' . $ctr;
-		} else if ($ctr < 100) {
-			$generateId = $cekNewId . '00' . $ctr;
-		} else if ($ctr < 1000) {
-			$generateId = $cekNewId . '0' . $ctr;
-		} else {
-			$generateId = $cekNewId . $ctr;
-		}
+		// if ($ctr < 10) {
+		// 	$generateId = $cekNewId . '000' . $ctr;
+		// } else if ($ctr < 100) {
+		// 	$generateId = $cekNewId . '00' . $ctr;
+		// } else if ($ctr < 1000) {
+		// 	$generateId = $cekNewId . '0' . $ctr;
+		// } else {
+		// 	$generateId = $cekNewId . $ctr;
+		// }
 
-		$this->session->set_userdata(array('idHistory' => $generateId));
+		$this->session->set_userdata(array('idHistory' => $order_id));
 
 		$item_details = array(
-			'id' => $generateId,
+			'id' => $order_id,
 			'price' => $this->input->post('price'),
 			'quantity' => '1',
 			'name' => 'Top-Up GP'

@@ -42,16 +42,29 @@ class Item_model extends CI_model
         return $res->result_array();
     }
 
-    public function getItemByIdGame($id)
+    public function getItemByIdGame($limit, $start)
     {
-        $query = "SELECT * FROM ITEM I 
-        JOIN MERCHANT M ON M.ID_MERCHANT = I.ID_MERCHANT 
-        JOIN GAME G ON G.ID_GAME = I.ID_GAME 
-        WHERE I.ID_GAME= '" . $id . "' 
-        AND I.JUMLAH_ITEM > 0
-        ORDER BY I.TANGGAL_UPLOAD DESC";
-        $res = $this->db->query($query);
-        return $res->result_array();
+        $idG = $this->session->userdata('id_game');
+
+        $this->db->select('*');
+        $this->db->from('ITEM I');
+        $this->db->join('MERCHANT M', 'M.ID_MERCHANT = I.ID_MERCHANT');
+        $this->db->join('GAME G', ' G.ID_GAME = I.ID_GAME');
+        $this->db->where('I.ID_GAME', $idG);
+        $this->db->where('I.JUMLAH_ITEM >', 0);
+        $this->db->limit($limit, $start);
+        return  $this->db->get()->result_array();
+
+        // $query = "SELECT * FROM ITEM I 
+        // JOIN MERCHANT M ON M.ID_MERCHANT = I.ID_MERCHANT 
+        // JOIN GAME G ON G.ID_GAME = I.ID_GAME 
+        // WHERE I.ID_GAME= '" . $idG . "' 
+        // AND I.JUMLAH_ITEM > 0
+        // ORDER BY I.TANGGAL_UPLOAD DESC";
+
+
+        // $res = $this->db->query($query);
+        // return $res->result_array();
     }
 
     public function getItemBySearch($keyword)
@@ -223,7 +236,6 @@ class Item_model extends CI_model
 
     public function getItem($limit, $start)
     {
-
         $this->db->select('*');
         $this->db->from('ITEM I');
         $this->db->join('MERCHANT M', 'M.ID_MERCHANT = I.ID_MERCHANT');
@@ -231,12 +243,19 @@ class Item_model extends CI_model
         $this->db->where('I.JUMLAH_ITEM >', 0);
         $this->db->limit($limit, $start);
         return  $this->db->get()->result_array();
-        // $res = $this->db->query($query);
-        // return $res->result_array();
     }
 
     public function countAllItem()
     {
-        return $this->db->get('item')->num_rows();
+        if (isset($_SESSION['id_game'])) {
+            $idG = $this->session->userdata('id_game');
+            $sql = "SELECT id_item
+            FROM ITEM I
+            WHERE ID_GAME = '" . $idG . "'";
+
+            return $this->db->query($sql)->num_rows();
+        } else {
+            return $this->db->get('item')->num_rows();
+        }
     }
 }

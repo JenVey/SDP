@@ -73,7 +73,7 @@
             <div class="profileStats">
                 <!-- Max Line 10 -->
                 <h5 class="profileName"><?= $user['nama_user'] ?></h5>
-                <h6 class="profileBalance">GP <?= ceil($user['saldo']) ?></h6>
+                <h6 class="profileBalance">GP <?= number_format(ceil($user['saldo']), 0, ".", ".") ?></h6>
             </div>
         </div>
     </div>
@@ -158,44 +158,43 @@
             <?php endforeach; ?>
         </div>
         <div class="itemContainer">
-            <?php foreach ($item as $itm) : ?>
+            <?php
+            $ctr = 1;
+            foreach ($item as $itm) : ?>
                 <div class="item" idItem="<?= $itm['id_item'] ?>">
-                    <h5 class="itemPrice"><?= "IDR " .  ceil($itm['harga_item']) ?></h5>
-                    <div class="itemImgContainer">
-                        <img src="data:image/jpeg;base64,<?= base64_encode($itm['foto_item']) ?>" alt="" />
-                    </div>
-                    <h5 class="itemTitle"><?= $itm['nama_item'] ?></h5>
-                    <h6 class="itemGameType"><?= $itm['nama_game'] ?></h6>
-                    <p class="itemDesc">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                        ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
-                    <h6 class="itemMerchant"><?= $itm['nama_merchant'] ?></h6>
-                    <div class="merchantRating">
-
-                        <?php
-                        foreach ($merchant as $mch) {
-                            if ($mch['nama'] == $itm['nama_merchant']) {
-                                if (isset($mch['rating'])) {
-                                    echo "<p style='color:#d7c13f; margin-bottom: 0;float: left; font-size: 10pt;'>";
-                                    echo $mch['rating'];
-                                    echo "</p>";
-                                    echo "<svg style='float: left;margin-top: 5px;' xmlns='http://www.w3.org/2000/svg' width='10.125' height='8.62' viewBox='0 0 35.125 33.62'>";
-                                    echo "<path class='solid_star' data-name='solid star' d='M36.178,1.157,31.891,9.85l-9.592,1.4a2.1,2.1,0,0,0-1.162,3.585l6.94,6.762-1.641,9.553a2.1,2.1,0,0,0,3.046,2.213l8.581-4.51,8.581,4.51a2.1,2.1,0,0,0,3.046-2.213L48.048,21.6l6.94-6.762a2.1,2.1,0,0,0-1.162-3.585l-9.592-1.4L39.947,1.157a2.1,2.1,0,0,0-3.769,0Z' transform='translate(-20.5 0.013)' fill='#d7c13f' /></svg>";
-                                } else {
-                                    echo "<p style='color:#d7c13f; margin-bottom: 0;float: left; font-size: 10pt;'>";
-                                    echo "Unrated";
-                                    echo "</p>";
+                    <div class="itemHover">
+                        <div class="itemImgContainer">
+                            <img class="itemImg" src="data:image/jpeg;base64,<?= base64_encode($itm['foto_item']) ?>" alt="" />
+                        </div>
+                        <h5 class="itemTitle"><?= $itm['nama_item'] ?></h5>
+                        <h6 class="itemGameType"><?= $itm['nama_game'] ?></h6>
+                        <p class="itemDesc"><?= $itm['desc_item'] ?></p>
+                        <div class="merchantRating">
+                            <a href="<?= base_url(); ?>/Shop/viewMerchant/<?= $itm['id_merchant'] ?>" class="itemMerchant"><?= $itm['nama_merchant'] ?></a>
+                            <?php
+                            foreach ($merchant as $mch) {
+                                if ($mch['nama'] == $itm['nama_merchant']) {
+                                    if (isset($mch['rating'])) { ?>
+                                        <p style="color:#d7c13f; margin: 0.2vw 0 0 0.5vw; font-size: 12px; height: 50%;"><?= $mch['rating'] ?>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="10.125" height="8.62" viewBox="0 0 35.125 33.62">
+                                                <path class="solid_star" data-name="solid star" d="M36.178,1.157,31.891,9.85l-9.592,1.4a2.1,2.1,0,0,0-1.162,3.585l6.94,6.762-1.641,9.553a2.1,2.1,0,0,0,3.046,2.213l8.581-4.51,8.581,4.51a2.1,2.1,0,0,0,3.046-2.213L48.048,21.6l6.94-6.762a2.1,2.1,0,0,0-1.162-3.585l-9.592-1.4L39.947,1.157a2.1,2.1,0,0,0-3.769,0Z" transform="translate(-20.5 0.013)" fill="#d7c13f" />
+                                            </svg>
+                                        </p>
+                                    <?php } else { ?>
+                                        <p style="color:#d7c13f; margin: 0.2vw 0 0 0.5vw; font-size: 12px; height: 50%;">Unrated</p>
+                            <?php
+                                    }
                                 }
                             }
-                        }
-                        ?>
+                            ?>
+                        </div>
+                        <h6 class="stok">Stok : <span class="yellow"><?= $itm['jumlah_item'] ?></span></h6>
+                        <h4 class="itemPrice">IDR <?= ceil($itm['harga_item']) ?></h4>
+                        <p class="itemUploadDate">Uploaded at <?= date('d/m/Y', strtotime($itm['tanggal_upload'])) ?></p>
                     </div>
-                    <p class="itemUploadDate">Uploaded at <?= date('d/m/Y', strtotime($itm['tanggal_upload'])) ?></p>
                     <div class="addtoCart" idItem="<?= $itm['id_item'] ?>">
                         <button style="border: none;background: none;">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50">
+                            <svg id="cartIcon" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50">
                                 <g id="Group_182" data-name="Group 182" transform="translate(-10402 -997)">
                                     <g id="Group_181" data-name="Group 181" transform="translate(10402 997)">
                                         <rect id="Rectangle_302" data-name="Rectangle 302" width="50" height="50" rx="10" fill="#63d99e" />
@@ -206,9 +205,9 @@
                             </svg>
                         </button>
                     </div>
-                    <h4 class="stok yellow">Stok : <?= $itm['jumlah_item'] ?></h4>
                 </div>
-            <?php endforeach; ?>
+            <?php endforeach;  ?>
+
         </div>
 
         <?= $pagination ?>
@@ -217,8 +216,28 @@
     <script>
         var filter = 0;
         var addCart = 0;
+
         textFit($(".titleGame"));
         textFit($(".profileName"));
+        $('.item').children('.itemHover').each(function() {
+            price = $(this).children(".itemPrice").html();
+            price = price.replace(/[^a-z0-9\s]/gi, '');
+            price = price.substring(4, price.length);
+            $(this).children(".itemPrice").html("IDR " + addCommas(price));
+        });
+
+
+        function addCommas(nStr) {
+            nStr += '';
+            x = nStr.split('.');
+            x1 = x[0];
+            x2 = x.length > 1 ? '.' + x[1] : '';
+            var rgx = /(\d+)(\d{3})/;
+            while (rgx.test(x1)) {
+                x1 = x1.replace(rgx, '$1' + '.' + '$2');
+            }
+            return x1 + x2;
+        }
 
         $(".filterAlpha").click(function() {
             if (filter == 0) {
@@ -242,12 +261,15 @@
             window.location.href = '<?= base_url(); ?>Shop/unsetGame/';
         });
 
-        $(".item").click(function() {
+
+        $(".itemHover").click(function() {
+            //alert("A");
             if (addCart == 0) {
-                id = $(this).attr('idItem');
+                id = $(this).parent().attr('idItem');
                 window.location.href = '<?= base_url(); ?>Shop/viewItem/'.concat(id);
             }
         });
+
 
         $(".accItem").click(function() {
             id = $(this).attr('idMerchant');
