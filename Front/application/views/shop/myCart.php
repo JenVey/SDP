@@ -76,7 +76,7 @@
 			<div class="profileStats">
 				<!-- Max Line 10 -->
 				<h5 class="profileName"><?= $user['nama_user'] ?></h5>
-				<h6 class="profileBalance">GP <?= ceil($user['saldo']) ?></h6>
+				<h6 class="profileBalance">GP <?= number_format(ceil($user['saldo']), 0, ".", ".") ?></h6>
 			</div>
 		</div>
 	</div>
@@ -175,8 +175,7 @@
 			endforeach;
 			?>
 
-			<div class="cartItemWrapper">
-				<div class="grandTotalContainer">
+			<!-- <div class="grandTotalContainer">
 					<div class="grandTotalWrapper">
 						<div class="total">
 							<div class="pembeda">
@@ -192,8 +191,21 @@
 							<h6>Checkout</h6>
 						</button>
 					</div>
-				</div>
+				</div> -->
+		</div>
+		<div class="grandTotalContainer">
+			<div style="width: 100%;display: flex;">
+				<h4 style="color: #ecf0f1;margin-left: 2.1vw;">Grand Total : <span class="GrandTotal">IDR 0</span></h4>
 			</div>
+			<div style="width: 100%;display: flex;align-items: center;">
+				<input class="input" type="text" name="enterPromo" id="promoCode" maxlength="10" placeholder="Input Promo Code">
+				<h4 style="color: #63D99E; margin-left: 0.5vw;"><span style="color: #ecf0f1;"> : </span>
+					<span id="cashback">0</span> % Cashback
+				</h4>
+			</div>
+			<button class="checkOut" style="margin-left: 4vw;">
+				<h6>Checkout</h6>
+			</button>
 		</div>
 	</div>
 	<form id="payment-form" method="post" action="<?= site_url() ?>Shop/finish/bank">
@@ -552,6 +564,25 @@
 			$("#bodyTrans").css("display", "none");
 			$("#bodyTrans").attr("class", "");
 			$('body').css("overflow-y", "auto");
+		});
+
+		$("input[name='enterPromo']").on("input", function() {
+			kode = $(this).val();
+			//alert(kode);
+			$.ajax({
+				url: "<?= base_url(); ?>Shop/cekPromo/",
+				method: "post",
+				data: {
+					kode: kode
+				},
+				success: function(result) {
+					if (result != 0) {
+						$("#cashback").html(result);
+					} else {
+						$("#cashback").html(0);
+					}
+				}
+			});
 		});
 	</script>
 </body>

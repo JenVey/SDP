@@ -154,7 +154,7 @@
 									<p style="margin-left: 2vw;"><?= date('d/m/Y', strtotime($trans['tanggal_transaksi'])) ?> </p>
 								</div>
 								<div class="kodePromo">
-									<p style="margin-left: 2vw;"><?= $trans['id_promo']  ?></p>
+									<p style="margin-left: 2vw;"><?= $trans['kodepromo']  ?></p>
 								</div>
 								<div class="GrandTotal">
 									<p>IDR <?= number_format(ceil($trans['Gross_Amount']), 0, ".", ".") ?></p>

@@ -138,7 +138,6 @@
 			<button id="register" type="submit" style="top:72vh">Register</button>
 		</form>
 	</div>
-
 	<script>
 		$('.boy').click(function() {
 			$('#Group_116').css('opacity', 1);
@@ -159,6 +158,7 @@
 			}
 		});
 	</script>
+
 </body>
 
 </html>

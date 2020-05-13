@@ -36,6 +36,7 @@ class Shop extends CI_Controller
         $this->load->model('History_model');
         $this->load->model('Rating_model');
         $this->load->model('Gacha_model');
+        $this->load->model('Promo_model');
     }
 
     public function index()
@@ -214,6 +215,7 @@ class Shop extends CI_Controller
         $data['user'] = $this->User_model->getUserById($id);
         $data['merchantF'] = $this->Merchant_model->getMerchantByIdUser($id);
         $data['item'] = $this->Item_model->getAllItem();
+        $data['promo'] = $this->Promo_model->getAllPromo();
         $data['cart'] = $this->Cart_model->getCartByIdUser($id);
 
         $this->load->view('shop/myCart', $data);
@@ -386,10 +388,17 @@ class Shop extends CI_Controller
         $this->Cart_model->removeCart($idI);
     }
 
+    public function cekPromo()
+    {
+        $this->Promo_model->cekPromo();
+    }
+
+
     public function finish($cek)
     {
         $id = $this->session->userdata('id_user');
         if ($cek == 'bank') {
+            $this->session->unset_userdata('gp');
             $cart = $this->input->post('cart');
             for ($i = 0; $i < count($cart); $i++) {
                 $this->Cart_model->updateStatus2($cart[$i]);

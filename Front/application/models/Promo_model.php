@@ -5,10 +5,7 @@ class Promo_model extends CI_model
     {
         return $this->db->get('promo')->result_array();
     }
-    public function getPromoByMerchant($id)
-    {
-        return $this->db->get_where('promo', ['id_merchant' => $id])->row_array();
-    }
+
 
     public function insertPromo()
     {
@@ -42,5 +39,34 @@ class Promo_model extends CI_model
             "potongan" =>  $this->input->post('')
         ];
         $this->db->insert('promo', $data);
+    }
+
+
+    public function cekPromo()
+    {
+        date_default_timezone_set('Asia/Jakarta');
+        $ada = false;
+        $tgl = date("Y-m-d");
+        $kode = $this->input->post('kode');
+        $query = $this->db->query("select * from promo");
+        foreach ($query->result_array() as $row) {
+            if ($row['kodepromo'] == $kode) {
+
+                if ($tgl >= $row['tanggal_aktif'] && $tgl < $row['tanggal_kadaluwarsa']) {
+
+                    $id = $row['id_promo'];
+                    $cashback = $row['potongan'];
+                    $ada = true;
+                }
+            }
+        }
+
+        if ($ada) {
+            $this->session->set_userdata(array('id_promo' => $id));
+            echo $cashback;
+        } else {
+            $this->session->unset_userdata('id_promo');
+            echo 0;
+        }
     }
 }

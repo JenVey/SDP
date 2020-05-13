@@ -100,6 +100,8 @@ class User_model extends CI_model
     public function updateSaldo($total)
     {
         if ($total == 0) {
+            $cashback = $this->session->userdata('cashback');
+
             $total = $this->input->post('gross_amount');
         }
 
@@ -115,7 +117,7 @@ class User_model extends CI_model
         if (isset($_SESSION['idHistory'])) {
             $saldo = $saldo + intval($total);
         } else {
-            $saldo = $saldo - intval($total);
+            $saldo = $saldo - intval($total) + $cashback;
             echo $total;
             echo $saldo;
             if ($saldo < 0) {
