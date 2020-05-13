@@ -11,9 +11,12 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/teamCSS.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/animation.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/alertify.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/alerts.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/themes/default.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/themes/default.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/datepicker.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/bootstrap-clockpicker.css">
+
     <script src="<?php echo base_url(); ?>asset/Js/alertify.js"></script>
     <script src="<?php echo base_url(); ?>asset/Js/jquery-min.js"></script>
     <script src="<?php echo base_url(); ?>asset/Js/bootstrap.js"></script>
@@ -23,7 +26,7 @@
 
 </head>
 <?php
-
+date_default_timezone_set('Asia/Jakarta');
 if (isset($teamA)) {
     foreach ($team as $tim) {
         if ($tim['id_user'] && $user['id_user']) {
@@ -31,7 +34,6 @@ if (isset($teamA)) {
         }
     }
 }
-
 
 ?>
 
@@ -82,6 +84,16 @@ if (isset($teamA)) {
                 </svg>
                 <h6 class="varela">Join</h6>
             </button>
+        </div>
+        <div class="actionButs">
+            <div class="searchBar">
+                <button class="search">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 27 27.007">
+                        <path id="Icon_ionic-ios-search" data-name="Icon ionic-ios-search" d="M31.184,29.545l-7.509-7.58a10.7,10.7,0,1,0-1.624,1.645l7.46,7.53a1.156,1.156,0,0,0,1.631.042A1.163,1.163,0,0,0,31.184,29.545ZM15.265,23.7a8.45,8.45,0,1,1,5.977-2.475A8.4,8.4,0,0,1,15.265,23.7Z" transform="translate(-4.5 -4.493)" fill="#d7c13f" />
+                    </svg>
+                </button>
+                <input type="text" placeholder="Search your Team" name="searchBar" class="searchBarInput">
+            </div>
         </div>
         <div class="accItemContainer">
             <?php foreach ($team as $tim) { ?>
@@ -137,6 +149,13 @@ if (isset($teamA)) {
                                                             echo "offline";
                                                         } ?>"><?= $timM['nama_user'] ?></h6>
                             </div>
+                            <?php if ($timM['id_user'] == $teamA['id_user']) { ?>
+                                <div style="margin-right: 2vw;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="22.5" height="18" viewBox="0 0 22.5 18">
+                                        <path id="Icon_awesome-crown" data-name="Icon awesome-crown" d="M18.563,15.75H3.938a.564.564,0,0,0-.562.563v1.125A.564.564,0,0,0,3.938,18H18.563a.564.564,0,0,0,.563-.562V16.313A.564.564,0,0,0,18.563,15.75ZM20.813,4.5a1.688,1.688,0,0,0-1.687,1.688,1.653,1.653,0,0,0,.155.7L16.734,8.409A1.123,1.123,0,0,1,15.18,8L12.315,2.988a1.688,1.688,0,1,0-2.13,0L7.32,8a1.124,1.124,0,0,1-1.554.408L3.224,6.884a1.687,1.687,0,1,0-1.536.991,1.723,1.723,0,0,0,.271-.028L4.5,14.625H18l2.542-6.778a1.723,1.723,0,0,0,.271.028,1.688,1.688,0,0,0,0-3.375Z" fill="#d7c13f" />
+                                    </svg>
+                                </div>
+                            <?php } ?>
                         </div>
                 <?php }
                 } ?>
@@ -265,7 +284,7 @@ if (isset($teamA)) {
                             <div class="tourname" style="margin-top: 8vh;width: 80%; justify-content: flex-end;">
                                 <h6 class="varela imgText">Time Trigger</h6>
                                 <div class="form-group mb-4" style="margin: 0!important;">
-                                    <div class="datepicker date input-group p-0 shadow-sm" data-date-start-date="+1d">
+                                    <div class="datepicker date input-group p-0 shadow-sm" data-date-start-date="d">
                                         <input type="text" placeholder="Date" class="form-control" name="reminderDate" id="tourDate">
                                         <div class="input-group-append" style="overflow: visible;">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="48" height="32.5" viewBox="0 0 61 46">
@@ -301,23 +320,24 @@ if (isset($teamA)) {
                             <h6 class="varela">Create Reminder</h6>
                         </button>
                         <div class="reminders">
-                            <?php foreach ($teamR as $timR) {
+                            <?php $ctr = 0;
+                            foreach ($teamR as $timR) {
                                 if ($timR['id_team'] == $teamA['id_team']) { ?>
                                     <div class="reminderItem">
                                         <div class="reminderTime">
                                             <h4 class="varela" style="color: #ecf0f1;"><?= date_format(date_create($timR['waktu']), "H:i") ?></h4>
                                             <h6 class="varela" style="font-size: 14px;color: #d7c13f;"> <?= date_format(date_create($timR['waktu']), "d/m/Y") ?> </h6>
                                         </div>
-                                        <div class="reminderDetails" id="reminder1">
-                                            <input type="hidden" id="reminderValue1" value="2020-05-06T16:19:20Z">
-                                            <h5 class="yellow" id="reminder1Name"><?= $timR['judul'] ?></h5>
-                                            <div class="reminderDesc" id="reminder1Desc">
+                                        <div class="reminderDetails" id="reminder<?= $ctr ?>">
+                                            <input type="text" id="reminderTime<?= $ctr ?>" value="<?= date_format(date_create($timR['waktu']), "Y-m-d") ?>T<?= date_format(date_create($timR['waktu']), "H:i") . ":00" ?>Z" hidden>
+                                            <h5 class="yellow" id="reminder<?= $ctr ?>Name"><?= $timR['judul'] ?></h5>
+                                            <div class="reminderDesc" id="reminder<?= $ctr ?>Desc">
                                                 <p><?= $timR['keterangan'] ?></p>
                                             </div>
                                         </div>
-                                        <p class="dateReminder">Created on <?= date_format(date_create($timR['waktu']), "d F Y") ?> by Yosua</p>
                                     </div>
                             <?php }
+                                $ctr++;
                             } ?>
                         </div>
                     </div>
@@ -420,7 +440,7 @@ if (isset($teamA)) {
         </div>
         <div id="topUpBody">
             <h6 style="color: #ecf0f1">Input Team ID </h6>
-            <input type="text" name="topUpAmount" id="idTim">
+            <input type="text" class="topUpAmount" name="topUpAmount" id="idTim">
         </div>
     </div>
 
@@ -461,6 +481,7 @@ if (isset($teamA)) {
     });
 
 
+
     $(".createButton").click(function() {
         nama_team = $(".newName").html();
         foto = $(".imageWrapper").find('img').attr('src');
@@ -495,7 +516,7 @@ if (isset($teamA)) {
     $("#saveChange").click(function() {
         nama_team = $('#channelName').html();
         foto = $("#imgContainer").find('img').attr('src');
-        alert(nama_team);
+        //alert(nama_team);
         // alert(foto);
         if (foto.substring(11, 12) == "j") {
             foto = foto.substring(23, foto.length);
@@ -542,7 +563,7 @@ if (isset($teamA)) {
         var ctr = 1;
         var ada = true;
         while (ada) {
-            if ($("#reminderValue" + ctr).length) {
+            if ($("#reminderTime" + ctr).length) {
                 ctr++;
             } else {
                 ada = false;
@@ -553,9 +574,10 @@ if (isset($teamA)) {
         var d = new Date();
 
         for (var i = 1; i <= ctr; i++) {
-            var newdate = new Date($("#reminderValue" + i).val());
+            var newdate = new Date($("#reminderTime" + i).val());
             newdate.setMilliseconds(0);
             d.setMilliseconds(0);
+            newdate.setHours(newdate.getHours() - 7);
             if (newdate.getTime() === d.getTime()) {
                 alertify.alert($("#reminder" + i + "Name").html(), $("#reminder" + i + "Desc").html());
             }
@@ -564,14 +586,15 @@ if (isset($teamA)) {
         }
     }
     var date = new Date();
-    var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    var yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
     //	alert(today);
     //	alert(d);
 
     $('.datepicker').datepicker({
         clearBtn: true,
         format: "dd/mm/yyyy",
-        minDate: today
+        minDate: yesterday
     });
 
 
@@ -754,7 +777,7 @@ if (isset($teamA)) {
     $("#join").click(function() {
         alertify.confirm(bodyTopUp).set('onok', function(closeevent, value) {
             idTeam = $("#idTim").val();
-            alert(idTeam);
+            //alert(idTeam);
             $.ajax({
                 url: "<?= base_url(); ?>Community/joinTeam",
                 method: "post",
@@ -1000,13 +1023,17 @@ if (isset($teamA)) {
     var createReminder = false;
     $("#createReminder").click(function() {
         if (createReminder == false) {
-            $("#reminderForm").collapse();
+            $("#reminderForm").collapse("show");
             createReminder = true;
         } else {
             judul = $('[name="tourName"]').val();
             desc = $('[name="messagereminder"]').val();
-            waktu = $('[name="reminderDate"]').val();
-            // alert(waktu);
+            hari = $('[name="reminderDate"]').val();
+            jam = $('[name="reminderTime"]').val();
+            waktu = hari + " " + jam;
+
+            alert(waktu);
+
             // foto = $(".imageContainer").find('img').attr('src');
 
             // if (foto.substring(11, 12) == "j") {
@@ -1027,7 +1054,9 @@ if (isset($teamA)) {
                 },
                 success: function(result) {
                     $(".reminders").html(result);
+                    $("#reminderForm").collapse("hide");
                     alertify.success("Success add reminder");
+                    createReminder = false;
                 }
             });
         }
@@ -1073,6 +1102,22 @@ if (isset($teamA)) {
             };
             reader.readAsDataURL(this.files[0]);
         }
+    });
+
+    $(".search").click(function() {
+        keyword = $(".searchBarInput").val();
+        //alert(keyword);
+        $.ajax({
+            url: "<?= base_url(); ?>Community/searchTeam",
+            method: "post",
+            data: {
+                keyword: keyword
+            },
+            success: function(result) {
+                $(".listTeam").html(result);
+                $(".searchBarInput").val("");
+            }
+        });
     });
 </script>
 

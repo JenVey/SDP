@@ -47,6 +47,9 @@ class Email extends CI_Controller
         $config['mailtype'] = 'text'; // or html
         $config['validation'] = TRUE; // bool whether to validate email or not      
 
+
+
+
         $this->load->library('email', $config);
         $this->email->set_newline("\r\n");
         $this->email->from('morningowl.company@gmail.com', 'ADMIN');
@@ -69,6 +72,8 @@ class Email extends CI_Controller
             }
         }
 
+
+
         $config['protocol']    = 'smtp';
         $config['smtp_host']    = 'ssl://smtp.gmail.com';
         $config['smtp_port']    = '465';
@@ -77,15 +82,18 @@ class Email extends CI_Controller
         $config['smtp_pass']    = 'satvelrobyos';
         $config['charset']    = 'utf-8';
         $config['newline']    = "\r\n";
-        $config['mailtype'] = 'text'; // or html
+        $config['mailtype'] = 'html'; // or html
         $config['validation'] = TRUE; // bool whether to validate email or not      
+
+        $message = '<html> <h2>TEST</h2> </html>';
 
         $this->load->library('email', $config);
         $this->email->set_newline("\r\n");
         $this->email->from('morningowl.company@gmail.com', 'ADMIN');
         $this->email->to($email);
         $this->email->subject('VERIFIKASI EMAIL');
-        $this->email->message('http://localhost/Github/SDP_Proyek/Front/Shop/verifikasi/' . $id);
+        $this->email->message($message);
+        //$this->email->message('http://localhost/Github/SDP_Proyek/Front/Shop/verifikasi/' . $id);
 
         $this->email->send();
         $this->email->print_debugger();

@@ -22,6 +22,7 @@ class Shop extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+
         $this->load->library('form_validation');
         $this->load->model('User_model');
         $this->load->model('Friend_model');
@@ -39,26 +40,79 @@ class Shop extends CI_Controller
 
     public function index()
     {
+        //PAGINATION
+        $this->load->library('pagination');
+        $config['base_url'] = "http://localhost/Github/SDP_Proyek/Front/Shop/index";
+        $config['total_rows'] = $this->Item_model->countAllItem();
+        $config['per_page'] = 9;
+
+        $start = $this->uri->segment(3);
+
+
+
+        //STYLE PAGINATION
+        $config['full_tag_open'] = '<div class="pagination">';
+        $config['full_tag_close'] = ' </div>';
+
+        $config['first_link'] = 'First';
+        $config['first_tag_open'] = '<div class="pageblock">';
+        $config['first_tag_close'] = '</div>';
+
+        $config['last_link'] = 'Last';
+        $config['last_tag_open'] = '<div class="pageblock">';
+        $config['last_tag_close'] = '</div>';
+
+
+        $config['next_link'] = '  <svg xmlns="http://www.w3.org/2000/svg" width="20.243" height="13.501" viewBox="0 0 20.243 13.501">
+                                    <path id="Icon_ionic-ios-arrow-round-back" data-name="Icon ionic-ios-arrow-round-back" d="M20.792,11.51a.919.919,0,0,0-.007,1.294l4.268,4.282H8.789a.914.914,0,0,0,0,1.828H25.053L20.777,23.2a.925.925,0,0,0,.007,1.294.91.91,0,0,0,1.287-.007l5.794-5.836h0a1.027,1.027,0,0,0,.19-.288.872.872,0,0,0,.07-.352.916.916,0,0,0-.26-.64l-5.794-5.836A.9.9,0,0,0,20.792,11.51Z" transform="translate(-7.882 -11.252)" fill="#ecf0f1"/>
+                                </svg>';
+        $config['next_tag_open'] = '<div class="pageblock">';
+        $config['next_tag_close'] = '</div>';
+
+        $config['prev_link'] = ' <svg xmlns="http://www.w3.org/2000/svg" width="20.243" height="13.501" viewBox="0 0 20.243 13.501">
+                                    <path id="Icon_ionic-ios-arrow-round-back" data-name="Icon ionic-ios-arrow-round-back" d="M15.216,11.51a.919.919,0,0,1,.007,1.294l-4.268,4.282H27.218a.914.914,0,0,1,0,1.828H10.955L15.23,23.2a.925.925,0,0,1-.007,1.294.91.91,0,0,1-1.287-.007L8.142,18.647h0a1.026,1.026,0,0,1-.19-.288.872.872,0,0,1-.07-.352.916.916,0,0,1,.26-.64l5.794-5.836A.9.9,0,0,1,15.216,11.51Z" transform="translate(-7.882 -11.252)" fill="#ecf0f1"/>
+                                </svg>';
+        $config['prev_tag_open'] = ' <div class="pageblock">';
+        $config['prev_tag_close'] = ' </div>';
+
+        $config['cur_tag_open'] = '<div class="pageblock active" ><h4>';
+        $config['cur_tag_close'] = '</h4></div>';
+
+        $config['num_tag_open'] = ' <div class="pageblock"><h4>';
+        $config['num_tag_close'] = '</h4></div>';
+
+        // $config['attributes'] = array('class' => 'page-link');
+
+        $this->pagination->initialize($config);
+
+        // CEK STATUS DI MIDTRANS
+        $this->Trans_model->refreshStatus();
+        $this->History_model->refreshStatus();
+
         if (isset($_SESSION['id_game'])) {
             $id = $this->session->userdata('id_user');
             $data['user'] = $this->User_model->getUserById($id);
             $data['merchantF'] = $this->Merchant_model->getMerchantByIdUser($id);
             $data['merchant'] = $this->Merchant_model->getAllMerchant();
-            $data['item'] = $this->Item_model->getItemByIdGame($_SESSION['id_game']);
+            $data['item'] = $this->Item_model->getItemByIdGame($config['per_page'], $start);
             $data['games'] = $this->Game_model->getAllGame();
+            $data['pagination'] = $this->pagination->create_links();
             $this->load->view('templates/header', $data);
-            $this->load->view('shop', $data);
+            $this->load->view('shop/shop', $data);
         } else {
             $id = $this->session->userdata('id_user');
             $data['user'] = $this->User_model->getUserById($id);
             $data['merchantF'] = $this->Merchant_model->getMerchantByIdUser($id);
             $data['merchant'] = $this->Merchant_model->getAllMerchant();
-            $data['item'] = $this->Item_model->getAllItem();
+            $data['item'] = $this->Item_model->getItem($config['per_page'], $start);
+            //$data['item'] = $this->Item_model->getAllItem();
             $data['games'] = $this->Game_model->getAllGame();
+            $data['pagination'] = $this->pagination->create_links();
             $this->load->view('templates/header', $data);
             $this->load->view('shop/shop', $data);
         }
     }
+
 
     public function viewItem($idI)
     {
@@ -86,6 +140,7 @@ class Shop extends CI_Controller
 
     public function viewSearchM($keyword)
     {
+        $start = $this->uri->segment(3);
         $id = $this->session->userdata('id_user');
         $idM = $this->session->userdata('id_merchant');
         $data['user'] = $this->User_model->getUserById($id);
@@ -99,11 +154,56 @@ class Shop extends CI_Controller
 
     public function viewSearch($keyword)
     {
+        //PAGINATION
+        $this->load->library('pagination');
+        $config['base_url'] = "http://localhost/Github/SDP_Proyek/Front/Shop/index";
+        $config['total_rows'] = $this->Item_model->countAllItem();
+        $config['per_page'] = 10;
+
+        $start = $this->uri->segment(3);
+
+
+
+        //STYLE PAGINATION
+        $config['full_tag_open'] = '<nav><ul class="pagination justify-content-center">';
+        $config['full_tag_close'] = '</ul></nav>';
+
+        $config['first_link'] = 'First';
+        $config['first_tag_open'] = '<li class="page-item">';
+        $config['first_tag_close'] = '</li>';
+
+        $config['last_link'] = 'Last';
+        $config['last_tag_open'] = '<li class="page-item">';
+        $config['last_tag_close'] = '</li>';
+
+
+        $config['next_link'] = '&raquo';
+        $config['next_tag_open'] = '<li class="page-item">';
+        $config['next_tag_close'] = '</li>';
+
+        $config['prev_link'] = '&laquo';
+        $config['prev_tag_open'] = '<li class="page-item">';
+        $config['prev_tag_close'] = '</li>';
+
+
+        $config['cur_tag_open'] = '<li class="page-item active"><a class="page-link">';
+        $config['cur_tag_close'] = '</a></li>';
+
+        $config['num_tag_open'] = '<li class="page-item">';
+        $config['num_tag_close'] = '</li>';
+
+        $config['attributes'] = array('class' => 'page-link');
+
+        $this->pagination->initialize($config);
+
+
         $id = $this->session->userdata('id_user');
         $data['user'] = $this->User_model->getUserById($id);
         $data['merchantF'] = $this->Merchant_model->getMerchantByIdUser($id);
         $data['merchant'] = $this->Merchant_model->getMerchantBySearch($keyword);
+        //$data['item'] = $this->Item_model->getItemBySearch($keyword, 10, $start);
         $data['item'] = $this->Item_model->getItemBySearch($keyword);
+        $data['pagination'] = $this->pagination->create_links();
         $this->load->view('shop/viewSearch', $data);
     }
 
@@ -125,6 +225,8 @@ class Shop extends CI_Controller
         $data['user'] = $this->User_model->getUserById($id);
         $data['merchantF'] = $this->Merchant_model->getMerchantByIdUser($id);
         $data['merchant'] = $this->Merchant_model->getMerchantUser($id);
+        $data['allTrans'] = $this->Trans_model->getAllTrans();
+        $data['transaksiItem'] = $this->TransItem_model->getAllTransItem();
         $data['item'] = $this->Item_model->getItemByIdUser($id);
         $data['games'] = $this->Game_model->getAllGame();
         $this->load->view('shop/viewProfile', $data);
@@ -190,7 +292,6 @@ class Shop extends CI_Controller
     {
         $idHis = $this->session->userdata('idHistory');
         $this->History_model->insertHistory($idHis);
-        $this->User_model->updateSaldo();
         redirect('Shop');
     }
 
@@ -290,7 +391,6 @@ class Shop extends CI_Controller
         $id = $this->session->userdata('id_user');
         if ($cek == 'bank') {
             $cart = $this->input->post('cart');
-
             for ($i = 0; $i < count($cart); $i++) {
                 $this->Cart_model->updateStatus2($cart[$i]);
             }
@@ -299,17 +399,25 @@ class Shop extends CI_Controller
             $cart = $this->input->post('cart');
             $cart = json_decode($cart, true);
 
-            $this->Trans_model->insertTrans();
-            $this->User_model->updateSaldo();
+            $this->session->set_userdata(array('gp' => "true"));
+
+            $this->Trans_model->insertTrans("0");
+            $this->User_model->updateSaldo(0);
 
             for ($i = 0; $i < count($cart); $i++) {
                 $this->Cart_model->updateStatus2($cart[$i]['id']);
             }
+            $this->Item_model->updateAmount();
         }
-        $this->Item_model->updateAmount();
+
         redirect('Shop');
     }
 
+    public function refreshStatus()
+    {
+        $this->Trans_model->refreshStatus();
+        $this->History_model->refreshStatus();
+    }
 
     public function insertRating()
     {
@@ -325,5 +433,17 @@ class Shop extends CI_Controller
     {
         $this->User_model->updateStatusById($id);
         redirect('Login');
+    }
+
+    public function modifYear()
+    {
+        $id = $this->session->userdata('id_user');
+        $data['user'] = $this->User_model->getUserById($id);
+        $data['merchant'] = $this->Merchant_model->getMerchantUser($id);
+        $data['allTrans'] = $this->Trans_model->getAllTrans();
+        $data['transaksiItem'] = $this->TransItem_model->getAllTransItem();
+        $data['item'] = $this->Item_model->getItemByIdUser($id);
+
+        $this->load->view('shop/chartMerchant', $data);
     }
 }

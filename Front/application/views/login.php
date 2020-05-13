@@ -13,7 +13,7 @@
 
 <body>
   <nav class="navbar">
-    <a class="logo" style="color: #D7C13F;" onclick="location.href='index.html';">gather.owl</a>
+    <a class="logo" style="color: #D7C13F;" onclick="location.href='<?= base_url(); ?>'">gather.owl</a>
 
     <form class="form-inline" method="post" action="<?= base_url(); ?>Login/cekUser">
       <input name="LogUsername" class="form-control mr-sm-2" type="text" placeholder="Username / Email" aria-label="Username / Email" maxlength="24">
@@ -30,8 +30,8 @@
   <p class="Title" style="left: 90px; top: 350px;">LET'S <em>CONNECT</em></p>
   <p class="SubTitle" style="left: 90px;top: 410px;">A place where we can gather and shop items.
     <br />Same time, same place.</p>
-  <div class="RegButton" onclick="location.href='<?= base_url(); ?>register'"> Register now</div>
-
+  <div class="RegButton" onclick="location.href='<?= base_url(); ?>Register'"> Register now</div>
+  <div class="cek" style="top: 500px;" onclick="location.href='<?= base_url(); ?>Email/verifikasi/UR0003'"> EMAIL</div>
 
   <div class="forgot">
     <h1 style="position: absolute; left: 230px;top:40px; z-index: 2; color: white; font-family: Varela;">Which one is still yours?</h1>

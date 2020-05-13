@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/channelCSS.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/animation.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/alertify.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/alerts.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/themes/default.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/themes/default.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/datepicker.css">
@@ -33,6 +34,13 @@ if (isset($channelA)) {
         }
     }
 }
+
+// $bagian = "quarterfinalteam1";
+// $tim = substr($bagian, -5);
+// $idx = strpos($bagian, "team");
+// $bagian2 = substr($bagian, 0, $idx);
+// echo $tim;
+// echo $bagian2;
 
 ?>
 
@@ -84,13 +92,23 @@ if (isset($channelA)) {
                 <h6 class="varela">Join</h6>
             </button>
         </div>
-        <div class="accItemContainer">
+        <div class="actionButs">
+            <div class="searchBar">
+                <button class="search">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 27 27.007">
+                        <path id="Icon_ionic-ios-search" data-name="Icon ionic-ios-search" d="M31.184,29.545l-7.509-7.58a10.7,10.7,0,1,0-1.624,1.645l7.46,7.53a1.156,1.156,0,0,0,1.631.042A1.163,1.163,0,0,0,31.184,29.545ZM15.265,23.7a8.45,8.45,0,1,1,5.977-2.475A8.4,8.4,0,0,1,15.265,23.7Z" transform="translate(-4.5 -4.493)" fill="#d7c13f" />
+                    </svg>
+                </button>
+                <input type="text" placeholder="Search your channel" name="searchBar" class="searchBarInput">
+            </div>
+        </div>
+        <div class="accItemContainer listChannel">
             <?php foreach ($channel as $chn) { ?>
-                <div class="accItem listChannel" idChannel="<?= $chn['id_channel'] ?>" <?php if (isset($channelA)) {
-                                                                                            if ($chn['id_channel'] == $channelA['id_channel']) {
-                                                                                                echo "id='active'";
-                                                                                            }
-                                                                                        } ?>>
+                <div class="accItem" idChannel="<?= $chn['id_channel'] ?>" <?php if (isset($channelA)) {
+                                                                                if ($chn['id_channel'] == $channelA['id_channel']) {
+                                                                                    echo "id='active'";
+                                                                                }
+                                                                            } ?>>
                     <div class="profileImg" style="margin-left: 0;"><img src="data:image/jpeg;base64,<?= base64_encode($chn['foto_channel']) ?>" width="50" height="50" alt="" /></div>
                     <h6 class="profileName"><?= $chn['nama_channel'] ?></h6>
                 </div>
@@ -290,12 +308,14 @@ if (isset($channelA)) {
                                 </div>
                             </div>
                         </div>
-                        <button id="createTournament">
-                            <h6 class="varela">Create Tournament</h6>
-                        </button>
+                        <?php if (isset($_SESSION['admin']) || isset($_SESSION['master'])) { ?>
+                            <button id="createTournament">
+                                <h6 class="varela">Create Tournament</h6>
+                            </button>
+                        <?php } ?>
                         <div class="tourneys">
                             <?php foreach ($tournament as $turney) { ?>
-                                <div class="tourneyItem">
+                                <div class="tourneyItem" idTournament=<?= $turney['id_turnament'] ?> jumlah_pemain=<?= $turney['jumlah_pemain'] ?> jumlah_slot=<?= $turney['jumlah_slot'] ?>>
                                     <h2 class="yellow varela" style="margin-top: 2vh;"><?= $turney['nama_game'] ?></h2>
                                     <h6 class="varela" style="margin-top: 1vh;color: #ecf0f1;"><?= $turney['nama_turnament'] ?></h6>
                                     <h6 style="font-size: 12px; color: rgba(236,240,241,0.37);"><?= $turney['jumlah_slot'] ?> Slots</h6>
@@ -332,7 +352,15 @@ if (isset($channelA)) {
                                         </div>
                                     </div>
                                     <div class="startDate">
-                                        <p class="finished">Finished</p>
+                                        <?php if ($turney['status'] == -1) {
+                                            echo "<p class='ongoing'> Cancelled </p>";
+                                        } else if ($turney['status'] == 0) {
+                                            echo "<p class='available'> Available </p>";
+                                        } else if ($turney['status'] == 1) {
+                                            echo "<p class='ongoing'> Ongoing </p>";
+                                        } else if ($turney['status'] == 2) {
+                                            echo "<p class='finished'> Finished </p>";
+                                        } ?>
                                         <p>Start: <span style="color: rgba(215,193,63,0.70);"><?= date_format(date_create($turney['tanggal_mulai']), "d F Y")  ?></span></p>
                                     </div>
                                 </div>
@@ -526,7 +554,7 @@ if (isset($channelA)) {
         </div>
         <div id="topUpBody">
             <h6 style="color: #ecf0f1">Input Channel ID </h6>
-            <input type="text" name="topUpAmount" id="idChannel">
+            <input type="text" class="topUpAmount" name="topUpAmount" id="idChannel">
         </div>
     </div>
 
@@ -1262,7 +1290,7 @@ if (isset($channelA)) {
     var createEvent = false;
     $("#createEvent").click(function() {
         if (createEvent == false) {
-            $(".createTournamentForm").collapse();
+            $(".createTournamentForm").collapse("show");
             createEvent = true;
         } else {
             judul = $('[name="eventName"]').val();
@@ -1299,9 +1327,10 @@ if (isset($channelA)) {
     var createTournament = false;
     $("#createTournament").click(function() {
         if (createTournament == false) {
-            $("#tourneyForm").collapse();
+            $("#tourneyForm").collapse("show");
             createTournament = true;
         } else {
+            createTournament = false;
             nama_turnament = $('[name="tourName"]').val();
             jumlah_slot = $('[name="slotTour"]').val();
             id_game = $("#TourGame").val();
@@ -1309,7 +1338,7 @@ if (isset($channelA)) {
             // alert(nama_turnament);
             // alert(jumlah_slot);
             // alert(id_game);
-            // alert(tanggal_mulai);
+            alert(tanggal_mulai);
 
             $.ajax({
                 url: "<?= base_url(); ?>Community/insertTournament",
@@ -1326,12 +1355,62 @@ if (isset($channelA)) {
                     $(".createTournamentForm").collapse("hide");
                     $(".tourneys").html(result);
                     alertify.success("Success add Tournament");
-                    createTournament = false;
+
                 }
             });
         }
 
     });
+
+
+
+    $(".tourneys").on("click", ".tourneyItem", function() {
+        id_turnament = $(this).attr("idTournament");
+        jumlahPemain = $(this).attr("jumlah_pemain");
+        jumlahSlot = $(this).attr("jumlah_slot");
+
+        if (jumlahPemain == jumlahSlot) {
+            alertify.alert("Notice", "Slot is full");
+        } else {
+            alertify.confirm('Confirmation', 'Join tournament ?',
+                function() {
+                    $.ajax({
+                        url: "<?= base_url(); ?>Community/joinPertandingan",
+                        method: "post",
+                        data: {
+                            id_turnament: id_turnament,
+                            id_team: "YOSUAAAA",
+                            jumlahPemain: jumlahPemain,
+                            jumlah_slot: jumlahSlot
+                        },
+                        success: function(result) {
+                            alertify.success('Success join tournament!');
+                        }
+                    });
+                },
+                function() {
+                    alert(id_turnament);
+                    $.ajax({
+                        url: "<?= base_url(); ?>Community/setTournament",
+                        method: "post",
+                        data: {
+                            id_turnament: id_turnament
+                        },
+                        success: function(result) {
+                            window.location.href = '<?= base_url(); ?>Community/viewTournament';
+                        }
+                    });
+
+                }
+            ).set('labels', {
+                ok: 'Join',
+                cancel: 'View Tournament'
+            });
+        }
+    });
+
+
+
 
     $("#saveChange").click(function() {
         nama_channel = $('#channelName').html();
@@ -1372,6 +1451,22 @@ if (isset($channelA)) {
             slot *= 2;
             $("#slotTour").val(slot);
         }
+    });
+
+    $(".search").click(function() {
+        keyword = $(".searchBarInput").val();
+        //alert(keyword);
+        $.ajax({
+            url: "<?= base_url(); ?>Community/searchChannel",
+            method: "post",
+            data: {
+                keyword: keyword
+            },
+            success: function(result) {
+                $(".listChannel").html(result);
+                $(".searchBarInput").val("");
+            }
+        });
     });
 
 

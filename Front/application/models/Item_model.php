@@ -42,16 +42,29 @@ class Item_model extends CI_model
         return $res->result_array();
     }
 
-    public function getItemByIdGame($id)
+    public function getItemByIdGame($limit, $start)
     {
-        $query = "SELECT * FROM ITEM I 
-        JOIN MERCHANT M ON M.ID_MERCHANT = I.ID_MERCHANT 
-        JOIN GAME G ON G.ID_GAME = I.ID_GAME 
-        WHERE I.ID_GAME= '" . $id . "' 
-        AND I.JUMLAH_ITEM > 0
-        ORDER BY I.TANGGAL_UPLOAD DESC";
-        $res = $this->db->query($query);
-        return $res->result_array();
+        $idG = $this->session->userdata('id_game');
+
+        $this->db->select('*');
+        $this->db->from('ITEM I');
+        $this->db->join('MERCHANT M', 'M.ID_MERCHANT = I.ID_MERCHANT');
+        $this->db->join('GAME G', ' G.ID_GAME = I.ID_GAME');
+        $this->db->where('I.ID_GAME', $idG);
+        $this->db->where('I.JUMLAH_ITEM >', 0);
+        $this->db->limit($limit, $start);
+        return  $this->db->get()->result_array();
+
+        // $query = "SELECT * FROM ITEM I 
+        // JOIN MERCHANT M ON M.ID_MERCHANT = I.ID_MERCHANT 
+        // JOIN GAME G ON G.ID_GAME = I.ID_GAME 
+        // WHERE I.ID_GAME= '" . $idG . "' 
+        // AND I.JUMLAH_ITEM > 0
+        // ORDER BY I.TANGGAL_UPLOAD DESC";
+
+
+        // $res = $this->db->query($query);
+        // return $res->result_array();
     }
 
     public function getItemBySearch($keyword)
@@ -80,6 +93,7 @@ class Item_model extends CI_model
             WHERE I.NAMA_ITEM LIKE '%" . $keyword . "%' 
             ORDER BY CASE WHEN I.NAMA_ITEM LIKE '" . $keyword . "%' THEN 0 ELSE 1 END, I.NAMA_ITEM";
         }
+
 
         $res = $this->db->query($query);
         return $res->result_array();
@@ -121,22 +135,39 @@ class Item_model extends CI_model
 
     public function updateAmount()
     {
-        $cekQuery =  $this->db->query("SELECT * FROM USER_CART WHERE STATUS = 2 ");
-        foreach ($cekQuery->result_array() as $row) {
 
-            $amount = $row['amount'];
-            var_dump($row['id_item']);
-            $query = $this->db->query("SELECT * FROM ITEM I  WHERE I.ID_ITEM = '" . $row['id_item'] . "' ");
-            foreach ($query->result_array() as $row2) {
-                $amountItem = $row2['jumlah_item'];
+        if (isset($_SESSION['idTransaksi'])) {
+            $idTrans = $this->session->userdata('idTransaksi');
+            $cekQuery =  $this->db->query("SELECT * FROM TRANSAKSI_ITEM WHERE ID_TRANSAKSI = '" . $idTrans . "' ");
+
+            foreach ($cekQuery->result_array() as $row) {
+                $amount = $row['jumlah'];
+                var_dump($row['id_item']);
+                $query = $this->db->query("SELECT * FROM ITEM I  WHERE I.ID_ITEM = '" . $row['id_item'] . "' ");
+                foreach ($query->result_array() as $row2) {
+                    $amountItem = $row2['jumlah_item'];
+                }
+
+                $newAmount = $amountItem - $amount;
+                $query2 = "UPDATE ITEM I SET JUMLAH_ITEM = " . $newAmount . " WHERE I.ID_ITEM = '" . $row['id_item'] . "' ";
+                $this->db->query($query2);
             }
+        } else {
+            $cart = $this->input->post('cart');
+            $cart = json_decode($cart, true);
+            for ($i = 0; $i < count($cart); $i++) {
+                $amount = $cart[$i]['quantity'];
+                var_dump($row['id_item']);
+                $query = $this->db->query("SELECT * FROM ITEM I  WHERE I.ID_ITEM = '" . $cart[$i]['id'] . "' ");
 
-            $newAmount = $amountItem - $amount;
-            $query2 = "UPDATE ITEM I SET JUMLAH_ITEM = " . $newAmount . " WHERE I.ID_ITEM = '" . $row['id_item'] . "' ";
-            $this->db->query($query2);
+                foreach ($query->result_array() as $row2) {
+                    $amountItem = $row2['jumlah_item'];
+                }
 
-            $query3 = "UPDATE USER_CART SET STATUS = 3 WHERE ID_USER = '" . $row['id_user'] . "' AND ID_ITEM = '" . $row['id_item'] . "' ";
-            $this->db->query($query3);
+                $newAmount = $amountItem - $amount;
+                $query2 = "UPDATE ITEM I SET JUMLAH_ITEM = " . $newAmount . " WHERE I.ID_ITEM = '" . $cart[$i]['id'] . "' ";
+                $this->db->query($query2);
+            }
         }
     }
 
@@ -200,5 +231,31 @@ class Item_model extends CI_model
 
         $this->db->where('id_item', $id);
         $this->db->update('item', $data);
+    }
+
+
+    public function getItem($limit, $start)
+    {
+        $this->db->select('*');
+        $this->db->from('ITEM I');
+        $this->db->join('MERCHANT M', 'M.ID_MERCHANT = I.ID_MERCHANT');
+        $this->db->join('GAME G', ' G.ID_GAME = I.ID_GAME');
+        $this->db->where('I.JUMLAH_ITEM >', 0);
+        $this->db->limit($limit, $start);
+        return  $this->db->get()->result_array();
+    }
+
+    public function countAllItem()
+    {
+        if (isset($_SESSION['id_game'])) {
+            $idG = $this->session->userdata('id_game');
+            $sql = "SELECT id_item
+            FROM ITEM I
+            WHERE ID_GAME = '" . $idG . "'";
+
+            return $this->db->query($sql)->num_rows();
+        } else {
+            return $this->db->get('item')->num_rows();
+        }
     }
 }

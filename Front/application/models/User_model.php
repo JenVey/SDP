@@ -97,9 +97,12 @@ class User_model extends CI_model
         $this->db->update('user', $data);
     }
 
-    public function updateSaldo()
+    public function updateSaldo($total)
     {
-        $total = $this->input->post('total');
+        if ($total == 0) {
+            $total = $this->input->post('gross_amount');
+        }
+
         $id = $this->session->userdata('id_user');
         $cekquery = $this->db->query("select * from user");
         foreach ($cekquery->result_array() as $row) {
@@ -108,11 +111,13 @@ class User_model extends CI_model
             }
         }
 
+
         if (isset($_SESSION['idHistory'])) {
             $saldo = $saldo + intval($total);
         } else {
             $saldo = $saldo - intval($total);
-
+            echo $total;
+            echo $saldo;
             if ($saldo < 0) {
                 $saldo = 0;
             }

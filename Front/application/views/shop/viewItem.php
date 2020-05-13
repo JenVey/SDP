@@ -86,7 +86,7 @@ if ($ada == false) {
             <div class="profileStats">
                 <!-- Max Line 10 -->
                 <h5 class="profileName"><?= $user['nama_user'] ?></h5>
-                <h6 class="profileBalance">GP <?= ceil($user['saldo']) ?></h6>
+                <h6 class="profileBalance">GP <?= number_format(ceil($user['saldo']), 0, ".", ".") ?>/h6>
             </div>
         </div>
     </div>
@@ -267,6 +267,38 @@ if ($ada == false) {
             }
         });
 
+        $(".gachaContainer").click(function() {
+            balance = "<?= $user['saldo']; ?>";
+            balance = parseInt(balance);
+
+            if (balance >= 2000) {
+                alertify.confirm('Confirmation', 'Are you sure? GP 5.000 will be taken from your balance.',
+                    function() {
+                        //alert(balance);
+                        $.ajax({
+                            url: "<?= base_url(); ?>Shop/updateSaldoG/kurang",
+                            method: "post",
+                            success: function(result) {
+                                $(".buttons").css("display", "none");
+                                $("#logo").css("display", "none");
+                                $(".wrapper").css("display", "flex");
+                                window.location.href = '<?= base_url(); ?>Shop/viewGacha/';
+                            }
+                        });
+
+                    },
+                    function() {
+                        alertify.success('Ok, Take Your Time.');
+                    }
+                ).set('labels', {
+                    ok: 'Yes!',
+                    cancel: 'Nope!'
+                });
+            } else {
+                alertify.error("Insufficient Balance");
+            }
+        });
+
 
         $(".AddtoCart").click(function() {
             id = $(this).attr('idItem');
@@ -281,6 +313,10 @@ if ($ada == false) {
                 }
             });
 
+        });
+
+        $(".cartButton").click(function() {
+            window.location.href = '<?= base_url(); ?>Shop/viewCart/';
         });
     </script>
 </body>

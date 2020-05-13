@@ -24,6 +24,21 @@ class Channel_model extends CI_model
         return $res->result_array();
     }
 
+    public function searchChannel()
+    {
+        $id = $this->session->userdata('id_user');
+        $keyword = $this->input->post('keyword');
+
+        $query = "SELECT C.ID_CHANNEL AS 'id_channel', C.NAMA_CHANNEL AS 'nama_channel' , C.FOTO_CHANNEL AS 'foto_channel'
+        FROM CHANNEL C 
+        LEFT JOIN CHANNEL_USER CU ON CU.ID_CHANNEL = C.ID_CHANNEL 
+        WHERE CU.ID_USER= '" . $id . "' 
+        AND C.NAMA_CHANNEL LIKE '%" . $keyword . "%' ";
+
+        $res = $this->db->query($query);
+        return $res->result_array();
+    }
+
     public function insertChannel()
     {
         $ctr = 1;

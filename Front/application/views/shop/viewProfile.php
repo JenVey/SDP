@@ -12,6 +12,7 @@
 	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/cartCSS.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/alertify.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/alerts.css">
+	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/chartCSS.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/themes/default.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script src="<?php echo base_url(); ?>asset/Js/jquery-min.js"></script>
@@ -19,6 +20,10 @@
 	<script src="<?php echo base_url(); ?>asset/Js/textFit.js"></script>
 	<script src="<?php echo base_url(); ?>asset/Js/alertify.js"></script>
 	<script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-3P7SuUbxsTWXgTf3"></script>
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="https://code.highcharts.com/modules/exporting.js"></script>
+	<script src="https://code.highcharts.com/modules/export-data.js"></script>
+	<script src="https://code.highcharts.com/modules/accessibility.js"></script>
 </head>
 <?php
 foreach ($merchant as $mch) {
@@ -28,6 +33,37 @@ foreach ($merchant as $mch) {
 	$mchFoto = $mch['foto'];
 	$mchRating = $mch['rating'];
 }
+
+
+$totalItem = array();
+$tahun =  date("Y");
+foreach ($allTrans as $trans) {
+	if ($trans['status'] == 1) {
+		foreach ($transaksiItem as $transItem) {
+			if ($trans['id_transaksi'] == $transItem['id_transaksi']) {
+				foreach ($item as $itm) {
+					if ($itm['id_item'] == $transItem['id_item']) {
+						if ($itm['id_merchant'] == $mchId) {
+							if (date('Y', strtotime($trans['tanggal_transaksi']))  == $tahun) {
+								if (isset($totalItem[$transItem['id_item']])) {
+									$totalItem[$transItem['id_item']]['jumlah'] +=  $transItem['jumlah'];
+								} else {
+									$totalItem[$transItem['id_item']]['nama'] =  $itm['nama_item'];
+									$totalItem[$transItem['id_item']]['jumlah'] = $transItem['jumlah'];
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+usort($totalItem, function ($a, $b) {
+	return $b['jumlah'] <=> $a['jumlah'];
+});
+
+
 ?>
 
 <body>
@@ -91,7 +127,7 @@ foreach ($merchant as $mch) {
 		<div class="profileSeparator" style="margin-top: 40px;"></div>
 		<div class="Balance">
 			<h5 class="yellow">Current Balance </h5>
-			<h5 style="color: #42b77c;">GP <?= $user['saldo'] ?></h5>
+			<h5 style="color: #42b77c;">GP <?= number_format(ceil($user['saldo']), 0, ".", ".") ?></h5>
 			<div class="butWrapper">
 				<button class="ProfileTopUp">
 					<svg style="margin-left: 20px;" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 45 45">
@@ -142,10 +178,6 @@ foreach ($merchant as $mch) {
 		<h3 id="merchantName" idM="<?php if (isset($mchId)) {
 										echo $mchId;
 									} ?>" style=" color:#D7C13F; margin-top: 30px;">
-			<?php if (count($merchant) == 0) {
-				echo "Merchant Name";
-			}
-			?>
 		</h3>
 		<div class="description">
 			<div id="descriptionArea">
@@ -175,14 +207,49 @@ foreach ($merchant as $mch) {
 
 		<?php
 		if (count($merchant) > 0) { ?>
+			<div class="chartWrapper">
+				<div id="containerChart">
+				</div>
+				<div class="pagination">
+					<div class="pageblock" id="prev10Year" style="background-color: #D7C13F;">
+						<h5>-10</h5>
+					</div>
+					<div class="pageblock" id="prevYear" style="background-color: #D7C13F;">
+						<svg xmlns="http://www.w3.org/2000/svg" width="20.243" height="13.501" viewBox="0 0 20.243 13.501">
+							<path id="Icon_ionic-ios-arrow-round-back" data-name="Icon ionic-ios-arrow-round-back" d="M15.216,11.51a.919.919,0,0,1,.007,1.294l-4.268,4.282H27.218a.914.914,0,0,1,0,1.828H10.955L15.23,23.2a.925.925,0,0,1-.007,1.294.91.91,0,0,1-1.287-.007L8.142,18.647h0a1.026,1.026,0,0,1-.19-.288.872.872,0,0,1-.07-.352.916.916,0,0,1,.26-.64l5.794-5.836A.9.9,0,0,1,15.216,11.51Z" transform="translate(-7.882 -11.252)" fill="#ecf0f1" />
+						</svg>
+					</div>
+					<div class="pageblock" id="y1">
+						<h4><?= substr($tahun, 0, 1) ?></h4>
+					</div>
+					<div class="pageblock" id="y2">
+						<h4><?= substr($tahun, 1, 1) ?></h4>
+					</div>
+					<div class="pageblock" id="y3">
+						<h4><?= substr($tahun, 2, 1) ?></h4>
+					</div>
+					<div class="pageblock" id="y4">
+						<h4><?= substr($tahun, 3, 1) ?></h4>
+					</div>
+					<div class="pageblock" id="nextYear" style="background-color: #D7C13F;">
+						<svg xmlns="http://www.w3.org/2000/svg" width="20.243" height="13.501" viewBox="0 0 20.243 13.501">
+							<path id="Icon_ionic-ios-arrow-round-back" data-name="Icon ionic-ios-arrow-round-back" d="M20.792,11.51a.919.919,0,0,0-.007,1.294l4.268,4.282H8.789a.914.914,0,0,0,0,1.828H25.053L20.777,23.2a.925.925,0,0,0,.007,1.294.91.91,0,0,0,1.287-.007l5.794-5.836h0a1.027,1.027,0,0,0,.19-.288.872.872,0,0,0,.07-.352.916.916,0,0,0-.26-.64l-5.794-5.836A.9.9,0,0,0,20.792,11.51Z" transform="translate(-7.882 -11.252)" fill="#ecf0f1" />
+						</svg>
+					</div>
+					<div class="pageblock" id="next10Year" style="background-color: #D7C13F;">
+						<h5>+10</h5>
+					</div>
+				</div>
+			</div>
+
+
 			<div class="addItemContainer">
 				<h2 class="addItemHeader">Adding Item</h2>
 				<div class="addItem">
 					<input type="file" name="addItemIMG" id="addItemIMG" accept="image/x-png,image/jpg,image/jpeg" style="display: none;" />
-					<h5 class="additemPrice" contenteditable="true">Item Price(ex. 18000)</h5>
 					<div class="addItemImgContainer">
 						<div id="imgDisplay" hidden="true"></div>
-						<h3 style="color: #ecf0f1;" id="imageText">Item Image</h3>
+						<h3 style="color: #ecf0f1; text-align: center;" id="imageText">Click to give it an image</h3>
 					</div>
 					<div class="name-gameContainer">
 						<h5 class="additemTitle" contenteditable="true">Item name</h5>
@@ -207,7 +274,8 @@ foreach ($merchant as $mch) {
 								</svg>
 							</div>
 						</div>
-						<p class="additemUploadDate">Upload date</p>
+						<h4 class="additemPrice" contenteditable="true">Item Price(ex. 18000)</h4>
+						<p class="additemUploadDate">Upload date <?= date("d/m/Y") ?></p>
 					</div>
 					<div class="addtoStash">
 						<button style="border: none;background: none;">
@@ -222,13 +290,14 @@ foreach ($merchant as $mch) {
 							</svg>
 						</button>
 					</div>
-					<h4 class="addStok yellow" contenteditable="true">item Stok(ex. 5)</h4>
+					<h5 class="addStok yellow" contenteditable="true">item Stok(ex. 5)</h5>
 				</div>
 				<div class="addIteminfo">
 					<p>You can add your item by editing the card on the left. When you're done editing it, press the + button to add it to your stash.
 					</p>
 				</div>
 			</div>
+
 			<h2 class="yellow">Your Stash</h2>
 			<div class="cartHeader">
 				<div class="headerText" style="color: #ecf0f1;">
@@ -370,7 +439,7 @@ foreach ($merchant as $mch) {
 		<input type="hidden" name="result_data" id="result-type" value="">
 		</div>
 		<input type="hidden" name="result_data" id="result-data" value=""></div>
-		<input type="hidden" name="total" id="total" value=""></div>
+		<input type="hidden" name="gross_amount" id="total" value=""></div>
 		<input type="hidden" name="idHistory" id="idHistory" value=""></div>
 	</form>
 	<div style="display: none;">
@@ -405,7 +474,7 @@ foreach ($merchant as $mch) {
 				price = price.substring(4, price.length);
 				$("#item" + i + "Price").html("IDR " + addCommas(price));
 			}
-
+			createfirstChart();
 		});
 
 		var check = false;
@@ -413,15 +482,22 @@ foreach ($merchant as $mch) {
 		var count = 0;
 		var timer = setInterval(gantiGambar, 1);
 
-		var merchantName = <?php if (isset($mchNama)) {
-								echo "'" . $mchNama . "'";
-							} ?>;
-		var merchantDesc = <?php if (isset($mchNama)) {
-								echo "'" . $mchDesc . "'";
-							} ?>;
+		<?php if (isset($mchNama)) { ?>
+			var merchantName = <?php if (isset($mchNama)) {
+									echo "'" . $mchNama . "'";
+								} ?>;
+			var merchantDesc = <?php if (isset($mchNama)) {
+									echo "'" . $mchDesc . "'";
+								} ?>;
+			//alert("A");
+			$("#merchantName").html(merchantName);
+			$("#descriptionArea").html(merchantDesc);
+		<?php } else { ?>
+			$("#merchantName").html("Merchant Name");
+			$("#descriptionArea").html("YOURR DESCRIPTION </br> YOURR DESCRIPTION </br> YOURR DESCRIPTION");
+		<?php } ?>
 
-		$("#merchantName").html(merchantName);
-		$("#descriptionArea").html(merchantDesc);
+
 
 		var headerTopUp = $("#topUpHeader").html();
 		var bodyTopUp = $("#topUpBody").html();
@@ -478,7 +554,6 @@ foreach ($merchant as $mch) {
 								changeResult('success', result);
 								console.log(result.status_message);
 								console.log(result);
-
 								$("#payment-form").submit();
 							},
 							onPending: function(result) {
@@ -713,8 +788,6 @@ foreach ($merchant as $mch) {
 		}
 
 
-
-
 		$(".changeProfile").mouseover(function() {
 			if ($(".changeProfileText").html() == "Edit Profile") {
 				$(".changeProfileText").css("color", "#D7C13F");
@@ -762,12 +835,14 @@ foreach ($merchant as $mch) {
 				pass = $('#passProfile').val();
 				email = $('#emailProfile').val();
 				trade = $('#tradeProfile').val();
-				foto = $(".profileImg").find('img').attr('src');
 
-				if (foto.substring(11, 12) == "j") {
-					foto = foto.substring(23, foto.length);
-				} else {
-					foto = foto.substring(22, foto.length);
+				foto = $(".profileImg").find('img').attr('src');
+				if (foto != null) {
+					if (foto.substring(11, 12) == "j") {
+						foto = foto.substring(23, foto.length);
+					} else {
+						foto = foto.substring(22, foto.length);
+					}
 				}
 
 				$.ajax({
@@ -801,11 +876,19 @@ foreach ($merchant as $mch) {
 		});
 
 
-
-
 		$(".History").click(function() {
-			window.location.href = '<?= base_url(); ?>Shop/viewHistory';
+			id_user = '<?= $user['id_user'] ?>';
+			$.ajax({
+				url: "<?= base_url(); ?>Shop/refreshStatus",
+				method: "post",
+				success: function(result) {
+					window.location.href = '<?= base_url(); ?>Shop/viewHistory';
+				}
+			});
+
 		});
+
+
 
 
 		$(".logout").click(function() {
@@ -815,12 +898,17 @@ foreach ($merchant as $mch) {
 		$(".createMerchant").click(function() {
 			name = $("#merchantName").html();
 			desc = $("#descriptionArea").html();
-			foto = $(".merchantImgWrapper").find('img').attr('src');
+			alert(name);
+			alert(desc);
+			foto = $(".merchantImg").find('img').attr('src');
+			alert(foto);
 
-			if (foto.substring(11, 12) == "j") {
-				foto = foto.substring(23, foto.length);
-			} else {
-				foto = foto.substring(22, foto.length);
+			if (foto != null) {
+				if (foto.substring(11, 12) == "j") {
+					foto = foto.substring(23, foto.length);
+				} else {
+					foto = foto.substring(22, foto.length);
+				}
 			}
 
 			$.ajax({
@@ -844,12 +932,14 @@ foreach ($merchant as $mch) {
 				id = $("#merchantName").attr("idM");
 				name = $("#merchantName").html();
 				desc = $("#descriptionArea").html();
-				foto = $(".merchantImgWrapper").find('img').attr('src');
+				foto = $(".merchantImg").find('img').attr('src');
 
-				if (foto.substring(11, 12) == "j") {
-					foto = foto.substring(23, foto.length);
-				} else {
-					foto = foto.substring(22, foto.length);
+				if (foto != null) {
+					if (foto.substring(11, 12) == "j") {
+						foto = foto.substring(23, foto.length);
+					} else {
+						foto = foto.substring(22, foto.length);
+					}
 				}
 
 				$.ajax({
@@ -904,7 +994,7 @@ foreach ($merchant as $mch) {
 
 				reader.onload = function(e) {
 					var img = $('<img>').attr('src', e.target.result);
-					$('.merchantImgWrapper').html(img);
+					$('.merchantImg').html(img);
 				};
 
 				reader.readAsDataURL(this.files[0]);
@@ -929,6 +1019,109 @@ foreach ($merchant as $mch) {
 		$(".homeButton").click(function() {
 			window.location.href = '<?= base_url(); ?>Shop/unsetGame/';
 		});
+
+		function createfirstChart() {
+			Highcharts.chart('containerChart', {
+				chart: {
+					type: 'column'
+				},
+				title: {
+					text: 'Total Penjualan dari semua item'
+				},
+				subtitle: {
+					text: '<?= $mchNama ?>'
+				},
+				xAxis: {
+					type: 'category',
+					labels: {
+						rotation: -45,
+						style: {
+							fontSize: '13px',
+							fontFamily: 'Verdana, sans-serif'
+						}
+					}
+				},
+				yAxis: {
+					min: 0,
+					title: {
+						text: 'Penjualan (Pcs)'
+					}
+				},
+				legend: {
+					enabled: false
+				},
+				tooltip: {
+					pointFormat: 'Total Penjualan: <b>{point.y:.0f} Pcs</b>'
+				},
+				series: [{
+					name: 'Nama Item',
+					data: [
+						<?php
+						$i = 0;
+						foreach ($totalItem as $ttl) {
+							if ($i == count($totalItem) - 1) {
+								echo '[' . "'" . $ttl['nama'] . "'" . ',' . $ttl['jumlah'] . ']';
+							} else {
+								echo '[' . "'" . $ttl['nama'] . "'" . ',' . $ttl['jumlah'] . '],';
+							}
+							$i++;
+						}
+						?>
+					],
+					dataLabels: {
+						enabled: true,
+						rotation: 0,
+						color: '#d7c13f',
+						align: 'left',
+						y: 25, // 10 pixels down from the top
+						style: {
+							fontSize: '12px',
+							fontFamily: 'Roboto',
+							fontWeight: 'Bold'
+						}
+					}
+				}]
+			});
+		}
+
+
+		$(".chartWrapper").on("click", "#nextYear", function() {
+			modifyYear(1);
+		});
+
+		$(".chartWrapper").on("click", "#prevYear", function() {
+			modifyYear(-1);
+		});
+
+		$(".chartWrapper").on("click", "#next10Year", function() {
+			modifyYear(10);
+		});
+
+		$(".chartWrapper").on("click", "#prev10Year", function() {
+			modifyYear(-10);
+		});
+
+		function modifyYear(jumlah) {
+			var year = $("#y1").children().html() + $("#y2").children().html() + $("#y3").children().html() + $("#y4").children().html();
+			year = parseInt(year);
+			year += jumlah;
+			year = year + "";
+			$("#y1").children().html(year.substring(0, 1));
+			$("#y2").children().html(year.substring(1, 2));
+			$("#y3").children().html(year.substring(2, 3));
+			$("#y4").children().html(year.substring(3, 4));
+
+			$.ajax({
+				url: "<?= base_url(); ?>Shop/modifYear",
+				method: "post",
+				data: {
+					year: year
+				},
+				success: function(result) {
+					$(".chartWrapper").html(result);
+				}
+			});
+		}
 	</script>
 </body>
 

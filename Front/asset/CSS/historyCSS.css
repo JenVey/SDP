@@ -158,23 +158,32 @@ h4{
 }
 
 .Date{
-	width: 14.7vw;
-	color: #ECF0F1;
+    width: 12.4vw;
+    color: #ECF0F1;
 }
 
-.PointsUsed{
-	width: 16vw;
-	color: #F25757;
+.orderID{
+    width: 12.3vw;
+    color: #ECF0F1;
+}
+
+.kodePromo{
+    width: 14.3vw;
+    color: #ecf0f1;
 }
 
 .GrandTotal{
-	width: 15.8vw;
-	color: #ecf0f1;
+    width: 13vw;
+    color: #d7c13f;
 }
 
 .CashBack{
-	width: 15.5vw;
-	color: #42b77c;
+    width: 11.5vw;
+    color: #42b77c;
+}
+
+.Amount{
+    width: 15.9vw;
 }
 
 .statusTrans{
@@ -240,3 +249,4 @@ h4{
 .Points{
 	width: 13.7vw;
 }
+

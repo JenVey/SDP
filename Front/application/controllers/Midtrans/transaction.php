@@ -23,10 +23,11 @@ class Transaction extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$params = array('server_key' => '', 'production' => false);
+		$params = array('server_key' => 'SB-Mid-server-LgQ3iuXIFPxc0efEaP2oHHTJ', 'production' => false);
 		$this->load->library('veritrans');
 		$this->veritrans->config($params);
 		$this->load->helper('url');
+		$this->load->model('Trans_model');
 	}
 
 	public function index()
@@ -41,6 +42,7 @@ class Transaction extends CI_Controller
 		switch ($action) {
 			case 'status':
 				$this->status($order_id);
+
 				break;
 			case 'approve':
 				$this->approve($order_id);
@@ -57,7 +59,19 @@ class Transaction extends CI_Controller
 	public function status($order_id)
 	{
 		echo 'test get status </br>';
-		print_r($this->veritrans->status($order_id));
+		//print_r($this->veritrans->status($order_id));
+
+		$response = $this->veritrans->status(($order_id));
+		$transaction_status = $response->transaction_status;
+		print_r($transaction_status);
+
+		if ($transaction_status == "settlement") {
+			if (isset($_SESSION['idTransaksi'])) {
+				$this->Trans_model->updateStatus($order_id);
+			} else {
+				//history
+			}
+		}
 	}
 
 	public function cancel($order_id)
