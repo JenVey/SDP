@@ -1124,6 +1124,7 @@ if (isset($channelA)) {
     });
 
     $(".accItemContainer").on("click", ".listChannel", function() {
+        alert("A");
         idChannel = $(this).attr("idChannel");
         $.ajax({
             url: "<?= base_url(); ?>Community/chooseChannel",

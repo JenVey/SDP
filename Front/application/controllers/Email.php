@@ -41,8 +41,8 @@ class Email extends CI_Controller
         $config['smtp_host']    = 'ssl://smtp.gmail.com';
         $config['smtp_port']    = '465';
         $config['smtp_timeout'] = '7';
-        $config['smtp_user']    = 'morningowl.company@gmail.com';
-        $config['smtp_pass']    = 'satvelrobyos';
+        $config['smtp_user']    = 'noreply.morningowl@gmail.com';
+        $config['smtp_pass']    = 'kirimemail123';
         $config['charset']    = 'utf-8';
         $config['newline']    = "\r\n";
         $config['mailtype'] = 'html'; // or html
@@ -98,7 +98,7 @@ class Email extends CI_Controller
                                 <w:anchorlock/>
                                 <center style='color:#ffffff;font-family:sans-serif;font-size:15px;'>Reset Pssword</center>
                                 </v:roundrect><![endif]-->
-                                                            <a href='" . base_url() . "/Forgot/index/" . $id . " ' style=' display: inline-block;
+                                                            <a href='" . base_url() . "Forgot/index/" . $id . " ' style=' display: inline-block;
                                 width: 200px;
                                 background-color: #d7c13f;
                                 border-radius: 3px;
@@ -157,7 +157,7 @@ class Email extends CI_Controller
         $this->email->message($message);
 
         $this->email->send();
-        $this->email->print_debugger();
+        echo $this->email->print_debugger();
         redirect('login');
     }
 
@@ -178,8 +178,8 @@ class Email extends CI_Controller
         $config['smtp_host']    = 'ssl://smtp.gmail.com';
         $config['smtp_port']    = '465';
         $config['smtp_timeout'] = '7';
-        $config['smtp_user']    = 'morningowl.company@gmail.com';
-        $config['smtp_pass']    = 'satvelrobyos';
+        $config['smtp_user']    = 'noreply.morningowl@gmail.com';
+        $config['smtp_pass']    = 'kirimemail123';
         $config['charset']    = 'utf-8';
         $config['newline']    = "\r\n";
         $config['mailtype'] = 'html'; // or html
@@ -235,7 +235,7 @@ class Email extends CI_Controller
                                 <w:anchorlock/>
                                 <center style='color:#ffffff;font-family:sans-serif;font-size:15px;'>Verify Email</center>
                                 </v:roundrect><![endif]-->
-                                                            <a href='" . base_url() . "/Shop/verifikasi/" . $id . " ' style=' display: inline-block;
+                                                            <a href='" . base_url() . "Shop/verifikasiRegister/" . $id . " ' style=' display: inline-block;
                                 width: 200px;
                                 background-color: #d7c13f;
                                 border-radius: 3px;
@@ -292,7 +292,6 @@ class Email extends CI_Controller
         $this->email->to($email);
         $this->email->subject('VERIFIKASI EMAIL');
         $this->email->message($message);
-        //$this->email->message('http://localhost/Github/SDP_Proyek/Front/Shop/verifikasi/' . $id);
 
         $this->email->send();
         $this->email->print_debugger();

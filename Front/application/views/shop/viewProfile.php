@@ -26,6 +26,11 @@
 	<script src="https://code.highcharts.com/modules/accessibility.js"></script>
 </head>
 <?php
+$mchId = "";
+$mchNama = "";
+$mchDesc = "";
+$mchFoto = "";
+$mchRating = "";
 foreach ($merchant as $mch) {
 	$mchId = $mch['id'];
 	$mchNama = $mch['nama'];
@@ -33,6 +38,8 @@ foreach ($merchant as $mch) {
 	$mchFoto = $mch['foto'];
 	$mchRating = $mch['rating'];
 }
+
+
 
 
 $totalItem = array();
@@ -175,19 +182,10 @@ usort($totalItem, function ($a, $b) {
 				</div>
 			<?php } ?>
 		</div>
-		<h3 id="merchantName" idM="<?php if (isset($mchId)) {
-										echo $mchId;
-									} ?>" style=" color:#D7C13F; margin-top: 30px;">
-		</h3>
+		<h3 id="merchantName" style=" color:#D7C13F; margin-top: 30px;">Merchant Nama</h3>
 		<div class="description">
 			<div id="descriptionArea">
-				<?php if (count($merchant) == 0) { ?>
-					Your Description !!! </br>
-					Your Description !!!</br>
-					Your Description !!!
-				<?php } else {
-					echo $mchDesc;
-				} ?>
+
 			</div>
 			<button class="editDescription">
 				<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 125.182 119.959">
@@ -475,6 +473,22 @@ usort($totalItem, function ($a, $b) {
 				$("#item" + i + "Price").html("IDR " + addCommas(price));
 			}
 			createfirstChart();
+			<?php
+			if ($mchNama != "") { ?>
+				var merchantName = <?php if (isset($mchNama)) {
+										echo "'" . $mchNama . "'";
+									} ?>;
+				var merchantDesc = <?php if (isset($mchNama)) {
+										echo "'" . $mchDesc . "'";
+									} ?>;
+				//alert("A");
+				$("#merchantName").html(merchantName);
+				$("#merchantName").attr("idM", '<?= $mchId ?>');
+				$("#descriptionArea").html(merchantDesc);
+			<?php } else { ?>
+				$("#merchantName").html("Merchant Name");
+				$("#descriptionArea").html("YOURR DESCRIPTION </br> YOURR DESCRIPTION </br> YOURR DESCRIPTION");
+			<?php } ?>
 		});
 
 		var check = false;
@@ -482,20 +496,7 @@ usort($totalItem, function ($a, $b) {
 		var count = 0;
 		var timer = setInterval(gantiGambar, 1);
 
-		<?php if (isset($mchNama)) { ?>
-			var merchantName = <?php if (isset($mchNama)) {
-									echo "'" . $mchNama . "'";
-								} ?>;
-			var merchantDesc = <?php if (isset($mchNama)) {
-									echo "'" . $mchDesc . "'";
-								} ?>;
-			//alert("A");
-			$("#merchantName").html(merchantName);
-			$("#descriptionArea").html(merchantDesc);
-		<?php } else { ?>
-			$("#merchantName").html("Merchant Name");
-			$("#descriptionArea").html("YOURR DESCRIPTION </br> YOURR DESCRIPTION </br> YOURR DESCRIPTION");
-		<?php } ?>
+
 
 
 

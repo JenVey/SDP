@@ -63,8 +63,6 @@ class Transaction extends CI_Controller
 
 		$response = $this->veritrans->status(($order_id));
 		$transaction_status = $response->transaction_status;
-		print_r($transaction_status);
-
 		if ($transaction_status == "settlement") {
 			if (isset($_SESSION['idTransaksi'])) {
 				$this->Trans_model->updateStatus($order_id);

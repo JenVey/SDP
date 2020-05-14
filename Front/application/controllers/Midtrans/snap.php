@@ -34,8 +34,8 @@ class Snap extends CI_Controller
 			'gross_amount' => $this->input->post('gross_amount') // no decimal allowed for creditcard
 		);
 
-
 		$order_id = $transaction_details['order_id'];
+
 		$cart = array();
 		$cart = $this->input->post('cart');
 		$cart = json_decode($cart, true);
@@ -53,7 +53,7 @@ class Snap extends CI_Controller
 		}
 
 		//INSERT TRANSAKSI
-		$this->Trans_model->insertTrans($order_id);
+
 
 		// Optional
 		$customer_details = array(
@@ -87,6 +87,7 @@ class Snap extends CI_Controller
 		$snapToken = $this->midtrans->getSnapToken($transaction_data);
 		error_log($snapToken);
 		echo $snapToken;
+		$this->Trans_model->insertTrans($order_id);
 	}
 
 	public function finish()

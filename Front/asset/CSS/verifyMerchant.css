@@ -1,0 +1,147 @@
+body{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	flex-direction: column;
+}
+.container{
+	position: relative;
+	width: 60%;
+	height: 70vh;
+	background-color: #1e2126;
+	border-radius: 15px;
+	box-shadow:
+	  0 3px 5.9px rgba(0, 0, 0, 0.02),
+	  0 7.4px 11.7px rgba(0, 0, 0, 0.028),
+	  0 14.3px 17.6px rgba(0, 0, 0, 0.035),
+	  0 25.4px 24.5px rgba(0, 0, 0, 0.042),
+	  0 45.8px 35.9px rgba(0, 0, 0, 0.05),
+	  0 100px 80px rgba(0, 0, 0, 0.07)
+	;
+	padding: 0!important;
+	overflow: hidden;
+}
+
+.containerWrapper{
+	position: relative;
+	box-sizing: border-box;
+	text-align: center;
+	padding: 25px;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	overflow-x: hidden;
+}
+
+.item{
+	margin: 15px 0;
+	display: inline-block;
+	width: 90%;
+	background-color: rgba(88,93,104,1.00);
+	border-radius: 15px;
+}
+
+.itemWrapper{
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	padding: 1vw 2vw;
+	box-sizing: border-box;
+	justify-content: space-between;
+}
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+
+.inputfile + label {
+    font-size: 1.25em;
+    font-weight: 700;
+    color: white;
+    background-color: #1e2126;
+	color: #ecf0f1;
+	border-radius: 15px;
+	padding: 10px;
+    display: inline-block;
+	margin-top: 10px;
+	margin-left: 5vw;
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+   box-shadow: 0 0 5px #D7C13F;
+}
+
+.inputfile + label {
+	cursor: pointer;
+}
+
+.inputfile:focus + label {
+	outline: 1px dotted #000;
+	outline: -webkit-focus-ring-color auto 5px;
+}
+
+.inputfile + label * {
+	pointer-events: none;
+}
+
+.cancel:hover #Icon_material-cancel{
+	fill:#F25757;
+	cursor: pointer;
+}
+
+.accept:hover #Icon_awesome-check-circle{
+	fill:#63D99E;
+	cursor: pointer;
+}
+
+.modal-content{
+	background-color: #1e2126;
+}
+
+.form-control{
+	background-color: #585D68!important;
+}
+
+.modal-title{
+	color: #1e2126;
+}
+
+.modal-header{
+	background-color: #d7c13f;
+	border-bottom: solid 1px #d7c13f
+}
+
+.modal-footer{
+	border-top: solid 1px #d7c13f
+}
+
+.btn-primary{
+	background-color: #d7c13f!important;
+}
+
+.btn-primary:hover{
+	background-color: #AF9D37!important;
+}
+
+.containerWrapper::-webkit-scrollbar {
+    width: 4px;
+}
+ 
+.containerWrapper::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.8);
+}
+ 
+.containerWrapper::-webkit-scrollbar-thumb {
+  	background-color: rgba(215,193,63,0.51);
+  	outline: 1px solid slategrey;
+  	border-radius: 100px;
+}
