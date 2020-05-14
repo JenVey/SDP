@@ -338,7 +338,6 @@ class Shop extends CI_Controller
         redirect('Shop/setFilter/' . $filter . "/" . $keyword);
     }
 
-
     public function unsetGame()
     {
         $this->session->unset_userdata('id_game');
@@ -393,7 +392,6 @@ class Shop extends CI_Controller
         $this->Promo_model->cekPromo();
     }
 
-
     public function finish($cek)
     {
         $id = $this->session->userdata('id_user');
@@ -411,12 +409,12 @@ class Shop extends CI_Controller
             $this->session->set_userdata(array('gp' => "true"));
 
             $this->Trans_model->insertTrans("0");
-            $this->User_model->updateSaldo(0);
+            //$this->User_model->updateSaldo(0);
 
             for ($i = 0; $i < count($cart); $i++) {
                 $this->Cart_model->updateStatus2($cart[$i]['id']);
             }
-            $this->Item_model->updateAmount();
+            //$this->Item_model->updateAmount();
         }
 
         redirect('Shop');
@@ -438,10 +436,22 @@ class Shop extends CI_Controller
         $this->Rating_model->updateRating();
     }
 
-    public function verifikasi($id)
+    public function verifikasiRegister($id)
     {
         $this->User_model->updateStatusById($id);
         redirect('Login');
+    }
+    public function verifikasiItem($idT)
+    {
+        $data['user'] = $this->User_model->getAllUser();
+        $data['transaksi'] = $this->Trans_model->getTransById($idT);
+        $data['transaksiItem'] = $this->TransItem_model->getAllTransItem();
+        $data['item'] = $this->Item_model->getAllItem();
+        $this->load->view('shop/merchantVerify', $data);
+    }
+
+    public function updateStatusTransaksi()
+    {
     }
 
     public function modifYear()

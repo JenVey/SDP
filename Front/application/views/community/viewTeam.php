@@ -739,6 +739,7 @@ if (isset($teamA)) {
     });
 
     $(".accItemContainer").on("click", ".listChannel", function() {
+        alert("A");
         idTeam = $(this).attr("idTeam");
         $.ajax({
             url: "<?= base_url(); ?>Community/chooseTeam",

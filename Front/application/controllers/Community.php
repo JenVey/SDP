@@ -60,7 +60,6 @@ class Community extends CI_Controller
         $data['standing'] = $this->Standing_model->getAllStanding();
         //$data['pertandingan'] = $this->Petandingan_model->getAllPertandingan();
         //$data['team'] = $this->Team_model->getAllTeam();
-
         //$this->load->view('templates/header', $data);
         $this->load->view('community/viewChannel', $data);
     }

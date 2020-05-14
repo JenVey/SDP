@@ -70,7 +70,7 @@
 		</div>
 	</div>
 
-	<div class="profile">
+	<div class="profile" nama="<?= $user['nama_user'] ?>" phone="<?= $user['phone'] ?>" email="<?= $user['email_user'] ?>">
 		<div class="wrapProfile" style="display: flex;overflow: hidden; height:100%;width: 100%; align-items: center;">
 			<div class="profileImg"><img class="profileImg" src="data:image/jpeg;base64,<?= base64_encode($user['foto']) ?>" width="50" height="50" alt="" /></div>
 			<div class="profileStats">
@@ -431,7 +431,7 @@
 								},
 								success: function(result) {
 									alertify.success("Success buy item");
-									window.location.href = '<?= base_url(); ?>Shop';
+									//window.location.href = '<?= base_url(); ?>Shop';
 								}
 							});
 						} else {
@@ -459,7 +459,7 @@
 					grandtotal = grandtotal.substring(4, grandtotal.length);
 					//alert(grandtotal);
 					if (grandtotal > 0) {
-						alert("a");
+						//alert("a");
 						$(".bgblur").trigger("click");
 						event.preventDefault();
 						$(this).attr("disabled", "disabled");

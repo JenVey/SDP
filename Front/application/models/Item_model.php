@@ -155,9 +155,10 @@ class Item_model extends CI_model
         } else {
             $cart = $this->input->post('cart');
             $cart = json_decode($cart, true);
+
             for ($i = 0; $i < count($cart); $i++) {
                 $amount = $cart[$i]['quantity'];
-                var_dump($row['id_item']);
+                //var_dump($row['id_item']);
                 $query = $this->db->query("SELECT * FROM ITEM I  WHERE I.ID_ITEM = '" . $cart[$i]['id'] . "' ");
 
                 foreach ($query->result_array() as $row2) {
