@@ -5,10 +5,10 @@ class Merchant_model extends CI_model
     {
         //return $this->db->get('merchant')->result_array();
 
-        $query = "SELECT M.ID_MERCHANT AS 'id', M.NAMA_MERCHANT AS 'nama',  ROUND(SUM(R.BINTANG)/COUNT(R.BINTANG)) AS 'rating' , M.FOTO_PROFIL AS 'foto', M.ID_USER AS 'id_user'
-        FROM MERCHANT M 
-        LEFT JOIN MERCHANT_RATING R ON R.ID_MERCHANT = M.ID_MERCHANT
-        GROUP BY M.ID_MERCHANT";
+        $query = "select m.id_merchant as 'id', m.nama_merchant as 'nama',  round(sum(r.bintang)/count(r.bintang)) as 'rating' , m.foto_profil as 'foto', m.id_user as 'id_user'
+        from merchant m 
+        left join merchant_rating r on r.id_merchant = m.id_merchant
+        group by m.id_merchant";
 
         $res = $this->db->query($query);
         return $res->result_array();
@@ -16,11 +16,11 @@ class Merchant_model extends CI_model
     public function getMerchantById($id)
     {
         //return $this->db->get_where('merchant', ['id_merchant' => $id])->row_array();
-        $query = "SELECT M.ID_MERCHANT AS 'id', M.NAMA_MERCHANT AS 'nama',  ROUND(SUM(R.BINTANG)/COUNT(R.BINTANG)) AS 'rating' , M.FOTO_PROFIL AS 'foto', M.FOTO_PROFIL AS 'foto', M.BIO as 'bio'
-        FROM MERCHANT M 
-        LEFT JOIN MERCHANT_RATING R ON R.ID_MERCHANT = M.ID_MERCHANT 
-        WHERE M.ID_MERCHANT = '" . $id . "'
-        GROUP BY M.ID_MERCHANT,M.NAMA_MERCHANT";
+        $query = "select m.id_merchant as 'id', m.nama_merchant as 'nama',  round(sum(r.bintang)/count(r.bintang)) as 'rating' , m.foto_profil as 'foto', m.foto_profil as 'foto', m.bio as 'bio'
+        from merchant m 
+        left join merchant_rating r on r.id_merchant = m.id_merchant 
+        where m.id_merchant = '" . $id . "'
+        group by m.id_merchant,m.nama_merchant";
 
         $res = $this->db->query($query);
         return $res->result_array();
@@ -28,12 +28,12 @@ class Merchant_model extends CI_model
 
     public function getMerchantByIdUser($id)
     {
-        $query = "SELECT M.ID_MERCHANT AS 'id', M.NAMA_MERCHANT AS 'nama',  ROUND(SUM(R.BINTANG)/COUNT(R.BINTANG)) AS 'rating' , M.FOTO_PROFIL AS 'foto', M.FOTO_PROFIL AS 'foto', M.BIO as 'bio'
-        FROM MERCHANT M 
-        JOIN FRIEND F ON M.ID_MERCHANT = F.ID_USER2
-        LEFT JOIN MERCHANT_RATING R ON R.ID_MERCHANT = M.ID_MERCHANT
-        WHERE F.ID_USER1 = '" . $id . "' 
-        GROUP BY M.ID_MERCHANT,M.NAMA_MERCHANT";
+        $query = "select m.id_merchant as 'id', m.nama_merchant as 'nama',  round(sum(r.bintang)/count(r.bintang)) as 'rating' , m.foto_profil as 'foto', m.foto_profil as 'foto', m.bio as 'bio'
+        from merchant m 
+        join friend f on m.id_merchant = f.id_user2
+        left join merchant_rating r on r.id_merchant = m.id_merchant
+        where f.id_user1 = '" . $id . "' 
+        group by m.id_merchant,m.nama_merchant";
 
         $res = $this->db->query($query);
         return $res->result_array();
@@ -41,11 +41,11 @@ class Merchant_model extends CI_model
 
     public function getMerchantUser($id)
     {
-        $query = "SELECT M.ID_MERCHANT AS 'id', M.NAMA_MERCHANT AS 'nama',  ROUND(SUM(R.BINTANG)/COUNT(R.BINTANG)) AS 'rating' , M.FOTO_PROFIL AS 'foto', M.BIO as 'bio'
-        FROM MERCHANT M 
-        LEFT JOIN MERCHANT_RATING R ON R.ID_MERCHANT = M.ID_MERCHANT
-        WHERE M.ID_USER = '" . $id . "' 
-        GROUP BY M.ID_MERCHANT,M.NAMA_MERCHANT";
+        $query = "select m.id_merchant as 'id', m.nama_merchant as 'nama',  round(sum(r.bintang)/count(r.bintang)) as 'rating' , m.foto_profil as 'foto', m.bio as 'bio'
+        from merchant m 
+        left join merchant_rating r on r.id_merchant = m.id_merchant
+        where m.id_user = '" . $id . "' 
+        group by m.id_merchant,m.nama_merchant";
 
         $res = $this->db->query($query);
         //print_r($res);
@@ -54,12 +54,12 @@ class Merchant_model extends CI_model
 
     public function getMerchantBySearch($keyword)
     {
-        $query = "SELECT M.ID_MERCHANT AS 'id', M.NAMA_MERCHANT AS 'nama',  ROUND(SUM(R.BINTANG)/COUNT(R.BINTANG)) AS 'rating' , M.FOTO_PROFIL AS 'foto'
-        FROM MERCHANT M 
-        LEFT JOIN MERCHANT_RATING R ON R.ID_MERCHANT = M.ID_MERCHANT 
-        WHERE M.NAMA_MERCHANT LIKE '%" . $keyword . "%' 
-        GROUP BY M.ID_MERCHANT,M.NAMA_MERCHANT
-        ORDER BY CASE WHEN M.NAMA_MERCHANT LIKE '" . $keyword . "%' THEN 0 ELSE 1 END, M.NAMA_MERCHANT";
+        $query = "select m.id_merchant as 'id', m.nama_merchant as 'nama',  round(sum(r.bintang)/count(r.bintang)) as 'rating' , m.foto_profil as 'foto'
+        from merchant m 
+        left join merchant_rating r on r.id_merchant = m.id_merchant 
+        where m.nama_merchant like '%" . $keyword . "%' 
+        group by m.id_merchant,m.nama_merchant
+        order by case when m.nama_merchant like '" . $keyword . "%' then 0 else 1 end, m.nama_merchant";
 
         $res = $this->db->query($query);
         return $res->result_array();

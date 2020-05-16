@@ -9,10 +9,10 @@ class TeamRemin_model extends CI_model
 
     public function getAllTeamReminByIdTeam($idTeam)
     {
-        $query = "SELECT T.NAMA_TEAM AS 'nama_team', T.BIO AS 'bio', T.TANGGAL_PEMBUATAN AS 'tgl',T.ID_TEAM AS 'id_team'
-        FROM TEAM_REMINDER TR
-        JOIN TEAM T ON T.ID_TEAM = TR.ID_TEAM 
-        WHERE T.ID_TEAM = '" . $idTeam . "' ";
+        $query = "select t.nama_team as 'nama_team', t.bio as 'bio', t.tanggal_pembuatan as 'tgl',t.id_team as 'id_team'
+        from team_reminder tr
+        join team t on t.id_team = tr.id_team 
+        where t.id_team = '" . $idTeam . "' ";
 
         $res = $this->db->query($query);
 

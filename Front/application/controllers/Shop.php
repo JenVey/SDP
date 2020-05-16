@@ -87,7 +87,7 @@ class Shop extends CI_Controller
         $this->pagination->initialize($config);
 
         // CEK STATUS DI MIDTRANS
-        $this->Trans_model->refreshStatus();
+        //$this->Trans_model->refreshStatus();
         $this->History_model->refreshStatus();
 
         if (isset($_SESSION['id_game'])) {
@@ -217,7 +217,6 @@ class Shop extends CI_Controller
         $data['item'] = $this->Item_model->getAllItem();
         $data['promo'] = $this->Promo_model->getAllPromo();
         $data['cart'] = $this->Cart_model->getCartByIdUser($id);
-
         $this->load->view('shop/myCart', $data);
     }
 
@@ -274,6 +273,7 @@ class Shop extends CI_Controller
     {
         $this->Item_model->removeItem();
     }
+
     public function editItem()
     {
         $this->Item_model->editItem();
@@ -288,7 +288,6 @@ class Shop extends CI_Controller
     {
         $this->Merchant_model->editMerchant();
     }
-
 
     public function topUp()
     {
@@ -392,37 +391,34 @@ class Shop extends CI_Controller
         $this->Promo_model->cekPromo();
     }
 
-    public function finish($cek)
+    public function finish()
     {
         $id = $this->session->userdata('id_user');
-        if ($cek == 'bank') {
-            $this->session->unset_userdata('gp');
-            $cart = $this->input->post('cart');
-            for ($i = 0; $i < count($cart); $i++) {
-                $this->Cart_model->updateStatus2($cart[$i]);
-            }
-        } else {
-            $cart = array();
-            $cart = $this->input->post('cart');
-            $cart = json_decode($cart, true);
+        // if ($cek == 'bank') {
+        //     $this->session->unset_userdata('gp');
+        //     $cart = $this->input->post('cart');
+        //     for ($i = 0; $i < count($cart); $i++) {
+        //         $this->Cart_model->updateStatus2($cart[$i]);
+        //     }
+        // } else {
+        $cart = array();
+        $cart = $this->input->post('cart');
+        $cart = json_decode($cart, true);
 
-            $this->session->set_userdata(array('gp' => "true"));
+        $this->Trans_model->insertTrans();
+        $this->User_model->updateSaldo("transaksi");
 
-            $this->Trans_model->insertTrans("0");
-            //$this->User_model->updateSaldo(0);
-
-            for ($i = 0; $i < count($cart); $i++) {
-                $this->Cart_model->updateStatus2($cart[$i]['id']);
-            }
-            //$this->Item_model->updateAmount();
+        for ($i = 0; $i < count($cart); $i++) {
+            $this->Cart_model->updateStatus2($cart[$i]['id']);
         }
 
+        //$this->Item_model->updateAmount();
+        //}
         redirect('Shop');
     }
 
     public function refreshStatus()
     {
-        $this->Trans_model->refreshStatus();
         $this->History_model->refreshStatus();
     }
 
@@ -441,6 +437,7 @@ class Shop extends CI_Controller
         $this->User_model->updateStatusById($id);
         redirect('Login');
     }
+
     public function verifikasiItem($idT)
     {
         $data['user'] = $this->User_model->getAllUser();

@@ -3,10 +3,10 @@ class Pesan_model extends CI_model
 {
     public function getAllPesan()
     {
-        $query = "SELECT U.NAMA_USER AS 'pengirim', P.PESAN AS 'pesan', P.TANGGAL AS 'tgl', P.STATUS AS 'status', P.ID_PENERIMA AS 'id_penerima', U.FOTO AS 'foto', P.ID_PENGIRIM AS 'id_pengirim'
-        FROM PESAN P
-        LEFT JOIN USER U ON U.ID_USER = P.ID_PENGIRIM 
-        ORDER BY P.TANGGAL";
+        $query = "select u.nama_user as 'pengirim', p.pesan as 'pesan', p.tanggal as 'tgl', p.status as 'status', p.id_penerima as 'id_penerima', u.foto as 'foto', p.id_pengirim as 'id_pengirim'
+        from pesan p
+        left join user u on u.id_user = p.id_pengirim 
+        order by p.tanggal";
 
         $res = $this->db->query($query);
         return $res->result_array();
@@ -38,11 +38,11 @@ class Pesan_model extends CI_model
         // }
 
         $id = $this->input->post('');
-        $query = "SELECT U.NAMA_USER AS 'pengirim', P.PESAN AS 'pesan', P.TANGGAL AS 'tgl', P.STATUS AS 'status'
-        FROM PESAN P
-        JOIN USER U ON U.ID_USER = P.ID_PENERIMA
-        WHERE P.ID_PENERIMA = '" . $id . "'
-        ORDER BY P.TANGGAL";
+        $query = "select u.nama_user as 'pengirim', p.pesan as 'pesan', p.tanggal as 'tgl', p.status as 'status'
+        from pesan p
+        join user u on u.id_user = p.id_penerima
+        where p.id_penerima = '" . $id . "'
+        order by p.tanggal";
 
         $res = $this->db->query($query);
         return $res->result_array();
@@ -113,7 +113,7 @@ class Pesan_model extends CI_model
     {
         $id = $this->session->userdata('id_user');
         $idFriend =  $this->input->post('idFriend');
-        $query = "UPDATE PESAN SET STATUS = 1 WHERE ID_PENGIRIM = '" . $idFriend . "' AND ID_PENERIMA = '" . $id . "'";
+        $query = "update pesan set status = 1 where id_pengirim = '" . $idFriend . "' and id_penerima = '" . $id . "'";
         $this->db->query($query);
     }
 }

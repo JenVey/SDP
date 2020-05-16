@@ -450,114 +450,114 @@
 			});
 		});
 
-		$("#pilihCredit").click(function() {
-			alertify.confirm('Credit Card Payment', 'Are you sure?',
+		// $("#pilihCredit").click(function() {
+		// 	alertify.confirm('Credit Card Payment', 'Are you sure?',
 
-				function() {
-					var grandtotal = $(".GrandTotal").html();
-					grandtotal = grandtotal.replace(/[^a-z0-9\s]/gi, '');
-					grandtotal = grandtotal.substring(4, grandtotal.length);
-					//alert(grandtotal);
-					if (grandtotal > 0) {
-						//alert("a");
-						$(".bgblur").trigger("click");
-						event.preventDefault();
-						$(this).attr("disabled", "disabled");
+		// 		function() {
+		// 			var grandtotal = $(".GrandTotal").html();
+		// 			grandtotal = grandtotal.replace(/[^a-z0-9\s]/gi, '');
+		// 			grandtotal = grandtotal.substring(4, grandtotal.length);
+		// 			//alert(grandtotal);
+		// 			if (grandtotal > 0) {
+		// 				//alert("a");
+		// 				$(".bgblur").trigger("click");
+		// 				event.preventDefault();
+		// 				$(this).attr("disabled", "disabled");
 
-						var cart = [];
-						for (var i = 1; i <= id; i++) {
-							if ($("#check" + i + "Item").prop('checked')) {
-								var amount = $("#item" + i + "Amount").html();
-								amount = amount.substring(0, amount.indexOf('/'));
-								let obj = {
-									id: $("#item" + i).attr("idItem"),
-									price: parseInt($("#item" + i + "Price").attr("harga")),
-									quantity: parseInt(amount),
-									name: $("#item" + i + "Name").attr("nama"),
-									subtotal: $("#item" + i + "Subtotal").attr("subtotal")
-								}
-								cart.push(obj);
-							}
-						}
-						cartt = JSON.stringify(cart);
+		// 				var cart = [];
+		// 				for (var i = 1; i <= id; i++) {
+		// 					if ($("#check" + i + "Item").prop('checked')) {
+		// 						var amount = $("#item" + i + "Amount").html();
+		// 						amount = amount.substring(0, amount.indexOf('/'));
+		// 						let obj = {
+		// 							id: $("#item" + i).attr("idItem"),
+		// 							price: parseInt($("#item" + i + "Price").attr("harga")),
+		// 							quantity: parseInt(amount),
+		// 							name: $("#item" + i + "Name").attr("nama"),
+		// 							subtotal: $("#item" + i + "Subtotal").attr("subtotal")
+		// 						}
+		// 						cart.push(obj);
+		// 					}
+		// 				}
+		// 				cartt = JSON.stringify(cart);
 
-						var grandtotal = $(".GrandTotal").html();
-						grandtotal = grandtotal.replace(/[^a-z0-9\s]/gi, '');
-						grandtotal = grandtotal.substring(4, grandtotal.length);
-						var gross_amount = grandtotal;
-						$("#total").val(grandtotal);
-						total = $("#total").val();
+		// 				var grandtotal = $(".GrandTotal").html();
+		// 				grandtotal = grandtotal.replace(/[^a-z0-9\s]/gi, '');
+		// 				grandtotal = grandtotal.substring(4, grandtotal.length);
+		// 				var gross_amount = grandtotal;
+		// 				$("#total").val(grandtotal);
+		// 				total = $("#total").val();
 
-						nama = $(".profile").attr("nama");
-						phone = $(".profile").attr("phone");
-						email = $(".profile").attr("email");
-						$.ajax({
-							method: 'POST',
-							url: '<?= base_url() ?>Midtrans/snap/token',
-							data: {
-								cart: cartt,
-								gross_amount: gross_amount,
-								nama: nama,
-								phone: phone,
-								email: email
-							},
-							cache: false,
+		// 				nama = $(".profile").attr("nama");
+		// 				phone = $(".profile").attr("phone");
+		// 				email = $(".profile").attr("email");
+		// 				$.ajax({
+		// 					method: 'POST',
+		// 					url: '<?= base_url() ?>Midtrans/snap/token',
+		// 					data: {
+		// 						cart: cartt,
+		// 						gross_amount: gross_amount,
+		// 						nama: nama,
+		// 						phone: phone,
+		// 						email: email
+		// 					},
+		// 					cache: false,
 
-							success: function(data) {
-								console.log('token = ' + data);
+		// 					success: function(data) {
+		// 						console.log('token = ' + data);
 
-								var resultType = document.getElementById('result-type');
-								var resultData = document.getElementById('result-data');
+		// 						var resultType = document.getElementById('result-type');
+		// 						var resultData = document.getElementById('result-data');
 
-								function changeResult(type, data) {
-									$("#result-type").val(type);
-									$("#result-data").val(JSON.stringify(data));
-									for (var i = 0; i < cart.length; i++) {
-										$('<input>').attr({
-											type: 'hidden',
-											name: 'cart[]',
-											value: cart[i]["id"]
-										}).appendTo('#payment-form');
-									}
-									//resultType.innerHTML = type;
-									//resultData.innerHTML = JSON.stringify(data);
-								}
+		// 						function changeResult(type, data) {
+		// 							$("#result-type").val(type);
+		// 							$("#result-data").val(JSON.stringify(data));
+		// 							for (var i = 0; i < cart.length; i++) {
+		// 								$('<input>').attr({
+		// 									type: 'hidden',
+		// 									name: 'cart[]',
+		// 									value: cart[i]["id"]
+		// 								}).appendTo('#payment-form');
+		// 							}
+		// 							//resultType.innerHTML = type;
+		// 							//resultData.innerHTML = JSON.stringify(data);
+		// 						}
 
-								snap.pay(data, {
-									onSuccess: function(result) {
-										changeResult('success', result);
-										console.log(result.status_message);
-										console.log(result);
-										alertify.success("Success buy item");
-										$("#payment-form").submit();
-									},
-									onPending: function(result) {
-										changeResult('pending', result);
-										console.log(result.status_message);
-										$("#payment-form").submit();
-									},
-									onError: function(result) {
-										changeResult('error', result);
-										console.log(result.status_message);
-										$("#payment-form").submit();
-									}
-								});
+		// 						snap.pay(data, {
+		// 							onSuccess: function(result) {
+		// 								changeResult('success', result);
+		// 								console.log(result.status_message);
+		// 								console.log(result);
+		// 								alertify.success("Success buy item");
+		// 								$("#payment-form").submit();
+		// 							},
+		// 							onPending: function(result) {
+		// 								changeResult('pending', result);
+		// 								console.log(result.status_message);
+		// 								$("#payment-form").submit();
+		// 							},
+		// 							onError: function(result) {
+		// 								changeResult('error', result);
+		// 								console.log(result.status_message);
+		// 								$("#payment-form").submit();
+		// 							}
+		// 						});
 
-							}
-						});
-					} else {
-						alertify.error('No item selected');
-						$(".bgblur").trigger("click");
-					}
-				},
-				function() {
-					alertify.error('Payment Cancelled');
-					$(".bgblur").trigger("click");
-				}).set('labels', {
-				ok: 'Yes!',
-				cancel: 'Nope!'
-			});
-		});
+		// 					}
+		// 				});
+		// 			} else {
+		// 				alertify.error('No item selected');
+		// 				$(".bgblur").trigger("click");
+		// 			}
+		// 		},
+		// 		function() {
+		// 			alertify.error('Payment Cancelled');
+		// 			$(".bgblur").trigger("click");
+		// 		}).set('labels', {
+		// 		ok: 'Yes!',
+		// 		cancel: 'Nope!'
+		// 	});
+		// });
 
 		$(".bgblur").click(function() {
 			$(".bgblur").attr("hidden", true);

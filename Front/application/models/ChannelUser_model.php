@@ -3,9 +3,9 @@ class ChannelUser_model extends CI_model
 {
     public function getAllChannelUser()
     {
-        $query = "SELECT U.NAMA_USER AS 'nama_user', CU.JENIS AS 'jenis', CU.ID_CHANNEL AS 'id_channel',U.STATUS AS 'status',U.ID_USER AS 'id_user', U.FOTO AS 'foto'
-        FROM CHANNEL_USER CU
-        JOIN USER U ON U.ID_USER = CU.ID_USER";
+        $query = "select u.nama_user as 'nama_user', cu.jenis as 'jenis', cu.id_channel as 'id_channel',u.status as 'status',u.id_user as 'id_user', u.foto as 'foto'
+        from channel_user cu
+        join user u on u.id_user = cu.id_user";
 
         $res = $this->db->query($query);
         return $res->result_array();
@@ -15,11 +15,11 @@ class ChannelUser_model extends CI_model
     {
         $idChannel = $this->input->post('');
 
-        $query = "SELECT U.NAMA_USER AS 'nama_user', CU.JENIS AS 'jenis',U.ID_USER AS 'id_user'
-        FROM CHANNEL_USER CU
-        JOIN CHANNEL C ON C.ID_CHANNEL = CU.ID_CHANNEL 
-        JOIN USER U ON U.ID_USER = CU.ID_USER
-        WHERE CU.ID_CHANNEL = '" . $idChannel . "' ";
+        $query = "select u.nama_user as 'nama_user', cu.jenis as 'jenis',u.id_user as 'id_user'
+        from channel_user cu
+        join channel c on c.id_channel = cu.id_channel 
+        join user u on u.id_user = cu.id_user
+        where cu.id_channel = '" . $idChannel . "' ";
 
         $res = $this->db->query($query);
         return $res->result_array();
@@ -40,7 +40,6 @@ class ChannelUser_model extends CI_model
     //     $res = $this->db->query($query);
     //     return $res->result_array();
     // }
-
 
     public function insertChannelUser()
     {
@@ -80,7 +79,7 @@ class ChannelUser_model extends CI_model
 
         $idChannel = $this->input->post('idChannel');
         $idUser = $this->input->post('idUser');
-        $query = "UPDATE CHANNEL_USER SET JENIS = 0 WHERE ID_CHANNEL = '" . $idChannel . "' AND ID_USER = '" . $idUser . "' ";
+        $query = "update channel_user set jenis = 0 where id_channel = '" . $idChannel . "' and id_user = '" . $idUser . "' ";
 
         $this->db->query($query);
     }
@@ -89,7 +88,7 @@ class ChannelUser_model extends CI_model
     {
         $idChannel = $this->input->post('idChannel');
         $idUser = $this->input->post('idUser');
-        $query = "DELETE FROM CHANNEL_USER WHERE ID_CHANNEL = '" . $idChannel . "' AND ID_USER = '" . $idUser . "' ";
+        $query = "delete from channel_user where id_channel = '" . $idChannel . "' and id_user = '" . $idUser . "' ";
 
         $this->db->query($query);
     }
@@ -98,7 +97,7 @@ class ChannelUser_model extends CI_model
     {
         $idChannel = $this->input->post('idChannel');
         $idUser = $this->input->post('idUser');
-        $query = "UPDATE CHANNEL_USER SET JENIS = 1 WHERE ID_CHANNEL = '" . $idChannel . "' AND ID_USER = '" . $idUser . "' ";
+        $query = "update channel_user set jenis = 1 where id_channel = '" . $idChannel . "' and id_user = '" . $idUser . "' ";
 
         $this->db->query($query);
     }
@@ -107,7 +106,7 @@ class ChannelUser_model extends CI_model
     {
         $idChannel = $this->input->post('idChannel');
         $idUser = $this->input->post('idUser');
-        $query = "UPDATE CHANNEL_USER SET JENIS = 0 WHERE ID_CHANNEL = '" . $idChannel . "' AND ID_USER = '" . $idUser . "' ";
+        $query = "update channel_user set jenis = 0 where id_channel = '" . $idChannel . "' and id_user = '" . $idUser . "' ";
 
         $this->db->query($query);
     }

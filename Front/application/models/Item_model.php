@@ -4,10 +4,10 @@ class Item_model extends CI_model
 
     public function getAllItem()
     {
-        $query = "SELECT * FROM ITEM I 
-        JOIN MERCHANT M ON M.ID_MERCHANT = I.ID_MERCHANT 
-        JOIN GAME G ON G.ID_GAME = I.ID_GAME
-        AND I.JUMLAH_ITEM > 0 ";
+        $query = "select * from item i 
+        join merchant m on m.id_merchant = i.id_merchant 
+        join game g on g.id_game = i.id_game
+        and i.jumlah_item > 0 ";
         //ORDER BY I.TANGGAL_UPLOAD DESC";
         $res = $this->db->query($query);
         return $res->result_array();
@@ -20,24 +20,24 @@ class Item_model extends CI_model
 
     public function getItemByIdMerchant($id)
     {
-        $query = "SELECT * FROM ITEM I 
-        JOIN MERCHANT M ON M.ID_MERCHANT = I.ID_MERCHANT 
-        JOIN GAME G ON G.ID_GAME = I.ID_GAME 
-        WHERE M.ID_MERCHANT= '" . $id . "' 
-        AND I.JUMLAH_ITEM > 0
-        ORDER BY I.TANGGAL_UPLOAD DESC";
+        $query = "select * from item i 
+        join merchant m on m.id_merchant = i.id_merchant 
+        join game g on g.id_game = i.id_game 
+        where m.id_merchant= '" . $id . "' 
+        and i.jumlah_item > 0
+        order by i.tanggal_upload desc";
         $res = $this->db->query($query);
         return $res->result_array();
     }
 
     public function getItemByIdUser($id)
     {
-        $query = "SELECT * FROM ITEM I 
-        JOIN MERCHANT M ON M.ID_MERCHANT = I.ID_MERCHANT 
-        JOIN GAME G ON G.ID_GAME = I.ID_GAME 
-        WHERE M.ID_USER= '" . $id . "' 
-        AND I.JUMLAH_ITEM > 0
-        ORDER BY I.TANGGAL_UPLOAD DESC";
+        $query = "select * from item i 
+        join merchant m on m.id_merchant = i.id_merchant 
+        join game g on g.id_game = i.id_game 
+        where m.id_user= '" . $id . "' 
+        and i.jumlah_item > 0
+        order by i.tanggal_upload desc";
         $res = $this->db->query($query);
         return $res->result_array();
     }
@@ -47,11 +47,11 @@ class Item_model extends CI_model
         $idG = $this->session->userdata('id_game');
 
         $this->db->select('*');
-        $this->db->from('ITEM I');
-        $this->db->join('MERCHANT M', 'M.ID_MERCHANT = I.ID_MERCHANT');
-        $this->db->join('GAME G', ' G.ID_GAME = I.ID_GAME');
-        $this->db->where('I.ID_GAME', $idG);
-        $this->db->where('I.JUMLAH_ITEM >', 0);
+        $this->db->from('item i');
+        $this->db->join('merchant m', 'm.id_merchant = i.id_merchant');
+        $this->db->join('game g', ' g.id_game = i.id_game');
+        $this->db->where('i.id_game', $idG);
+        $this->db->where('i.jumlah_item >', 0);
         $this->db->limit($limit, $start);
         return  $this->db->get()->result_array();
 
@@ -70,28 +70,28 @@ class Item_model extends CI_model
     public function getItemBySearch($keyword)
     {
         if (isset($_SESSION['filter'])) {
-            $query = "SELECT * FROM ITEM I 
-            JOIN MERCHANT M ON M.ID_MERCHANT = I.ID_MERCHANT 
-            JOIN GAME G ON G.ID_GAME = I.ID_GAME 
-            WHERE I.NAMA_ITEM LIKE '%" . $keyword . "%' 
-            AND I.JUMLAH_ITEM > 0
-            ORDER BY CASE WHEN I.NAMA_ITEM LIKE '" . $keyword . "%' THEN 0 ELSE 1 END ";
+            $query = "select * from item i 
+            join merchant m on m.id_merchant = i.id_merchant 
+            join game g on g.id_game = i.id_game 
+            where i.nama_item like '%" . $keyword . "%' 
+            and i.jumlah_item > 0
+            order by case when i.nama_item like '" . $keyword . "%' then 0 else 1 end ";
 
             if ($_SESSION['filter'] == "newest") {
-                $query = $query . ", I.TANGGAL_UPLOAD DESC";
+                $query = $query . ", i.tanggal_upload desc";
             } else if ($_SESSION['filter'] == "oldest") {
-                $query = $query . ", I.TANGGAL_UPLOAD ASC";
+                $query = $query . ", i.tanggal_upload asc";
             } else if ($_SESSION['filter'] == "cheapest") {
-                $query = $query . ", I.HARGA_ITEM ASC";
+                $query = $query . ", i.harga_item asc";
             } else {
-                $query = $query . ", I.HARGA_ITEM DESC";
+                $query = $query . ", i.harga_item desc";
             }
         } else {
-            $query = "SELECT * FROM ITEM I 
-            JOIN MERCHANT M ON M.ID_MERCHANT = I.ID_MERCHANT 
-            JOIN GAME G ON G.ID_GAME = I.ID_GAME 
-            WHERE I.NAMA_ITEM LIKE '%" . $keyword . "%' 
-            ORDER BY CASE WHEN I.NAMA_ITEM LIKE '" . $keyword . "%' THEN 0 ELSE 1 END, I.NAMA_ITEM";
+            $query = "select * from item i 
+            join merchant m on m.id_merchant = i.id_merchant 
+            join game g on g.id_game = i.id_game 
+            where i.nama_item like '%" . $keyword . "%' 
+            order by case when i.nama_item like '" . $keyword . "%' then 0 else 1 end, i.nama_item";
         }
 
 
@@ -103,30 +103,30 @@ class Item_model extends CI_model
     {
         $idM = $_SESSION['id_merchant'];
         if (isset($_SESSION['filter'])) {
-            $query = "SELECT * FROM ITEM I 
-            JOIN MERCHANT M ON M.ID_MERCHANT = I.ID_MERCHANT 
-            JOIN GAME G ON G.ID_GAME = I.ID_GAME 
-            WHERE I.NAMA_ITEM LIKE '%" . $keyword . "%' 
-            AND M.ID_MERCHANT = '" . $idM . "'
-            AND I.JUMLAH_ITEM > 0
-            ORDER BY CASE WHEN I.NAMA_ITEM LIKE '" . $keyword . "%' THEN 0 ELSE 1 END ";
+            $query = "select * from item i 
+            join merchant m on m.id_merchant = i.id_merchant 
+            join game g on g.id_game = i.id_game 
+            where i.nama_item like '%" . $keyword . "%' 
+            and m.id_merchant = '" . $idM . "'
+            and i.jumlah_item > 0
+            order by case when i.nama_item like '" . $keyword . "%' then 0 else 1 end ";
 
             if ($_SESSION['filter'] == "newest") {
-                $query = $query . ", I.TANGGAL_UPLOAD DESC";
+                $query = $query . ", i.tanggal_upload desc";
             } else if ($_SESSION['filter'] == "oldest") {
-                $query = $query . ", I.TANGGAL_UPLOAD ASC";
+                $query = $query . ", i.tanggal_upload asc";
             } else if ($_SESSION['filter'] == "cheapest") {
-                $query = $query . ", I.HARGA_ITEM ASC";
+                $query = $query . ", i.harga_item asc";
             } else {
-                $query = $query . ", I.HARGA_ITEM DESC";
+                $query = $query . ", i.harga_item desc";
             }
         } else {
-            $query = "SELECT * FROM ITEM I 
-            JOIN MERCHANT M ON M.ID_MERCHANT = I.ID_MERCHANT 
-            JOIN GAME G ON G.ID_GAME = I.ID_GAME 
-            WHERE I.NAMA_ITEM LIKE '%" . $keyword . "%' 
-            AND M.ID_MERCHANT = '" . $idM . "'
-            ORDER BY CASE WHEN I.NAMA_ITEM LIKE '" . $keyword . "%' THEN 0 ELSE 1 END, I.NAMA_ITEM";
+            $query = "select * from item i 
+            join merchant m on m.id_merchant = i.id_merchant 
+            join game g on g.id_game = i.id_game 
+            where i.nama_item like '%" . $keyword . "%' 
+            and m.id_merchant = '" . $idM . "'
+            order by case when i.nama_item like '" . $keyword . "%' then 0 else 1 end, i.nama_item";
         }
 
         $res = $this->db->query($query);
@@ -138,18 +138,18 @@ class Item_model extends CI_model
 
         if (isset($_SESSION['idTransaksi'])) {
             $idTrans = $this->session->userdata('idTransaksi');
-            $cekQuery =  $this->db->query("SELECT * FROM TRANSAKSI_ITEM WHERE ID_TRANSAKSI = '" . $idTrans . "' ");
+            $cekQuery =  $this->db->query("select * from transaksi_item where id_transaksi = '" . $idTrans . "' ");
 
             foreach ($cekQuery->result_array() as $row) {
                 $amount = $row['jumlah'];
                 var_dump($row['id_item']);
-                $query = $this->db->query("SELECT * FROM ITEM I  WHERE I.ID_ITEM = '" . $row['id_item'] . "' ");
+                $query = $this->db->query("select * from item i  where i.id_item = '" . $row['id_item'] . "' ");
                 foreach ($query->result_array() as $row2) {
                     $amountItem = $row2['jumlah_item'];
                 }
 
                 $newAmount = $amountItem - $amount;
-                $query2 = "UPDATE ITEM I SET JUMLAH_ITEM = " . $newAmount . " WHERE I.ID_ITEM = '" . $row['id_item'] . "' ";
+                $query2 = "update item i set jumlah_item = " . $newAmount . " where i.id_item = '" . $row['id_item'] . "' ";
                 $this->db->query($query2);
             }
         } else {
@@ -159,14 +159,14 @@ class Item_model extends CI_model
             for ($i = 0; $i < count($cart); $i++) {
                 $amount = $cart[$i]['quantity'];
                 //var_dump($row['id_item']);
-                $query = $this->db->query("SELECT * FROM ITEM I  WHERE I.ID_ITEM = '" . $cart[$i]['id'] . "' ");
+                $query = $this->db->query("select * from item i  where i.id_item = '" . $cart[$i]['id'] . "' ");
 
                 foreach ($query->result_array() as $row2) {
                     $amountItem = $row2['jumlah_item'];
                 }
 
                 $newAmount = $amountItem - $amount;
-                $query2 = "UPDATE ITEM I SET JUMLAH_ITEM = " . $newAmount . " WHERE I.ID_ITEM = '" . $cart[$i]['id'] . "' ";
+                $query2 = "update item i set jumlah_item = " . $newAmount . " where i.id_item = '" . $cart[$i]['id'] . "' ";
                 $this->db->query($query2);
             }
         }
@@ -215,7 +215,7 @@ class Item_model extends CI_model
     public function removeItem()
     {
         $idI = $this->input->post('idItem');
-        $query = "DELETE FROM ITEM WHERE ID_ITEM = '" . $idI . "' ";
+        $query = "delete from item where id_item = '" . $idI . "' ";
         $this->db->query($query);
     }
 
@@ -238,10 +238,10 @@ class Item_model extends CI_model
     public function getItem($limit, $start)
     {
         $this->db->select('*');
-        $this->db->from('ITEM I');
-        $this->db->join('MERCHANT M', 'M.ID_MERCHANT = I.ID_MERCHANT');
-        $this->db->join('GAME G', ' G.ID_GAME = I.ID_GAME');
-        $this->db->where('I.JUMLAH_ITEM >', 0);
+        $this->db->from('item i');
+        $this->db->join('merchant m', 'm.id_merchant = i.id_merchant');
+        $this->db->join('game g', ' g.id_game = i.id_game');
+        $this->db->where('i.jumlah_item >', 0);
         $this->db->limit($limit, $start);
         return  $this->db->get()->result_array();
     }
@@ -251,8 +251,8 @@ class Item_model extends CI_model
         if (isset($_SESSION['id_game'])) {
             $idG = $this->session->userdata('id_game');
             $sql = "SELECT id_item
-            FROM ITEM I
-            WHERE ID_GAME = '" . $idG . "'";
+            FROM item i
+            where id_game = '" . $idG . "'";
 
             return $this->db->query($sql)->num_rows();
         } else {

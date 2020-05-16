@@ -9,10 +9,10 @@ class Friend_model extends CI_model
     {
         //return $this->db->get_where('friend', ['id_user1' => $id])->result_array();
 
-        $query = "SELECT U.NAMA_USER AS 'nama_user', U.ID_USER AS 'id_user', U.FOTO AS 'foto', F.STATUS AS 'status', F.ID_USER2 AS 'id_user2'
-        FROM FRIEND F
-        JOIN USER U ON U.ID_USER = F.ID_USER2
-        WHERE F.ID_USER1 = '" . $id . "' ";
+        $query = "select u.nama_user as 'nama_user', u.id_user as 'id_user', u.foto as 'foto', f.status as 'status', f.id_user2 as 'id_user2'
+        from friend f
+        join user u on u.id_user = f.id_user2
+        where f.id_user1 = '" . $id . "' ";
 
         $res = $this->db->query($query);
         return $res->result_array();
@@ -20,14 +20,14 @@ class Friend_model extends CI_model
     public function unlikeMerchant($idM)
     {
         $id = $this->session->userdata('id_user');
-        $query = "DELETE FROM FRIEND  WHERE ID_USER1 = '" . $id . "' AND ID_USER2 = '" . $idM . "' ";
+        $query = "delete from friend  where id_user1 = '" . $id . "' and id_user2 = '" . $idM . "' ";
         $this->db->query($query);
     }
 
     public function likeMerchant($idM)
     {
         $id = $this->session->userdata('id_user');
-        $query = "INSERT INTO FRIEND(ID_USER1,ID_USER2) VALUES('" . $id . "' , '" . $idM . "' )";
+        $query = "insert into friend(id_user1,id_user2) values('" . $id . "' , '" . $idM . "' )";
         $this->db->query($query);
     }
 
@@ -48,10 +48,10 @@ class Friend_model extends CI_model
 
         if (!$ada) {
 
-            $query = "INSERT INTO FRIEND(ID_USER1,ID_USER2,STATUS) VALUES('" . $id . "' , '" . $idU . "',1)"; // YANG ADD
+            $query = "insert into friend(id_user1,id_user2,status) values('" . $id . "' , '" . $idU . "',1)"; // YANG ADD
             $this->db->query($query);
 
-            $query = "INSERT INTO FRIEND(ID_USER1,ID_USER2,STATUS) VALUES('" . $idU . "' , '" . $id . "',0)"; // YANG DI ADD
+            $query = "insert into friend(id_user1,id_user2,status) values('" . $idU . "' , '" . $id . "',0)"; // YANG DI ADD
             $this->db->query($query);
 
             // $this->session->set_userdata(array('friend' => "ada"));
@@ -67,10 +67,10 @@ class Friend_model extends CI_model
         $id = $this->session->userdata('id_user');
         $idU = $this->input->post('id_user2');
 
-        $query = "UPDATE FRIEND SET STATUS = 2 WHERE ID_USER1 =  '" . $id . "' AND ID_USER2 = '" . $idU . "' "; // ACCEPT FRIEND
+        $query = "update friend set status = 2 where id_user1 =  '" . $id . "' and id_user2 = '" . $idU . "' "; // ACCEPT FRIEND
         $this->db->query($query);
 
-        $query = "UPDATE FRIEND SET STATUS = 2 WHERE ID_USER1 =  '" . $idU . "' AND ID_USER2 = '" . $id . "' "; // ACCEPT FRIEND
+        $query = "update friend set status = 2 where id_user1 =  '" . $idU . "' and id_user2 = '" . $id . "' "; // ACCEPT FRIEND
         $this->db->query($query);
     }
 
@@ -79,7 +79,7 @@ class Friend_model extends CI_model
         $id = $this->session->userdata('id_user');
         $idU = $this->input->post('id_user2');
 
-        $query = "UPDATE FRIEND SET STATUS = -1 WHERE ID_USER1 =  '" . $id . "' AND ID_USER2 = '" . $idU . "' "; // YANG BLOCK
+        $query = "Update friend set status = -1 where id_user1 =  '" . $id . "' and id_user2 = '" . $idU . "' "; // YANG BLOCK
         $this->db->query($query);
     }
 
@@ -88,7 +88,7 @@ class Friend_model extends CI_model
         $id = $this->session->userdata('id_user');
         $idU = $this->input->post('id_user2');
 
-        $query = "UPDATE FRIEND SET STATUS = 2 WHERE ID_USER1 =  '" . $id . "' AND ID_USER2 = '" . $idU . "' "; // YANG BLOCK
+        $query = "update friend set status = 2 where id_user1 =  '" . $id . "' and id_user2 = '" . $idU . "' "; // YANG BLOCK
         $this->db->query($query);
     }
 
@@ -97,11 +97,11 @@ class Friend_model extends CI_model
         $id = $this->session->userdata('id_user');
         $keyword = $this->input->post('keyword');
 
-        $query = "SELECT U.NAMA_USER AS 'nama_user', U.ID_USER AS 'id_user', U.FOTO AS 'foto', F.STATUS AS 'status', F.ID_USER2 AS 'id_user2'
-        FROM FRIEND F
-        JOIN USER U ON U.ID_USER = F.ID_USER2
-        WHERE F.ID_USER1 = '" . $id . "' 
-        AND U.NAMA_USER LIKE '%" . $keyword . "%' ";
+        $query = "select u.nama_user as 'nama_user', u.id_user as 'id_user', u.foto as 'foto', f.status as 'status', f.id_user2 as 'id_user2'
+        from friend f
+        join user u on u.id_user = f.id_user2
+        where f.id_user1 = '" . $id . "' 
+        and u.nama_user like '%" . $keyword . "%' ";
 
 
         $res = $this->db->query($query);

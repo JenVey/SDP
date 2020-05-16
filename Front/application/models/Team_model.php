@@ -16,10 +16,10 @@ class Team_model extends CI_model
     public function getAllTeamByIdUser()
     {
         $id = $this->session->userdata('id_user');
-        $query = "SELECT *
-        FROM TEAM T
-        LEFT JOIN TEAM_MEMBERS TM ON TM.ID_TEAM = T.ID_TEAM 
-        WHERE TM.ID_USER= '" . $id . "' ";
+        $query = "select *
+        from team t
+        left join team_members tm on tm.id_team = t.id_team 
+        where tm.id_user= '" . $id . "' ";
 
         $res = $this->db->query($query);
         return $res->result_array();
@@ -30,11 +30,11 @@ class Team_model extends CI_model
         $id = $this->session->userdata('id_user');
         $keyword = $this->input->post("keyword");
 
-        $query = "SELECT *
-        FROM TEAM T
-        LEFT JOIN TEAM_MEMBERS TM ON TM.ID_TEAM = T.ID_TEAM 
-        WHERE TM.ID_USER= '" . $id . "' 
-        AND T.NAMA_TEAM = '%" . $keyword . "%' ";
+        $query = "select *
+        from team t
+        left join team_members tm on tm.id_team = t.id_team 
+        where tm.id_user= '" . $id . "' 
+        and t.nama_team = '%" . $keyword . "%' ";
 
         $res = $this->db->query($query);
         return $res->result_array();
@@ -117,10 +117,10 @@ class Team_model extends CI_model
     public function getAllTeamByUser()
     {
         $id = $this->session->userdata('id_user');
-        $query = "SELECT T.NAMA_TEAM AS 'nama_team', T.BIO AS 'bio', T.TANGGAL_PEMBUATAN AS 'tgl',T.ID_TEAM AS 'id_team'
-        FROM TEAM T 
-        JOIN TEAM_MEMBERS TM ON TM.ID_TEAM = T.ID_TEAM 
-        WHERE TM.ID_USER= '" . $id . "' ";
+        $query = "select t.nama_team as 'nama_team', t.bio as 'bio', t.tanggal_pembuatan as 'tgl',t.id_team as 'id_team'
+        from team t 
+        join team_members tm on tm.id_team = t.id_team 
+        where tm.id_user= '" . $id . "' ";
 
         $res = $this->db->query($query);
         return $res->result_array();

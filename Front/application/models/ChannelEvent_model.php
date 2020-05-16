@@ -3,10 +3,10 @@ class ChannelEvent_model extends CI_model
 {
     public function getAllChannelEvent()
     {
-        $query = "SELECT CE.JUDUL AS 'judul', CE.PESAN AS 'pesan', CE.FOTO AS 'foto', CE.TANGGAL AS 'tanggal', CE.ID_EVENT AS  'id_event', CE.ID_CHANNEL AS 'id_channel' , U.NAMA_USER AS 'nama_user'
-        FROM CHANNEL_EVENT CE
-        JOIN CHANNEL C ON C.ID_CHANNEL = CE.ID_CHANNEL
-        JOIN USER U ON U.ID_USER = CE.ID_USER";
+        $query = "select ce.judul as 'judul', ce.pesan as 'pesan', ce.foto as 'foto', ce.tanggal as 'tanggal', ce.id_event as  'id_event', ce.id_channel as 'id_channel' , u.nama_user as 'nama_user'
+        from channel_event ce
+        join channel c on c.id_channel = ce.id_channel
+        join user u on u.id_user = ce.id_user";
 
         $res = $this->db->query($query);
         return $res->result_array();
@@ -15,11 +15,11 @@ class ChannelEvent_model extends CI_model
     public function getAllChannelEventByIdChannel($idC)
     {
         //$id = $this->session->userdata('id_user');
-        $query = "SELECT CE.JUDUL AS 'judul', CE.PESAN AS 'pesan', CE.FOTO AS 'foto', CE.TANGGAL AS 'tanggal'
-        FROM CHANNEL_EVENT I
-        JOIN CHANNEL C ON C.ID_CHANNEL = CI.ID_CHANNEL
-        JOIN USER U ON U.ID_USER = CI.ID_USER 
-        WHERE C.ID_CHANNEL= '" . $idC . "' ";
+        $query = "select ce.judul as 'judul', ce.pesan as 'pesan', ce.foto as 'foto', ce.tanggal as 'tanggal'
+        from channel_event i
+        join channel c on c.id_channel = ci.id_channel
+        join user u on u.id_user = ci.id_user 
+        where c.id_channel= '" . $idC . "' ";
 
         $res = $this->db->query($query);
         return $res->result_array();

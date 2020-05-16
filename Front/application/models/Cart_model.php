@@ -7,14 +7,14 @@ class Cart_model extends CI_model
     }
     public function getCartByIdUser($id)
     {
-        $query = "SELECT I.NAMA_ITEM AS 'nama_item', M.NAMA_MERCHANT AS 'nama_merchant', 
-        ROUND(I.HARGA_ITEM) AS 'harga', I.FOTO_ITEM AS 'foto',I.DESC_ITEM AS 'deskripsi',C.AMOUNT AS 'jumlah', 
-        C.AMOUNT * I.HARGA_ITEM AS 'subtotal', M.ID_MERCHANT AS 'id_merchant', C.ID_ITEM AS 'id_item', I.JUMLAH_ITEM AS 'stok'
-        FROM USER_CART C 
-        JOIN ITEM I ON I.ID_ITEM = C.ID_ITEM
-        JOIN MERCHANT M ON M.ID_MERCHANT = I.ID_MERCHANT
-        WHERE C.ID_USER = '" . $id . "' 
-        AND C.STATUS = 1 ";
+        $query = "select i.nama_item as 'nama_item', m.nama_merchant as 'nama_merchant', 
+        round(i.harga_item) as 'harga', i.foto_item as 'foto',i.desc_item as 'deskripsi',c.amount as 'jumlah', 
+        c.amount * i.harga_item as 'subtotal', m.id_merchant as 'id_merchant', c.id_item as 'id_item', i.jumlah_item as 'stok'
+        from user_cart c 
+        join item i on i.id_item = c.id_item
+        join merchant m on m.id_merchant = i.id_merchant
+        where c.id_user = '" . $id . "' 
+        and c.status = 1 ";
         $res = $this->db->query($query);
         return $res->result_array();
         //return $this->db->get_where('cart', ['id_user' => $id])->row_array();
@@ -36,10 +36,10 @@ class Cart_model extends CI_model
 
         if ($ada) {
             $amount++;
-            $query = "UPDATE USER_CART SET AMOUNT = $amount WHERE ID_USER = '" . $id . "' AND ID_ITEM = '" . $idI . "' ";
+            $query = "update user_cart set amount = $amount where id_user = '" . $id . "' and id_item = '" . $idI . "' ";
             $this->db->query($query);
         } else {
-            $query = "INSERT INTO USER_CART(ID_USER,ID_ITEM,AMOUNT,STATUS) VALUES('" . $id . "' , '" . $idI . "' , $amount , 0)";
+            $query = "insert into user_cart(id_user,id_item,amount,status) values('" . $id . "' , '" . $idI . "' , $amount , 0)";
             $this->db->query($query);
         }
     }
@@ -47,28 +47,28 @@ class Cart_model extends CI_model
     public function updateCart($idI)
     {
         $id = $this->session->userdata('id_user');
-        $cekQuery = $this->db->query("select * from USER_CART");
+        $cekQuery = $this->db->query("select * from user_cart");
         $amount = 0;
 
-        $query = "UPDATE USER_CART 
-        SET AMOUNT = $amount
-        WHERE ID_USER = '" . $id . "' 
-        AND ID_ITEM = '" . $idI . "' 
-        AND STATUS = 1";
+        $query = "update user_cart 
+        set amount = $amount
+        where id_user = '" . $id . "' 
+        and id_item = '" . $idI . "' 
+        and status = 1";
         $this->db->query($query);
     }
 
     public function updateStatus1()
     {
         $id = $this->session->userdata('id_user');
-        $cekQuery = $this->db->query("select * from USER_CART");
+        $cekQuery = $this->db->query("select * from user_cart");
 
         //BUKA CART
         foreach ($cekQuery->result_array() as $row) {
-            $query = "UPDATE USER_CART SET STATUS = 1 
-            WHERE ID_USER = '" . $row['id_user'] . "' 
-            AND ID_ITEM = '" .  $row['id_item'] . "' 
-            AND STATUS = 0 ";
+            $query = "update user_cart set status = 1 
+            where id_user = '" . $row['id_user'] . "' 
+            and id_item = '" .  $row['id_item'] . "' 
+            and status = 0 ";
             $this->db->query($query);
         }
     }
@@ -76,7 +76,7 @@ class Cart_model extends CI_model
     public function removeCart($idI)
     {
         $id = $this->session->userdata('id_user');
-        $query = "DELETE FROM USER_CART WHERE ID_USER = '" . $id . "' AND ID_ITEM = '" . $idI . "' ";
+        $query = "delete from user_cart where id_user = '" . $id . "' and id_item = '" . $idI . "' ";
         $this->db->query($query);
     }
 
@@ -87,10 +87,10 @@ class Cart_model extends CI_model
 
         $id = $this->session->userdata('id_user');
 
-        $query = "UPDATE USER_CART SET STATUS = 2 
-        WHERE ID_USER = '" . $id . "' 
-        AND ID_ITEM = '" .  $idI . "' 
-        AND STATUS = 1";
+        $query = "update user_cart set status = 2 
+        where id_user = '" . $id . "' 
+        and id_item = '" .  $idI . "' 
+        and status = 1";
 
         $this->db->query($query);
     }
@@ -98,11 +98,11 @@ class Cart_model extends CI_model
     public function updateAmount($amount, $idI)
     {
         $id = $this->session->userdata('id_user');
-        $query = "UPDATE USER_CART 
-        SET AMOUNT = $amount 
-        WHERE ID_USER = '" . $id . "' 
-        AND ID_ITEM = '" . $idI . "' 
-        AND STATUS = 1";
+        $query = "update user_cart 
+        set amount = $amount 
+        where id_user = '" . $id . "' 
+        and id_item = '" . $idI . "' 
+        and status = 1";
 
         $this->db->query($query);
     }

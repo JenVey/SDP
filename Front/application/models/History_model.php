@@ -31,8 +31,8 @@ class History_model extends CI_model
             "date" => $tgl,
             "status" => 0
         ];
-
         $this->db->insert('history', $data);
+        $this->session->unset_userdata('idHistory');
     }
 
     public function refreshStatus()
@@ -44,22 +44,22 @@ class History_model extends CI_model
             if ($row['id_user'] == $idUser && $row['status'] == 0) {
 
                 $response = $this->veritrans->status(($row['id_history']));
-                echo $row['id_history'];
+                //echo $row['id_history'];
                 $transaction_status = $response->transaction_status;
-                print_r($transaction_status);
+                //print_r($transaction_status);
 
                 if ($transaction_status == "settlement") {
-                    $this->History_model->updateStatus($row['id_history']);
-                } else if ($transaction_status == "failure") {
-                    $this->History_model->updateStatus(0);
+                    $this->History_model->updateStatus($row['id_history'], "sattle");
+                } else if ($transaction_status == "cancel") {
+                    $this->History_model->updateStatus($row['id_history'], "cancel");
                 }
             }
         }
     }
 
-    public function updateStatus($order_id)
+    public function updateStatus($order_id, $jenis)
     {
-        if ($order_id == 0) {
+        if ($jenis == "cancel") {
             $data = [
                 "status" => '-1' //GAGAL DI BAYAR
             ];
@@ -75,10 +75,10 @@ class History_model extends CI_model
             $query = $this->db->query("select * from history");
             foreach ($query->result_array() as $row) {
                 if ($row['id_history'] == $order_id) {
-                    $total = $row['saldo'];
+                    $this->session->set_userdata(array('total' => $row['saldo']));
                 }
             }
-            $this->User_model->updateSaldo($total);
+            $this->User_model->updateSaldo("topup");
         }
     }
 }

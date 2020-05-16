@@ -7,16 +7,16 @@ class Komen_model extends CI_model
     }
     public function getKomenById($id)
     {
-        return $this->db->get_where('ietm_komentar', ['id_komentar' => $id])->row_array();
+        return $this->db->get_where('item_komentar', ['id_komentar' => $id])->row_array();
     }
 
     public function getKomenByIdItem($id)
     {
-        $query = "SELECT U.NAMA_USER AS 'nama', K.PESAN AS 'pesan', K.REPLY AS 'reply', U.FOTO AS 'foto'
-        FROM ITEM_KOMENTAR K 
-        JOIN ITEM I ON K.ID_ITEM = I.ID_ITEM 
-        JOIN USER U ON U.ID_USER = K.ID_USER 
-        WHERE K.ID_ITEM= '" . $id . "' ";
+        $query = "select u.nama_user as 'nama', k.pesan as 'pesan', k.reply as 'reply', u.foto as 'foto'
+        from item_komentar k 
+        join item i on k.id_item = i.id_item 
+        join user u on u.id_user = k.id_user 
+        where k.id_item = '" . $id . "' ";
         $res = $this->db->query($query);
         return $res->result_array();
     }

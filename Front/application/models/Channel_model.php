@@ -15,10 +15,10 @@ class Channel_model extends CI_model
     public function getAllChannelByIdUser()
     {
         $id = $this->session->userdata('id_user');
-        $query = "SELECT C.ID_CHANNEL AS 'id_channel', C.NAMA_CHANNEL AS 'nama_channel' , C.FOTO_CHANNEL AS 'foto_channel'
-        FROM CHANNEL C 
-        LEFT JOIN CHANNEL_USER CU ON CU.ID_CHANNEL = C.ID_CHANNEL 
-        WHERE CU.ID_USER= '" . $id . "' ";
+        $query = "select c.id_channel as 'id_channel', c.nama_channel as 'nama_channel' , c.foto_channel as 'foto_channel'
+        from channel c 
+        left join channel_user cu on cu.id_channel = c.id_channel 
+        where cu.id_user= '" . $id . "' ";
 
         $res = $this->db->query($query);
         return $res->result_array();
@@ -29,11 +29,11 @@ class Channel_model extends CI_model
         $id = $this->session->userdata('id_user');
         $keyword = $this->input->post('keyword');
 
-        $query = "SELECT C.ID_CHANNEL AS 'id_channel', C.NAMA_CHANNEL AS 'nama_channel' , C.FOTO_CHANNEL AS 'foto_channel'
-        FROM CHANNEL C 
-        LEFT JOIN CHANNEL_USER CU ON CU.ID_CHANNEL = C.ID_CHANNEL 
-        WHERE CU.ID_USER= '" . $id . "' 
-        AND C.NAMA_CHANNEL LIKE '%" . $keyword . "%' ";
+        $query = "select c.id_channel as 'id_channel', c.nama_channel as 'nama_channel' , c.foto_channel as 'foto_channel'
+        from channel c 
+        left join channel_user cu on cu.id_channel = c.id_channel 
+        where cu.id_user= '" . $id . "' 
+        and c.nama_channel like '%" . $keyword . "%' ";
 
         $res = $this->db->query($query);
         return $res->result_array();

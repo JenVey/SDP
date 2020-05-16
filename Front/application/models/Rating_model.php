@@ -7,10 +7,10 @@ class Rating_model extends CI_model
     }
     public function getRatingByUser($id, $idM)
     {
-        $query = "SELECT * FROM MERCHANT_RATING R 
-        JOIN MERCHANT M ON M.ID_MERCHANT = R.ID_MERCHANT 
-        WHERE R.ID_MERCHANT= '" . $idM . "' 
-        AND R.ID_USER = '" . $id . "' ";
+        $query = "select * from merchant_rating r 
+        join merchant m on m.id_merchant = r.id_merchant 
+        where r.id_merchant= '" . $idM . "' 
+        and r.id_user = '" . $id . "' ";
         $res = $this->db->query($query);
         return $res->result_array();
     }

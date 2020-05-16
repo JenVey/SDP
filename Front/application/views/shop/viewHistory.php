@@ -138,16 +138,14 @@
 				<div class="transBlockContainer">
 					<?php if (!empty($transaksi)) {
 						$ctr = 1;
-						foreach ($transaksi as $trans) { ?>
+						foreach ($transaksi as $trans) {
+							if ($trans['status']) ?>
 							<div class="transBlock" id="transBlock<?= $ctr ?>" data-toggle="collapse" data-target="#itemBlockContainer<?= $ctr ?>" aria-expanded="false" aria-controls="itemBlockContainer<?= $ctr ?>">
 
 
 								<div class="orderID">
-									<p style="margin-left: 2vw;"><?php if ($trans['order_id'] != 0) {
-																		echo $trans['order_id'];
-																	} else {
-																		echo $trans['id_transaksi'];
-																	} ?></p>
+									<p style="margin-left: 2vw;"><?= $trans['id_transaksi']
+																	?></p>
 									</p>
 								</div>
 								<div class="Date">
@@ -227,7 +225,7 @@
 					if (status == 1) {
 						$("#statusTrans" + ctr).css("background-color", "#42b77c");
 						$("#statusTrans" + ctr).append("<p>Successful</p>");
-					} else if (status == 2) {
+					} else if (status == -1) {
 						$("#statusTrans" + ctr).css("background-color", "#F25757");
 						$("#statusTrans" + ctr).append("<p>Failed</p>");
 					} else {
@@ -244,7 +242,7 @@
 					if (status == 1) {
 						$("#statusHis" + ctr).css("background-color", "#42b77c");
 						$("#statusHis" + ctr).append("<p>Successful</p>");
-					} else if (status == 2) {
+					} else if (status == -1) {
 						$("#statusHis" + ctr).css("background-color", "#F25757");
 						$("#statusHis" + ctr).append("<p>Failed</p>");
 					} else {

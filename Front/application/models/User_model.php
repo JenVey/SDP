@@ -22,10 +22,10 @@ class User_model extends CI_model
     public function getUserByIdFriend($id)
     {
 
-        $query = "SELECT U.NAMA_USER AS 'nama_user', U.FOTO 'foto'
-        FROM USER U 
-        JOIN FRIEND F ON U.ID_USER = F.ID_USER2
-        WHERE F.ID_USER1 = '" . $id . "'";
+        $query = "select u.nama_user as 'nama_user', u.foto 'foto'
+        from user u 
+        join friend f on u.id_user = f.id_user2
+        where f.id_user1 = '" . $id . "'";
 
         $res = $this->db->query($query);
         return $res->result_array();
@@ -97,13 +97,11 @@ class User_model extends CI_model
         $this->db->update('user', $data);
     }
 
-    public function updateSaldo($total)
+    public function updateSaldo($jenis)
     {
-        if ($total == 0) {
-            $cashback = $this->session->userdata('cashback');
 
-            $total = $this->input->post('gross_amount');
-        }
+
+
 
         $id = $this->session->userdata('id_user');
         $cekquery = $this->db->query("select * from user");
@@ -113,21 +111,25 @@ class User_model extends CI_model
             }
         }
 
-
-        if (isset($_SESSION['idHistory'])) {
+        if ($jenis == "topup") {
+            $total = $this->session->userdata('total');
             $saldo = $saldo + intval($total);
         } else {
+
+            $cashback = $this->session->userdata('cashback');
+            $total = $this->input->post('gross_amount');
+
             $saldo = $saldo - intval($total) + $cashback;
-            echo $total;
-            echo $saldo;
+            // echo $total;
+            // echo $saldo;
             if ($saldo < 0) {
                 $saldo = 0;
             }
         }
 
-        $query = "UPDATE USER SET SALDO = '" . $saldo . "' WHERE ID_USER = '" . $id . "' ";
+        $query = "update user set saldo = '" . $saldo . "' where id_user = '" . $id . "' ";
         $this->db->query($query);
-        $this->session->unset_userdata('idHistory');
+        $this->session->unset_userdata('total');
     }
 
     public function updateSaldoG($cek)
@@ -148,7 +150,7 @@ class User_model extends CI_model
             echo $saldo;
         }
 
-        $query = "UPDATE USER SET SALDO = '" . $saldo . "' WHERE ID_USER = '" . $id . "' ";
+        $query = "update user set saldo = '" . $saldo . "' where id_user = '" . $id . "' ";
         $this->db->query($query);
     }
 

@@ -144,12 +144,12 @@ class Pertandingan_model extends CI_model
         $bagian2 = substr($bagian, 0, $idx);
 
         if ($tim == "team1") {
-            $query = "UPDATE PERTANDINGAN SET TEAM_1 = '" . $idTeam . "' WHERE BAGIAN = '" . $bagian2 . "' AND ID_TURNAMENT='" . $idTurnament . "' ";
+            $query = "update pertandingan set team_1 = '" . $idTeam . "' where bagian = '" . $bagian2 . "' and id_turnament='" . $idTurnament . "' ";
             $res = $this->db->query($query);
             return $res->result_array();
         } else if ($tim == "team2") {
 
-            $query = "UPDATE PERTANDINGAN SET TEAM_2 = '" . $idTeam . "' WHERE BAGIAN = '" . $bagian2 . "' AND ID_TURNAMENT='" . $idTurnament . "' ";
+            $query = "update pertandingan set team_2 = '" . $idTeam . "' where bagian = '" . $bagian2 . "' and id_turnament='" . $idTurnament . "' ";
             $res = $this->db->query($query);
             return $res->result_array();
         }

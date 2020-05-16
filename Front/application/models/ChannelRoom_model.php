@@ -9,10 +9,10 @@ class ChannelRoom_model extends CI_model
     public function getAllChannelRoomByIdChannel($idC)
     {
         //$id = $this->session->userdata('id_user');
-        $query = "SELECT CR.NAMAROOM AS 'namaroom'
-        FROM CHANNEL_ROOMCHAT CR
-        JOIN CHANNEL C ON C.ID_CHANNEL = CR.ID_CHANNEL 
-        WHERE C.ID_CHANNEL= '" . $idC . "' ";
+        $query = "select cr.namaroom as 'namaroom'
+        from channel_roomchat cr
+        join channel c on c.id_channel = cr.id_channel 
+        where c.id_channel= '" . $idC . "' ";
         $res = $this->db->query($query);
         return $res->result_array();
     }
