@@ -671,3 +671,189 @@ input:focus{
 input:not(:focus){
 	text-align: center;
 }*/
+
+.datepicker { 
+	color: #1e2126!important; 
+	visibility:visible!important;
+	height: 3.5vh;
+	width: 20vw;
+}
+
+#startDate, #endDate{
+	background-color: rgba(215,193,63,0.10);
+	height: 3.5vh;
+}
+
+.datepicker table{
+	width: 100%;
+}
+
+.datepicker td, .datepicker th {
+    width: 2.5rem;
+    height: 3.5vh;
+    font-size: 0.85rem;
+	border-radius: 0!important;
+	background-color: #1e2126;
+	color: #d7c13f;
+}
+
+.input-group-append:hover{
+	cursor: pointer;
+}
+
+.pendingTrans{
+	width: 100%;
+	height: 100vh;
+	overflow: hidden;
+	background-color: #1e2126;
+}
+
+.transContainer{
+	width: 100%;
+	height: 100%;
+	padding: 2%;
+	box-sizing: border-box;
+	overflow: auto;
+	direction: rtl;
+}
+
+.navBar{
+	width: 100%;
+	height: 10vh;
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
+	padding: 0 2vw;
+	box-sizing: border-box;
+}
+
+.navsContainer{
+	height: 100%;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+.navItem:hover{
+	border-bottom: solid 2px #d7c13f;
+	cursor: pointer;
+}
+
+.transHistoryContainer{
+	box-shadow: none;
+	height: auto;
+	width: 100%;
+}
+
+.transHistoryWrapper{
+	margin: 0;
+}
+
+.itemDesc{
+	margin: 0;
+	padding: 0;
+}
+
+.itemBlock{
+	overflow: hidden;
+}
+
+.Date{
+	width: 12.4vw;
+}
+
+.finished:hover{
+	color: #d7c13f;
+	cursor: pointer;
+}
+
+.ongoing:hover{
+	color: #d7c13f;
+	cursor: pointer;
+}
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+
+.inputfile + label ,.updateItemTrans{
+    font-size: 1.25em;
+    font-weight: 700;
+    color: white;
+    background-color: #1e2126;
+	color: #ecf0f1;
+	border-radius: 15px;
+	padding: 10px;
+    display: inline-block;
+	margin-top: 10px;
+	margin-left: 2vw;
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover ,.updateItemTrans:hover{
+   box-shadow: 0 0 5px #D7C13F;
+}
+
+.inputfile + label {
+	cursor: pointer;
+}
+
+.inputfile:focus + label {
+	outline: 1px dotted #000;
+	outline: -webkit-focus-ring-color auto 5px;
+}
+
+.inputfile + label * {
+	pointer-events: none;
+}
+
+.transContainer::-webkit-scrollbar {
+    width: 2px;
+}
+
+.transContainer::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+ 
+.transContainer::-webkit-scrollbar-thumb {
+  	background-color: #D7C13F;
+  	outline: 1px solid slategrey;
+  	border-radius: 100px;
+}
+
+.itemName.yellow{
+	margin: 0!important;
+	color: #d7c13f!important;
+}
+
+.statusTrans{
+	width: 8vw;
+}
+
+.waktu{
+    width: 100%;
+    padding: 0 4vw;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+.showGraph{
+    width: 180px;
+    height: 3.5vh;
+    border: none;
+    background-color: #1e2126;
+    color: #ECF0F1;
+    border-radius: 10px;
+}
+
+.showGraph:hover{
+    color: #D7C13F;
+}

@@ -7,18 +7,22 @@
 	<link rel="icon" href="<?php echo base_url(); ?>asset/Images/android-chrome-512x512.png">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/bootstrap.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/shopCSS.css">
+	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/historyCSS.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/profileCSS.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/Ours.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/cartCSS.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/alertify.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/alerts.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/chartCSS.css">
+	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/animation.css">
+	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/datepicker.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/themes/default.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script src="<?php echo base_url(); ?>asset/Js/jquery-min.js"></script>
 	<script src="<?php echo base_url(); ?>asset/Js/bootstrap.js"></script>
 	<script src="<?php echo base_url(); ?>asset/Js/textFit.js"></script>
 	<script src="<?php echo base_url(); ?>asset/Js/alertify.js"></script>
+	<script src="<?php echo base_url(); ?>asset/Js/datepicker.js"></script>
 	<script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-3P7SuUbxsTWXgTf3"></script>
 	<script src="https://code.highcharts.com/highcharts.js"></script>
 	<script src="https://code.highcharts.com/modules/exporting.js"></script>
@@ -39,11 +43,8 @@ foreach ($merchant as $mch) {
 	$mchRating = $mch['rating'];
 }
 
-
-
-
 $totalItem = array();
-$tahun =  date("Y");
+$tahun =  date("d/m/Y");
 foreach ($allTrans as $trans) {
 	if ($trans['status'] == 1) {
 		foreach ($transaksiItem as $transItem) {
@@ -51,7 +52,7 @@ foreach ($allTrans as $trans) {
 				foreach ($item as $itm) {
 					if ($itm['id_item'] == $transItem['id_item']) {
 						if ($itm['id_merchant'] == $mchId) {
-							if (date('Y', strtotime($trans['tanggal_transaksi']))  == $tahun) {
+							if (date('d/m/Y', strtotime($trans['tanggal_transaksi']))  == $tahun) {
 								if (isset($totalItem[$transItem['id_item']])) {
 									$totalItem[$transItem['id_item']]['jumlah'] +=  $transItem['jumlah'];
 								} else {
@@ -208,701 +209,928 @@ usort($totalItem, function ($a, $b) {
 			<div class="chartWrapper">
 				<div id="containerChart">
 				</div>
-				<div class="pagination">
-					<div class="pageblock" id="prev10Year" style="background-color: #D7C13F;">
-						<h5>-10</h5>
+				<div class="waktu">
+					<div class="form-group mb-4" style="margin: 0!important;">
+						<div class="datepicker date input-group p-0 shadow-sm">
+							<input type="text" placeholder="Start Date" class="form-control" name="startDate" id="startDate">
+							<div class="input-group-append" style="overflow: visible;">
+								<svg xmlns="http://www.w3.org/2000/svg" width="48" height="32.5" viewBox="0 0 61 46">
+									<g id="Group_190" data-name="Group 190" transform="translate(-6632 2629)">
+										<path id="Rectangle_348" data-name="Rectangle 348" d="M0,0H46A15,15,0,0,1,61,15V31A15,15,0,0,1,46,46H0a0,0,0,0,1,0,0V0A0,0,0,0,1,0,0Z" transform="translate(6632 -2629)" fill="#d7c13f" />
+										<path id="Icon_material-date-range" data-name="Icon material-date-range" d="M13.5,16.5h-3v3h3Zm6,0h-3v3h3Zm6,0h-3v3h3ZM28.5,6H27V3H24V6H12V3H9V6H7.5A2.986,2.986,0,0,0,4.515,9L4.5,30a3,3,0,0,0,3,3h21a3.009,3.009,0,0,0,3-3V9A3.009,3.009,0,0,0,28.5,6Zm0,24H7.5V13.5h21Z" transform="translate(6644.3 -2624)" fill="#1e2126" />
+									</g>
+								</svg>
+							</div>
+						</div>
 					</div>
-					<div class="pageblock" id="prevYear" style="background-color: #D7C13F;">
-						<svg xmlns="http://www.w3.org/2000/svg" width="20.243" height="13.501" viewBox="0 0 20.243 13.501">
-							<path id="Icon_ionic-ios-arrow-round-back" data-name="Icon ionic-ios-arrow-round-back" d="M15.216,11.51a.919.919,0,0,1,.007,1.294l-4.268,4.282H27.218a.914.914,0,0,1,0,1.828H10.955L15.23,23.2a.925.925,0,0,1-.007,1.294.91.91,0,0,1-1.287-.007L8.142,18.647h0a1.026,1.026,0,0,1-.19-.288.872.872,0,0,1-.07-.352.916.916,0,0,1,.26-.64l5.794-5.836A.9.9,0,0,1,15.216,11.51Z" transform="translate(-7.882 -11.252)" fill="#ecf0f1" />
-						</svg>
-					</div>
-					<div class="pageblock" id="y1">
-						<h4><?= substr($tahun, 0, 1) ?></h4>
-					</div>
-					<div class="pageblock" id="y2">
-						<h4><?= substr($tahun, 1, 1) ?></h4>
-					</div>
-					<div class="pageblock" id="y3">
-						<h4><?= substr($tahun, 2, 1) ?></h4>
-					</div>
-					<div class="pageblock" id="y4">
-						<h4><?= substr($tahun, 3, 1) ?></h4>
-					</div>
-					<div class="pageblock" id="nextYear" style="background-color: #D7C13F;">
-						<svg xmlns="http://www.w3.org/2000/svg" width="20.243" height="13.501" viewBox="0 0 20.243 13.501">
-							<path id="Icon_ionic-ios-arrow-round-back" data-name="Icon ionic-ios-arrow-round-back" d="M20.792,11.51a.919.919,0,0,0-.007,1.294l4.268,4.282H8.789a.914.914,0,0,0,0,1.828H25.053L20.777,23.2a.925.925,0,0,0,.007,1.294.91.91,0,0,0,1.287-.007l5.794-5.836h0a1.027,1.027,0,0,0,.19-.288.872.872,0,0,0,.07-.352.916.916,0,0,0-.26-.64l-5.794-5.836A.9.9,0,0,0,20.792,11.51Z" transform="translate(-7.882 -11.252)" fill="#ecf0f1" />
-						</svg>
-					</div>
-					<div class="pageblock" id="next10Year" style="background-color: #D7C13F;">
-						<h5>+10</h5>
+					<button class="showGraph">Update Graph</button>
+					<div class="form-group mb-4" style="margin: 0!important;">
+						<div class="datepicker date input-group p-0 shadow-sm">
+							<input type="text" placeholder="End Date" class="form-control" name="endDate" id="endDate">
+							<div class="input-group-append" style="overflow: visible;">
+								<svg xmlns="http://www.w3.org/2000/svg" width="48" height="32.5" viewBox="0 0 61 46">
+									<g id="Group_190" data-name="Group 190" transform="translate(-6632 2629)">
+										<path id="Rectangle_348" data-name="Rectangle 348" d="M0,0H46A15,15,0,0,1,61,15V31A15,15,0,0,1,46,46H0a0,0,0,0,1,0,0V0A0,0,0,0,1,0,0Z" transform="translate(6632 -2629)" fill="#d7c13f" />
+										<path id="Icon_material-date-range" data-name="Icon material-date-range" d="M13.5,16.5h-3v3h3Zm6,0h-3v3h3Zm6,0h-3v3h3ZM28.5,6H27V3H24V6H12V3H9V6H7.5A2.986,2.986,0,0,0,4.515,9L4.5,30a3,3,0,0,0,3,3h21a3.009,3.009,0,0,0,3-3V9A3.009,3.009,0,0,0,28.5,6Zm0,24H7.5V13.5h21Z" transform="translate(6644.3 -2624)" fill="#1e2126" />
+									</g>
+								</svg>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 
-
-			<div class="addItemContainer">
-				<h2 class="addItemHeader">Adding Item</h2>
-				<div class="addItem">
-					<input type="file" name="addItemIMG" id="addItemIMG" accept="image/x-png,image/jpg,image/jpeg" style="display: none;" />
-					<div class="addItemImgContainer">
-						<div id="imgDisplay" hidden="true"></div>
-						<h3 style="color: #ecf0f1; text-align: center;" id="imageText">Click to give it an image</h3>
-					</div>
-					<div class="name-gameContainer">
-						<h5 class="additemTitle" contenteditable="true">Item name</h5>
-						<div class="addItemGame">
-							<select id="addItemGame" class="form-control" style="border: solid 2px #d7c13f;">
-								<?php
-								foreach ($games as $game) {
-									echo "<option value='" . $game['id_game'] . "'>" . $game['nama_game'] . "</option>";
-								}
-								?>
-							</select>
-						</div>
-					</div>
-					<p class="additemDesc" contenteditable="true">Item Description</p>
-					<div class="addItemMerchantDesc">
-						<h6 class="additemMerchant"><?= $mchNama ?></h6>
-						<div class="addmerchantRating">
-							<p style="color:#d7c13f; margin-bottom: 0;float: left; font-size: 10pt;"><?= $mchRating ?></p>
-							<div>
-								<svg style="float: left;margin-top: 5px;" xmlns="http://www.w3.org/2000/svg" width="10.125" height="8.62" viewBox="0 0 35.125 33.62">
-									<path class="solid_star" data-name="solid star" d="M36.178,1.157,31.891,9.85l-9.592,1.4a2.1,2.1,0,0,0-1.162,3.585l6.94,6.762-1.641,9.553a2.1,2.1,0,0,0,3.046,2.213l8.581-4.51,8.581,4.51a2.1,2.1,0,0,0,3.046-2.213L48.048,21.6l6.94-6.762a2.1,2.1,0,0,0-1.162-3.585l-9.592-1.4L39.947,1.157a2.1,2.1,0,0,0-3.769,0Z" transform="translate(-20.5 0.013)" fill="#d7c13f" />
-								</svg>
+			<h2 class="yellow" style="margin: 10vh 0 4vh 0;">Transaction</h2>
+			<div class="pendingTrans">
+				<div style="width: 100%; display: flex;justify-content: center; margin-top: 2vh; color: #ecf0f1;">
+					<h4 class="ongoing yellow">Ongoing</h4>
+					<h4 class="finished" style="margin-left: 5vw;">Finished</h4>
+				</div>
+				<div class="transContainer">
+					<div class="transHistoryWrapper" style="margin-bottom: 1vw;direction: ltr;">
+						<div class="transHistoryContainer">
+							<div class="headerTable">
+								<h5 class="white" style="margin-left: 2vw;">Order ID</h5>
+								<h5 class="white" style="margin-left: 8vw;">Date</h5>
+								<h5 class="white" style="margin-left: 10vw;">Customer's Email</h5>
 							</div>
+							<div class="headerSeparator"></div>
+							<div class="transBlockContainer" id="ongoing">
+								<?php $ctr = 1;
+								$ada = "";
+								$ganti = false;
+								foreach ($transaksiItem as $transItem) {
+									if ($transItem['status'] == 0 || $transItem['status'] == 1) {
+										$ganti = false;
+										foreach ($item as $itm) {
+											if ($itm['id_item'] == $transItem['id_item'] && $itm['id_merchant'] == $mchId) {
+												if ($ada != $transItem['id_transaksi']) {
+													if ($ctr != 1) {
+								?> </div>
+						</div> <?php
+													}
+													$ada = $transItem['id_transaksi'];
+													foreach ($allTrans as $trans) {
+														if ($transItem['id_transaksi'] == $trans['id_transaksi']) {
+
+
+								?>
+
+							<div class="transBlock" id="transBlock<?= $ctr ?>" data-toggle="collapse" data-target="#itemBlockContainer<?= $ctr ?>" aria-expanded="false" aria-controls="itemBlockContainer<?= $ctr ?>">
+								<div class="orderID">
+									<p style="margin-left: 2vw;"><?= $trans['id_transaksi'] ?></p>
+								</div>
+								<div class="Date">
+									<p style="margin-left: 2vw;"><?= date('d/m/Y', strtotime($trans['tanggal_transaksi'])) ?> </p>
+								</div>
+								<div class="kodePromo">
+									<p style="margin-left: 2vw;"><?= $trans['email_user'] ?></p>
+								</div>
+							</div>
+
+					<?php }
+													} ?>
+					<div class="itemBlockContainer collapse" id="itemBlockContainer<?= $ctr ?>">
+						<div class="itemBlockContainer">
+						<?php } ?>
+
+						<div class="itemBlock">
+							<div class="orderID">
+								<p>
+									<p style="margin-left: 2vw;"><?= $itm['nama_item'] ?> (<?= $transItem['jumlah'] ?>x)</p>
+								</p>
+							</div>
+							<?php if ($transItem['status'] == 0) {  ?>
+								<div class="Date">
+									<input type="file" name="file" id="file<?= $ctr ?>" accept="image/x-png,image/jpg,image/jpeg" class="inputfile" data-multiple-caption="{count} files selected" multiple />
+									<label for="file<?= $ctr ?>"><span>Choose a file</span></label>
+								</div>
+								<div class="kodePromo">
+									<button class="updateItemTrans" style="background-color: #D7C13F;margin: 0 0 0 2vw; " idTrans="<?= $transItem['id_transaksi'] ?>" idItem="<?= $transItem['id_item'] ?>">Update</button>
+								</div>
+							<?php } ?>
+							<div class="Price" style="width: 10vw;color: #63D99E;">
+								<p>IDR <?= number_format(ceil($transItem['subtotal']), 0, ".", ".") ?></p>
+							</div>
+
+							<h6 style="color: #ecf0f1"><?= $transItem['keterangan'] ?></h6>
 						</div>
-						<h4 class="additemPrice" contenteditable="true">Item Price(ex. 18000)</h4>
-						<p class="additemUploadDate">Upload date <?= date("d/m/Y") ?></p>
+
+			<?php $ganti = true;
+											}
+										}
+										$ctr++;
+									}
+								}
+								if ($ganti) {
+			?> </div>
+					</div> <?php
+								}
+							?>
 					</div>
-					<div class="addtoStash">
-						<button style="border: none;background: none;">
-							<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 35 35">
+
+					<div class="transBlockContainer" id="finish">
+						<?php $ctr = 1;
+						$ada = "";
+						$ganti = false;
+						foreach ($transaksiItem as $transItem) {
+							if ($transItem['status'] == 2 || $transItem['status'] == -1) {
+								$ganti = false;
+								foreach ($item as $itm) {
+									if ($itm['id_item'] == $transItem['id_item'] && $itm['id_merchant'] == $mchId) {
+										if ($ada != $transItem['id_transaksi']) {
+											if ($ctr != 1) {
+						?> </div>
+				</div> <?php
+											}
+											$ada = $transItem['id_transaksi'];
+											foreach ($allTrans as $trans) {
+												if ($transItem['id_transaksi'] == $trans['id_transaksi']) {
+
+
+						?>
+
+					<div class="transBlock" id="transBlock<?= $ctr ?>" data-toggle="collapse" data-target="#itemBlockContainer<?= $ctr ?>" aria-expanded="false" aria-controls="itemBlockContainer<?= $ctr ?>">
+						<div class="orderID">
+							<p style="margin-left: 2vw;"><?= $trans['id_transaksi'] ?></p>
+						</div>
+						<div class="Date">
+							<p style="margin-left: 2vw;"><?= date('d/m/Y', strtotime($trans['tanggal_transaksi'])) ?> </p>
+						</div>
+						<div class="kodePromo">
+							<p style="margin-left: 2vw;"><?= $trans['email_user'] ?></p>
+						</div>
+					</div>
+
+			<?php }
+											} ?>
+			<div class="itemBlockContainer collapse" id="itemBlockContainer<?= $ctr ?>">
+				<div class="itemBlockContainer">
+				<?php } ?>
+
+				<div class="itemBlock" idTrans="<?= $transItem['id_transaksi'] ?>" idItem="<?= $transItem['id_item'] ?>">
+					<div class="orderID">
+						<p>
+							<p style="margin-left: 2vw;"><?= $itm['nama_item'] ?></p>
+						</p>
+					</div>
+					<div class="Date">
+						<div class="statusTrans" id="statusPoints<?= $ctr ?>" style="margin-left: 2vw;">
+						</div>
+					</div>
+					<div class="Price" style="width: 10vw;">
+						<p>IDR <?= number_format(ceil($transItem['subtotal']), 0, ".", ".") ?></p>
+					</div>
+					<div class="Date">
+						<p>
+							<p style="margin-left: 2vw;"><?= date('d/m/Y', strtotime($trans['tanggal_transaksi'])) ?></p>
+						</p>
+					</div>
+					<?php if ($transItem['status'] == -1) { ?>
+						<div class="Date" style="width: 20vw;">
+							<p>
+								<p style="margin-left: 2vw;">(User) <?= $transItem['keterangan']  ?></p>
+							</p>
+						</div>
+					<?php } ?>
+
+					<input type="hidden" name="status" id="inputPoints<?= $ctr ?>" value="<?= $transItem['status'] ?>">
+				</div>
+
+	<?php $ganti = true;
+									}
+								}
+								$ctr++;
+							}
+						}
+						if ($ganti) {
+	?> </div>
+			</div> <?php
+						}
+
+					?>
+			</div>
+	</div>
+	</div>
+	</div>
+	</div>
+
+
+	<div class="addItemContainer">
+		<h2 class="addItemHeader">Adding Item</h2>
+		<div class="addItem">
+			<input type="file" name="addItemIMG" id="addItemIMG" accept="image/x-png,image/jpg,image/jpeg" style="display: none;" />
+			<div class="addItemImgContainer">
+				<div id="imgDisplay" hidden="true"></div>
+				<h3 style="color: #ecf0f1; text-align: center;" id="imageText">Click to give it an image</h3>
+			</div>
+			<div class="name-gameContainer">
+				<h5 class="additemTitle" contenteditable="true">Item name</h5>
+				<div class="addItemGame">
+					<select id="addItemGame" class="form-control" style="border: solid 2px #d7c13f;">
+						<?php
+						foreach ($games as $game) {
+							echo "<option value='" . $game['id_game'] . "'>" . $game['nama_game'] . "</option>";
+						}
+						?>
+					</select>
+				</div>
+			</div>
+			<p class="additemDesc" contenteditable="true">Item Description</p>
+			<div class="addItemMerchantDesc">
+				<h6 class="additemMerchant"><?= $mchNama ?></h6>
+				<div class="addmerchantRating">
+					<p style="color:#d7c13f; margin-bottom: 0;float: left; font-size: 10pt;"><?= $mchRating ?></p>
+					<div>
+						<svg style="float: left;margin-top: 5px;" xmlns="http://www.w3.org/2000/svg" width="10.125" height="8.62" viewBox="0 0 35.125 33.62">
+							<path class="solid_star" data-name="solid star" d="M36.178,1.157,31.891,9.85l-9.592,1.4a2.1,2.1,0,0,0-1.162,3.585l6.94,6.762-1.641,9.553a2.1,2.1,0,0,0,3.046,2.213l8.581-4.51,8.581,4.51a2.1,2.1,0,0,0,3.046-2.213L48.048,21.6l6.94-6.762a2.1,2.1,0,0,0-1.162-3.585l-9.592-1.4L39.947,1.157a2.1,2.1,0,0,0-3.769,0Z" transform="translate(-20.5 0.013)" fill="#d7c13f" />
+						</svg>
+					</div>
+				</div>
+				<h4 class="additemPrice" contenteditable="true">Item Price(ex. 18000)</h4>
+				<p class="additemUploadDate">Upload date <?= date("d/m/Y") ?></p>
+			</div>
+			<div class="addtoStash">
+				<button style="border: none;background: none;">
+					<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 35 35">
+						<g id="Group_186" data-name="Group 186" transform="translate(-15955 3415)">
+							<g id="Rectangle_346" data-name="Rectangle 346" transform="translate(15955 -3415)" fill="#d7c13f" stroke="#d7c13f" stroke-width="1">
+								<rect width="35" height="35" rx="7" stroke="none" />
+								<rect x="0.5" y="0.5" width="34" height="34" rx="6.5" fill="none" />
+							</g>
+							<path id="Icon_ionic-ios-add" data-name="Icon ionic-ios-add" d="M25.91,16.875H19.125V10.09a1.125,1.125,0,0,0-2.25,0v6.785H10.09a1.125,1.125,0,0,0,0,2.25h6.785V25.91a1.125,1.125,0,0,0,2.25,0V19.125H25.91a1.125,1.125,0,0,0,0-2.25Z" transform="translate(15954.342 -3415.5)" fill="#4c525d" />
+						</g>
+					</svg>
+				</button>
+			</div>
+			<h5 class="addStok yellow" contenteditable="true">item Stok(ex. 5)</h5>
+		</div>
+		<div class="addIteminfo">
+			<p>You can add your item by editing the card on the left. When you're done editing it, press the + button to add it to your stash.
+			</p>
+		</div>
+	</div>
+
+	<h2 class="yellow">Your Stash</h2>
+	<div class="cartHeader">
+		<div class="headerText" style="color: #ecf0f1;">
+			<h5 class="headerDesc varela" style="margin-left: 20vw;">Description</h5>
+			<h5 class="headerAmount varela" style="margin-left: 25vw;">Amount</h5>
+			<h5 class="headerPrice varela" style="margin-left: 10vw;">Price</h5>
+		</div>
+		<hr style="background-color: #D7C13F; width: 90%;">
+	</div>
+	<div class="itemMerchantContainer">
+		<div class="cartItemContainer">
+			<?php
+			$ctr = 1;
+			foreach ($item as $itm) { ?>
+				<div class="cartItemWrapper" id="item<?= $ctr ?>" idItem="<?= $itm['id_item'] ?>">
+					<!-- isie id item-amount			-->
+					<input type="hidden" name="item<?= $ctr ?>Storage" />
+					<div class="action">
+						<button class="saveChanges" id="<?= $ctr ?>saveChanges" onClick="saveChanges(<?= $ctr ?>)" hidden="true">
+							<svg xmlns="http://www.w3.org/2000/svg" width="33" height="33" viewBox="0 0 35 35">
 								<g id="Group_186" data-name="Group 186" transform="translate(-15955 3415)">
 									<g id="Rectangle_346" data-name="Rectangle 346" transform="translate(15955 -3415)" fill="#d7c13f" stroke="#d7c13f" stroke-width="1">
 										<rect width="35" height="35" rx="7" stroke="none" />
 										<rect x="0.5" y="0.5" width="34" height="34" rx="6.5" fill="none" />
 									</g>
-									<path id="Icon_ionic-ios-add" data-name="Icon ionic-ios-add" d="M25.91,16.875H19.125V10.09a1.125,1.125,0,0,0-2.25,0v6.785H10.09a1.125,1.125,0,0,0,0,2.25h6.785V25.91a1.125,1.125,0,0,0,2.25,0V19.125H25.91a1.125,1.125,0,0,0,0-2.25Z" transform="translate(15954.342 -3415.5)" fill="#4c525d" />
+									<path id="Icon_feather-check" data-name="Icon feather-check" d="M30,9,13.5,25.5,6,18" transform="translate(15954.445 -3414.75)" fill="none" stroke="#4c525d" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
+								</g>
+							</svg>
+						</button>
+						<button class="editItem" id="edit<?= $ctr ?>Item" onClick="editItem(<?= $ctr ?>)">
+							<svg xmlns="http://www.w3.org/2000/svg" width="33" height="33" viewBox="0 0 35 35">
+								<g id="Group_186" data-name="Group 186" transform="translate(-15955 3415)">
+									<g id="Rectangle_346" data-name="Rectangle 346" transform="translate(15955 -3415)" fill="#d7c13f" stroke="#d7c13f" stroke-width="1">
+										<rect width="35" height="35" rx="7" stroke="none" />
+										<rect x="0.5" y="0.5" width="34" height="34" rx="6.5" fill="none" />
+									</g>
+									<path id="Icon_material-edit" data-name="Icon material-edit" d="M4.5,24.084v5.154H9.505l14.762-15.2L19.262,8.884ZM28.138,10.052a1.4,1.4,0,0,0,0-1.938L25.015,4.9a1.3,1.3,0,0,0-1.882,0L20.69,7.413,25.7,12.567Z" transform="translate(15956.349 -3414.115)" fill="#4c525d" />
+								</g>
+							</svg>
+						</button>
+						<button class="removeButton" onClick="removeItem(<?= $ctr ?>)">
+							<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 46 41">
+								<g id="Group_191" data-name="Group 191" transform="translate(-15869.5 3007.5)">
+									<g id="Group_190" data-name="Group 190" transform="translate(136 -44)">
+										<rect id="Rectangle_302" data-name="Rectangle 302" width="43" height="38" rx="8" transform="translate(15735 -2962)" stroke-width="3" stroke="#d7c13f" stroke-linecap="round" stroke-linejoin="bevel" fill="#d7c13f" />
+									</g>
+									<g id="Icon_feather-trash-2" data-name="Icon feather-trash-2" transform="translate(15876.1 -3004)">
+										<path class="Path_1848" data-name="Path 1848" d="M4.5,9H28.052" transform="translate(0 -0.484)" fill="none" stroke="#4c525d" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
+										<path id="Path_1849" data-name="Path 1849" d="M25.818,8.516V27.823A2.69,2.69,0,0,1,23.2,30.581H10.117A2.69,2.69,0,0,1,7.5,27.823V8.516m3.925,0V5.758A2.69,2.69,0,0,1,14.042,3h5.234a2.69,2.69,0,0,1,2.617,2.758V8.516" transform="translate(-0.383)" fill="none" stroke="#4c525d" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
+										<path id="Path_1850" data-name="Path 1850" d="M15,16.5v8.274" transform="translate(-1.341 -1.088)" fill="none" stroke="#4c525d" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
+										<path id="Path_1851" data-name="Path 1851" d="M21,16.5v8.274" transform="translate(-2.107 -1.088)" fill="none" stroke="#4c525d" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
+									</g>
 								</g>
 							</svg>
 						</button>
 					</div>
-					<h5 class="addStok yellow" contenteditable="true">item Stok(ex. 5)</h5>
-				</div>
-				<div class="addIteminfo">
-					<p>You can add your item by editing the card on the left. When you're done editing it, press the + button to add it to your stash.
-					</p>
-				</div>
-			</div>
-
-			<h2 class="yellow">Your Stash</h2>
-			<div class="cartHeader">
-				<div class="headerText" style="color: #ecf0f1;">
-					<h5 class="headerDesc varela" style="margin-left: 20vw;">Description</h5>
-					<h5 class="headerAmount varela" style="margin-left: 25vw;">Amount</h5>
-					<h5 class="headerPrice varela" style="margin-left: 10vw;">Price</h5>
-				</div>
-				<hr style="background-color: #D7C13F; width: 90%;">
-			</div>
-			<div class="itemMerchantContainer">
-				<div class="cartItemContainer">
-					<?php
-					$ctr = 1;
-					foreach ($item as $itm) { ?>
-						<div class="cartItemWrapper" id="item<?= $ctr ?>" idItem="<?= $itm['id_item'] ?>">
-							<!-- isie id item-amount			-->
-							<input type="hidden" name="item<?= $ctr ?>Storage" />
-							<div class="action">
-								<button class="saveChanges" id="<?= $ctr ?>saveChanges" onClick="saveChanges(<?= $ctr ?>)" hidden="true">
-									<svg xmlns="http://www.w3.org/2000/svg" width="33" height="33" viewBox="0 0 35 35">
-										<g id="Group_186" data-name="Group 186" transform="translate(-15955 3415)">
-											<g id="Rectangle_346" data-name="Rectangle 346" transform="translate(15955 -3415)" fill="#d7c13f" stroke="#d7c13f" stroke-width="1">
-												<rect width="35" height="35" rx="7" stroke="none" />
-												<rect x="0.5" y="0.5" width="34" height="34" rx="6.5" fill="none" />
-											</g>
-											<path id="Icon_feather-check" data-name="Icon feather-check" d="M30,9,13.5,25.5,6,18" transform="translate(15954.445 -3414.75)" fill="none" stroke="#4c525d" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
-										</g>
-									</svg>
-								</button>
-								<button class="editItem" id="edit<?= $ctr ?>Item" onClick="editItem(<?= $ctr ?>)">
-									<svg xmlns="http://www.w3.org/2000/svg" width="33" height="33" viewBox="0 0 35 35">
-										<g id="Group_186" data-name="Group 186" transform="translate(-15955 3415)">
-											<g id="Rectangle_346" data-name="Rectangle 346" transform="translate(15955 -3415)" fill="#d7c13f" stroke="#d7c13f" stroke-width="1">
-												<rect width="35" height="35" rx="7" stroke="none" />
-												<rect x="0.5" y="0.5" width="34" height="34" rx="6.5" fill="none" />
-											</g>
-											<path id="Icon_material-edit" data-name="Icon material-edit" d="M4.5,24.084v5.154H9.505l14.762-15.2L19.262,8.884ZM28.138,10.052a1.4,1.4,0,0,0,0-1.938L25.015,4.9a1.3,1.3,0,0,0-1.882,0L20.69,7.413,25.7,12.567Z" transform="translate(15956.349 -3414.115)" fill="#4c525d" />
-										</g>
-									</svg>
-								</button>
-								<button class="removeButton" onClick="removeItem(<?= $ctr ?>)">
-									<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 46 41">
-										<g id="Group_191" data-name="Group 191" transform="translate(-15869.5 3007.5)">
-											<g id="Group_190" data-name="Group 190" transform="translate(136 -44)">
-												<rect id="Rectangle_302" data-name="Rectangle 302" width="43" height="38" rx="8" transform="translate(15735 -2962)" stroke-width="3" stroke="#d7c13f" stroke-linecap="round" stroke-linejoin="bevel" fill="#d7c13f" />
-											</g>
-											<g id="Icon_feather-trash-2" data-name="Icon feather-trash-2" transform="translate(15876.1 -3004)">
-												<path class="Path_1848" data-name="Path 1848" d="M4.5,9H28.052" transform="translate(0 -0.484)" fill="none" stroke="#4c525d" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
-												<path id="Path_1849" data-name="Path 1849" d="M25.818,8.516V27.823A2.69,2.69,0,0,1,23.2,30.581H10.117A2.69,2.69,0,0,1,7.5,27.823V8.516m3.925,0V5.758A2.69,2.69,0,0,1,14.042,3h5.234a2.69,2.69,0,0,1,2.617,2.758V8.516" transform="translate(-0.383)" fill="none" stroke="#4c525d" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
-												<path id="Path_1850" data-name="Path 1850" d="M15,16.5v8.274" transform="translate(-1.341 -1.088)" fill="none" stroke="#4c525d" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
-												<path id="Path_1851" data-name="Path 1851" d="M21,16.5v8.274" transform="translate(-2.107 -1.088)" fill="none" stroke="#4c525d" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
-											</g>
-										</g>
-									</svg>
-								</button>
+					<div class="cartItem" id="item<?= $ctr ?>Wrapper" hovered="true" onClick="viewItem(<?= $ctr ?>)">
+						<div class="itemImage">
+							<div class="itemImgContainer" id="item<?= $ctr ?>ImgContainer">
+								<img id="item<?= $ctr ?>DisplayIMG" src="data:image/jpeg;base64,<?= base64_encode($itm['foto_item']) ?>" alt="">
 							</div>
-							<div class="cartItem" id="item<?= $ctr ?>Wrapper" hovered="true" onClick="viewItem(<?= $ctr ?>)">
-								<div class="itemImage">
-									<div class="itemImgContainer" id="item<?= $ctr ?>ImgContainer">
-										<img id="item<?= $ctr ?>DisplayIMG" src="data:image/jpeg;base64,<?= base64_encode($itm['foto_item']) ?>" alt="">
-									</div>
-									<button class="changeItemImg" id="changeItem1Img" onClick="changeItemIMG(1)" hidden="true">
-										<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
-											<g id="Group_185" data-name="Group 185" transform="translate(-15861 4733)">
-												<circle id="Ellipse_187" data-name="Ellipse 187" cx="15" cy="15" r="15" transform="translate(15861 -4733)" fill="#353b48" />
-												<path id="Icon_material-add-a-photo" data-name="Icon material-add-a-photo" d="M2.516,3.855V1.5H4.194V3.855H6.71v1.57H4.194V7.78H2.516V5.425H0V3.855Zm2.516,4.71V6.21H7.549V3.855H13.42l1.535,1.57h2.659A1.631,1.631,0,0,1,19.291,7v9.421a1.631,1.631,0,0,1-1.677,1.57H4.194a1.631,1.631,0,0,1-1.677-1.57V8.565ZM10.9,15.631A4.068,4.068,0,0,0,15.1,11.706,4.068,4.068,0,0,0,10.9,7.78,4.068,4.068,0,0,0,6.71,11.706,4.068,4.068,0,0,0,10.9,15.631ZM8.22,11.706A2.6,2.6,0,0,0,10.9,14.218a2.6,2.6,0,0,0,2.684-2.512A2.6,2.6,0,0,0,10.9,9.193,2.6,2.6,0,0,0,8.22,11.706Z" transform="translate(15866.434 -4728.954)" fill="#d7c13f" />
-											</g>
-										</svg>
-									</button>
-									<input type="file" name="item<?= $ctr ?>IMG" id="item<?= $ctr ?>IMG" accept="image/x-png,image/jpg,image/jpeg" style="display: none;" />
-								</div>
-								<div class="itemDescWrapper">
-									<h5 class="itemName yellow" id="name<?= $ctr ?>" style="display: inline-block;" contenteditable="true"><?= $itm['nama_item'] ?></h5>
-									<div class="selectGame">
-										<h6 style="margin-bottom: 10px;">Game</h6>
+							<button class="changeItemImg" id="changeItem1Img" onClick="changeItemIMG(1)" hidden="true">
+								<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+									<g id="Group_185" data-name="Group 185" transform="translate(-15861 4733)">
+										<circle id="Ellipse_187" data-name="Ellipse 187" cx="15" cy="15" r="15" transform="translate(15861 -4733)" fill="#353b48" />
+										<path id="Icon_material-add-a-photo" data-name="Icon material-add-a-photo" d="M2.516,3.855V1.5H4.194V3.855H6.71v1.57H4.194V7.78H2.516V5.425H0V3.855Zm2.516,4.71V6.21H7.549V3.855H13.42l1.535,1.57h2.659A1.631,1.631,0,0,1,19.291,7v9.421a1.631,1.631,0,0,1-1.677,1.57H4.194a1.631,1.631,0,0,1-1.677-1.57V8.565ZM10.9,15.631A4.068,4.068,0,0,0,15.1,11.706,4.068,4.068,0,0,0,10.9,7.78,4.068,4.068,0,0,0,6.71,11.706,4.068,4.068,0,0,0,10.9,15.631ZM8.22,11.706A2.6,2.6,0,0,0,10.9,14.218a2.6,2.6,0,0,0,2.684-2.512A2.6,2.6,0,0,0,10.9,9.193,2.6,2.6,0,0,0,8.22,11.706Z" transform="translate(15866.434 -4728.954)" fill="#d7c13f" />
+									</g>
+								</svg>
+							</button>
+							<input type="file" name="item<?= $ctr ?>IMG" id="item<?= $ctr ?>IMG" accept="image/x-png,image/jpg,image/jpeg" style="display: none;" />
+						</div>
+						<div class="itemDescWrapper">
+							<h5 class="itemName yellow" id="name<?= $ctr ?>" style="display: inline-block;" contenteditable="true"><?= $itm['nama_item'] ?></h5>
+							<div class="selectGame">
+								<h6 style="margin-bottom: 10px;">Game</h6>
 
-										<h4 id="item<?= $ctr ?>Game" class="yellow">
-											<?php
-											foreach ($games as $game) {
-												if ($game['id_game'] == $itm['id_game']) {
-													echo $game['nama_game'];
-												}
-											}
-											?></h4>
-										<select id="select<?= $ctr ?>Game" class="form-control" style="border: solid 2px #d7c13f;" hidden="true">
-											<?php
-											foreach ($games as $game) {
-												if ($game['id_game'] == $itm['id_game']) {
-													echo "<option value='" . $game['id_game'] . "' selected >" . $game['nama_game'] . "</option>";
-												} else {
-													echo "<option value='" . $game['id_game'] . "'>" . $game['nama_game'] . "</option>";
-												}
-											}
-											?>
-										</select>
-									</div>
-								</div>
-								<div class="desc">
-									<p id="desc<?= $ctr ?>"> <?= $itm['desc_item'] ?> </p>
-								</div>
-								<div class="amount">
-									<h4 id="item<?= $ctr ?>Amount" class="yellow" contenteditable="false"><?= $itm['jumlah_item'] ?></h4>
-									<div class="minplusButton" id="amountBut<?= $ctr ?>" hidden="true">
-										<button class="amountBut" onClick="addAmount(1,0)">
-											<svg xmlns="http://www.w3.org/2000/svg" width="46" height="41" viewBox="0 0 46 41">
-												<g id="Group_185" data-name="Group 185" transform="translate(-15819.5 3056.5)">
-													<g id="Group_182" data-name="Group 182" transform="translate(86 -93)">
-														<rect id="Rectangle_302" data-name="Rectangle 302" width="43" height="38" rx="8" transform="translate(15735 -2962)" stroke-width="3" stroke="none" stroke-linecap="round" stroke-linejoin="bevel" fill="#d7c13f" />
-													</g>
-													<path id="Icon_material-add" data-name="Icon material-add" d="M28.5,19.5H7.5v-3h21Z" transform="translate(15824.7 -3054)" fill="#4C525D" />
-												</g>
-											</svg>
-										</button>
-										<button class="amountBut" onClick="addAmount(<?= $ctr ?>,1)">
-											<svg class="plus" xmlns="http://www.w3.org/2000/svg" width="46" height="41" viewBox="0 0 46 41">
-												<g id="Group_186" data-name="Group 186" transform="translate(-15879.5 3056.5)">
-													<g id="Group_184" data-name="Group 184" transform="translate(146 -93)">
-														<rect id="Rectangle_302" data-name="Rectangle 302" width="43" height="38" rx="8" transform="translate(15735 -2962)" stroke-width="3" stroke="none" stroke-linecap="round" stroke-linejoin="bevel" fill="#d7c13f" />
-													</g>
-													<path id="Icon_material-add" data-name="Icon material-add" d="M28.5,19.5h-9v9h-3v-9h-9v-3h9v-9h3v9h9Z" transform="translate(15884.7 -3054)" fill="#4C525D" />
-												</g>
-											</svg>
-										</button>
-									</div>
-								</div>
-								<div class="subtotal">
-									<h4 id="item<?= $ctr ?>Price" style="color:#63D99E;" onblur="savePrice(<?= $ctr ?>)">IDR <?= ceil($itm['harga_item']) ?></h4>
-								</div>
+								<h4 id="item<?= $ctr ?>Game" class="yellow">
+									<?php
+									foreach ($games as $game) {
+										if ($game['id_game'] == $itm['id_game']) {
+											echo $game['nama_game'];
+										}
+									}
+									?></h4>
+								<select id="select<?= $ctr ?>Game" class="form-control" style="border: solid 2px #d7c13f;" hidden="true">
+									<?php
+									foreach ($games as $game) {
+										if ($game['id_game'] == $itm['id_game']) {
+											echo "<option value='" . $game['id_game'] . "' selected >" . $game['nama_game'] . "</option>";
+										} else {
+											echo "<option value='" . $game['id_game'] . "'>" . $game['nama_game'] . "</option>";
+										}
+									}
+									?>
+								</select>
 							</div>
 						</div>
-					<?php $ctr++;
-					} ?>
+						<div class="desc">
+							<p id="desc<?= $ctr ?>"> <?= $itm['desc_item'] ?> </p>
+						</div>
+						<div class="amount">
+							<h4 id="item<?= $ctr ?>Amount" class="yellow" contenteditable="false"><?= $itm['jumlah_item'] ?></h4>
+							<div class="minplusButton" id="amountBut<?= $ctr ?>" hidden="true">
+								<button class="amountBut" onClick="addAmount(1,0)">
+									<svg xmlns="http://www.w3.org/2000/svg" width="46" height="41" viewBox="0 0 46 41">
+										<g id="Group_185" data-name="Group 185" transform="translate(-15819.5 3056.5)">
+											<g id="Group_182" data-name="Group 182" transform="translate(86 -93)">
+												<rect id="Rectangle_302" data-name="Rectangle 302" width="43" height="38" rx="8" transform="translate(15735 -2962)" stroke-width="3" stroke="none" stroke-linecap="round" stroke-linejoin="bevel" fill="#d7c13f" />
+											</g>
+											<path id="Icon_material-add" data-name="Icon material-add" d="M28.5,19.5H7.5v-3h21Z" transform="translate(15824.7 -3054)" fill="#4C525D" />
+										</g>
+									</svg>
+								</button>
+								<button class="amountBut" onClick="addAmount(<?= $ctr ?>,1)">
+									<svg class="plus" xmlns="http://www.w3.org/2000/svg" width="46" height="41" viewBox="0 0 46 41">
+										<g id="Group_186" data-name="Group 186" transform="translate(-15879.5 3056.5)">
+											<g id="Group_184" data-name="Group 184" transform="translate(146 -93)">
+												<rect id="Rectangle_302" data-name="Rectangle 302" width="43" height="38" rx="8" transform="translate(15735 -2962)" stroke-width="3" stroke="none" stroke-linecap="round" stroke-linejoin="bevel" fill="#d7c13f" />
+											</g>
+											<path id="Icon_material-add" data-name="Icon material-add" d="M28.5,19.5h-9v9h-3v-9h-9v-3h9v-9h3v9h9Z" transform="translate(15884.7 -3054)" fill="#4C525D" />
+										</g>
+									</svg>
+								</button>
+							</div>
+						</div>
+						<div class="subtotal">
+							<h4 id="item<?= $ctr ?>Price" style="color:#63D99E;" onblur="savePrice(<?= $ctr ?>)">IDR <?= ceil($itm['harga_item']) ?></h4>
+						</div>
+					</div>
 				</div>
-			</div>
-		<?php } ?>
-
-	</div>
-	<form id="payment-form" method="post" action="<?= site_url() ?>Shop/topUp/">
-		<input type="hidden" name="result_data" id="result-type" value="">
-		</div>
-		<input type="hidden" name="result_data" id="result-data" value=""></div>
-		<input type="hidden" name="gross_amount" id="total" value=""></div>
-		<input type="hidden" name="idHistory" id="idHistory" value=""></div>
-	</form>
-	<div style="display: none;">
-		<div id="topUpHeader">
-			<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 15 15">
-				<path id="Icon_awesome-coins" data-name="Icon awesome-coins" d="M0,11.874v1.251C0,14.159,2.52,15,5.625,15s5.625-.841,5.625-1.875V11.874a10.654,10.654,0,0,1-5.625,1.251A10.654,10.654,0,0,1,0,11.874ZM9.375,3.75C12.48,3.75,15,2.909,15,1.875S12.48,0,9.375,0,3.75.841,3.75,1.875,6.27,3.75,9.375,3.75ZM0,8.8v1.512c0,1.034,2.52,1.875,5.625,1.875s5.625-.841,5.625-1.875V8.8a9.435,9.435,0,0,1-5.625,1.512A9.435,9.435,0,0,1,0,8.8Zm12.188.322C13.866,8.8,15,8.194,15,7.5V6.249A7.194,7.194,0,0,1,12.188,7.26ZM5.625,4.688C2.52,4.688,0,5.736,0,7.031S2.52,9.375,5.625,9.375,11.25,8.326,11.25,7.031,8.73,4.688,5.625,4.688ZM12.05,6.337C13.808,6.021,15,5.4,15,4.688V3.437a9.538,9.538,0,0,1-4.708,1.225A3.281,3.281,0,0,1,12.05,6.337Z" fill="#d7c13f" />
-			</svg>
-			<h5 class="yellow" style="margin-left: 1vw;">Top Up</h5>
-		</div>
-		<div id="topUpBody">
-			<h6 style="color: #ecf0f1">Input Value</h6>
-			<input type="number" name="topUpAmount" id="topUpAmount">
+			<?php $ctr++;
+			} ?>
 		</div>
 	</div>
-	<script>
-		$(document).ready(function() {
-			var ctr = 1;
-			var ada = true;
-			while (ada) {
-				if ($("#item" + ctr + "Wrapper").length) {
-					ctr++;
-				} else {
-					ada = false;
-				}
-			}
-			ctr--;
-			count = ctr;
+<?php } ?>
 
-			for (i = 1; i <= count; i++) {
-				var price = $("#item" + i + "Price").html();
-				price = price.replace(/[^a-z0-9\s]/gi, '');
-				price = price.substring(4, price.length);
-				$("#item" + i + "Price").html("IDR " + addCommas(price));
-			}
-			createfirstChart();
-			<?php
-			if ($mchNama != "") { ?>
-				var merchantName = <?php if (isset($mchNama)) {
-										echo "'" . $mchNama . "'";
-									} ?>;
-				var merchantDesc = <?php if (isset($mchNama)) {
-										echo "'" . $mchDesc . "'";
-									} ?>;
-				//alert("A");
-				$("#merchantName").html(merchantName);
-				$("#merchantName").attr("idM", '<?= $mchId ?>');
-				$("#descriptionArea").html(merchantDesc);
-			<?php } else { ?>
-				$("#merchantName").html("Merchant Name");
-				$("#descriptionArea").html("YOURR DESCRIPTION </br> YOURR DESCRIPTION </br> YOURR DESCRIPTION");
-			<?php } ?>
-		});
-
-		var check = false;
-		var id = 0;
-		var count = 0;
-		var timer = setInterval(gantiGambar, 1);
-
-
-
-
-
-		var headerTopUp = $("#topUpHeader").html();
-		var bodyTopUp = $("#topUpBody").html();
-		var ageInput = document.getElementById("topUpAmount");
-		ageInput.addEventListener("keydown", function(e) {
-			// prevent: "e", "=", ",", "-", "."
-			if ([69, 187, 188, 189, 190].includes(e.keyCode)) {
-				e.preventDefault();
-			}
-		})
-		$("#topUpHeader").html("");
-		$("#topUpBody").html("");
-
-
-		$(".ProfileTopUp").click(function() {
-			alertify.confirm(bodyTopUp).set('onok', function(closeevent, value) {
-				//var hasil = $("#topUpAmount").val();
-				event.preventDefault();
-				$(this).attr("disabled", "disabled");
-				var gross_amount = $("#topUpAmount").val();
-				$("#total").val(gross_amount);
-				//alert(gross_amount);
-
-				nama = $("#nameProfile").val();
-				phone = $("#phoneNum").val();
-				email = $("#emailProfile").val();
-				$.ajax({
-					method: 'POST',
-					url: '<?= base_url() ?>Midtrans/snap2/token',
-					data: {
-						gross_amount: gross_amount,
-						price: gross_amount,
-						nama: nama,
-						phone: phone,
-						email: email
-					},
-					cache: false,
-
-					success: function(data) {
-						console.log('token = ' + data);
-
-						var resultType = document.getElementById('result-type');
-						var resultData = document.getElementById('result-data');
-
-						function changeResult(type, data) {
-							$("#result-type").val(type);
-							$("#result-data").val(JSON.stringify(data));
-							//resultType.innerHTML = type;
-							//resultData.innerHTML = JSON.stringify(data);
-						}
-
-						snap.pay(data, {
-							onSuccess: function(result) {
-								changeResult('success', result);
-								console.log(result.status_message);
-								console.log(result);
-								$("#payment-form").submit();
-							},
-							onPending: function(result) {
-								changeResult('pending', result);
-								console.log(result.status_message);
-								$("#payment-form").submit();
-							},
-							onError: function(result) {
-								changeResult('error', result);
-								console.log(result.status_message);
-								$("#payment-form").submit();
-							}
-						});
-
-					}
-				});
-
-			}).set({
-				onfocus: function() {
-					$(".ajs-input").attr("id", "inputTopUp");
-				},
-				'title': headerTopUp
-			});
-
-		});
-
-
-		function gantiGambar() {
-			if (id != 0) {
-				$("#item" + id + "IMG").change(function() {
-					if (this.files && this.files[0]) {
-						var reader = new FileReader();
-
-						reader.onload = function(e) {
-							var img = $('<img>').attr({
-								src: e.target.result,
-								id: "item" + id + "DisplayIMG"
-							});
-							$("#item" + id + "DisplayIMG").remove();
-							$("#item" + id + "ImgContainer").html(img);
-						};
-						reader.readAsDataURL(this.files[0]);
-					}
-				});
-			}
-			for (var i = 1; i <= count; i++) {
-				$("#item" + i + "Wrapper").mouseover(function() {
-					if ($(this).attr("hovered") == "true") {
-						$("body").css("cursor", "pointer");
-					}
-
-				});
-				$("#item" + i + "Wrapper").mouseout(function() {
-					$("body").css("cursor", "default");
-				});
+</div>
+<form id="payment-form" method="post" action="<?= site_url() ?>Shop/topUp/">
+	<input type="hidden" name="result_data" id="result-type" value="">
+	</div>
+	<input type="hidden" name="result_data" id="result-data" value="">
+	</div>
+	<input type="hidden" name="gross_amount" id="total" value=""></div>
+	<input type="hidden" name="idHistory" id="idHistory" value=""></div>
+</form>
+<div style="display: none;">
+	<div id="topUpHeader">
+		<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 15 15">
+			<path id="Icon_awesome-coins" data-name="Icon awesome-coins" d="M0,11.874v1.251C0,14.159,2.52,15,5.625,15s5.625-.841,5.625-1.875V11.874a10.654,10.654,0,0,1-5.625,1.251A10.654,10.654,0,0,1,0,11.874ZM9.375,3.75C12.48,3.75,15,2.909,15,1.875S12.48,0,9.375,0,3.75.841,3.75,1.875,6.27,3.75,9.375,3.75ZM0,8.8v1.512c0,1.034,2.52,1.875,5.625,1.875s5.625-.841,5.625-1.875V8.8a9.435,9.435,0,0,1-5.625,1.512A9.435,9.435,0,0,1,0,8.8Zm12.188.322C13.866,8.8,15,8.194,15,7.5V6.249A7.194,7.194,0,0,1,12.188,7.26ZM5.625,4.688C2.52,4.688,0,5.736,0,7.031S2.52,9.375,5.625,9.375,11.25,8.326,11.25,7.031,8.73,4.688,5.625,4.688ZM12.05,6.337C13.808,6.021,15,5.4,15,4.688V3.437a9.538,9.538,0,0,1-4.708,1.225A3.281,3.281,0,0,1,12.05,6.337Z" fill="#d7c13f" />
+		</svg>
+		<h5 class="yellow" style="margin-left: 1vw;">Top Up</h5>
+	</div>
+	<div id="topUpBody">
+		<h6 style="color: #ecf0f1">Input Value</h6>
+		<input type="number" name="topUpAmount" id="topUpAmount">
+	</div>
+</div>
+<script>
+	$(document).ready(function() {
+		var ctr = 1;
+		var ada = true;
+		while (ada) {
+			if ($("#item" + ctr + "Wrapper").length) {
+				ctr++;
+			} else {
+				ada = false;
 			}
 		}
+		ctr--;
+		count = ctr;
 
-		$(".addItemImgContainer").click(function() {
-			$("#addItemIMG").trigger("click");
+		for (i = 1; i <= count; i++) {
+			var price = $("#item" + i + "Price").html();
+			price = price.replace(/[^a-z0-9\s]/gi, '');
+			price = price.substring(4, price.length);
+			$("#item" + i + "Price").html("IDR " + addCommas(price));
+		}
+		createfirstChart();
+		<?php
+		if ($mchNama != "") { ?>
+			var merchantName = <?php if (isset($mchNama)) {
+									echo "'" . $mchNama . "'";
+								} ?>;
+			var merchantDesc = <?php if (isset($mchNama)) {
+									echo "'" . $mchDesc . "'";
+								} ?>;
+			//alert("A");
+			$("#merchantName").html(merchantName);
+			$("#merchantName").attr("idM", '<?= $mchId ?>');
+			$("#descriptionArea").html(merchantDesc);
+		<?php } else { ?>
+			$("#merchantName").html("Merchant Name");
+			$("#descriptionArea").html("YOURR DESCRIPTION </br> YOURR DESCRIPTION </br> YOURR DESCRIPTION");
+		<?php } ?>
+
+		ada = true;
+		ctr = 1;
+		while (ada) {
+			if ($("#inputPoints" + ctr).length) {
+				var status = $("#inputPoints" + ctr).val();
+				if (status == 2) {
+					$("#statusPoints" + ctr).css("background-color", "#42b77c");
+					$("#statusPoints" + ctr).append("<p>Successful</p>");
+				} else if (status == -1) {
+					$("#statusPoints" + ctr).css("background-color", "#F25757");
+					$("#statusPoints" + ctr).append("<p>Failed</p>");
+				} else {
+					$("#statusPoints" + ctr).append("<p>Pending</p>");
+				}
+				ctr++;
+			} else ada = false;
+		}
+
+		$("#finish").css("display", "none");
+
+	});
+
+	var check = false;
+	var id = 0;
+	var count = 0;
+	var timer = setInterval(gantiGambar, 1);
+
+
+
+
+
+	var headerTopUp = $("#topUpHeader").html();
+	var bodyTopUp = $("#topUpBody").html();
+	var ageInput = document.getElementById("topUpAmount");
+	ageInput.addEventListener("keydown", function(e) {
+		// prevent: "e", "=", ",", "-", "."
+		if ([69, 187, 188, 189, 190].includes(e.keyCode)) {
+			e.preventDefault();
+		}
+	})
+	$("#topUpHeader").html("");
+	$("#topUpBody").html("");
+
+
+	$(".ProfileTopUp").click(function() {
+		alertify.confirm(bodyTopUp).set('onok', function(closeevent, value) {
+			//var hasil = $("#topUpAmount").val();
+			event.preventDefault();
+			$(this).attr("disabled", "disabled");
+			var gross_amount = $("#topUpAmount").val();
+			$("#total").val(gross_amount);
+			//alert(gross_amount);
+
+			nama = $("#nameProfile").val();
+			phone = $("#phoneNum").val();
+			email = $("#emailProfile").val();
+			$.ajax({
+				method: 'POST',
+				url: '<?= base_url() ?>Midtrans/snap2/token',
+				data: {
+					gross_amount: gross_amount,
+					price: gross_amount,
+					nama: nama,
+					phone: phone,
+					email: email
+				},
+				cache: false,
+
+				success: function(data) {
+					console.log('token = ' + data);
+
+					var resultType = document.getElementById('result-type');
+					var resultData = document.getElementById('result-data');
+
+					function changeResult(type, data) {
+						$("#result-type").val(type);
+						$("#result-data").val(JSON.stringify(data));
+						//resultType.innerHTML = type;
+						//resultData.innerHTML = JSON.stringify(data);
+					}
+
+					snap.pay(data, {
+						onSuccess: function(result) {
+							changeResult('success', result);
+							console.log(result.status_message);
+							console.log(result);
+							$("#payment-form").submit();
+						},
+						onPending: function(result) {
+							changeResult('pending', result);
+							console.log(result.status_message);
+							$("#payment-form").submit();
+						},
+						onError: function(result) {
+							changeResult('error', result);
+							console.log(result.status_message);
+							$("#payment-form").submit();
+						}
+					});
+
+				}
+			});
+
+		}).set({
+			onfocus: function() {
+				$(".ajs-input").attr("id", "inputTopUp");
+			},
+			'title': headerTopUp
 		});
 
-		$(".addtoStash").click(function() {
-			var price = $(".additemPrice").html();
-			var stok = $(".addStok").html();
-			if (!isNaN(price) && !isNaN(stok)) {
-				name = $('.additemTitle').html();
-				id_game = $('.addItemGame option:selected').val();
-				desc = $('.additemDesc').html();
-				id_merchant = $('#merchantName').attr("idM");
-				foto = $("#imgDisplay").find('img').attr('src');
+	});
 
+
+	function gantiGambar() {
+		if (id != 0) {
+			$("#item" + id + "IMG").change(function() {
+				if (this.files && this.files[0]) {
+					var reader = new FileReader();
+
+					reader.onload = function(e) {
+						var img = $('<img>').attr({
+							src: e.target.result,
+							id: "item" + id + "DisplayIMG"
+						});
+						$("#item" + id + "DisplayIMG").remove();
+						$("#item" + id + "ImgContainer").html(img);
+					};
+					reader.readAsDataURL(this.files[0]);
+				}
+			});
+		}
+		for (var i = 1; i <= count; i++) {
+			$("#item" + i + "Wrapper").mouseover(function() {
+				if ($(this).attr("hovered") == "true") {
+					$("body").css("cursor", "pointer");
+				}
+
+			});
+			$("#item" + i + "Wrapper").mouseout(function() {
+				$("body").css("cursor", "default");
+			});
+		}
+	}
+
+	$(".addItemImgContainer").click(function() {
+		$("#addItemIMG").trigger("click");
+	});
+
+	$(".addtoStash").click(function() {
+		var price = $(".additemPrice").html();
+		var stok = $(".addStok").html();
+		if (!isNaN(price) && !isNaN(stok)) {
+			name = $('.additemTitle').html();
+			id_game = $('.addItemGame option:selected').val();
+			desc = $('.additemDesc').html();
+			id_merchant = $('#merchantName').attr("idM");
+			foto = $("#imgDisplay").find('img').attr('src');
+
+			if (foto.substring(11, 12) == "j") {
+				foto = foto.substring(23, foto.length);
+			} else {
+				foto = foto.substring(22, foto.length);
+			}
+
+			$.ajax({
+				url: "<?= base_url(); ?>Shop/insertItem",
+				method: "post",
+				data: {
+					name: name,
+					id_game: id_game,
+					price: price,
+					stok: stok,
+					desc: desc,
+					id_merchant: id_merchant,
+					foto: foto
+				},
+				success: function(result) {
+					alertify.success("SUCCESS TAMBAH ITEM !!!");
+					window.location.href = '<?= base_url(); ?>Shop/viewProfile/';
+				}
+			});
+		} else {
+			if (isNaN(price)) alert("Price must be a number");
+			else if (isNaN(stok)) alert("Stok must be a number");
+		}
+	});
+
+	function editItem(idDiv) {
+		//alert($("#"+idDiv+"saveChanges").attr("hidden"));
+		if ($("#" + idDiv + "saveChanges").attr("hidden") == "hidden") {
+			$("#item" + idDiv + "Wrapper").css("border", "solid 2px rgba(215,193,63,0.3)");
+			$("#item" + idDiv + "Wrapper").attr("hovered", "false");
+			$("#" + idDiv + "saveChanges").attr("hidden", false);
+			$("#changeItem" + idDiv + "Img").attr("hidden", false);
+			$("#edit" + idDiv + "Item").attr("hidden", true);
+			$("#name" + idDiv).attr("contenteditable", true);
+			$("#select" + idDiv + "Game").attr("hidden", false);
+			$("#item" + idDiv + "Game").attr("hidden", true);
+			$("#amountBut" + idDiv).attr("hidden", false);
+			$("#desc" + idDiv).attr("contenteditable", true);
+			$("#item" + idDiv + "Price").attr("contenteditable", true);
+			$("#item" + idDiv + "Amount").attr("contenteditable", "true");
+			var price = $("#item" + idDiv + "Price").html();
+			price = price.replace(/[^a-z0-9\s]/gi, '');
+			price = price.substring(4, price.length);
+			$("#item" + idDiv + "Price").html(price);
+		}
+	}
+
+	function saveChanges(idDiv) {
+		var price = $("#item" + idDiv + "Price").html();
+		price = price.replace(/[^a-z0-9\s]/gi, '');
+		var amount = $("#item" + idDiv + "Amount").html();
+		if (isNaN(price)) {
+			alert("Price must be a number");
+		} else if (isNaN(amount)) {
+			alert("Stok must be a number");
+		} else {
+			id = $('#item' + idDiv).attr("idItem");
+			name = $('#name' + idDiv).html();
+			id_game = $('#select' + idDiv + 'Game option:selected').val();
+			desc = $('#desc' + idDiv).html();
+
+			//alert(foto);
+			$.ajax({
+				url: "<?= base_url(); ?>Shop/editItem",
+				method: "post",
+				data: {
+					id: id,
+					name: name,
+					id_game: id_game,
+					price: price,
+					stok: amount,
+					desc: desc
+				},
+				success: function(result) {
+					var selected = $("#select" + idDiv + "Game").children("option:selected").html();
+					$("#item" + idDiv + "Game").html(selected);
+					$("#" + idDiv + "saveChanges").attr("hidden", true);
+					$("#item" + idDiv + "Wrapper").css("border", "none");
+					$("#item" + idDiv + "Wrapper").attr("hovered", "true");
+					$("#edit" + idDiv + "Item").attr("hidden", false);
+					$("#changeItem" + idDiv + "Img").attr("hidden", true);
+					$("#name" + idDiv).attr("contenteditable", false);
+					$("#select" + idDiv + "Game").attr("hidden", true);
+					$("#item" + idDiv + "Game").attr("hidden", false);
+					$("#amountBut" + idDiv).attr("hidden", true);
+					$("#desc" + idDiv).attr("contenteditable", false);
+					$("#item" + idDiv + "Amount").attr("contenteditable", "false");
+					$("#item" + idDiv + "Price").attr("contenteditable", false);
+					$("#item" + idDiv + "Price").html("IDR " + addCommas(price));
+					alertify.success("SUCCESS EDIT ITEM !!!");
+				}
+			});
+
+
+
+		}
+	}
+
+	function viewItem(idDiv) {
+		if ($("#" + idDiv + "saveChanges").attr("hidden") == "hidden") {
+			id = $("#item" + idDiv).attr("idItem");
+			window.location.href = '<?= base_url(); ?>Shop/viewItem/'.concat(id);
+		}
+	}
+
+	function removeItem(idDiv) {
+		idI = $("#item" + idDiv).attr("idItem");
+		$.ajax({
+			url: "<?= base_url(); ?>Shop/removeItem",
+			method: "post",
+			data: {
+				idItem: idI
+			},
+			success: function(result) {
+				$("#item" + idDiv).remove();
+			}
+		});
+	}
+
+	function addAmount(id, jenis) {
+		var amount = $("#item" + id + "Amount").html();
+		if (!isNaN(amount)) {
+			amount = parseInt(amount);
+			if (jenis == 0) {
+				if (amount != 0) amount -= 1;
+			} else {
+				amount += 1;
+			}
+			$("#item" + id + "Amount").html(amount);
+		}
+	}
+
+	function addCommas(nStr) {
+		nStr += '';
+		x = nStr.split('.');
+		x1 = x[0];
+		x2 = x.length > 1 ? '.' + x[1] : '';
+		var rgx = /(\d+)(\d{3})/;
+		while (rgx.test(x1)) {
+			x1 = x1.replace(rgx, '$1' + '.' + '$2');
+		}
+		return x1 + x2;
+	}
+
+	$("#merchantIcon").click(function() {
+		$("#merchantIMG").trigger("click");
+	});
+
+	$("#profileIcon").click(function() {
+		$("#profileIMG").trigger("click");
+	});
+
+	function changeItemIMG(idDiv) {
+		id = idDiv;
+		$("#item" + idDiv + "IMG").trigger("click");
+	}
+
+
+	$(".changeProfile").mouseover(function() {
+		if ($(".changeProfileText").html() == "Edit Profile") {
+			$(".changeProfileText").css("color", "#D7C13F");
+			$("#Icon_awesome-user-edit").attr("fill", "#D7C13F");
+		} else {
+			$(".changeProfileText").css("color", "#ECF0F1");
+			$("#Icon_feather-check").attr("stroke", "#ecf0f1");
+		}
+	});
+	$(".changeProfile").mouseout(function() {
+		if ($(".changeProfileText").html() == "Edit Profile") {
+			$(".changeProfileText").css("color", "#ECF0F1");
+			$("#Icon_awesome-user-edit").attr("fill", "#ECF0F1");
+		} else {
+			$(".changeProfileText").css("color", "#1E2126");
+			$("#Icon_feather-check").attr("stroke", "#1E2126");
+		}
+	});
+
+	$(".logout").mouseover(function() {
+		$("#logoutIcon").hide();
+		$(".logoutText").attr("style", "");
+		$(".logoutText").html("Don't go :(");
+	});
+	$(".logout").mouseout(function() {
+		$("#logoutIcon").show();
+		$(".logoutText").attr("style", "margin-right:20px;");
+		$(".logoutText").html("Logout");
+	});
+
+
+	$(".changeProfile").click(function() {
+		if ($(".changeProfileText").html() == "Edit Profile") {
+			$(".changeProfileText").html("Save Changes");
+			$("#changeProfileIcon").hide();
+			$("#saveChangesIcon").show();
+			$("#profileIcon").attr("hidden", false);
+			$(".changeProfile").css("background-color", "#D7C13F");
+			$(".changeProfileText").css("color", "#1E2126");
+			$("#Icon_feather-check").attr("stroke", "#1E2126");
+			$("input").attr("readonly", false);
+		} else {
+			name = $('#nameProfile').val();
+			phone = $('#phoneNum').val();
+			pass = $('#passProfile').val();
+			email = $('#emailProfile').val();
+			trade = $('#tradeProfile').val();
+
+			foto = $(".profileImg").find('img').attr('src');
+			if (foto != null) {
 				if (foto.substring(11, 12) == "j") {
 					foto = foto.substring(23, foto.length);
 				} else {
 					foto = foto.substring(22, foto.length);
 				}
-
-				$.ajax({
-					url: "<?= base_url(); ?>Shop/insertItem",
-					method: "post",
-					data: {
-						name: name,
-						id_game: id_game,
-						price: price,
-						stok: stok,
-						desc: desc,
-						id_merchant: id_merchant,
-						foto: foto
-					},
-					success: function(result) {
-						alertify.success("SUCCESS TAMBAH ITEM !!!");
-						window.location.href = '<?= base_url(); ?>Shop/viewProfile/';
-					}
-				});
-			} else {
-				if (isNaN(price)) alert("Price must be a number");
-				else if (isNaN(stok)) alert("Stok must be a number");
 			}
-		});
 
-		function editItem(idDiv) {
-			//alert($("#"+idDiv+"saveChanges").attr("hidden"));
-			if ($("#" + idDiv + "saveChanges").attr("hidden") == "hidden") {
-				$("#item" + idDiv + "Wrapper").css("border", "solid 2px rgba(215,193,63,0.3)");
-				$("#item" + idDiv + "Wrapper").attr("hovered", "false");
-				$("#" + idDiv + "saveChanges").attr("hidden", false);
-				$("#changeItem" + idDiv + "Img").attr("hidden", false);
-				$("#edit" + idDiv + "Item").attr("hidden", true);
-				$("#name" + idDiv).attr("contenteditable", true);
-				$("#select" + idDiv + "Game").attr("hidden", false);
-				$("#item" + idDiv + "Game").attr("hidden", true);
-				$("#amountBut" + idDiv).attr("hidden", false);
-				$("#desc" + idDiv).attr("contenteditable", true);
-				$("#item" + idDiv + "Price").attr("contenteditable", true);
-				$("#item" + idDiv + "Amount").attr("contenteditable", "true");
-				var price = $("#item" + idDiv + "Price").html();
-				price = price.replace(/[^a-z0-9\s]/gi, '');
-				price = price.substring(4, price.length);
-				$("#item" + idDiv + "Price").html(price);
-			}
-		}
-
-		function saveChanges(idDiv) {
-			var price = $("#item" + idDiv + "Price").html();
-			price = price.replace(/[^a-z0-9\s]/gi, '');
-			var amount = $("#item" + idDiv + "Amount").html();
-			if (isNaN(price)) {
-				alert("Price must be a number");
-			} else if (isNaN(amount)) {
-				alert("Stok must be a number");
-			} else {
-				id = $('#item' + idDiv).attr("idItem");
-				name = $('#name' + idDiv).html();
-				id_game = $('#select' + idDiv + 'Game option:selected').val();
-				desc = $('#desc' + idDiv).html();
-
-				//alert(foto);
-				$.ajax({
-					url: "<?= base_url(); ?>Shop/editItem",
-					method: "post",
-					data: {
-						id: id,
-						name: name,
-						id_game: id_game,
-						price: price,
-						stok: amount,
-						desc: desc
-					},
-					success: function(result) {
-						var selected = $("#select" + idDiv + "Game").children("option:selected").html();
-						$("#item" + idDiv + "Game").html(selected);
-						$("#" + idDiv + "saveChanges").attr("hidden", true);
-						$("#item" + idDiv + "Wrapper").css("border", "none");
-						$("#item" + idDiv + "Wrapper").attr("hovered", "true");
-						$("#edit" + idDiv + "Item").attr("hidden", false);
-						$("#changeItem" + idDiv + "Img").attr("hidden", true);
-						$("#name" + idDiv).attr("contenteditable", false);
-						$("#select" + idDiv + "Game").attr("hidden", true);
-						$("#item" + idDiv + "Game").attr("hidden", false);
-						$("#amountBut" + idDiv).attr("hidden", true);
-						$("#desc" + idDiv).attr("contenteditable", false);
-						$("#item" + idDiv + "Amount").attr("contenteditable", "false");
-						$("#item" + idDiv + "Price").attr("contenteditable", false);
-						$("#item" + idDiv + "Price").html("IDR " + addCommas(price));
-						alertify.success("SUCCESS EDIT ITEM !!!");
-					}
-				});
-
-
-
-			}
-		}
-
-		function viewItem(idDiv) {
-			if ($("#" + idDiv + "saveChanges").attr("hidden") == "hidden") {
-				id = $("#item" + idDiv).attr("idItem");
-				window.location.href = '<?= base_url(); ?>Shop/viewItem/'.concat(id);
-			}
-		}
-
-		function removeItem(idDiv) {
-			idI = $("#item" + idDiv).attr("idItem");
 			$.ajax({
-				url: "<?= base_url(); ?>Shop/removeItem",
+				url: "<?= base_url(); ?>Shop/editProfile",
 				method: "post",
 				data: {
-					idItem: idI
+					name: name,
+					phone: phone,
+					pass: pass,
+					email: email,
+					trade: trade,
+					foto: foto
 				},
 				success: function(result) {
-					$("#item" + idDiv).remove();
-				}
-			});
-		}
+					$("#changeProfileIcon").show();
+					$("#saveChangesIcon").hide();
+					$(".changeProfileText").html("Edit Profile");
+					$(".changeProfile").css("background-color", "#1E2126");
+					$(".changeProfileText").css("color", "#ECF0F1");
+					$("#profileIcon").attr("hidden", true);
+					$("input").attr("readonly", true);
 
-		function addAmount(id, jenis) {
-			var amount = $("#item" + id + "Amount").html();
-			if (!isNaN(amount)) {
-				amount = parseInt(amount);
-				if (jenis == 0) {
-					if (amount != 0) amount -= 1;
-				} else {
-					amount += 1;
-				}
-				$("#item" + id + "Amount").html(amount);
-			}
-		}
-
-		function addCommas(nStr) {
-			nStr += '';
-			x = nStr.split('.');
-			x1 = x[0];
-			x2 = x.length > 1 ? '.' + x[1] : '';
-			var rgx = /(\d+)(\d{3})/;
-			while (rgx.test(x1)) {
-				x1 = x1.replace(rgx, '$1' + '.' + '$2');
-			}
-			return x1 + x2;
-		}
-
-		$("#merchantIcon").click(function() {
-			$("#merchantIMG").trigger("click");
-		});
-
-		$("#profileIcon").click(function() {
-			$("#profileIMG").trigger("click");
-		});
-
-		function changeItemIMG(idDiv) {
-			id = idDiv;
-			$("#item" + idDiv + "IMG").trigger("click");
-		}
-
-
-		$(".changeProfile").mouseover(function() {
-			if ($(".changeProfileText").html() == "Edit Profile") {
-				$(".changeProfileText").css("color", "#D7C13F");
-				$("#Icon_awesome-user-edit").attr("fill", "#D7C13F");
-			} else {
-				$(".changeProfileText").css("color", "#ECF0F1");
-				$("#Icon_feather-check").attr("stroke", "#ecf0f1");
-			}
-		});
-		$(".changeProfile").mouseout(function() {
-			if ($(".changeProfileText").html() == "Edit Profile") {
-				$(".changeProfileText").css("color", "#ECF0F1");
-				$("#Icon_awesome-user-edit").attr("fill", "#ECF0F1");
-			} else {
-				$(".changeProfileText").css("color", "#1E2126");
-				$("#Icon_feather-check").attr("stroke", "#1E2126");
-			}
-		});
-
-		$(".logout").mouseover(function() {
-			$("#logoutIcon").hide();
-			$(".logoutText").attr("style", "");
-			$(".logoutText").html("Don't go :(");
-		});
-		$(".logout").mouseout(function() {
-			$("#logoutIcon").show();
-			$(".logoutText").attr("style", "margin-right:20px;");
-			$(".logoutText").html("Logout");
-		});
-
-
-		$(".changeProfile").click(function() {
-			if ($(".changeProfileText").html() == "Edit Profile") {
-				$(".changeProfileText").html("Save Changes");
-				$("#changeProfileIcon").hide();
-				$("#saveChangesIcon").show();
-				$("#profileIcon").attr("hidden", false);
-				$(".changeProfile").css("background-color", "#D7C13F");
-				$(".changeProfileText").css("color", "#1E2126");
-				$("#Icon_feather-check").attr("stroke", "#1E2126");
-				$("input").attr("readonly", false);
-			} else {
-				name = $('#nameProfile').val();
-				phone = $('#phoneNum').val();
-				pass = $('#passProfile').val();
-				email = $('#emailProfile').val();
-				trade = $('#tradeProfile').val();
-
-				foto = $(".profileImg").find('img').attr('src');
-				if (foto != null) {
-					if (foto.substring(11, 12) == "j") {
-						foto = foto.substring(23, foto.length);
-					} else {
-						foto = foto.substring(22, foto.length);
-					}
+					alertify.success("SUCCESS EDIT PROFILE !!!!");
 				}
 
-				$.ajax({
-					url: "<?= base_url(); ?>Shop/editProfile",
-					method: "post",
-					data: {
-						name: name,
-						phone: phone,
-						pass: pass,
-						email: email,
-						trade: trade,
-						foto: foto
-					},
-					success: function(result) {
-						$("#changeProfileIcon").show();
-						$("#saveChangesIcon").hide();
-						$(".changeProfileText").html("Edit Profile");
-						$(".changeProfile").css("background-color", "#1E2126");
-						$(".changeProfileText").css("color", "#ECF0F1");
-						$("#profileIcon").attr("hidden", true);
-						$("input").attr("readonly", true);
 
-						alertify.success("SUCCESS EDIT PROFILE !!!!");
-					}
-
-
-				});
-
-
-			}
-		});
-
-
-		$(".History").click(function() {
-			id_user = '<?= $user['id_user'] ?>';
-			$.ajax({
-				url: "<?= base_url(); ?>Shop/refreshStatus",
-				method: "post",
-				success: function(result) {
-					window.location.href = '<?= base_url(); ?>Shop/viewHistory';
-				}
 			});
 
+
+		}
+	});
+
+
+	$(".History").click(function() {
+		id_user = '<?= $user['id_user'] ?>';
+		$.ajax({
+			url: "<?= base_url(); ?>Shop/refreshStatus",
+			method: "post",
+			success: function(result) {
+				window.location.href = '<?= base_url(); ?>Shop/viewHistory';
+			}
 		});
 
+	});
 
 
 
-		$(".logout").click(function() {
-			window.location.href = '<?= base_url(); ?>Login';
+
+	$(".logout").click(function() {
+		window.location.href = '<?= base_url(); ?>Login';
+	});
+
+	$(".createMerchant").click(function() {
+		name = $("#merchantName").html();
+		desc = $("#descriptionArea").html();
+		alert(name);
+		alert(desc);
+		foto = $(".merchantImg").find('img').attr('src');
+		alert(foto);
+
+		if (foto != null) {
+			if (foto.substring(11, 12) == "j") {
+				foto = foto.substring(23, foto.length);
+			} else {
+				foto = foto.substring(22, foto.length);
+			}
+		}
+
+		$.ajax({
+			url: "<?= base_url(); ?>Shop/insertMerchant",
+			method: "post",
+			data: {
+				name: name,
+				desc: desc,
+				foto: foto
+			},
+			success: function(result) {
+				window.location.href = '<?= base_url(); ?>Shop/viewProfile';
+			}
 		});
+	});
 
-		$(".createMerchant").click(function() {
+
+	$(".editDescription").click(function() {
+		if ($("#Path_1931").css("stroke") == "rgb(215, 193, 63)") {
+
+			id = $("#merchantName").attr("idM");
 			name = $("#merchantName").html();
 			desc = $("#descriptionArea").html();
-			alert(name);
-			alert(desc);
 			foto = $(".merchantImg").find('img').attr('src');
-			alert(foto);
 
 			if (foto != null) {
 				if (foto.substring(11, 12) == "j") {
@@ -913,217 +1141,248 @@ usort($totalItem, function ($a, $b) {
 			}
 
 			$.ajax({
-				url: "<?= base_url(); ?>Shop/insertMerchant",
+				url: "<?= base_url(); ?>Shop/editMerchant",
 				method: "post",
 				data: {
+					id: id,
 					name: name,
 					desc: desc,
 					foto: foto
 				},
 				success: function(result) {
+					$("#Path_1931").css("stroke", "#ecf0f1");
+					$("#Path_1932").css("stroke", "#ecf0f1");
+					$("#descriptionArea").attr("contenteditable", false);
+					$("#merchantName").attr("contenteditable", false);
+					$("#descriptionArea").css("box-shadow", "none");
+					$("#merchantName").css("box-shadow", "none");
+					$("#merchantIcon").attr("hidden", true);
+
+					alertify.success("SUCCESS EDIT MERCHANT !!!");
 					window.location.href = '<?= base_url(); ?>Shop/viewProfile';
 				}
 			});
-		});
+		} else {
 
+			$("#Path_1931").css("stroke", "#D7C13F");
+			$("#Path_1932").css("stroke", "#D7C13F");
+			$("#descriptionArea").attr("contenteditable", true);
+			$("#merchantName").attr("contenteditable", true);
+			$("#merchantIcon").attr("hidden", false);
+			$("#descriptionArea").css("box-shadow", "0 0 5px #D7C13F");
+			$("#merchantName").css("box-shadow", "0 0 5px #D7C13F");
+		}
+	});
 
-		$(".editDescription").click(function() {
-			if ($("#Path_1931").css("stroke") == "rgb(215, 193, 63)") {
+	$("#profileIMG").change(function() {
+		if (this.files && this.files[0]) {
+			var reader = new FileReader();
 
-				id = $("#merchantName").attr("idM");
-				name = $("#merchantName").html();
-				desc = $("#descriptionArea").html();
-				foto = $(".merchantImg").find('img').attr('src');
+			reader.onload = function(e) {
+				var img = $('<img>').attr('src', e.target.result);
+				$('.profileImg').html(img);
+			};
+			reader.readAsDataURL(this.files[0]);
+		}
+	});
 
-				if (foto != null) {
-					if (foto.substring(11, 12) == "j") {
-						foto = foto.substring(23, foto.length);
-					} else {
-						foto = foto.substring(22, foto.length);
+	$("#merchantIMG").change(function() {
+		if (this.files && this.files[0]) {
+			var reader = new FileReader();
+
+			reader.onload = function(e) {
+				var img = $('<img>').attr('src', e.target.result);
+				$('.merchantImg').html(img);
+			};
+
+			reader.readAsDataURL(this.files[0]);
+		}
+	});
+
+	$("#addItemIMG").change(function() {
+		$("#imageText").attr("hidden", true);
+		$("#imgDisplay").attr("hidden", false);
+		if (this.files && this.files[0]) {
+			var reader = new FileReader();
+
+			reader.onload = function(e) {
+				var img = $('<img>').attr('src', e.target.result);
+				$('#imgDisplay').html(img);
+			};
+
+			reader.readAsDataURL(this.files[0]);
+		}
+	});
+
+	$(".homeButton").click(function() {
+		window.location.href = '<?= base_url(); ?>Shop/unsetGame/';
+	});
+
+	function createfirstChart() {
+		Highcharts.chart('containerChart', {
+			chart: {
+				type: 'column'
+			},
+			title: {
+				text: 'Total Penjualan dari semua item'
+			},
+			subtitle: {
+				text: 'Hari ini'
+			},
+			xAxis: {
+				type: 'category',
+				labels: {
+					rotation: -45,
+					style: {
+						fontSize: '13px',
+						fontFamily: 'Verdana, sans-serif'
 					}
 				}
-
-				$.ajax({
-					url: "<?= base_url(); ?>Shop/editMerchant",
-					method: "post",
-					data: {
-						id: id,
-						name: name,
-						desc: desc,
-						foto: foto
-					},
-					success: function(result) {
-						$("#Path_1931").css("stroke", "#ecf0f1");
-						$("#Path_1932").css("stroke", "#ecf0f1");
-						$("#descriptionArea").attr("contenteditable", false);
-						$("#merchantName").attr("contenteditable", false);
-						$("#descriptionArea").css("box-shadow", "none");
-						$("#merchantName").css("box-shadow", "none");
-						$("#merchantIcon").attr("hidden", true);
-
-						alertify.success("SUCCESS EDIT MERCHANT !!!");
-						window.location.href = '<?= base_url(); ?>Shop/viewProfile';
-					}
-				});
-			} else {
-
-				$("#Path_1931").css("stroke", "#D7C13F");
-				$("#Path_1932").css("stroke", "#D7C13F");
-				$("#descriptionArea").attr("contenteditable", true);
-				$("#merchantName").attr("contenteditable", true);
-				$("#merchantIcon").attr("hidden", false);
-				$("#descriptionArea").css("box-shadow", "0 0 5px #D7C13F");
-				$("#merchantName").css("box-shadow", "0 0 5px #D7C13F");
-			}
-		});
-
-		$("#profileIMG").change(function() {
-			if (this.files && this.files[0]) {
-				var reader = new FileReader();
-
-				reader.onload = function(e) {
-					var img = $('<img>').attr('src', e.target.result);
-					$('.profileImg').html(img);
-				};
-				reader.readAsDataURL(this.files[0]);
-			}
-		});
-
-		$("#merchantIMG").change(function() {
-			if (this.files && this.files[0]) {
-				var reader = new FileReader();
-
-				reader.onload = function(e) {
-					var img = $('<img>').attr('src', e.target.result);
-					$('.merchantImg').html(img);
-				};
-
-				reader.readAsDataURL(this.files[0]);
-			}
-		});
-
-		$("#addItemIMG").change(function() {
-			$("#imageText").attr("hidden", true);
-			$("#imgDisplay").attr("hidden", false);
-			if (this.files && this.files[0]) {
-				var reader = new FileReader();
-
-				reader.onload = function(e) {
-					var img = $('<img>').attr('src', e.target.result);
-					$('#imgDisplay').html(img);
-				};
-
-				reader.readAsDataURL(this.files[0]);
-			}
-		});
-
-		$(".homeButton").click(function() {
-			window.location.href = '<?= base_url(); ?>Shop/unsetGame/';
-		});
-
-		function createfirstChart() {
-			Highcharts.chart('containerChart', {
-				chart: {
-					type: 'column'
-				},
+			},
+			yAxis: {
+				min: 0,
 				title: {
-					text: 'Total Penjualan dari semua item'
-				},
-				subtitle: {
-					text: '<?= $mchNama ?>'
-				},
-				xAxis: {
-					type: 'category',
-					labels: {
-						rotation: -45,
-						style: {
-							fontSize: '13px',
-							fontFamily: 'Verdana, sans-serif'
-						}
-					}
-				},
-				yAxis: {
-					min: 0,
-					title: {
-						text: 'Penjualan (Pcs)'
-					}
-				},
-				legend: {
-					enabled: false
-				},
-				tooltip: {
-					pointFormat: 'Total Penjualan: <b>{point.y:.0f} Pcs</b>'
-				},
-				series: [{
-					name: 'Nama Item',
-					data: [
-						<?php
-						$i = 0;
-						foreach ($totalItem as $ttl) {
-							if ($i == count($totalItem) - 1) {
-								echo '[' . "'" . $ttl['nama'] . "'" . ',' . $ttl['jumlah'] . ']';
-							} else {
-								echo '[' . "'" . $ttl['nama'] . "'" . ',' . $ttl['jumlah'] . '],';
-							}
-							$i++;
-						}
-						?>
-					],
-					dataLabels: {
-						enabled: true,
-						rotation: 0,
-						color: '#d7c13f',
-						align: 'left',
-						y: 25, // 10 pixels down from the top
-						style: {
-							fontSize: '12px',
-							fontFamily: 'Roboto',
-							fontWeight: 'Bold'
-						}
-					}
-				}]
-			});
-		}
-
-
-		$(".chartWrapper").on("click", "#nextYear", function() {
-			modifyYear(1);
-		});
-
-		$(".chartWrapper").on("click", "#prevYear", function() {
-			modifyYear(-1);
-		});
-
-		$(".chartWrapper").on("click", "#next10Year", function() {
-			modifyYear(10);
-		});
-
-		$(".chartWrapper").on("click", "#prev10Year", function() {
-			modifyYear(-10);
-		});
-
-		function modifyYear(jumlah) {
-			var year = $("#y1").children().html() + $("#y2").children().html() + $("#y3").children().html() + $("#y4").children().html();
-			year = parseInt(year);
-			year += jumlah;
-			year = year + "";
-			$("#y1").children().html(year.substring(0, 1));
-			$("#y2").children().html(year.substring(1, 2));
-			$("#y3").children().html(year.substring(2, 3));
-			$("#y4").children().html(year.substring(3, 4));
-
-			$.ajax({
-				url: "<?= base_url(); ?>Shop/modifYear",
-				method: "post",
-				data: {
-					year: year
-				},
-				success: function(result) {
-					$(".chartWrapper").html(result);
+					text: 'Penjualan (Pcs)'
 				}
-			});
-		}
-	</script>
+			},
+			legend: {
+				enabled: false
+			},
+			tooltip: {
+				pointFormat: 'Total Penjualan: <b>{point.y:.0f} Pcs</b>'
+			},
+			series: [{
+				name: 'Nama Item',
+				data: [
+					<?php
+					$i = 0;
+					foreach ($totalItem as $ttl) {
+						if ($i == count($totalItem) - 1) {
+							echo '[' . "'" . $ttl['nama'] . "'" . ',' . $ttl['jumlah'] . ']';
+						} else {
+							echo '[' . "'" . $ttl['nama'] . "'" . ',' . $ttl['jumlah'] . '],';
+						}
+						$i++;
+					}
+					?>
+				],
+				dataLabels: {
+					enabled: true,
+					rotation: 0,
+					color: '#d7c13f',
+					align: 'left',
+					y: 25, // 10 pixels down from the top
+					style: {
+						fontSize: '12px',
+						fontFamily: 'Roboto',
+						fontWeight: 'Bold'
+					}
+				}
+			}]
+		});
+	}
+
+
+	// $(".chartWrapper").on("click", "#nextYear", function() {
+	// 	modifyYear(1);
+	// });
+
+	// $(".chartWrapper").on("click", "#prevYear", function() {
+	// 	modifyYear(-1);
+	// });
+
+	// $(".chartWrapper").on("click", "#next10Year", function() {
+	// 	modifyYear(10);
+	// });
+
+	// $(".chartWrapper").on("click", "#prev10Year", function() {
+	// 	modifyYear(-10);
+	// });
+
+	$(".finished").click(function() {
+		$("#ongoing").addClass("fadeOut animated");
+		var timer = setTimeout('$("#ongoing").css("display", "none");$("#ongoing").removeClass("fadeOut animated");', 1000);
+		$("#finish").addClass("fadeIn animated");
+		timer = setTimeout('$("#finish").css("display", "block");$("#finish").removeClass("fadeIn animated");', 1000);
+
+		$(".ongoing").removeClass("yellow");
+		$(".finished").addClass("yellow");
+	});
+
+	$(".ongoing").click(function() {
+		$("#finish").addClass("fadeOut animated");
+		var timer = setTimeout('$("#finish").css("display", "none");$("#finish").removeClass("fadeOut animated");', 1000);
+		$("#ongoing").addClass("fadeIn animated");
+		timer = setTimeout('$("#ongoing").css("display", "block");$("#ongoing").removeClass("fadeIn animated");', 1000);
+
+		$(".finished").removeClass("yellow");
+		$(".ongoing").addClass("yellow");
+	});
+
+	// $("#ongoing").on("click", "itemBlockContainer", "", function() {
+	// 	$idTrans = $("")
+	// 	alert("A");
+	// });
+
+	$(".updateItemTrans").click(function() {
+		idTrans = $(this).attr("idTrans");
+		idItem = $(this).attr("idItem");
+		//alert(idItem);
+		//alert(idTrans);
+		$.ajax({
+			url: "<?= base_url(); ?>Shop/updateStatusTransItem/1",
+			method: "post",
+			data: {
+				id_transaksi: idTrans,
+				id_item: idItem
+			},
+			success: function(result) {
+				alert("sukses");
+			}
+		});
+	});
+
+	var inputs = document.querySelectorAll('.inputfile');
+	Array.prototype.forEach.call(inputs, function(input) {
+		var label = input.nextElementSibling,
+			labelVal = label.innerHTML;
+
+		input.addEventListener('change', function(e) {
+			var fileName = '';
+			if (this.files && this.files.length > 1)
+				fileName = (this.getAttribute('data-multiple-caption') || '').replace('{count}', this.files.length);
+			else
+				fileName = e.target.value.split('\\').pop();
+
+			if (fileName)
+				label.querySelector('span').innerHTML = fileName;
+			else
+				label.innerHTML = labelVal;
+		});
+	});
+
+	$(".showGraph").click(function() {
+		startDate = $("#startDate").val();
+		endDate = $("#endDate").val();
+		$.ajax({
+			url: "<?= base_url(); ?>Shop/modifYear",
+			method: "post",
+			data: {
+				startDate: startDate,
+				endDate: endDate
+			},
+			success: function(result) {
+				$(".chartWrapper").html(result);
+			}
+		});
+	});
+
+	$('.datepicker').datepicker({
+		clearBtn: true,
+		format: "dd/mm/yyyy",
+		orientation: "left bottom"
+	});
+</script>
 </body>
 
 </html>

@@ -462,4 +462,9 @@ class Shop extends CI_Controller
 
         $this->load->view('shop/chartMerchant', $data);
     }
+
+    public function updateStatusTransItem($status)
+    {
+        $this->TransItem_model->changeStatus($status);
+    }
 }

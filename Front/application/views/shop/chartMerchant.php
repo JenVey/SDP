@@ -8,7 +8,9 @@ foreach ($merchant as $mch) {
 }
 
 $totalItem = array();
-$tahun =  $_POST['year'];
+$start =  $_POST['startDate'];
+$end =  $_POST['endDate'];
+
 foreach ($allTrans as $trans) {
     if ($trans['status'] == 1) {
         foreach ($transaksiItem as $transItem) {
@@ -16,7 +18,7 @@ foreach ($allTrans as $trans) {
                 foreach ($item as $itm) {
                     if ($itm['id_item'] == $transItem['id_item']) {
                         if ($itm['id_merchant'] == $mchId) {
-                            if (date('Y', strtotime($trans['tanggal_transaksi']))  == $tahun) {
+                            if ((date('d/m/Y', strtotime($trans['tanggal_transaksi']))  >= $start && date('d/m/Y', strtotime($trans['tanggal_transaksi'])) <= $end)) {
                                 if (isset($totalItem[$transItem['id_item']])) {
                                     $totalItem[$transItem['id_item']]['jumlah'] +=  $transItem['jumlah'];
                                 } else {
@@ -38,34 +40,33 @@ usort($totalItem, function ($a, $b) {
 ?>
 <div id="containerChart">
 </div>
-<div class="pagination">
-    <div class="pageblock" id="prev10Year" style="background-color: #D7C13F;">
-        <h5>-10</h5>
+<div class="waktu">
+    <div class="form-group mb-4" style="margin: 0!important;">
+        <div class="datepicker date input-group p-0 shadow-sm">
+            <input type="text" placeholder="Start Date" class="form-control" name="startDate" id="startDate">
+            <div class="input-group-append" style="overflow: visible;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="32.5" viewBox="0 0 61 46">
+                    <g id="Group_190" data-name="Group 190" transform="translate(-6632 2629)">
+                        <path id="Rectangle_348" data-name="Rectangle 348" d="M0,0H46A15,15,0,0,1,61,15V31A15,15,0,0,1,46,46H0a0,0,0,0,1,0,0V0A0,0,0,0,1,0,0Z" transform="translate(6632 -2629)" fill="#d7c13f" />
+                        <path id="Icon_material-date-range" data-name="Icon material-date-range" d="M13.5,16.5h-3v3h3Zm6,0h-3v3h3Zm6,0h-3v3h3ZM28.5,6H27V3H24V6H12V3H9V6H7.5A2.986,2.986,0,0,0,4.515,9L4.5,30a3,3,0,0,0,3,3h21a3.009,3.009,0,0,0,3-3V9A3.009,3.009,0,0,0,28.5,6Zm0,24H7.5V13.5h21Z" transform="translate(6644.3 -2624)" fill="#1e2126" />
+                    </g>
+                </svg>
+            </div>
+        </div>
     </div>
-    <div class="pageblock" id="prevYear" style="background-color: #D7C13F;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20.243" height="13.501" viewBox="0 0 20.243 13.501">
-            <path id="Icon_ionic-ios-arrow-round-back" data-name="Icon ionic-ios-arrow-round-back" d="M15.216,11.51a.919.919,0,0,1,.007,1.294l-4.268,4.282H27.218a.914.914,0,0,1,0,1.828H10.955L15.23,23.2a.925.925,0,0,1-.007,1.294.91.91,0,0,1-1.287-.007L8.142,18.647h0a1.026,1.026,0,0,1-.19-.288.872.872,0,0,1-.07-.352.916.916,0,0,1,.26-.64l5.794-5.836A.9.9,0,0,1,15.216,11.51Z" transform="translate(-7.882 -11.252)" fill="#ecf0f1" />
-        </svg>
-    </div>
-    <div class="pageblock" id="y1">
-        <h4><?= substr($tahun, 0, 1) ?></h4>
-    </div>
-    <div class="pageblock" id="y2">
-        <h4><?= substr($tahun, 1, 1) ?></h4>
-    </div>
-    <div class="pageblock" id="y3">
-        <h4><?= substr($tahun, 2, 1) ?></h4>
-    </div>
-    <div class="pageblock" id="y4">
-        <h4><?= substr($tahun, 3, 1) ?></h4>
-    </div>
-    <div class="pageblock" id="nextYear" style="background-color: #D7C13F;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20.243" height="13.501" viewBox="0 0 20.243 13.501">
-            <path id="Icon_ionic-ios-arrow-round-back" data-name="Icon ionic-ios-arrow-round-back" d="M20.792,11.51a.919.919,0,0,0-.007,1.294l4.268,4.282H8.789a.914.914,0,0,0,0,1.828H25.053L20.777,23.2a.925.925,0,0,0,.007,1.294.91.91,0,0,0,1.287-.007l5.794-5.836h0a1.027,1.027,0,0,0,.19-.288.872.872,0,0,0,.07-.352.916.916,0,0,0-.26-.64l-5.794-5.836A.9.9,0,0,0,20.792,11.51Z" transform="translate(-7.882 -11.252)" fill="#ecf0f1" />
-        </svg>
-    </div>
-    <div class="pageblock" id="next10Year" style="background-color: #D7C13F;">
-        <h5>+10</h5>
+    <button class="showGraph">Update Graph</button>
+    <div class="form-group mb-4" style="margin: 0!important;">
+        <div class="datepicker date input-group p-0 shadow-sm">
+            <input type="text" placeholder="End Date" class="form-control" name="endDate" id="endDate">
+            <div class="input-group-append" style="overflow: visible;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="32.5" viewBox="0 0 61 46">
+                    <g id="Group_190" data-name="Group 190" transform="translate(-6632 2629)">
+                        <path id="Rectangle_348" data-name="Rectangle 348" d="M0,0H46A15,15,0,0,1,61,15V31A15,15,0,0,1,46,46H0a0,0,0,0,1,0,0V0A0,0,0,0,1,0,0Z" transform="translate(6632 -2629)" fill="#d7c13f" />
+                        <path id="Icon_material-date-range" data-name="Icon material-date-range" d="M13.5,16.5h-3v3h3Zm6,0h-3v3h3Zm6,0h-3v3h3ZM28.5,6H27V3H24V6H12V3H9V6H7.5A2.986,2.986,0,0,0,4.515,9L4.5,30a3,3,0,0,0,3,3h21a3.009,3.009,0,0,0,3-3V9A3.009,3.009,0,0,0,28.5,6Zm0,24H7.5V13.5h21Z" transform="translate(6644.3 -2624)" fill="#1e2126" />
+                    </g>
+                </svg>
+            </div>
+        </div>
     </div>
 </div>
 <script>
@@ -77,7 +78,7 @@ usort($totalItem, function ($a, $b) {
             text: 'Total Penjualan dari semua item'
         },
         subtitle: {
-            text: '<?= $mchNama ?>'
+            text: 'Between  <?= $start ?>  and <?= $end ?>'
         },
         xAxis: {
             type: 'category',
@@ -129,5 +130,27 @@ usort($totalItem, function ($a, $b) {
                 }
             }
         }]
+    });
+
+    $(".showGraph").click(function() {
+        startDate = $("#startDate").val();
+        endDate = $("#endDate").val();
+        $.ajax({
+            url: "<?= base_url(); ?>Shop/modifYear",
+            method: "post",
+            data: {
+                startDate: startDate,
+                endDate: endDate
+            },
+            success: function(result) {
+                $(".chartWrapper").html(result);
+            }
+        });
+    });
+
+    $('.datepicker').datepicker({
+        clearBtn: true,
+        format: "dd/mm/yyyy",
+        orientation: "left bottom"
     });
 </script>
