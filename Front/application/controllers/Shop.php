@@ -3,7 +3,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Shop extends CI_Controller
 {
-
     /**
      * Index Page for this controller.
      *
@@ -19,10 +18,10 @@ class Shop extends CI_Controller
      * map to /index.php/welcome/<method_name>
      * @see https://codeigniter.com/user_guide/general/urls.html
      */
+
     public function __construct()
     {
         parent::__construct();
-
         $this->load->library('form_validation');
         $this->load->model('User_model');
         $this->load->model('Friend_model');
@@ -113,7 +112,6 @@ class Shop extends CI_Controller
             $this->load->view('shop/shop', $data);
         }
     }
-
 
     public function viewItem($idI)
     {
@@ -414,7 +412,7 @@ class Shop extends CI_Controller
 
         //$this->Item_model->updateAmount();
         //}
-        redirect('Shop');
+        //redirect('Shop');
     }
 
     public function refreshStatus()

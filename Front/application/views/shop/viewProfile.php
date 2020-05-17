@@ -1327,6 +1327,8 @@ usort($totalItem, function ($a, $b) {
 	$(".updateItemTrans").click(function() {
 		idTrans = $(this).attr("idTrans");
 		idItem = $(this).attr("idItem");
+
+
 		//alert(idItem);
 		//alert(idTrans);
 		$.ajax({

@@ -121,13 +121,31 @@ class Trans_model extends CI_model
 
         $idmerchant = array();
         for ($i = 0; $i < count($cart); $i++) {
+            echo "masuk" . $i;
 
             // KIRIM EMAIL KE MERCHANT
             $query2 = $this->db->query("select * from item");
-            foreach ($query2->result_array() as $row) {
-                if ($row['id_item'] == $cart[$i]['id']) {
-                    if (!in_array($row['id_merchant'], $idmerchant)) {
-                        array_push($idmerchant, $row['id_merchant']);
+            foreach ($query2->result_array() as $row2) {
+                if ($row2['id_item'] == $cart[$i]['id']) {
+                    if (!in_array($row2['id_merchant'], $idmerchant)) {
+                        array_push($idmerchant, $row2['id_merchant']);
+                    }
+
+                    //TAMBAH SALDO MERCHANT  
+                    $query3 = $this->db->query("select * from merchant");
+                    foreach ($query3->result_array() as $row3) {
+                        if ($row3['id_merchant'] == $row2['id_merchant']) {
+                            $query4 = $this->db->query("select * from user");
+                            foreach ($query4->result_array() as $row4) {
+                                if ($row4['id_user'] == $row3['id_user']) {
+                                    $saldo = $row4['saldo'];
+                                    $saldo += $cart[$i]['subtotal'];
+
+                                    $queryUpdate = "update user set saldo = '" . $saldo . "' where id_user = '" . $row4['id_user'] . "' ";
+                                    $this->db->query($queryUpdate);
+                                }
+                            }
+                        }
                     }
                 }
             }
