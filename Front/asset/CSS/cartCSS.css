@@ -134,7 +134,7 @@
 	justify-content: flex-start;
 }
 
-.GrandTotal{
+.GrandTotalInput{
 	color: #F25757;
 }
 
@@ -264,4 +264,74 @@ hr{
 
 .itemDesc{
     margin-top: 10px;
+}
+
+.itemBlock{
+    overflow: hidden;
+}
+.itemBlock:hover{
+    cursor: pointer;
+}
+
+.cancel{
+    background-color: #F25757;
+    color: #ecf0f1;
+}
+
+.chatMerchant{
+    background-color: #D7C13F;
+    color: #ecf0f1;
+}
+
+.back{
+    background-color: #969BA6;
+    color: #ecf0f1;
+}
+
+.modal-content{
+    background-color: #1e2126;
+    color: #ecf0f1;
+}
+
+.form-control{
+    background-color: #585D68!important;
+}
+
+.modal-title{
+    color: #1e2126;
+}
+
+.modal-header{
+    background-color: #d7c13f;
+    border-bottom: solid 1px #d7c13f
+}
+
+.modal-footer{
+    border-top: solid 1px #d7c13f
+}
+
+.bootbox-cancel{
+    background-color: #969BA6!important;
+}
+
+.bootbox-cancel:hover{
+    color: #1e2126;
+}
+
+.btn-primary{
+    background-color: #D7C13F;
+    border:solid 1px #D7C13F;
+}
+
+.btn-primary:hover{
+    color: #1e2126!important;
+    background-color: #D7C13F;
+}
+
+.grandtotalWrapper{
+    width: 100%;
+    height: 15vh;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 }

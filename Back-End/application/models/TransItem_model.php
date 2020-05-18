@@ -23,10 +23,10 @@ class TransItem_model extends CI_model
         $idItem = $this->input->post('id_item');
         echo $idItem;
         echo $idTrans;
-        if ($status == 1) {
+        if ($status == 2) {
             $data = [
                 "status" => $status,
-                "keterangan" => "Awaiting admin's approval"
+                "keterangan" => "Success"
             ];
         }
 

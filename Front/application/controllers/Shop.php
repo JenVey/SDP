@@ -212,7 +212,11 @@ class Shop extends CI_Controller
         $this->Cart_model->updateStatus1();
         $data['user'] = $this->User_model->getUserById($id);
         $data['merchantF'] = $this->Merchant_model->getMerchantByIdUser($id);
+        $data['merchant'] = $this->Merchant_model->getAllMerchant();
+        $data['transaksi'] = $this->Trans_model->getAllTrans();
+        $data['transaksiItem'] = $this->TransItem_model->getAllTransItem();
         $data['item'] = $this->Item_model->getAllItem();
+        $data['games'] = $this->Game_model->getAllGame();
         $data['promo'] = $this->Promo_model->getAllPromo();
         $data['cart'] = $this->Cart_model->getCartByIdUser($id);
         $this->load->view('shop/myCart', $data);

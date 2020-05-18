@@ -16,7 +16,7 @@ class Trans_model extends CI_model
 
     public function getAllTrans()
     {
-        $query = "select p.kodepromo as 'kodepromo', t.tanggal_transaksi as 'tanggal_transaksi', t.id_transaksi as 'id_transaksi',t.cashback as 'cashback' ,t.status as 'status',t.gross_amount as 'gross_amount', u.email_user as 'email_user'
+        $query = "select t.id_user as 'id_user', p.kodepromo as 'kodepromo', t.tanggal_transaksi as 'tanggal_transaksi', t.id_transaksi as 'id_transaksi',t.cashback as 'cashback' ,t.status as 'status',t.gross_amount as 'gross_amount', u.email_user as 'email_user'
         from transaksi t 
         left join promo p on p.id_promo = t.id_promo 
         join user u on u.id_user = t.id_user

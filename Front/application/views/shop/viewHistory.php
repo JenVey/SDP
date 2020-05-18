@@ -139,76 +139,77 @@
 					<?php if (!empty($transaksi)) {
 						$ctr = 1;
 						foreach ($transaksi as $trans) {
-							if ($trans['status']) ?>
-							<div class="transBlock" id="transBlock<?= $ctr ?>" data-toggle="collapse" data-target="#itemBlockContainer<?= $ctr ?>" aria-expanded="false" aria-controls="itemBlockContainer<?= $ctr ?>">
+							if ($trans['status'] == 2) { ?>
+								<div class="transBlock" id="transBlock<?= $ctr ?>" data-toggle="collapse" data-target="#itemBlockContainer<?= $ctr ?>" aria-expanded="false" aria-controls="itemBlockContainer<?= $ctr ?>">
 
 
-								<div class="orderID">
-									<p style="margin-left: 2vw;"><?= $trans['id_transaksi']
-																	?></p>
-									</p>
+									<div class="orderID">
+										<p style="margin-left: 2vw;"><?= $trans['id_transaksi']
+																		?></p>
+										</p>
+									</div>
+									<div class="Date">
+										<p style="margin-left: 2vw;"><?= date('d/m/Y', strtotime($trans['tanggal_transaksi'])) ?> </p>
+									</div>
+									<div class="kodePromo">
+										<p style="margin-left: 2vw;"><?= $trans['kodepromo']  ?></p>
+									</div>
+									<div class="GrandTotal">
+										<p>IDR <?= number_format(ceil($trans['gross_amount']), 0, ".", ".") ?></p>
+									</div>
+									<div class="CashBack">
+										<p>GP <?= number_format(ceil($trans['cashback']), 0, ".", ".") ?></p>
+									</div>
+									<div class="statusTrans" id="statusTrans<?= $ctr ?>">
+									</div>
+									<input type="hidden" name="status" id="status<?= $ctr ?>" value="<?= $trans['status'] ?>">
 								</div>
-								<div class="Date">
-									<p style="margin-left: 2vw;"><?= date('d/m/Y', strtotime($trans['tanggal_transaksi'])) ?> </p>
-								</div>
-								<div class="kodePromo">
-									<p style="margin-left: 2vw;"><?= $trans['kodepromo']  ?></p>
-								</div>
-								<div class="GrandTotal">
-									<p>IDR <?= number_format(ceil($trans['Gross_Amount']), 0, ".", ".") ?></p>
-								</div>
-								<div class="CashBack">
-									<p>GP <?= number_format(ceil($trans['cashback']), 0, ".", ".") ?></p>
-								</div>
-								<div class="statusTrans" id="statusTrans<?= $ctr ?>">
-								</div>
-								<input type="hidden" name="status" id="status<?= $ctr ?>" value="<?= $trans['status'] ?>">
-							</div>
-							<?php
-							foreach ($transaksiItem as $transItem) {
-								if ($transItem['id_transaksi'] == $trans['id_transaksi']) {
-									foreach ($item as $itm) {
-										if ($transItem['id_item'] == $itm['id_item']) {
-							?>
-											<div class="itemBlockContainer collapse" id="itemBlockContainer<?= $ctr ?>">
-												<div class="itemBlock">
-													<div class="itemName">
-														<p>
-															<?= $itm['nama_item'] ?>(<?= $transItem['jumlah'] ?>x)
-														</p>
-													</div>
-													<div class="itemDesc">
-														<p style="font-size: 0.8vw;">
-															<?= $itm['desc_item'] ?>
-														</p>
-													</div>
-													<div class="Price">
-														<p>IDR <?= ceil($transItem['subtotal']) ?></p>
-													</div>
-													<div class="merchantName">
-														<a href="<?= base_url() . "/Shop/viewMerchant/" . $itm['id_merchant'] ?>">
-															<?php foreach ($merchant as $mch) {
-																if ($itm['id_merchant'] == $mch['id']) {
-																	echo $mch['nama'];
-																}
-															} ?>
-														</a>
-													</div>
-													<div class="game"><strong>
-															<?php foreach ($games as $game) {
-																if ($itm['id_game'] == $game['id_game']) {
-																	echo $game['nama_game'];
-																}
-															} ?></strong>
+								<?php
+								foreach ($transaksiItem as $transItem) {
+									if ($transItem['id_transaksi'] == $trans['id_transaksi']) {
+										foreach ($item as $itm) {
+											if ($transItem['id_item'] == $itm['id_item']) {
+								?>
+												<div class="itemBlockContainer collapse" id="itemBlockContainer<?= $ctr ?>">
+													<div class="itemBlock">
+														<div class="itemName">
+															<p>
+																<?= $itm['nama_item'] ?>(<?= $transItem['jumlah'] ?>x)
+															</p>
+														</div>
+														<div class="itemDesc">
+															<p style="font-size: 0.8vw;">
+																<?= $itm['desc_item'] ?>
+															</p>
+														</div>
+														<div class="Price">
+															<p>IDR <?= ceil($transItem['subtotal']) ?></p>
+														</div>
+														<div class="merchantName">
+															<a href="<?= base_url() . "/Shop/viewMerchant/" . $itm['id_merchant'] ?>">
+																<?php foreach ($merchant as $mch) {
+																	if ($itm['id_merchant'] == $mch['id']) {
+																		echo $mch['nama'];
+																	}
+																} ?>
+															</a>
+														</div>
+														<div class="game"><strong>
+																<?php foreach ($games as $game) {
+																	if ($itm['id_game'] == $game['id_game']) {
+																		echo $game['nama_game'];
+																	}
+																} ?></strong>
+														</div>
 													</div>
 												</div>
-											</div>
-							<?php
+								<?php
+											}
 										}
 									}
-								}
-							} ?>
+								} ?>
 					<?php $ctr++;
+							}
 						}
 					} ?>
 				</div>
@@ -264,6 +265,11 @@
 			$("#logoutIcon").show();
 			$(".logoutText").attr("style", "margin-right:20px;");
 			$(".logoutText").html("Logout");
+		});
+
+
+		$(".logout").click(function() {
+			window.location.href = '<?= base_url(); ?>Login';
 		});
 
 

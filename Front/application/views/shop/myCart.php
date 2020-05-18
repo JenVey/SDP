@@ -8,9 +8,10 @@
 	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/bootstrap.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/shopCSS.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/Ours.css">
+	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/historyCSS.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/cartCSS.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/checkBox.css">
-	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/animation.css">
+	<link rel=" stylesheet" href="<?php echo base_url(); ?>asset/CSS/animation.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/alerts.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/alertify.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/themes/default.css">
@@ -18,6 +19,7 @@
 	<script src="<?php echo base_url(); ?>asset/Js/jquery-min.js"></script>
 	<script src="<?php echo base_url(); ?>asset/Js/bootstrap.js"></script>
 	<script src="<?php echo base_url(); ?>asset/Js/alertify.js"></script>
+	<script src="<?php echo base_url(); ?>asset/Js/bootbox.js"></script>
 	<script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-3P7SuUbxsTWXgTf3"></script>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 </head>
@@ -82,7 +84,7 @@
 	</div>
 	<div class="bodyContainer">
 		<div style="text-align: left; margin-left: 3vw;">
-			<button class="back">
+			<button class="back" style="background-color: transparent;">
 				<svg xmlns="http://www.w3.org/2000/svg" width="21.161" height="31.769" viewBox="0 0 21.161 31.769">
 					<path id="Icon_ionic-ios-arrow-back" data-name="Icon ionic-ios-arrow-back" d="M17.63,22.074,31.635,10.063a2.042,2.042,0,0,0,0-3.206,2.977,2.977,0,0,0-3.746,0L12.021,20.466a2.041,2.041,0,0,0-.077,3.13L27.877,37.3a2.981,2.981,0,0,0,3.746,0,2.042,2.042,0,0,0,0-3.206Z" transform="translate(-11.251 -6.194)" fill="#fff" />
 				</svg>
@@ -131,7 +133,7 @@
 							<img src="data:image/jpeg;base64,<?= base64_encode($crt['foto']) ?>" alt="">
 						</div>
 						<div class=" itemDescWrapper">
-							<h5 class="itemName yellow" id="item<?= $ctr ?>Name" nama="<?= $crt['nama_item'] ?>"><?= $crt['nama_item'] ?></h5>
+							<h5 class="itemName yellow" style="margin: 0;" id="item<?= $ctr ?>Name" nama="<?= $crt['nama_item'] ?>"><?= $crt['nama_item'] ?></h5>
 							<a href="<?= base_url(); ?>/Shop/viewMerchant/<?= $crt['id_merchant'] ?>" class="merchantName"><?= $crt['nama_merchant'] ?></a>
 							<div class="itemDesc">
 								<p><?= $crt['deskripsi'] ?></p>
@@ -175,37 +177,120 @@
 			endforeach;
 			?>
 
-			<!-- <div class="grandTotalContainer">
-					<div class="grandTotalWrapper">
-						<div class="total">
-							<div class="pembeda">
-								<h4 style="color: #ecf0f1; margin-left: 5.8vw;">Grand Total :</h4>
-								<h4 class="GrandTotal">IDR 54.000.000</h4>
-							</div>
-							<div class="pembeda">
-								<h4 style="color: #ecf0f1; margin-left: 5vw;">Your Balance :</h4>
-								<h4 class="balance yellow" style="margin-left: 3vw;">IDR <?= $user['saldo'] ?></h4>
-							</div>
-						</div>
-						<button class="checkOut">
-							<h6>Checkout</h6>
-						</button>
-					</div>
-				</div> -->
 		</div>
-		<div class="grandTotalContainer">
-			<div style="width: 100%;display: flex;">
-				<h4 style="color: #ecf0f1;margin-left: 2.1vw;">Grand Total : <span class="GrandTotal">IDR 0</span></h4>
+		<div class="grandtotalWrapper">
+			<div class="grandTotalContainer">
+				<div style="width: 100%;display: flex;">
+					<h4 style="color: #ecf0f1;margin-left: 2.1vw;">Grand Total : <span class="GrandTotalInput">IDR 0</span></h4>
+				</div>
+				<div style="width: 100%;display: flex;align-items: center;">
+					<input class="input" type="text" name="enterPromo" id="promoCode" maxlength="10" placeholder="Input Promo Code">
+					<h4 style="color: #63D99E; margin-left: 0.5vw;"><span style="color: #ecf0f1;"> : </span>
+						<span id="cashback">0</span> % Cashback
+					</h4>
+				</div>
+				<button class="checkOut" style="margin-left: 4vw;">
+					<h6>Checkout</h6>
+				</button>
 			</div>
-			<div style="width: 100%;display: flex;align-items: center;">
-				<input class="input" type="text" name="enterPromo" id="promoCode" maxlength="10" placeholder="Input Promo Code">
-				<h4 style="color: #63D99E; margin-left: 0.5vw;"><span style="color: #ecf0f1;"> : </span>
-					<span id="cashback">0</span> % Cashback
-				</h4>
+		</div>
+
+		<h3 class="yellow" style="margin: 15vh 0 5vh 0; text-align: center;">Your Ongoing Transaction</h3>
+		<div class="transHistoryWrapper" style="margin-bottom: 1vw;text-align: left;">
+			<div class="transHistoryContainer">
+				<div class="headerTable">
+					<h5 class="white" style="margin-left: 2vw;">Order ID</h5>
+					<h5 class="white" style="margin-left: 8vw;">Date</h5>
+					<h5 class="white" style="margin-left: 10vw;">Kode Promo</h5>
+					<h5 class="white" style="margin-left: 6.1vw;">Grand Total</h5>
+					<h5 class="white" style="margin-left: 7vw;">CashBack</h5>
+					<h5 class="white" style="margin-left: 7vw;">Status</h5>
+				</div>
+				<div class="headerSeparator"></div>
+				<div class="transBlockContainer">
+					<?php
+					if (!empty($transaksi)) {
+						$ctr = 1;
+						$ctr2 = 1;
+						foreach ($transaksi as $trans) {
+							if ($trans['id_user'] == $user['id_user']) {
+								if ($trans['status'] == 1) { ?>
+									<div class="transBlock" id="transBlock<?= $ctr ?>" data-toggle="collapse" data-target="#itemBlockContainer<?= $ctr ?>" aria-expanded="false" aria-controls="itemBlockContainer1">
+										<div class="orderID">
+											<p style="margin-left: 2vw;"><?= $trans['id_transaksi']
+																			?></p>
+										</div>
+										<div class="Date">
+											<p style="margin-left: 2vw;"><?= date('d/m/Y', strtotime($trans['tanggal_transaksi'])) ?></p>
+										</div>
+										<div class="kodePromo">
+											<p style="margin-left: 2vw;"><?= $trans['kodepromo']  ?></p>
+										</div>
+										<div class="GrandTotal">
+											<p>IDR <?= number_format(ceil($trans['gross_amount']), 0, ".", ".") ?></p>
+										</div>
+										<div class="CashBack">
+											<p>GP <?= number_format(ceil($trans['cashback']), 0, ".", ".") ?></p>
+										</div>
+										<div class="statusTrans" id="statusTrans<?= $ctr ?>">
+										</div>
+										<input type="hidden" name="status" id="status<?= $ctr ?>" value="0">
+									</div>
+									<?php
+									foreach ($transaksiItem as $transItem) {
+										if ($transItem['id_transaksi'] == $trans['id_transaksi']) {
+											foreach ($item as $itm) {
+												if ($transItem['id_item'] == $itm['id_item']) {
+									?>
+													<div class="itemBlockContainer collapse" id="itemBlockContainer<?= $ctr ?>">
+														<div class="itemBlockContainer">
+															<div class="itemBlock" idTrans="<?= $transItem['id_transaksi'] ?>" idItem="<?= $transItem['id_item'] ?>">
+																<div class="itemName" style="width: 12.4vw;">
+																	<p>
+																		<?= $itm['nama_item'] ?>(<?= $transItem['jumlah'] ?>x)
+																	</p>
+																</div>
+																<div class="itemDesc" style="width: 10vw;margin: 0;">
+																	<p style="font-size: 0.8vw;">
+																		<?= $itm['desc_item'] ?>
+																	</p>
+																</div>
+																<div class="merchantName" style="margin-left: 2.3vw; width: 10.3vw;">
+																	<a><?php foreach ($merchant as $mch) {
+																			if ($itm['id_merchant'] == $mch['id']) {
+																				echo $mch['nama'];
+																			}
+																		} ?></a></div>
+																<div class="Price" style="width: 13vw;">
+																	<p>IDR <?= ceil($transItem['subtotal']) ?></p>
+																</div>
+																<div class="game" style="width: 11.5vw;">
+																	<strong><?php foreach ($games as $game) {
+																				if ($itm['id_game'] == $game['id_game']) {
+																					echo $game['nama_game'];
+																				}
+																			} ?>
+																	</strong>
+																</div>
+																<div class="statusTrans" id="statusItemTrans<?= $ctr2 ?>">
+																</div>
+																<input type="hidden" name="statusItem" id="statusItem<?= $ctr2 ?>" value="<?= $transItem['status'] ?>">
+															</div>
+														</div>
+													</div>
+
+					<?php $ctr2++;
+												}
+											}
+										}
+									}
+								}
+								$ctr++;
+							}
+						}
+					} ?>
+				</div>
 			</div>
-			<button class="checkOut" style="margin-left: 4vw;">
-				<h6>Checkout</h6>
-			</button>
 		</div>
 	</div>
 	<form id="payment-form" method="post" action="<?= site_url() ?>Shop/finish/bank">
@@ -268,9 +353,46 @@
 				var subtotal = price * amount;
 				$("#item" + i + "Subtotal").html("IDR " + addCommas(subtotal));
 			}
-			var balance = $(".balance").html();
-			balance = balance.substring(4, balance.length);
-			$(".balance").html("IDR " + addCommas(balance));
+
+
+			ada = true;
+			ctr = 1;
+			while (ada) {
+
+				if ($("#status" + ctr).length) {
+
+					var status = $("#status" + ctr).val();
+					if (status == 1) {
+						$("#statusTrans" + ctr).css("background-color", "#42b77c");
+						$("#statusTrans" + ctr).append("<p>Successful</p>");
+					} else if (status == 2) {
+						$("#statusTrans" + ctr).css("background-color", "#F25757");
+						$("#statusTrans" + ctr).append("<p>Failed</p>");
+					} else {
+						$("#statusTrans" + ctr).css("background-color", "#969BA6");
+						$("#statusTrans" + ctr).append("<p>Pending</p>");
+					}
+					ctr++;
+				} else ada = false;
+			}
+			ada = true;
+			ctr = 1;
+			while (ada) {
+				if ($("#statusItem" + ctr).length) {
+					var status = $("#statusItem" + ctr).val();
+					if (status == 2) {
+						$("#statusItemTrans" + ctr).css("background-color", "#42b77c");
+						$("#statusItemTrans" + ctr).append("<p>Successful</p>");
+					} else if (status == -2 || status == -1) {
+						$("#statusItemTrans" + ctr).css("background-color", "#F25757");
+						$("#statusItemTrans" + ctr).append("<p>Cancelled</p>");
+					} else {
+						$("#statusItemTrans" + ctr).css("background-color", "#969BA6");
+						$("#statusItemTrans" + ctr).append("<p>Pending</p>");
+					}
+					ctr++;
+				} else ada = false;
+			}
 
 		});
 
@@ -285,7 +407,7 @@
 					grandtotal += sub;
 				}
 			}
-			$(".GrandTotal").html("IDR " + addCommas(grandtotal));
+			$(".GrandTotalInput").html("IDR " + addCommas(grandtotal));
 
 		}
 
@@ -386,7 +508,7 @@
 		$("#pilihBalance").click(function() {
 			alertify.confirm('Balance Payment', 'Are you sure?',
 				function() {
-					var grandtotal = $(".GrandTotal").html();
+					var grandtotal = $(".GrandTotalInput").html();
 					grandtotal = grandtotal.replace(/[^a-z0-9\s]/gi, '');
 					grandtotal = grandtotal.substring(4, grandtotal.length);
 					saldo = '<?= ceil($user['saldo']) ?>';
@@ -580,6 +702,63 @@
 						$("#cashback").html(result);
 					} else {
 						$("#cashback").html(0);
+					}
+				}
+			});
+		});
+
+
+		$(".itemBlock").click(function(e) {
+			idTrans = $(this).attr("idTrans");
+			idItem = $(this).attr("idItem");
+			bootbox.dialog({
+				title: "Action",
+				message: "<p>Status: <span style='color:#63D99E;'>Waiting for Merchant's Response</span><br>What are you going to do?</p>",
+				buttons: {
+					cancel: {
+						label: "Nothing",
+						className: 'back',
+						callback: function() {}
+					},
+					noclose: {
+						label: "Chat the Merchant",
+						className: 'chatMerchant',
+						callback: function() {
+
+						}
+					},
+					ok: {
+						label: "Cancel the Item",
+						className: 'cancel',
+						callback: function() {
+							bootbox.prompt({
+								title: "Reason : ",
+								inputType: 'textarea',
+								required: true,
+								callback: function(result) {
+									if (result) {
+										keterangan = result;
+										alert("Reason:" + result);
+										bootbox.confirm("Are you sure?", function(result) {
+											if (result) {
+												$.ajax({
+													url: "<?= base_url(); ?>Shop/updateStatusTransItem/-1",
+													method: "post",
+													data: {
+														id_transaksi: idTrans,
+														id_item: idItem,
+														keterangan: keterangan
+													},
+													success: function(result) {
+														alertify.success("Successfully Cancelled the item");
+													}
+												});
+											}
+										});
+									}
+								}
+							});
+						}
 					}
 				}
 			});

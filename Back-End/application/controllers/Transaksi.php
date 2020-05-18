@@ -53,4 +53,10 @@ class Transaksi extends CI_Controller
         $this->load->view('templates/sidebar', $data);
         $this->load->view('transaksi/editTransaksi', $data);
     }
+
+    public function changeStatus($status)
+    {
+        $this->TransItem_model->changeStatus($status);
+        redirect("Transaksi");
+    }
 }
