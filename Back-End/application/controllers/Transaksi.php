@@ -57,6 +57,6 @@ class Transaksi extends CI_Controller
     public function changeStatus($status)
     {
         $this->TransItem_model->changeStatus($status);
-        redirect("Transaksi");
+        //redirect("Transaksi");
     }
 }

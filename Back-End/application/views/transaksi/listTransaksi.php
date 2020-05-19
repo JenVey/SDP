@@ -49,8 +49,7 @@
                                 <tbody>
                                     <?php $ctr = 1;
                                     foreach ($transaksiItem as $transItem) :
-                                        if ($transItem['status'] == 1 || $transItem['status'] == 2) { ?>
-
+                                        if ($transItem['status'] == 1 || $transItem['status'] == 2 || $transItem['status'] == -1 || $transItem['status'] == -2) { ?>
                                             <tr>
                                                 <td> <?= $transItem['id_transaksi'] ?> </td>
                                                 <td> <?php foreach ($item as $itm) {
@@ -79,18 +78,18 @@
                                                             echo "<span class='badge bg-warning'>Pending</span>";
                                                         } else if ($transItem['status'] == 2) {
                                                             echo "<span class='badge bg-success'>Approve</span>";
-                                                        } else if ($transItem['status'] == -1) {
+                                                        } else {
                                                             echo "<span class='badge bg-danger'>Cancel</span>";
                                                         }
                                                         ?> </td>
                                                 <td>
                                                     <?php if ($transItem['status'] == 1) { ?>
-                                                        <a href="" class=" btn btn-success btn-sm approve" idTrans="<?= $transItem['id_transaksi'] ?>" idItem="<?= $transItem['id_item'] ?>">
+                                                        <a class=" btn btn-success btn-sm approve" idTrans="<?= $transItem['id_transaksi'] ?>" idItem="<?= $transItem['id_item'] ?>" harga="<?= $transItem['subtotal'] ?>" jumlah="<?= $transItem['jumlah'] ?>">
                                                             <i class="fas fa-check">
                                                             </i>
                                                             Approve
                                                         </a>
-                                                        <a href="<?= base_url(); ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin?'); ">
+                                                        <a href="" class="btn btn-danger btn-sm cancel" idTrans="<?= $transItem['id_transaksi'] ?>" idItem="<?= $transItem['id_item'] ?>" harga="<?= $transItem['subtotal'] ?>" jumlah="<?= $transItem['jumlah'] ?>" onclick="return confirm('Yakin?'); ">
                                                             <i class="fas fa-times">
                                                             </i>
                                                             Cancel
@@ -100,7 +99,7 @@
                                                             </i>
                                                             Download foto
                                                         </a>
-                                                    <?php } else { ?>
+                                                    <?php } else if ($transItem['status'] == 2) { ?>
                                                         <a class="btn btn-primary btn-sm" id="download<?= $ctr ?>" download>
                                                             <i class=" fas fa-download">
                                                             </i>
@@ -173,20 +172,41 @@
         $(".approve").click(function() {
             idTransksi = $(this).attr("idTrans");
             idItem = $(this).attr("idItem");
-            // alert(idTransksi);
-            // alert(idItem);
+            harga = $(this).attr("harga");
+            jumlah = $(this).attr("jumlah");
             $.ajax({
                 url: "<?= base_url(); ?>Transaksi/changeStatus/2",
                 method: "post",
                 data: {
                     id_transaksi: idTransksi,
-                    id_item: idItem
+                    id_item: idItem,
+                    jumlah: jumlah,
+                    harga: harga
                 },
                 success: function(result) {
                     window.location.href = '<?= base_url(); ?>Transaksi';
                 }
             });
+        });
 
+        $(".cancel").click(function() {
+            idTransksi = $(this).attr("idTrans");
+            idItem = $(this).attr("idItem");
+            harga = $(this).attr("harga");
+            jumlah = $(this).attr("jumlah");
+            $.ajax({
+                url: "<?= base_url(); ?>Transaksi/changeStatus/-2",
+                method: "post",
+                data: {
+                    id_transaksi: idTransksi,
+                    id_item: idItem,
+                    jumlah: jumlah,
+                    harga: harga
+                },
+                success: function(result) {
+                    window.location.href = '<?= base_url(); ?>Transaksi';
+                }
+            });
         });
     </script>
 

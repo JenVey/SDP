@@ -85,9 +85,6 @@ class Trans_model extends CI_model
         }
 
 
-        $status = '1';
-
-
         if (isset($_SESSION['id_promo'])) {
             $query2 = $this->db->query("select * from promo");
             foreach ($query2->result_array() as $row) {
@@ -96,7 +93,7 @@ class Trans_model extends CI_model
                     $potongan = $row['potongan'];
                 }
             }
-            //$this->session->unset_userdata('gp');
+            $this->session->unset_userdata('id_promo');
             $cashback = $gross * $potongan / 100;
             $this->session->set_userdata(array('cashback' => $cashback));
         } else {
@@ -113,8 +110,7 @@ class Trans_model extends CI_model
             "Gross_Amount" => $gross,
             "tanggal_transaksi" => $tgl,
             "cashback" =>  $cashback,
-            "status" =>  $status
-            //"order_id" => $order_id
+            "status" => 0
         ];
 
         $this->db->insert('transaksi', $data);
@@ -129,23 +125,6 @@ class Trans_model extends CI_model
                 if ($row2['id_item'] == $cart[$i]['id']) {
                     if (!in_array($row2['id_merchant'], $idmerchant)) {
                         array_push($idmerchant, $row2['id_merchant']);
-                    }
-
-                    //TAMBAH SALDO MERCHANT  
-                    $query3 = $this->db->query("select * from merchant");
-                    foreach ($query3->result_array() as $row3) {
-                        if ($row3['id_merchant'] == $row2['id_merchant']) {
-                            $query4 = $this->db->query("select * from user");
-                            foreach ($query4->result_array() as $row4) {
-                                if ($row4['id_user'] == $row3['id_user']) {
-                                    $saldo = $row4['saldo'];
-                                    $saldo += $cart[$i]['subtotal'];
-
-                                    $queryUpdate = "update user set saldo = '" . $saldo . "' where id_user = '" . $row4['id_user'] . "' ";
-                                    $this->db->query($queryUpdate);
-                                }
-                            }
-                        }
                     }
                 }
             }
@@ -206,6 +185,68 @@ class Trans_model extends CI_model
     //         $this->session->unset_userdata('idTransaksi');
     //     }
     // }
+
+    public function cekStatus($idTransaksi)
+    {
+        $change = true;
+
+
+        $query = $this->db->query("select * from transaksi_item where id_transaksi = '" . $idTransaksi . "' ");
+        foreach ($query->result_array() as $row) {
+
+            if ($row['status'] == 0) {
+                $change = false;
+            }
+        }
+
+
+        if ($change) {
+            $query2 = $this->db->query("select * from transaksi_item where id_transaksi = '" . $idTransaksi . "' ");
+            foreach ($query->result_array() as $row2) {
+                $status = -1;
+                if ($row2['status'] == 2) {
+                    $status = 1;
+                }
+            }
+
+            $data = [
+                "status" => $status
+            ];
+
+            $this->db->where('id_transaksi', $idTransaksi);
+            $this->db->update('transaksi', $data);
+
+            if ($status == -1) {
+                $total = 0;
+                $query3 = $this->db->query("select * from transaksi_item where id_transaksi = '" . $idTransaksi . "' ");
+                foreach ($query->result_array() as $row3) {
+                    $total += $row3['subtotal'];
+                }
+
+                $query3 = $this->db->query("select * from transaksi");
+                foreach ($query->result_array() as $row3) {
+                    if ($idTransaksi == $row3['id_transaksi']) {
+                        $query4 = $this->db->query("select * from promo");
+                        foreach ($query->result_array() as $row4) {
+                            if ($row3['id_promo'] == $row4['id_promo']) {
+                                $potongan = $row3['potongan'];
+                            }
+                        }
+                    }
+                }
+                $cashback = $total * $potongan / 100;
+
+
+                $data = [
+                    "Gross_Amount" => $total,
+                    "cashback" => $cashback
+                ];
+
+                $this->db->where('id_transaksi', $idTransaksi);
+                $this->db->update('transaksi', $data);
+            }
+        }
+    }
 
     public function sendEmail($idM, $idTransaksi)
     {

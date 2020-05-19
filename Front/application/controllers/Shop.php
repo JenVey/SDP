@@ -239,7 +239,7 @@ class Shop extends CI_Controller
     {
         $id = $this->session->userdata('id_user');
         $data['user'] = $this->User_model->getUserById($id);
-        $data['transaksi'] = $this->Trans_model->getTransByUser($id);
+        $data['transaksi'] = $this->Trans_model->getAllTrans();
         $data['transaksiItem'] = $this->TransItem_model->getAllTransItem();
         $data['item'] = $this->Item_model->getAllItem();
         $data['merchant'] = $this->Merchant_model->getAllMerchant();
@@ -396,13 +396,6 @@ class Shop extends CI_Controller
     public function finish()
     {
         $id = $this->session->userdata('id_user');
-        // if ($cek == 'bank') {
-        //     $this->session->unset_userdata('gp');
-        //     $cart = $this->input->post('cart');
-        //     for ($i = 0; $i < count($cart); $i++) {
-        //         $this->Cart_model->updateStatus2($cart[$i]);
-        //     }
-        // } else {
         $cart = array();
         $cart = $this->input->post('cart');
         $cart = json_decode($cart, true);

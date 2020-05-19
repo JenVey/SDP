@@ -214,7 +214,7 @@
 						$ctr2 = 1;
 						foreach ($transaksi as $trans) {
 							if ($trans['id_user'] == $user['id_user']) {
-								if ($trans['status'] == 1) { ?>
+								if ($trans['status'] == 0) { ?>
 									<div class="transBlock" id="transBlock<?= $ctr ?>" data-toggle="collapse" data-target="#itemBlockContainer<?= $ctr ?>" aria-expanded="false" aria-controls="itemBlockContainer1">
 										<div class="orderID">
 											<p style="margin-left: 2vw;"><?= $trans['id_transaksi']
@@ -244,7 +244,7 @@
 									?>
 													<div class="itemBlockContainer collapse" id="itemBlockContainer<?= $ctr ?>">
 														<div class="itemBlockContainer">
-															<div class="itemBlock" idTrans="<?= $transItem['id_transaksi'] ?>" idItem="<?= $transItem['id_item'] ?>">
+															<div class="itemBlock" idTrans="<?= $transItem['id_transaksi'] ?>" idItem="<?= $transItem['id_item'] ?>" harga="<?= $transItem['subtotal'] ?>">
 																<div class="itemName" style="width: 12.4vw;">
 																	<p>
 																		<?= $itm['nama_item'] ?>(<?= $transItem['jumlah'] ?>x)
@@ -284,8 +284,8 @@
 											}
 										}
 									}
+									$ctr++;
 								}
-								$ctr++;
 							}
 						}
 					} ?>
@@ -358,16 +358,14 @@
 			ada = true;
 			ctr = 1;
 			while (ada) {
-
 				if ($("#status" + ctr).length) {
-
 					var status = $("#status" + ctr).val();
-					if (status == 1) {
+					if (status == 2) {
 						$("#statusTrans" + ctr).css("background-color", "#42b77c");
 						$("#statusTrans" + ctr).append("<p>Successful</p>");
-					} else if (status == 2) {
+					} else if (status == -2 || status == -1) {
 						$("#statusTrans" + ctr).css("background-color", "#F25757");
-						$("#statusTrans" + ctr).append("<p>Failed</p>");
+						$("#statusTrans" + ctr).append("<p>Cancelled</p>");
 					} else {
 						$("#statusTrans" + ctr).css("background-color", "#969BA6");
 						$("#statusTrans" + ctr).append("<p>Pending</p>");
@@ -553,7 +551,7 @@
 								},
 								success: function(result) {
 									alertify.success("Success buy item");
-									//window.location.href = '<?= base_url(); ?>Shop';
+									window.location.href = '<?= base_url(); ?>Shop/viewCart';
 								}
 							});
 						} else {
@@ -711,6 +709,7 @@
 		$(".itemBlock").click(function(e) {
 			idTrans = $(this).attr("idTrans");
 			idItem = $(this).attr("idItem");
+			harga = $(this).attr("harga");
 			bootbox.dialog({
 				title: "Action",
 				message: "<p>Status: <span style='color:#63D99E;'>Waiting for Merchant's Response</span><br>What are you going to do?</p>",
@@ -738,7 +737,6 @@
 								callback: function(result) {
 									if (result) {
 										keterangan = result;
-										alert("Reason:" + result);
 										bootbox.confirm("Are you sure?", function(result) {
 											if (result) {
 												$.ajax({
@@ -747,9 +745,11 @@
 													data: {
 														id_transaksi: idTrans,
 														id_item: idItem,
-														keterangan: keterangan
+														keterangan: keterangan,
+														harga: harga
 													},
 													success: function(result) {
+														window.location.href = '<?= base_url(); ?>Shop/viewCart';
 														alertify.success("Successfully Cancelled the item");
 													}
 												});

@@ -198,13 +198,19 @@ class Item_model extends CI_model
         $tgl = date("Y-m-d H:i:s");
         $foto = $this->input->post('foto');
         $foto = base64_decode($foto);
+        $harga = $this->input->post('price');
+
+        //BIAYA ADMIN
+        $admin = $harga * 2 / 100;
+        $harga += $admin;
+
         $data = [
             "id_item" => $generateId,
             "id_merchant" => $this->input->post('id_merchant'),
             "id_game" =>  $this->input->post('id_game'),
             "nama_item" =>  $this->input->post('name'),
             "desc_item" =>  $this->input->post('desc'),
-            "harga_item" =>  $this->input->post('price'),
+            "harga_item" =>  $harga,
             "tanggal_upload" =>  $tgl,
             "jumlah_item" =>  $this->input->post('stok'),
             "foto_item" => $foto

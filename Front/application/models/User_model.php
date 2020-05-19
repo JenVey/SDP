@@ -99,10 +99,6 @@ class User_model extends CI_model
 
     public function updateSaldo($jenis)
     {
-
-
-
-
         $id = $this->session->userdata('id_user');
         $cekquery = $this->db->query("select * from user");
         foreach ($cekquery->result_array() as $row) {
