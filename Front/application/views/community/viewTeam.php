@@ -114,7 +114,7 @@ if (isset($teamA)) {
             <div class="profileStats">
                 <!-- Max Line 10 -->
                 <h5 class="profileName" style="font-size: 15px;margin-top: 0.5vh;"><?= $user['nama_user'] ?></h5>
-                <h6 class="profileBalance">GP <?= $user['saldo'] ?></h6>
+                <h6 class="profileBalance">GP <?= number_format(ceil($user['saldo']), 0, ".", ".") ?></h6>
             </div>
         </div>
         <button class="Home">

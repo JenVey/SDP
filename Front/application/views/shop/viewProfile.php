@@ -269,7 +269,235 @@ usort($totalItem, function ($a, $b) {
 					<path id="Icon_awesome-receipt" data-name="Icon awesome-receipt" d="M25.2.225l-2.7,3.15L18.675.225a1.118,1.118,0,0,0-1.35,0L13.5,3.375,9.675.225a1.118,1.118,0,0,0-1.35,0L4.5,3.375,1.8.225a1.124,1.124,0,0,0-1.8.9v33.75a1.124,1.124,0,0,0,1.8.9l2.7-3.15,3.825,3.15a1.118,1.118,0,0,0,1.35,0l3.825-3.15,3.825,3.15a1.118,1.118,0,0,0,1.35,0l3.825-3.15,2.7,3.15a1.125,1.125,0,0,0,1.8-.9V1.125a1.124,1.124,0,0,0-1.8-.9ZM22.5,25.313a.564.564,0,0,1-.562.563H5.063a.564.564,0,0,1-.562-.562V24.188a.564.564,0,0,1,.563-.562H21.938a.564.564,0,0,1,.563.563Zm0-6.75a.564.564,0,0,1-.562.563H5.063a.564.564,0,0,1-.562-.562V17.438a.564.564,0,0,1,.563-.562H21.938a.564.564,0,0,1,.563.563Zm0-6.75a.564.564,0,0,1-.562.563H5.063a.564.564,0,0,1-.562-.562V10.688a.564.564,0,0,1,.563-.562H21.938a.564.564,0,0,1,.563.563Z" transform="translate(0 0.002)" fill="#26c978" />
 				</svg>
 				Transaction</h2>
+
 			<div class="pendingTrans" style="overflow: hidden;">
+				<div style="width: 100%; display: flex;justify-content: center; margin-top: 2vh; color: #ecf0f1;">
+					<h4 class="ongoing yellow">Ongoing</h4>
+					<h4 class="finished" style="margin-left: 5vw;">Finished</h4>
+				</div>
+				<div class="transContainer" style="overflow: hidden;">
+					<div class="transHistoryWrapper" style="margin-bottom: 1vw;direction: ltr;">
+						<div class="transHistoryContainer">
+							<div class="headerTable">
+								<h5 class="white" style="margin-left: 2vw;">Order ID</h5>
+								<h5 class="white" style="margin-left: 8vw;">Date</h5>
+								<h5 class="white" style="margin-left: 10vw;">Customer's Email</h5>
+							</div>
+							<div class="headerSeparator"></div>
+
+
+
+							<div class="transBlockContainer" style="height: 70vh; overflow: auto;" id="ongoing">
+								<?php
+								$ctr = 1;
+								$ctr2 = 1;
+								$ada = "";
+								$masuk = false;
+								foreach ($transaksiItem as $transItem) {
+									if ($transItem['status'] == 0 || $transItem['status'] == 1) {
+										foreach ($item as $itm) {
+											if ($itm['id_item'] == $transItem['id_item'] && $itm['id_merchant'] == $mchId) {
+												if ($ada != $transItem['id_transaksi']) {
+													if ($masuk) {
+														echo "</div></div>";
+													}
+													$ada = $transItem['id_transaksi'];
+													$masuk = true;
+													foreach ($allTrans as $trans) {
+														if ($transItem['id_transaksi'] == $trans['id_transaksi']) {
+
+															echo
+																"<div class='transBlock' id='transBlock" . $ctr . "' data-toggle='collapse' data-target='#itemBlockContainer" . $ctr . "' aria-expanded='false' aria-controls='itemBlockContainer" . $ctr . "'>
+																<div class='orderID'>
+																	<p style='margin-left: 2vw;'>" . $trans['id_transaksi'] . "</p>
+																</div>
+																<div class='Date'>
+																	<p style='margin-left: 2vw;'>" . date('d/m/Y', strtotime($trans['tanggal_transaksi'])) . " </p>
+																</div>
+																<div class='kodePromo'>
+																	<p style='margin-left: 2vw;'>" . $trans['email_user'] . "</p>
+																</div>
+															</div>";
+														}
+													}
+													echo "<div class='itemBlockContainer collapse' id='itemBlockContainer" . $ctr . "'>
+															<div class='itemBlockContainer'>";
+
+
+													echo "<div class='itemBlock' idTrans='" . $transItem['id_transaksi'] . "' idItem='" . $transItem['id_item'] . "'>
+															<div class='orderID'>
+																<p>
+																	<p style='margin-left: 2vw;'>" . $itm['nama_item'] . "(" . $transItem['jumlah'] . "x)</p>
+																</p>
+															</div>";
+													if ($transItem['status'] == 0) {
+														echo "<div class='Date'>
+															<input type='file' name='file' id='file" . $ctr2 . "' accept='image/x-png,image/jpg,image/jpeg' class='inputfile' data-multiple-caption='{count} files selected' multiple />
+															<label for='file" . $ctr2 . "'><span>Choose a file</span></label>
+															</div>
+															<div class='kodePromo'>
+																<button class='updateItemTrans' style='background-color: #D7C13F;margin: 0 0 0 2vw; '>Update</button>
+															</div>";
+													}
+													echo "	<div class='Price' style='width: 10vw;color: #63D99E;'>
+																<p>IDR" . number_format(ceil($transItem['subtotal']), 0, ".", ".") . "</p>
+															</div>
+
+															<h6 class='keterangan' style='color: #ecf0f1'>" . $transItem['keterangan'] . "</h6>
+															<div class='fotobukti' style='display: none;'></div>
+														</div>";
+												} else {
+													echo "<div class='itemBlock' idTrans='" . $transItem['id_transaksi'] . "' idItem='" . $transItem['id_item'] . "'>
+															<div class='orderID'>
+																<p>
+																	<p style='margin-left: 2vw;'>" . $itm['nama_item'] . "(" . $transItem['jumlah'] . "x)</p>
+																</p>
+															</div>";
+													if ($transItem['status'] == 0) {
+														echo "<div class='Date'>
+															<input type='file' name='file' id='file" . $ctr2 . "' accept='image/x-png,image/jpg,image/jpeg' class='inputfile' data-multiple-caption='{count} files selected' multiple />
+															<label for='file" . $ctr2 . "'><span>Choose a file</span></label>
+															</div>
+															<div class='kodePromo'>
+																<button class='updateItemTrans' style='background-color: #D7C13F;margin: 0 0 0 2vw; '>Update</button>
+															</div>";
+													}
+													echo "	<div class='Price' style='width: 10vw;color: #63D99E;'>
+																<p>IDR" . number_format(ceil($transItem['subtotal']), 0, ".", ".") . "</p>
+															</div>
+
+															<h6 class='keterangan' style='color: #ecf0f1'>" . $transItem['keterangan'] . "</h6>
+															<div class='fotobukti' style='display: none;'></div>
+														</div>";
+												}
+												$ctr2++;
+												break;
+											}
+										}
+										$ctr++;
+									}
+								}
+								if ($masuk) {
+									echo "</div></div>";
+									$masuk = false;
+								}
+								?>
+							</div>
+
+
+							<div class="transBlockContainer" style="height: 70vh; overflow: auto;" id="finish">
+								<?php
+								$ctr = 1;
+								$ctr2 = 1;
+								$ada = "";
+								$masuk = false;
+								foreach ($transaksiItem as $transItem) {
+									if ($transItem['status'] == 2 || $transItem['status'] == -1) {
+										foreach ($item as $itm) {
+											if ($itm['id_item'] == $transItem['id_item'] && $itm['id_merchant'] == $mchId) {
+												if ($ada != $transItem['id_transaksi']) {
+													if ($masuk) {
+														echo "</div></div>";
+													}
+													$ada = $transItem['id_transaksi'];
+													$masuk = true;
+													foreach ($allTrans as $trans) {
+														if ($transItem['id_transaksi'] == $trans['id_transaksi']) {
+
+															echo
+																"<div class='transBlock' id='transBlock" . $ctr . "' data-toggle='collapse' data-target='#itemBlockContainer" . $ctr . "' aria-expanded='false' aria-controls='itemBlockContainer" . $ctr . "'>
+																<div class='orderID'>
+																	<p style='margin-left: 2vw;'>" . $trans['id_transaksi'] . "</p>
+																</div>
+																<div class='Date'>
+																	<p style='margin-left: 2vw;'>" . date('d/m/Y', strtotime($trans['tanggal_transaksi'])) . " </p>
+																</div>
+																<div class='kodePromo'>
+																	<p style='margin-left: 2vw;'>" . $trans['email_user'] . "</p>
+																</div>
+															</div>";
+														}
+													}
+													echo "<div class='itemBlockContainer collapse' id='itemBlockContainer" . $ctr . "'>
+															<div class='itemBlockContainer'>";
+
+													echo "<div class='itemBlock' idTrans='" . $transItem['id_transaksi'] . "' idItem='" . $transItem['id_item'] . "'>
+															<div class='orderID'>
+																<p>
+																	<p style='margin-left: 2vw;'>" . $itm['nama_item'] . "(" . $transItem['jumlah'] . "x)</p>
+																</p>
+															</div>
+															<div class='Date'>
+																<div class='statusTrans' id='statusPoints" . $ctr2 . "' style='margin-left: 2vw;'>
+																</div>
+															</div>
+															<div class='Price' style='width: 10vw;'>
+																<p>IDR " . number_format(ceil($transItem['subtotal']), 0, ".", ".") . "</p>
+															</div>
+															<div class='Date'>
+																<p>
+																	<p style='margin-left: 2vw;'>" . date('d/m/Y', strtotime($trans['tanggal_transaksi'])) . "</p>
+																</p>
+															</div>";
+													if ($transItem['status'] == -1) {
+														echo "<div class='Date' style='width: 20vw;'>
+																<p>
+																	<p style='margin-left: 2vw;'>(User) " . $transItem['keterangan']  . "</p>
+																</p>
+															</div>";
+													}
+
+													echo "<input type='hidden' name='status' id='inputPoints" . $ctr2 . "' value='" . $transItem['status'] . "'>
+															</div>";
+												} else {
+													echo "<div class='itemBlock' idTrans='" . $transItem['id_transaksi'] . "' idItem='" . $transItem['id_item'] . "'>
+															<div class='orderID'>
+																<p>
+																	<p style='margin-left: 2vw;'>" . $itm['nama_item'] . "(" . $transItem['jumlah'] . "x)</p>
+																</p>
+															</div>
+															<div class='Date'>
+																<div class='statusTrans' id='statusPoints" . $ctr2 . "' style='margin-left: 2vw;'>
+																</div>
+															</div>
+															<div class='Price' style='width: 10vw;'>
+																<p>IDR " . number_format(ceil($transItem['subtotal']), 0, ".", ".") . "</p>
+															</div>
+															<div class='Date'>
+																<p>
+																	<p style='margin-left: 2vw;'>" . date('d/m/Y', strtotime($trans['tanggal_transaksi'])) . "</p>
+																</p>
+															</div>";
+													if ($transItem['status'] == -1) {
+														echo "<div class='Date' style='width: 20vw;'>
+																<p>
+																	<p style='margin-left: 2vw;'>(User) " . $transItem['keterangan']  . "</p>
+																</p>
+															</div>";
+													}
+
+													echo "<input type='hidden' name='status' id='inputPoints" . $ctr2 . "' value='" . $transItem['status'] . "'>
+															</div>";
+												}
+												$ctr2++;
+												break;
+											}
+										}
+										$ctr++;
+									}
+								}
+								if ($masuk) {
+									echo "</div></div>";
+									$masuk = false;
+								}
+								?>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- <div class="pendingTrans" style="overflow: hidden;">
 				<div style="width: 100%; display: flex;justify-content: center; margin-top: 2vh; color: #ecf0f1;">
 					<h4 class="ongoing yellow">Ongoing</h4>
 					<h4 class="finished" style="margin-left: 5vw;">Finished</h4>
@@ -432,7 +660,7 @@ usort($totalItem, function ($a, $b) {
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> -->
 
 
 
@@ -1385,8 +1613,6 @@ usort($totalItem, function ($a, $b) {
 						foto = foto.substring(22, foto.length);
 					}
 				}
-
-
 
 				$(this).parent().parent().addClass("ganti");
 				$.ajax({

@@ -35,7 +35,7 @@ class TransItem_model extends CI_model
         } else if ($status == -1) {
             $data = [
                 "status" => $status,
-                "keterangan" => "Canceled by User : " . $ket
+                "keterangan" => "Cancel by User : " . $ket
             ];
 
             $query = $this->db->query("select * from transaksi");
@@ -101,7 +101,6 @@ class TransItem_model extends CI_model
         $this->db->where('id_transaksi', $idTrans);
         $this->db->where('id_item', $idItem);
         $this->db->update('transaksi_item', $data);
-
 
         $this->Trans_model->cekStatus($idTrans);
     }

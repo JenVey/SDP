@@ -40,6 +40,7 @@
                                     <tr>
                                         <th>ID Transaksi</th>
                                         <th>Nama Item</th>
+                                        <th>Subtotal</th>
                                         <th>Nama User</th>
                                         <th>Foto Bukti</th>
                                         <th>Status</th>
@@ -56,12 +57,13 @@
                                                             if ($transItem['id_item'] == $itm['id_item']) {
                                                                 foreach ($merchant as $mch) {
                                                                     if ($itm['id_merchant'] == $mch['id_merchant']) {
-                                                                        echo $itm['nama_item'] . "<b> (" . $mch['nama_merchant'] . ")";
+                                                                        echo $itm['nama_item'] . "<b> (" . $mch['nama_merchant'] . ") </b> / " . $transItem['jumlah'] . "x";
                                                                     }
                                                                 }
                                                             }
                                                         }
                                                         ?> </td>
+                                                <td>IDR <?= number_format(ceil($transItem['subtotal']), 0, ".", ".")  ?> </td>
                                                 <td> <?php
                                                         foreach ($transaksi as $trans) {
                                                             if ($transItem['id_transaksi'] == $trans['id_transaksi']) {
@@ -73,7 +75,7 @@
                                                             }
                                                         }
                                                         ?></td>
-                                                <td> <img id="bukti<?= $ctr ?>" src="data:image/jpeg;base64,<?= base64_encode($transItem['foto']) ?>" alt="" /> </td>
+                                                <td> <img id="bukti<?= $ctr ?>" src="data:image/jpeg;base64,<?= base64_encode($transItem['foto']) ?>" style="width: 150px;height: 150px;" alt="" /> </td>
                                                 <td> <?php if ($transItem['status'] == 1) {
                                                             echo "<span class='badge bg-warning'>Pending</span>";
                                                         } else if ($transItem['status'] == 2) {

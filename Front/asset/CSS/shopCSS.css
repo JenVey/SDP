@@ -443,31 +443,27 @@ img{
 }
 
 .backtoMenu{
-	width: 100%;
-	height: 10%;
-	border: none;
-	margin-left: 0;
-	background: transparent;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+    width: 100%;
+    height: 10%;
+    border: none;
+    margin-left: 0;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .backtoMenu:hover{
-	background-color: #f25757;
-}
-
-.backtoMenu:hover .backText{
-	color: #585D68;
+    background-color: rgba(215,193,63,0.10);
 }
 
 .backtoMenu:hover #Path_1402{
-	fill: #585D68;
+    fill: #585D68;
 }
 
 .backText{
-	color: #f25757;
-	margin-bottom: 0;
-	margin-left: 30px;
+    color: #d7c13f;
+    margin-bottom: 0;
+    margin-left: 30px;
 }
 
 .merchantContainer{
