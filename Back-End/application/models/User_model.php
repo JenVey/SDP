@@ -31,10 +31,10 @@ class User_model extends CI_model
         }
 
         //default.jpg
-        $foto = $this->input->post('photoUser');
-        if ($foto == '') {
-            $foto = 'default.jpg';
-        }
+        // $foto = $this->input->post('photoUser');
+        // if ($foto == '') {
+        //     $foto = 'default.jpg';
+        // }
 
         $data = [
             "id_user" => $generateId,
@@ -44,8 +44,7 @@ class User_model extends CI_model
             "email_user" => $this->input->post('emailUser'),
             "trade_link" => '',
             "jenis_kelamin" =>  $this->input->post('jkUser'),
-            "foto" =>  $foto,
-            "point" => 0,
+            "saldo" => 0,
             "status" => 0
         ];
         $this->db->insert('user', $data);
@@ -67,10 +66,10 @@ class User_model extends CI_model
     {
 
         //default.jpg
-        $foto = $this->input->post('photoUser');
-        if ($foto == '') {
-            $foto = 'default.jpg';
-        }
+        // $foto = $this->input->post('photoUser');
+        // if ($foto == '') {
+        //     $foto = 'default.jpg';
+        // }
 
         if ($this->input->post('statusUser') == "Online") {
             $status = 1;
@@ -82,7 +81,6 @@ class User_model extends CI_model
             "nama_user" => $this->input->post('nameUser'),
             "pass_user" => $this->input->post('passUser'),
             "email_user" => $this->input->post('emailUser'),
-            "foto" => $foto,
             "trade_link" => $this->input->post('tradeUser'),
             "jenis_kelamin" =>  $this->input->post('jkUser'),
             "saldo" => $this->input->post('saldoUser'),

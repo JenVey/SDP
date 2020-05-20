@@ -58,15 +58,6 @@
                 </select>
               </div>
               <div class="form-group">
-                <label for="exampleInputFile">Profil Picture</label>
-                <div class="input-group">
-                  <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="exampleInputFile" name="photoUser">
-                    <label class="custom-file-label" for="exampleInputFile">Choose Photo</label>
-                  </div>
-                </div>
-              </div>
-              <div class="form-group">
                 <label>Password</label>
                 <input type="password" class="form-control" id="passUser" name="passUser" placeholder="Password">
               </div>

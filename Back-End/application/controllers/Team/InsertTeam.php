@@ -1,8 +1,9 @@
 	
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class InsertTeam extends CI_Controller {
+class InsertTeam extends CI_Controller
+{
 
 	/**
 	 * Index Page for this controller.
@@ -19,50 +20,46 @@ class InsertTeam extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
-    public function __construct()
-    {
-        parent::__construct();
+	public function __construct()
+	{
+		parent::__construct();
 		$this->load->model('Team_model');
 		$this->load->library('form_validation');
-    }
-    
+	}
+
 	public function index()
 	{
 		$this->load->model('Team_model');
 		$this->load->view('templates/header');
 		$this->load->view('templates/navbar');
 		$this->load->view('templates/sidebar');
-		$this->load->view('team/insertTeam'	);
+		$this->load->view('team/insertTeam');
 		//$this->load->view('templates/footer',$data);
-	
+
 	}
 
 	public function insert()
 	{
-		
-		$this->load->model('Team_model');
-		$this->form_validation->set_rules('nameTeam','Nama','required');
 
-		if( $this->form_validation->run() == FALSE){
+		$this->load->model('Team_model');
+		$this->form_validation->set_rules('nameTeam', 'Nama', 'required');
+
+		if ($this->form_validation->run() == FALSE) {
 			$this->load->view('templates/header');
 			$this->load->view('templates/navbar');
 			$this->load->view('templates/sidebar');
 			$this->load->view('team/insertTeam');
-		}else{
+		} else {
 			$this->Team_model->insertTeam();
-			$this->session->set_flashdata('flash','Success Insert Team !!!');
+			$this->session->set_flashdata('flash', 'Success Insert Team !!!');
 			redirect('team/listTeam');
-		}	
-    
+		}
 	}
 
 	public function delete($id)
 	{
 		$this->Team_model->deleteTeam($id);
-		$this->session->set_flashdata('flash','Success Deleted');
+		$this->session->set_flashdata('flash', 'Success Deleted');
 		redirect('team/listTeam');
 	}
-
-		
 }
- 

@@ -348,6 +348,7 @@ class Shop extends CI_Controller
     public function setGame($id)
     {
         $this->session->set_userdata(array('id_game' => $id));
+        $this->Game_model->tambahKlik();
         redirect('Shop');
     }
 
@@ -406,10 +407,6 @@ class Shop extends CI_Controller
         for ($i = 0; $i < count($cart); $i++) {
             $this->Cart_model->updateStatus2($cart[$i]['id']);
         }
-
-        //$this->Item_model->updateAmount();
-        //}
-        //redirect('Shop');
     }
 
     public function refreshStatus()

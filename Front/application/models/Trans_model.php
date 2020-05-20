@@ -91,17 +91,19 @@ class Trans_model extends CI_model
                 if ($row['id_promo'] == $_SESSION['id_promo']) {
                     $promo = $row['id_promo'];
                     $potongan = $row['potongan'];
+                    $maksimal = $row['maksimal'];
                 }
             }
             $this->session->unset_userdata('id_promo');
             $cashback = $gross * $potongan / 100;
+            if ($cashback > $maksimal) {
+                $cashback = $maksimal;
+            }
             $this->session->set_userdata(array('cashback' => $cashback));
         } else {
             $promo = '';
             $cashback = '';
         }
-
-
 
         $data = [
             "id_transaksi" => $generateId,
@@ -189,8 +191,6 @@ class Trans_model extends CI_model
     public function cekStatus($idTransaksi)
     {
         $change = true;
-
-
         $query = $this->db->query("select * from transaksi_item where id_transaksi = '" . $idTransaksi . "' ");
         foreach ($query->result_array() as $row) {
 

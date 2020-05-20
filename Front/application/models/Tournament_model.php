@@ -58,7 +58,7 @@ class Tournament_model extends CI_model
 
         $tgl = $this->input->post('tanggal_mulai');
         $tgl = strtotime($tgl);
-        $tgl = date("Y-d-m", $tgl);
+        $tgl = date("Y-d-m H:i", $tgl);
 
         $this->session->set_userdata(array('idTurnament' => $generateId));
         $data = [

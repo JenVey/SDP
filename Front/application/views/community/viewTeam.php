@@ -753,6 +753,7 @@ if (isset($teamA)) {
         });
     });
 
+
     $(".btnTeams").click(function() {
         window.location.href = '<?= base_url(); ?>Community/viewTeam';
     });
