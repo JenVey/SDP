@@ -37,6 +37,7 @@ class Shop extends CI_Controller
         $this->load->model('Gacha_model');
         $this->load->model('Promo_model');
         $this->load->model('Pesan_model');
+        $this->load->model('Subs_model');
     }
 
     public function index()
@@ -481,5 +482,10 @@ class Shop extends CI_Controller
         $data['merchant'] = $this->Merchant_model->getMerchantById($idM);
         $data['pesan'] = $this->Pesan_model->getAllPesan();
         $this->load->view('shop/refreshChat', $data);
+    }
+
+    public function insertSubs()
+    {
+        $this->Subs_model->insertSubs();
     }
 }

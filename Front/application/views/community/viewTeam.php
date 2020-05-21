@@ -240,209 +240,246 @@ if (isset($teamA)) {
                     <h3 class="yellow">Tournament</h3>
                     <div id="tournamentContainer">
                         <div class="tourneys">
-                            <div class="tourneyItem">
-                                <h2 class="yellow varela" style="margin-top: 2vh;">CS:GO</h2>
-                                <h6 class="varela" style="margin-top: 1vh;color: #ecf0f1;">Tournament Name</h6>
-                                <h6 style="font-size: 12px; color: rgba(236,240,241,0.37);">10 Slots</h6>
-                                <div class="standingsContainer">
-                                    <h6 class="varela" style="color: #ecf0f1;">Standings</h6>
-                                    <div class="standings">
-                                        <div class="place" style="color: #D1D1D1;">
-                                            2
-                                            <h6>Faze</h6>
-                                        </div>
-                                        <div class="place" style="color: #d7c13f;">
-                                            1
-                                            <h6>Astralis</h6>
-                                        </div>
-                                        <div class="place" style="color: #B98316;">
-                                            3
-                                            <h6>Team Liquid</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="startDate">
-                                    <p class="finished">Finished</p>
-                                    <p>Start: <span style="color: rgba(215,193,63,0.70);">18 January 2020</span></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="settings" id="reminder">
-                    <h3 class="yellow">reminder</h3>
-                    <div id="reminderContainer">
-                        <div class="createTournamentForm collapse" id="reminderForm">
-                            <div class="tourname">
-                                <h5 class="varela">Reminder Name</h5>
-                                <input type="text" name="tourName" id="tourName">
-                            </div>
-                            <div class="tourname" style="width: 80%;justify-content: flex-end;">
-                                <h5 class="varela">Message</h5>
-                                <textarea name="messagereminder" id="message" cols="30" rows="10" style="margin-left: 2.8vw;"></textarea>
-                            </div>
-                            <div class="tourname" style="margin-top: 8vh;width: 80%; justify-content: flex-end;">
-                                <h6 class="varela imgText">Time Trigger</h6>
-                                <div class="form-group mb-4" style="margin: 0!important;">
-                                    <div class="datepicker date input-group p-0 shadow-sm" data-date-start-date="d">
-                                        <input type="text" placeholder="Date" class="form-control" name="reminderDate" id="tourDate">
-                                        <div class="input-group-append" style="overflow: visible;">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="32.5" viewBox="0 0 61 46">
-                                                <g id="Group_190" data-name="Group 190" transform="translate(-6632 2629)">
-                                                    <path id="Rectangle_348" data-name="Rectangle 348" d="M0,0H46A15,15,0,0,1,61,15V31A15,15,0,0,1,46,46H0a0,0,0,0,1,0,0V0A0,0,0,0,1,0,0Z" transform="translate(6632 -2629)" fill="#d7c13f" />
-                                                    <path id="Icon_material-date-range" data-name="Icon material-date-range" d="M13.5,16.5h-3v3h3Zm6,0h-3v3h3Zm6,0h-3v3h3ZM28.5,6H27V3H24V6H12V3H9V6H7.5A2.986,2.986,0,0,0,4.515,9L4.5,30a3,3,0,0,0,3,3h21a3.009,3.009,0,0,0,3-3V9A3.009,3.009,0,0,0,28.5,6Zm0,24H7.5V13.5h21Z" transform="translate(6644.3 -2624)" fill="#1e2126" />
-                                                </g>
-                                            </svg>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="input-group clockpicker">
-                                    <input type="text" class="form-control" placeholder="Time" name="reminderTime" id="tourDate">
-                                    <span class="input-group-addon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="32.5" viewBox="0 0 61 46">
-                                            <g id="Group_189" data-name="Group 189" transform="translate(-6526 2629)">
-                                                <path id="Rectangle_347" data-name="Rectangle 347" d="M0,0H46A15,15,0,0,1,61,15V31A15,15,0,0,1,46,46H0a0,0,0,0,1,0,0V0A0,0,0,0,1,0,0Z" transform="translate(6526 -2629)" fill="#d7c13f" />
-                                                <path id="Icon_material-access-time" data-name="Icon material-access-time" d="M17.985,3A15,15,0,1,0,33,18,14.993,14.993,0,0,0,17.985,3ZM18,30A12,12,0,1,1,30,18,12,12,0,0,1,18,30Zm.75-19.5H16.5v9l7.875,4.725L25.5,22.38l-6.75-4.005Z" transform="translate(6539 -2623.75)" fill="#1e2126" />
-                                            </g>
-                                        </svg>
-                                    </span>
-                                </div>
-                                <script type="text/javascript">
-                                    $('.clockpicker').clockpicker({
-                                        placement: 'top',
-                                        align: 'left',
-                                        donetext: 'Done'
-                                    });
-                                </script>
-                            </div>
-                        </div>
-                        <button id="createReminder">
-                            <h6 class="varela">Create Reminder</h6>
-                        </button>
-                        <div class="reminders">
-                            <?php $ctr = 0;
-                            foreach ($teamR as $timR) {
-                                if ($timR['id_team'] == $teamA['id_team']) { ?>
-                                    <div class="reminderItem">
-                                        <div class="reminderTime">
-                                            <h4 class="varela" style="color: #ecf0f1;"><?= date_format(date_create($timR['waktu']), "H:i") ?></h4>
-                                            <h6 class="varela" style="font-size: 14px;color: #d7c13f;"> <?= date_format(date_create($timR['waktu']), "d/m/Y") ?> </h6>
-                                        </div>
-                                        <div class="reminderDetails" id="reminder<?= $ctr ?>">
-                                            <input type="text" id="reminderTime<?= $ctr ?>" value="<?= date_format(date_create($timR['waktu']), "Y-m-d") ?>T<?= date_format(date_create($timR['waktu']), "H:i") . ":00" ?>Z" hidden>
-                                            <h5 class="yellow" id="reminder<?= $ctr ?>Name"><?= $timR['judul'] ?></h5>
-                                            <div class="reminderDesc" id="reminder<?= $ctr ?>Desc">
-                                                <p><?= $timR['keterangan'] ?></p>
+                            <?php foreach ($tournament as $turney) {
+                                $ada = false;
+                                foreach ($pertandingan as $tanding) {
+                                    if ($turney['id_turnament'] == $tanding['id_turnament']) {
+                                        if ($tanding['team_1'] == $teamA['nama_team'] || $tanding['team_2'] == $teamA['nama_team']) {
+                                            $ada = true;
+                                        }
+                                    }
+                                }
+                                //agar muncul sekali
+                                if ($ada) { ?>
+                                    <div class="tourneyItem" idTournament=<?= $turney['id_turnament'] ?> jumlah_pemain=<?= $turney['jumlah_pemain'] ?> jumlah_slot=<?= $turney['jumlah_slot'] ?>>
+                                        <h2 class="yellow varela" style="margin-top: 2vh;"><?= $turney['nama_game'] ?></h2>
+                                        <h6 class="varela" style="margin-top: 1vh;color: #ecf0f1;"><?= $turney['nama_turnament'] ?></h6>
+                                        <h6 style="font-size: 12px; color: rgba(236,240,241,0.37);"><?= $turney['jumlah_slot'] ?> Slots</h6>
+                                        <div class="standingsContainer">
+                                            <h6 class="varela" style="color: #ecf0f1;">Standings</h6>
+                                            <div class="standings">
+                                                <div class="place" style="color: #D1D1D1;">
+                                                    2
+                                                    <h6><?php foreach ($standing as $stand) {
+                                                            if ($stand['id_turnament'] == $turney['id_turnament']) {
+                                                                echo $stand['juara2'];
+                                                            }
+                                                        }
+                                                        ?></h6>
+                                                </div>
+                                                <div class="place" style="color: #d7c13f;">
+                                                    1
+                                                    <h6><?php foreach ($standing as $stand) {
+                                                            if ($stand['id_turnament'] == $turney['id_turnament']) {
+                                                                echo $stand['juara1'];
+                                                            }
+                                                        }
+                                                        ?></h6>
+                                                </div>
+                                                <div class="place" style="color: #B98316;">
+                                                    3
+                                                    <h6><?php foreach ($standing as $stand) {
+                                                            if ($stand['id_turnament'] == $turney['id_turnament']) {
+                                                                echo $stand['juara3'];
+                                                            }
+                                                        }
+                                                        ?></h6>
+                                                </div>
                                             </div>
+                                        </div>
+                                        <div class="startDate">
+                                            <?php if ($turney['status'] == -1) {
+                                                echo "<p class='ongoing'> Cancelled </p>";
+                                            } else if ($turney['status'] == 0) {
+                                                echo "<p class='available'> Available </p>";
+                                            } else if ($turney['status'] == 1) {
+                                                echo "<p class='ongoing'> Ongoing </p>";
+                                            } else if ($turney['status'] == 2) {
+                                                echo "<p class='finished'> Finished </p>";
+                                            } ?>
+                                            <p>Start: <span style="color: rgba(215,193,63,0.70);"><?= date_format(date_create($turney['tanggal_mulai']), "d F Y")  ?></span></p>
                                         </div>
                                     </div>
                             <?php }
-                                $ctr++;
                             } ?>
                         </div>
                     </div>
                 </div>
-                <div class="settings" id="settings">
-                    <h3 class="yellow">Settings</h3>
-                    <div id="settingsContainer">
-                        <div class="channelImg">
-                            <input type="file" name="inputChannelImg" accept="image/x-png,image/jpg,image/jpeg" id="inputChannelImg" hidden>
-                            <div id="imgContainer">
-                                <img src="data:image/jpeg;base64,<?= base64_encode($teamA['foto_team']) ?>" />
+            </div>
+            <div class="settings" id="reminder">
+                <h3 class="yellow">reminder</h3>
+                <div id="reminderContainer">
+                    <div class="createTournamentForm collapse" id="reminderForm">
+                        <div class="tourname">
+                            <h5 class="varela">Reminder Name</h5>
+                            <input type="text" name="tourName" id="tourName">
+                        </div>
+                        <div class="tourname" style="width: 80%;justify-content: flex-end;">
+                            <h5 class="varela">Message</h5>
+                            <textarea name="messagereminder" id="message" cols="30" rows="10" style="margin-left: 2.8vw;"></textarea>
+                        </div>
+                        <div class="tourname" style="margin-top: 8vh;width: 80%; justify-content: flex-end;">
+                            <h6 class="varela imgText">Time Trigger</h6>
+                            <div class="form-group mb-4" style="margin: 0!important;">
+                                <div class="datepicker date input-group p-0 shadow-sm" data-date-start-date="d">
+                                    <input type="text" placeholder="Date" class="form-control" name="reminderDate" id="tourDate">
+                                    <div class="input-group-append" style="overflow: visible;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="32.5" viewBox="0 0 61 46">
+                                            <g id="Group_190" data-name="Group 190" transform="translate(-6632 2629)">
+                                                <path id="Rectangle_348" data-name="Rectangle 348" d="M0,0H46A15,15,0,0,1,61,15V31A15,15,0,0,1,46,46H0a0,0,0,0,1,0,0V0A0,0,0,0,1,0,0Z" transform="translate(6632 -2629)" fill="#d7c13f" />
+                                                <path id="Icon_material-date-range" data-name="Icon material-date-range" d="M13.5,16.5h-3v3h3Zm6,0h-3v3h3Zm6,0h-3v3h3ZM28.5,6H27V3H24V6H12V3H9V6H7.5A2.986,2.986,0,0,0,4.515,9L4.5,30a3,3,0,0,0,3,3h21a3.009,3.009,0,0,0,3-3V9A3.009,3.009,0,0,0,28.5,6Zm0,24H7.5V13.5h21Z" transform="translate(6644.3 -2624)" fill="#1e2126" />
+                                            </g>
+                                        </svg>
+                                    </div>
+                                </div>
                             </div>
-                            <?php if ($teamA['id_user'] == $user['id_user']) { ?>
-                                <button id="changeImg">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 30 30">
-                                        <g id="Group_185" data-name="Group 185" transform="translate(-15861 4733)">
-                                            <circle id="Ellipse_187" data-name="Ellipse 187" cx="15" cy="15" r="15" transform="translate(15861 -4733)" fill="#1e2126" />
-                                            <path id="Icon_material-add-a-photo" data-name="Icon material-add-a-photo" d="M2.516,3.855V1.5H4.194V3.855H6.71v1.57H4.194V7.78H2.516V5.425H0V3.855Zm2.516,4.71V6.21H7.549V3.855H13.42l1.535,1.57h2.659A1.631,1.631,0,0,1,19.291,7v9.421a1.631,1.631,0,0,1-1.677,1.57H4.194a1.631,1.631,0,0,1-1.677-1.57V8.565ZM10.9,15.631A4.068,4.068,0,0,0,15.1,11.706,4.068,4.068,0,0,0,10.9,7.78,4.068,4.068,0,0,0,6.71,11.706,4.068,4.068,0,0,0,10.9,15.631ZM8.22,11.706A2.6,2.6,0,0,0,10.9,14.218a2.6,2.6,0,0,0,2.684-2.512A2.6,2.6,0,0,0,10.9,9.193,2.6,2.6,0,0,0,8.22,11.706Z" transform="translate(15866.434 -4728.954)" fill="#d7c13f" />
+                            <div class="input-group clockpicker">
+                                <input type="text" class="form-control" placeholder="Time" name="reminderTime" id="tourDate">
+                                <span class="input-group-addon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="32.5" viewBox="0 0 61 46">
+                                        <g id="Group_189" data-name="Group 189" transform="translate(-6526 2629)">
+                                            <path id="Rectangle_347" data-name="Rectangle 347" d="M0,0H46A15,15,0,0,1,61,15V31A15,15,0,0,1,46,46H0a0,0,0,0,1,0,0V0A0,0,0,0,1,0,0Z" transform="translate(6526 -2629)" fill="#d7c13f" />
+                                            <path id="Icon_material-access-time" data-name="Icon material-access-time" d="M17.985,3A15,15,0,1,0,33,18,14.993,14.993,0,0,0,17.985,3ZM18,30A12,12,0,1,1,30,18,12,12,0,0,1,18,30Zm.75-19.5H16.5v9l7.875,4.725L25.5,22.38l-6.75-4.005Z" transform="translate(6539 -2623.75)" fill="#1e2126" />
                                         </g>
                                     </svg>
-                                </button>
-                            <?php } ?>
-                        </div>
-                        <h5 id="channelName" style="margin-top: 2vh;color: #ecf0f1;" <?php if ($teamA['id_user'] == $user['id_user']) {
-                                                                                            echo "contenteditable";
-                                                                                        } ?>><?= $teamA['nama_team'] ?></h5>
-                        <button id="saveChange">Save Change</button>
-                        <div style="margin-top: 4vh;width: 75%;height: 1px;background: #d7c13f;"></div>
-                        <h3 class="yellow" style="margin: 4vh 0;">Members</h3>
-                        <div id="settingsContainer" class="listMember">
-                            <div class="members" style="margin-bottom: 8vh;">
-                                <?php foreach ($teamM as $timM) {
-                                    if ($timM['id_team'] == $teamA['id_team']) {
-                                        if ($timM['id_user'] == $teamA['id_user']) { ?>
-                                            <div class="memberItem master" idUser="<?= $timM['id_user'] ?>">
-                                                <div class="memberImg">
-                                                    <img src="data:image/jpeg;base64,<?= base64_encode($timM['foto']) ?>" alt="">
-                                                </div>
-                                                <div class="memberDetails">
-                                                    <h5 style="margin-left: 1vw;color: #ecf0f1;"><?= $timM['nama_user'] ?></h5>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="31" height="31" viewBox="0 0 30.892 42.171">
-                                                        <g id="Group_191" data-name="Group 191" transform="translate(-10453.899 -1088.228)">
-                                                            <path id="Icon_awesome-crown" data-name="Icon awesome-crown" d="M13.747,11.664H2.916a.418.418,0,0,0-.417.417v.833a.418.418,0,0,0,.417.417H13.747a.418.418,0,0,0,.417-.417v-.833A.418.418,0,0,0,13.747,11.664Zm1.666-8.331a1.25,1.25,0,0,0-1.25,1.25,1.224,1.224,0,0,0,.115.516l-1.885,1.13a.832.832,0,0,1-1.151-.3L9.12,2.213a1.25,1.25,0,1,0-1.578,0L5.421,5.926a.833.833,0,0,1-1.151.3L2.387,5.1a1.249,1.249,0,1,0-1.138.734,1.276,1.276,0,0,0,.2-.021l1.882,5.02h10l1.882-5.02a1.276,1.276,0,0,0,.2.021,1.25,1.25,0,0,0,0-2.5Z" transform="translate(10469.689 1088.228) rotate(25)" fill="#d7c13f" />
-                                                            <path id="Icon_awesome-user-alt" data-name="Icon awesome-user-alt" d="M13.949,15.693A7.847,7.847,0,1,0,6.1,7.847,7.849,7.849,0,0,0,13.949,15.693Zm6.975,1.744h-3a9.485,9.485,0,0,1-7.945,0h-3A6.974,6.974,0,0,0,0,24.412v.872A2.616,2.616,0,0,0,2.616,27.9H25.283A2.616,2.616,0,0,0,27.9,25.283v-.872A6.974,6.974,0,0,0,20.924,17.437Z" transform="translate(10453.899 1102.5)" fill="#d7c13f" />
-                                                        </g>
-                                                    </svg>
-                                                </div>
-                                            </div>
-                                        <?php } else { ?>
-                                            <div class="memberItem regular" idUser="<?= $timM['id_user'] ?>">
-                                                <div class="memberImg">
-                                                    <img src="data:image/jpeg;base64,<?= base64_encode($timM['foto']) ?>" alt="">
-                                                </div>
-                                                <div class="memberDetails">
-                                                    <h5 style="margin-left: 1vw;color: #ecf0f1;"><?= $timM['nama_user'] ?></h5>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="27.899" height="27.899" viewBox="0 0 27.899 27.899">
-                                                        <path id="member" data-name="Icon awesome-user-alt" d="M13.949,15.693A7.847,7.847,0,1,0,6.1,7.847,7.849,7.849,0,0,0,13.949,15.693Zm6.975,1.744h-3a9.485,9.485,0,0,1-7.945,0h-3A6.974,6.974,0,0,0,0,24.412v.872A2.616,2.616,0,0,0,2.616,27.9H25.283A2.616,2.616,0,0,0,27.9,25.283v-.872A6.974,6.974,0,0,0,20.924,17.437Z" fill="#d7c13f" />
-                                                    </svg>
-                                                </div>
-                                            </div>
-                                <?php }
-                                    }
-                                } ?>
+                                </span>
                             </div>
+                            <script type="text/javascript">
+                                $('.clockpicker').clockpicker({
+                                    placement: 'top',
+                                    align: 'left',
+                                    donetext: 'Done'
+                                });
+                            </script>
+                        </div>
+                    </div>
+                    <button id="createReminder">
+                        <h6 class="varela">Create Reminder</h6>
+                    </button>
+                    <div class="reminders">
+                        <?php $ctr = 0;
+                        foreach ($teamR as $timR) {
+                            if ($timR['id_team'] == $teamA['id_team']) { ?>
+                                <div class="reminderItem">
+                                    <div class="reminderTime">
+                                        <h4 class="varela" style="color: #ecf0f1;"><?= date_format(date_create($timR['waktu']), "H:i") ?></h4>
+                                        <h6 class="varela" style="font-size: 14px;color: #d7c13f;"> <?= date_format(date_create($timR['waktu']), "d/m/Y") ?> </h6>
+                                    </div>
+                                    <div class="reminderDetails" id="reminder<?= $ctr ?>">
+                                        <input type="text" id="reminderTime<?= $ctr ?>" value="<?= date_format(date_create($timR['waktu']), "Y-m-d") ?>T<?= date_format(date_create($timR['waktu']), "H:i") . ":00" ?>Z" hidden>
+                                        <h5 class="yellow" id="reminder<?= $ctr ?>Name"><?= $timR['judul'] ?></h5>
+                                        <div class="reminderDesc" id="reminder<?= $ctr ?>Desc">
+                                            <p><?= $timR['keterangan'] ?></p>
+                                        </div>
+                                    </div>
+                                </div>
+                        <?php }
+                            $ctr++;
+                        } ?>
+                    </div>
+                </div>
+            </div>
+            <div class="settings" id="settings">
+                <h3 class="yellow">Settings</h3>
+                <div id="settingsContainer">
+                    <div class="channelImg">
+                        <input type="file" name="inputChannelImg" accept="image/x-png,image/jpg,image/jpeg" id="inputChannelImg" hidden>
+                        <div id="imgContainer">
+                            <img src="data:image/jpeg;base64,<?= base64_encode($teamA['foto_team']) ?>" />
+                        </div>
+                        <?php if ($teamA['id_user'] == $user['id_user']) { ?>
+                            <button id="changeImg">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 30 30">
+                                    <g id="Group_185" data-name="Group 185" transform="translate(-15861 4733)">
+                                        <circle id="Ellipse_187" data-name="Ellipse 187" cx="15" cy="15" r="15" transform="translate(15861 -4733)" fill="#1e2126" />
+                                        <path id="Icon_material-add-a-photo" data-name="Icon material-add-a-photo" d="M2.516,3.855V1.5H4.194V3.855H6.71v1.57H4.194V7.78H2.516V5.425H0V3.855Zm2.516,4.71V6.21H7.549V3.855H13.42l1.535,1.57h2.659A1.631,1.631,0,0,1,19.291,7v9.421a1.631,1.631,0,0,1-1.677,1.57H4.194a1.631,1.631,0,0,1-1.677-1.57V8.565ZM10.9,15.631A4.068,4.068,0,0,0,15.1,11.706,4.068,4.068,0,0,0,10.9,7.78,4.068,4.068,0,0,0,6.71,11.706,4.068,4.068,0,0,0,10.9,15.631ZM8.22,11.706A2.6,2.6,0,0,0,10.9,14.218a2.6,2.6,0,0,0,2.684-2.512A2.6,2.6,0,0,0,10.9,9.193,2.6,2.6,0,0,0,8.22,11.706Z" transform="translate(15866.434 -4728.954)" fill="#d7c13f" />
+                                    </g>
+                                </svg>
+                            </button>
+                        <?php } ?>
+                    </div>
+                    <h5 id="channelName" style="margin-top: 2vh;color: #ecf0f1;" <?php if ($teamA['id_user'] == $user['id_user']) {
+                                                                                        echo "contenteditable";
+                                                                                    } ?>><?= $teamA['nama_team'] ?></h5>
+                    <button id="saveChange">Save Change</button>
+                    <div style="margin-top: 4vh;width: 75%;height: 1px;background: #d7c13f;"></div>
+                    <h3 class="yellow" style="margin: 4vh 0;">Members</h3>
+                    <div id="settingsContainer" class="listMember">
+                        <div class="members" style="margin-bottom: 8vh;">
+                            <?php foreach ($teamM as $timM) {
+                                if ($timM['id_team'] == $teamA['id_team']) {
+                                    if ($timM['id_user'] == $teamA['id_user']) { ?>
+                                        <div class="memberItem master" idUser="<?= $timM['id_user'] ?>">
+                                            <div class="memberImg">
+                                                <img src="data:image/jpeg;base64,<?= base64_encode($timM['foto']) ?>" alt="">
+                                            </div>
+                                            <div class="memberDetails">
+                                                <h5 style="margin-left: 1vw;color: #ecf0f1;"><?= $timM['nama_user'] ?></h5>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="31" height="31" viewBox="0 0 30.892 42.171">
+                                                    <g id="Group_191" data-name="Group 191" transform="translate(-10453.899 -1088.228)">
+                                                        <path id="Icon_awesome-crown" data-name="Icon awesome-crown" d="M13.747,11.664H2.916a.418.418,0,0,0-.417.417v.833a.418.418,0,0,0,.417.417H13.747a.418.418,0,0,0,.417-.417v-.833A.418.418,0,0,0,13.747,11.664Zm1.666-8.331a1.25,1.25,0,0,0-1.25,1.25,1.224,1.224,0,0,0,.115.516l-1.885,1.13a.832.832,0,0,1-1.151-.3L9.12,2.213a1.25,1.25,0,1,0-1.578,0L5.421,5.926a.833.833,0,0,1-1.151.3L2.387,5.1a1.249,1.249,0,1,0-1.138.734,1.276,1.276,0,0,0,.2-.021l1.882,5.02h10l1.882-5.02a1.276,1.276,0,0,0,.2.021,1.25,1.25,0,0,0,0-2.5Z" transform="translate(10469.689 1088.228) rotate(25)" fill="#d7c13f" />
+                                                        <path id="Icon_awesome-user-alt" data-name="Icon awesome-user-alt" d="M13.949,15.693A7.847,7.847,0,1,0,6.1,7.847,7.849,7.849,0,0,0,13.949,15.693Zm6.975,1.744h-3a9.485,9.485,0,0,1-7.945,0h-3A6.974,6.974,0,0,0,0,24.412v.872A2.616,2.616,0,0,0,2.616,27.9H25.283A2.616,2.616,0,0,0,27.9,25.283v-.872A6.974,6.974,0,0,0,20.924,17.437Z" transform="translate(10453.899 1102.5)" fill="#d7c13f" />
+                                                    </g>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    <?php } else { ?>
+                                        <div class="memberItem regular" idUser="<?= $timM['id_user'] ?>">
+                                            <div class="memberImg">
+                                                <img src="data:image/jpeg;base64,<?= base64_encode($timM['foto']) ?>" alt="">
+                                            </div>
+                                            <div class="memberDetails">
+                                                <h5 style="margin-left: 1vw;color: #ecf0f1;"><?= $timM['nama_user'] ?></h5>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="27.899" height="27.899" viewBox="0 0 27.899 27.899">
+                                                    <path id="member" data-name="Icon awesome-user-alt" d="M13.949,15.693A7.847,7.847,0,1,0,6.1,7.847,7.849,7.849,0,0,0,13.949,15.693Zm6.975,1.744h-3a9.485,9.485,0,0,1-7.945,0h-3A6.974,6.974,0,0,0,0,24.412v.872A2.616,2.616,0,0,0,2.616,27.9H25.283A2.616,2.616,0,0,0,27.9,25.283v-.872A6.974,6.974,0,0,0,20.924,17.437Z" fill="#d7c13f" />
+                                                </svg>
+                                            </div>
+                                        </div>
+                            <?php }
+                                }
+                            } ?>
                         </div>
                     </div>
                 </div>
+            </div>
 
+    </div>
+<?php } ?>
+</div>
+<div class="create">
+    <p style="position: absolute;top: 1vw;right: 1vw; color: #777D8A;">*You can still change it later on settings tab</p>
+    <h1 class="header">Creating <span style="color: #d7c13f;">TEAM</span></h1>
+    <div class="horizonline"></div>
+    <div class="container" style="z-index: 4;">
+        <input type="file" name="imageInput" id="imageInput" accept="image/x-png,image/jpg,image/jpeg" hidden>
+        <div class="imageWrapper">
+            <div class="image">
             </div>
-        <?php } ?>
-    </div>
-    <div class="create">
-        <p style="position: absolute;top: 1vw;right: 1vw; color: #777D8A;">*You can still change it later on settings tab</p>
-        <h1 class="header">Creating <span style="color: #d7c13f;">TEAM</span></h1>
-        <div class="horizonline"></div>
-        <div class="container" style="z-index: 4;">
-            <input type="file" name="imageInput" id="imageInput" accept="image/x-png,image/jpg,image/jpeg" hidden>
-            <div class="imageWrapper">
-                <div class="image">
-                </div>
-            </div>
-        </div>
-        <div class="container" style="margin-top: 3vh;z-index: 4;">
-            <h1 class="yellow newName" contenteditable>Team Name</h1>
-        </div>
-        <div style="position: absolute; bottom: -10vh; right: -8vw;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="542.2" height="531.5" viewBox="0 0 42.2 31.5">
-                <path id="Icon_material-group" data-name="Icon material-group" d="M30.273,21c3.184,0,5.735-3.015,5.735-6.75S33.457,7.5,30.273,7.5s-5.755,3.015-5.755,6.75S27.089,21,30.273,21ZM14.927,21c3.184,0,5.735-3.015,5.735-6.75S18.111,7.5,14.927,7.5s-5.755,3.015-5.755,6.75S11.743,21,14.927,21Zm0,4.5C10.458,25.5,1.5,28.132,1.5,33.375V39H28.355V33.375C28.355,28.133,19.4,25.5,14.927,25.5Zm15.345,0c-.556,0-1.189.045-1.861.113a9.93,9.93,0,0,1,3.779,7.763V39H43.7V33.375C43.7,28.133,34.742,25.5,30.273,25.5Z" transform="translate(-1.5 -7.5)" fill="rgba(215,193,63,0.19)" />
-            </svg>
-        </div>
-        <button class="createButton">Create</button>
-    </div>
-    <div class="bgblur"></div>
-    <div style="display: none;">
-        <div id="topUpHeader">
-            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 23.245 15">
-                <path id="Icon_material-group-add" data-name="Icon material-group-add" d="M7.748,13.269H4.843V9.808H2.906v3.462H0v2.308H2.906v3.462H4.843V15.577H7.748Zm9.685,1.154a3.209,3.209,0,0,0,2.9-3.462,3.209,3.209,0,0,0-2.9-3.462,2.472,2.472,0,0,0-.881.162,6.47,6.47,0,0,1,.872,3.3,6.6,6.6,0,0,1-.872,3.3A2.472,2.472,0,0,0,17.434,14.423Zm-4.843,0a3.209,3.209,0,0,0,2.9-3.462,3.209,3.209,0,0,0-2.9-3.462,3.216,3.216,0,0,0-2.906,3.462A3.216,3.216,0,0,0,12.591,14.423ZM19,16.915a4.61,4.61,0,0,1,1.337,3.277V22.5h2.906V20.192C23.245,18.415,20.95,17.319,19,16.915Zm-6.412-.185c-1.937,0-5.811,1.154-5.811,3.462V22.5H18.4V20.192C18.4,17.885,14.528,16.731,12.591,16.731Z" transform="translate(0 -7.5)" fill="#d7c13f" />
-            </svg>
-            <h5 class="yellow" style="margin-left: 1vw;">Join</h5>
-        </div>
-        <div id="topUpBody">
-            <h6 style="color: #ecf0f1">Input Team ID </h6>
-            <input type="text" class="topUpAmount" name="topUpAmount" id="idTim">
         </div>
     </div>
+    <div class="container" style="margin-top: 3vh;z-index: 4;">
+        <h1 class="yellow newName" contenteditable>Team Name</h1>
+    </div>
+    <div style="position: absolute; bottom: -10vh; right: -8vw;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="542.2" height="531.5" viewBox="0 0 42.2 31.5">
+            <path id="Icon_material-group" data-name="Icon material-group" d="M30.273,21c3.184,0,5.735-3.015,5.735-6.75S33.457,7.5,30.273,7.5s-5.755,3.015-5.755,6.75S27.089,21,30.273,21ZM14.927,21c3.184,0,5.735-3.015,5.735-6.75S18.111,7.5,14.927,7.5s-5.755,3.015-5.755,6.75S11.743,21,14.927,21Zm0,4.5C10.458,25.5,1.5,28.132,1.5,33.375V39H28.355V33.375C28.355,28.133,19.4,25.5,14.927,25.5Zm15.345,0c-.556,0-1.189.045-1.861.113a9.93,9.93,0,0,1,3.779,7.763V39H43.7V33.375C43.7,28.133,34.742,25.5,30.273,25.5Z" transform="translate(-1.5 -7.5)" fill="rgba(215,193,63,0.19)" />
+        </svg>
+    </div>
+    <button class="createButton">Create</button>
+</div>
+<div class="bgblur"></div>
+<div style="display: none;">
+    <div id="topUpHeader">
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 23.245 15">
+            <path id="Icon_material-group-add" data-name="Icon material-group-add" d="M7.748,13.269H4.843V9.808H2.906v3.462H0v2.308H2.906v3.462H4.843V15.577H7.748Zm9.685,1.154a3.209,3.209,0,0,0,2.9-3.462,3.209,3.209,0,0,0-2.9-3.462,2.472,2.472,0,0,0-.881.162,6.47,6.47,0,0,1,.872,3.3,6.6,6.6,0,0,1-.872,3.3A2.472,2.472,0,0,0,17.434,14.423Zm-4.843,0a3.209,3.209,0,0,0,2.9-3.462,3.209,3.209,0,0,0-2.9-3.462,3.216,3.216,0,0,0-2.906,3.462A3.216,3.216,0,0,0,12.591,14.423ZM19,16.915a4.61,4.61,0,0,1,1.337,3.277V22.5h2.906V20.192C23.245,18.415,20.95,17.319,19,16.915Zm-6.412-.185c-1.937,0-5.811,1.154-5.811,3.462V22.5H18.4V20.192C18.4,17.885,14.528,16.731,12.591,16.731Z" transform="translate(0 -7.5)" fill="#d7c13f" />
+        </svg>
+        <h5 class="yellow" style="margin-left: 1vw;">Join</h5>
+    </div>
+    <div id="topUpBody">
+        <h6 style="color: #ecf0f1">Input Team ID </h6>
+        <input type="text" class="topUpAmount" name="topUpAmount" id="idTim">
+    </div>
+</div>
 
 </body>
 <script src="Js/alertify.js"></script>
@@ -739,7 +776,6 @@ if (isset($teamA)) {
     });
 
     $(".accItemContainer").on("click", ".listChannel", function() {
-        alert("A");
         idTeam = $(this).attr("idTeam");
         $.ajax({
             url: "<?= base_url(); ?>Community/chooseTeam",
@@ -1108,7 +1144,7 @@ if (isset($teamA)) {
 
     $(".search").click(function() {
         keyword = $(".searchBarInput").val();
-        //alert(keyword);
+        // alert(keyword);
         $.ajax({
             url: "<?= base_url(); ?>Community/searchTeam",
             method: "post",
@@ -1116,7 +1152,7 @@ if (isset($teamA)) {
                 keyword: keyword
             },
             success: function(result) {
-                $(".listTeam").html(result);
+                $(".accItemContainer").html(result);
                 $(".searchBarInput").val("");
             }
         });

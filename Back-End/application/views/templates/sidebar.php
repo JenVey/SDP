@@ -126,6 +126,21 @@
     </nav>
 
 
+    <nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <li class="nav-item">
+          <a href="<?= base_url(); ?>Iklan" class="nav-link">
+            <i class="nav-icon fa fa-percentage"></i>
+            <p>
+              List Iklan
+            </p>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+
+
 
   </div>
   <!-- /.sidebar -->

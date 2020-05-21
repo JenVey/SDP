@@ -48,7 +48,6 @@ class Trans_model extends CI_model
     public function insertTrans()
     {
         $ctr = 1;
-
         $query = $this->db->query("select * from user");
         $idUser = $this->session->userdata('id_user');
         foreach ($query->result_array() as $row) {
@@ -120,7 +119,6 @@ class Trans_model extends CI_model
         $idmerchant = array();
         for ($i = 0; $i < count($cart); $i++) {
             echo "masuk" . $i;
-
             // KIRIM EMAIL KE MERCHANT
             $query2 = $this->db->query("select * from item");
             foreach ($query2->result_array() as $row2) {
@@ -142,51 +140,9 @@ class Trans_model extends CI_model
         }
 
         for ($i = 0; $i < count($idmerchant); $i++) {
-
             $this->sendEmail($idmerchant[$i], $generateId);
         }
     }
-
-    // public function refreshStatus()
-    // {
-    //     $idUser = $this->session->userdata('id_user');
-    //     $query = $this->db->query("select * from transaksi");
-
-    //     foreach ($query->result_array() as $row) {
-    //         if ($row['id_user'] == $idUser && $row['order_id'] != 0 && $row['status'] == 0) {
-
-    //             $response = $this->veritrans->status(($row['order_id']));
-    //             $transaction_status = $response->transaction_status;
-    //             //print_r($transaction_status);
-
-    //             if ($transaction_status == "settlement") {
-    //                 $this->Trans_model->updateStatus($row['order_id']);
-    //             } else if ($transaction_status == "failure") {
-    //                 $this->Trans_model->updateStatus(0);
-    //             }
-    //         }
-    //     }
-    // }
-
-    // public function updateStatus($order_id)
-    // {
-    //     if ($order_id == 0) {
-    //         $data = [
-    //             "status" => '-1' //GAGAL DI BAYAR
-    //         ];
-    //         $this->db->where('order_id', $order_id);
-    //         $this->db->update('transaksi', $data);
-    //     } else {
-    //         $data = [
-    //             "status" => '1' //SUDAH DI BAYAR
-    //         ];
-    //         $this->db->where('order_id', $order_id);
-    //         $this->db->update('transaksi', $data);
-
-    //         $this->Item_model->updateAmount();
-    //         $this->session->unset_userdata('idTransaksi');
-    //     }
-    // }
 
     public function cekStatus($idTransaksi)
     {

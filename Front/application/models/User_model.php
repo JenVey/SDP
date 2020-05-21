@@ -208,4 +208,15 @@ class User_model extends CI_model
             echo false;
         }
     }
+
+    public function updateStatus($status)
+    {
+        $id = $this->session->userdata('id_user');
+        $data = [
+            "status" => $status
+        ];
+
+        $this->db->where('id_user', $id);
+        $this->db->update('user', $data);
+    }
 }

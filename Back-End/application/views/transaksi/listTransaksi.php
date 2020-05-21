@@ -99,13 +99,13 @@
                                                         <a class="btn btn-primary btn-sm download " id="<?= $ctr ?>" download>
                                                             <i class=" fas fa-download">
                                                             </i>
-                                                            Download foto
+                                                            View foto
                                                         </a>
                                                     <?php } else if ($transItem['status'] == 2) { ?>
                                                         <a class="btn btn-primary btn-sm" id="download<?= $ctr ?>" download>
                                                             <i class=" fas fa-download">
                                                             </i>
-                                                            Download foto
+                                                            View foto
                                                         </a>
                                                     <?php } ?>
                                                 </td>

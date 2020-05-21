@@ -157,10 +157,11 @@ usort($totalItem, function ($a, $b) {
 			</svg>
 			<p class="logoutText" style="margin-right: 20px;">Logout</p>
 		</button>
+		<button class="btnIklan">IKLAN</button>
+
 
 	</div>
 	<div class="profilePage">
-
 		<div style="display:flex; justify-content: flex-start; width: 100%; margin-left: 2vw; margin-top: 2vh;">
 			<button class="homeButton">
 				<h1 class="yellow varela">gather.owl</h1>
@@ -885,6 +886,18 @@ usort($totalItem, function ($a, $b) {
 			<input type="number" name="topUpAmount" id="topUpAmount">
 		</div>
 	</div>
+	<div class="subs">
+		<input type="file" name="bannerImg" id="bannerImg" accept="image/x-png,image/jpg,image/jpeg" hidden>
+		<p id="countdown">Subscribe to our <span style="color: #d7c13f;">MONTHLY PLAN</span></p>
+		<h5 class="varela" id="desc">Create your own ad banner and display it on the shop page</h5>
+		<div class="banner">
+			<h2 style="color: #ecf0f1;">Click here to upload your own image</h2>
+			<h5 style="color: #ecf0f1;">(900px X 200px)</h5>
+		</div>
+		<h5 class="varela" id="priceTag">Only GP 30.000 / month</h5>
+		<button class="subscribe">SUBSCRIBE</button>
+	</div>
+	<div class="bgblur"></div>
 	<script>
 		$(document).ready(function() {
 			var ctr = 1;
@@ -942,6 +955,8 @@ usort($totalItem, function ($a, $b) {
 			}
 
 			$("#finish").css("display", "none");
+			$(".subs").css("display", "none");
+			$(".bgblur").css("display", "none");
 
 		});
 
@@ -949,8 +964,6 @@ usort($totalItem, function ($a, $b) {
 		var id = 0;
 		var count = 0;
 		var timer = setInterval(gantiGambar, 1);
-
-
 
 
 
@@ -1353,10 +1366,10 @@ usort($totalItem, function ($a, $b) {
 		$(".createMerchant").click(function() {
 			name = $("#merchantName").html();
 			desc = $("#descriptionArea").html();
-			alert(name);
-			alert(desc);
+			// alert(name);
+			// alert(desc);
 			foto = $(".merchantImg").find('img').attr('src');
-			alert(foto);
+			//alert(foto);
 
 			if (foto != null) {
 				if (foto.substring(11, 12) == "j") {
@@ -1673,6 +1686,107 @@ usort($totalItem, function ($a, $b) {
 			clearBtn: true,
 			format: "dd/mm/yyyy",
 			orientation: "left bottom"
+		});
+
+		var bannerReady = false;
+		var subs = false;
+		var countDownDate;
+		var x;
+
+		function countdown() {
+			if (subs) {
+				var now = new Date().getTime();
+
+				var distance = countDownDate - now;
+
+				var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+				var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+				var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+				var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+				document.getElementById("countdown").innerHTML = days + "d " + hours + "h " +
+					minutes + "m " + seconds + "s left";
+
+				if (distance < 0) {
+					clearInterval(x);
+					document.getElementById("countdown").innerHTML = "EXPIRED";
+				}
+			} else {
+				clearInterval(x);
+			}
+
+		}
+
+		$(".subscribe").click(function() {
+			gp = '<?= $user['saldo'] ?>';
+			if (bannerReady) {
+				alertify.confirm('Subscribe', 'Are you sure to subscribe by paying GP 30.000/Month?',
+					function() {
+
+						if (gp >= 30000) {
+
+							id_merchant = '<?= $mchId ?>';
+							foto = $(".banner").find("img").attr("src");
+
+							if (foto != null) {
+								if (foto.substring(11, 12) == "j") {
+									foto = foto.substring(23, foto.length);
+								} else {
+									foto = foto.substring(22, foto.length);
+								}
+							}
+
+							$.ajax({
+								url: "<?= base_url(); ?>Shop/insertSubs",
+								method: "post",
+								data: {
+									id_merchant: id_merchant,
+									foto: foto
+								},
+								success: function(result) {
+									alertify.success('Subscribed!');
+									x = setInterval(countdown, 1000);
+									subs = true;
+									var today = new Date();
+									countDownDate = today.setDate(today.getDate() + 31);
+									$("#desc").html("Change the banner below to replace your current banner");
+									$("#countdown").css("color", "#d7c13f");
+									$("#priceTag").css("display", "none");
+									$(".subscribe").css("display", "none");
+								}
+							});
+
+
+						} else {
+							alertify.error("Your GP not enough !!!");
+						}
+					},
+					function() {});
+			} else {
+				alertify.error("You haven't selected any image as a banner");
+			}
+		});
+
+		$("#bannerImg").change(function() {
+			if (this.files && this.files[0]) {
+				var reader = new FileReader();
+
+				reader.onload = function(e) {
+					var img = $('<img>').attr('src', e.target.result);
+					$(".banner").html(img);
+					bannerReady = true;
+				};
+				reader.readAsDataURL(this.files[0]);
+			}
+		});
+
+		$(".banner").click(function() {
+			$("#bannerImg").trigger("click");
+		});
+
+		$(".btnIklan").click(function() {
+			$(".subs").css("display", "block");
+			$(".bgblur").css("display", "block");
 		});
 	</script>
 </body>

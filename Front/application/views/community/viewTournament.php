@@ -345,6 +345,7 @@ $idTurney = $_SESSION['idTournament'];
                                                             </div>
 
     </section>
+
     <section>
         <div class="footer">
             <svg xmlns="http://www.w3.org/2000/svg" width="104.248" height="51.365" viewBox="0 0 104.248 51.365">

@@ -1,4 +1,5 @@
-<?php foreach ($channel as $chn) { ?>
+<?php
+foreach ($channel as $chn) { ?>
     <div class="accItem listChannel" idChannel="<?= $chn['id_channel'] ?>" <?php if (isset($channelA)) {
                                                                                 if ($chn['id_channel'] == $channelA['id_channel']) {
                                                                                     echo "id='active'";

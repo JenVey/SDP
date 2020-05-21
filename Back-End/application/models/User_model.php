@@ -30,12 +30,6 @@ class User_model extends CI_model
             $generateId = $cekNewId . $ctr;
         }
 
-        //default.jpg
-        // $foto = $this->input->post('photoUser');
-        // if ($foto == '') {
-        //     $foto = 'default.jpg';
-        // }
-
         $data = [
             "id_user" => $generateId,
             "nama_user" => $this->input->post('nameUser'),
