@@ -173,8 +173,8 @@ select:focus{
 
 .iklan{
 	display: inline-block;
-	width: 50vw;
-	height: 23.1vh;
+	width: 900px;
+	height: 200px;
 	background-color: #585D68;
 	margin-top: 10vh;
 	border: solid 2px #1e2126;

@@ -8,9 +8,9 @@
 	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/bootstrap.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/shopCSS.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/historyCSS.css">
-	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/profileCSS.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/Ours.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/cartCSS.css">
+	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/profileCSS.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/alertify.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/alerts.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/chartCSS.css">
@@ -91,7 +91,7 @@ usort($totalItem, function ($a, $b) {
 				<img id="profileImg" src="data:image/jpeg;base64,<?= base64_encode($user['foto']) ?>" alt="">
 			</div>
 		</div>
-		<h6 style="opacity: 0.4;"><?= $user['username_user'] ?></h6>
+		<h6 style="opacity: 0.4; color: #d7c13f;"><?= $user['username_user'] ?></h6>
 		<div class="inputContainer">
 			<label for="nameProfile" class="placeholderName">
 				<p style="margin-bottom: 1px; font-size: 14px;">Name</p>
@@ -130,7 +130,7 @@ usort($totalItem, function ($a, $b) {
 			<svg id="saveChangesIcon" style="margin-left: 20px;" xmlns="http://www.w3.org/2000/svg" width="21" height="18" viewBox="0 0 28.242 20.121">
 				<path id="Icon_feather-check" data-name="Icon feather-check" d="M30,9,13.5,25.5,6,18" transform="translate(-3.879 -6.879)" fill="none" stroke="#1E2126" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
 			</svg>
-			<p class="changeProfileText" style="margin-right: 20px;">Edit Profile</p>
+			<p class="changeProfileText" style="margin-right: 10px;">Edit Profile</p>
 		</button>
 		<div class="profileSeparator" style="margin-top: 40px;"></div>
 		<div class="Balance">
@@ -157,17 +157,32 @@ usort($totalItem, function ($a, $b) {
 			</svg>
 			<p class="logoutText" style="margin-right: 20px;">Logout</p>
 		</button>
-		<button class="btnIklan">IKLAN</button>
 
 
 	</div>
+
 	<div class="profilePage">
-		<div style="display:flex; justify-content: flex-start; width: 100%; margin-left: 2vw; margin-top: 2vh;">
+
+		<div class="navBar">
 			<button class="homeButton">
 				<h1 class="yellow varela">gather.owl</h1>
 			</button>
+			<div class="navsContainer">
+				<h5 class="yellow navItem pending" style="margin:0 2vw;">Transaction</h5>
+				<h5 class="yellow navItem rating" style="margin:0 2vw;">Ratings</h5>
+				<h5 class="yellow navItem stash" style="margin:0 2vw;">Stash Box</h5>
+			</div>
 		</div>
-
+		<div class="navBarFix">
+			<button class="homeButton">
+				<h1 class="yellow varela">gather.owl</h1>
+			</button>
+			<div class="navsContainer">
+				<h5 class="yellow navItem pending" style="margin:0 2vw;">Transaction</h5>
+				<h5 class="yellow navItem rating" style="margin:0 2vw;">Ratings</h5>
+				<h5 class="yellow navItem stash" style="margin:0 2vw;">Stash Box</h5>
+			</div>
+		</div>
 
 
 		<div class="merchantImg">
@@ -201,27 +216,7 @@ usort($totalItem, function ($a, $b) {
 		</div>
 
 
-		<h2 class="yellow" style="margin-top: 10vh;">
-			<svg style="margin-bottom: 5px;" xmlns="http://www.w3.org/2000/svg" width="20" height="29" viewBox="0 0 27 36">
-				<path id="Icon_awesome-fire" data-name="Icon awesome-fire" d="M15.188,1.678a1.691,1.691,0,0,0-3.1-.917C3.375,13.489,15.75,14.063,15.75,20.25a4.5,4.5,0,1,1-9-.067V14.171a1.688,1.688,0,0,0-2.913-1.16A14.059,14.059,0,0,0,0,22.5a13.5,13.5,0,0,0,27,0C27,10.526,15.188,8.93,15.188,1.678Z" fill="#ee511f" />
-			</svg>
-			<span style="margin-left: 5px;color: #EE511F;">HOT </span>Games</h2>
-		<h4 style="font-family: Roboto;font-weight: lighter;color: #ecf0f1;text-align: left;margin-top: 5px;">Top 5 Most Sold Items</h4>
-		<div class="hotgamesContainer">
-			<?php $ctrG = 0;
-			foreach ($games as $game) {
-				if ($ctrG < 6) { ?>
-					<div class="hotgamesItem">
-						<div class="hotgamesImg"><img src="data:image/jpeg;base64,<?= base64_encode($game['foto_game']) ?>" alt=""></div>
-						<div class="hotgamesDetails">
-							<h6 class="yellow"><?= $game['nama_game'] ?></h6>
-							<h6 style="text-align: center;color: #ecf0f1;"><?= $game['klik'] ?> <br>Times Clicked</h6>
-						</div>
-					</div>
-			<?php $ctrG++;
-				}
-			} ?>
-		</div>
+
 
 		<?php
 		if (count($merchant) == 0) {
@@ -231,38 +226,35 @@ usort($totalItem, function ($a, $b) {
 
 		<?php
 		if (count($merchant) > 0) { ?>
-			<div class="chartWrapper">
-				<div id="containerChart">
-				</div>
-				<div class="waktu">
-					<div class="form-group mb-4" style="margin: 0!important;">
-						<div class="datepicker date input-group p-0 shadow-sm">
-							<input type="text" placeholder="Start Date" class="form-control" name="startDate" id="startDate">
-							<div class="input-group-append" style="overflow: visible;">
-								<svg xmlns="http://www.w3.org/2000/svg" width="48" height="32.5" viewBox="0 0 61 46">
-									<g id="Group_190" data-name="Group 190" transform="translate(-6632 2629)">
-										<path id="Rectangle_348" data-name="Rectangle 348" d="M0,0H46A15,15,0,0,1,61,15V31A15,15,0,0,1,46,46H0a0,0,0,0,1,0,0V0A0,0,0,0,1,0,0Z" transform="translate(6632 -2629)" fill="#d7c13f" />
-										<path id="Icon_material-date-range" data-name="Icon material-date-range" d="M13.5,16.5h-3v3h3Zm6,0h-3v3h3Zm6,0h-3v3h3ZM28.5,6H27V3H24V6H12V3H9V6H7.5A2.986,2.986,0,0,0,4.515,9L4.5,30a3,3,0,0,0,3,3h21a3.009,3.009,0,0,0,3-3V9A3.009,3.009,0,0,0,28.5,6Zm0,24H7.5V13.5h21Z" transform="translate(6644.3 -2624)" fill="#1e2126" />
-									</g>
-								</svg>
+
+			<button class="ngiklan">
+				<svg xmlns="http://www.w3.org/2000/svg" width="27.947" height="20.96" viewBox="0 0 27.947 20.96">
+					<path id="ad" data-name="Icon awesome-ad" d="M8.6,15.853h2.017l-1.009-2.9Zm10.615-.873a1.31,1.31,0,1,0,1.31,1.31A1.312,1.312,0,0,0,19.213,14.98ZM25.327,4.5H2.62A2.621,2.621,0,0,0,0,7.12V22.84a2.621,2.621,0,0,0,2.62,2.62H25.327a2.621,2.621,0,0,0,2.62-2.62V7.12A2.621,2.621,0,0,0,25.327,4.5ZM13.678,20.22h-.925a.875.875,0,0,1-.825-.587l-.4-1.16H7.689l-.4,1.16a.873.873,0,0,1-.825.587H5.536a.873.873,0,0,1-.825-1.16l2.931-8.44a1.31,1.31,0,0,1,1.237-.88h1.455a1.31,1.31,0,0,1,1.237.881L14.5,19.06A.873.873,0,0,1,13.678,20.22Zm9.466-.873a.873.873,0,0,1-.873.873H21.4a.86.86,0,0,1-.654-.31,3.94,3.94,0,1,1-.219-7.309V10.613A.873.873,0,0,1,21.4,9.74h.873a.873.873,0,0,1,.873.873Z" transform="translate(0 -4.5)" fill="#d7c13f" />
+				</svg>
+
+				Create Ad
+			</button>
+
+			<h2 class="yellow" style="margin-top: 10vh;">
+				<svg style="margin-bottom: 5px;" xmlns="http://www.w3.org/2000/svg" width="20" height="29" viewBox="0 0 27 36">
+					<path id="Icon_awesome-fire" data-name="Icon awesome-fire" d="M15.188,1.678a1.691,1.691,0,0,0-3.1-.917C3.375,13.489,15.75,14.063,15.75,20.25a4.5,4.5,0,1,1-9-.067V14.171a1.688,1.688,0,0,0-2.913-1.16A14.059,14.059,0,0,0,0,22.5a13.5,13.5,0,0,0,27,0C27,10.526,15.188,8.93,15.188,1.678Z" fill="#ee511f" />
+				</svg>
+				<span style="margin-left: 5px;color: #EE511F;">HOT </span>Games</h2>
+			<h4 style="font-family: Roboto;font-weight: lighter;color: #ecf0f1;text-align: left;margin-top: 5px;">Top 5 Most Sold Items</h4>
+			<div class="hotgamesContainer">
+				<?php $ctrG = 0;
+				foreach ($games as $game) {
+					if ($ctrG < 6) { ?>
+						<div class="hotgamesItem">
+							<div class="hotgamesImg"><img src="data:image/jpeg;base64,<?= base64_encode($game['foto_game']) ?>" alt=""></div>
+							<div class="hotgamesDetails">
+								<h6 class="yellow"><?= $game['nama_game'] ?></h6>
+								<h6 style="text-align: center;color: #ecf0f1;"><?= $game['klik'] ?> <br>Times Clicked</h6>
 							</div>
 						</div>
-					</div>
-					<button class="showGraph">Update Graph</button>
-					<div class="form-group mb-4" style="margin: 0!important;">
-						<div class="datepicker date input-group p-0 shadow-sm">
-							<input type="text" placeholder="End Date" class="form-control" name="endDate" id="endDate">
-							<div class="input-group-append" style="overflow: visible;">
-								<svg xmlns="http://www.w3.org/2000/svg" width="48" height="32.5" viewBox="0 0 61 46">
-									<g id="Group_190" data-name="Group 190" transform="translate(-6632 2629)">
-										<path id="Rectangle_348" data-name="Rectangle 348" d="M0,0H46A15,15,0,0,1,61,15V31A15,15,0,0,1,46,46H0a0,0,0,0,1,0,0V0A0,0,0,0,1,0,0Z" transform="translate(6632 -2629)" fill="#d7c13f" />
-										<path id="Icon_material-date-range" data-name="Icon material-date-range" d="M13.5,16.5h-3v3h3Zm6,0h-3v3h3Zm6,0h-3v3h3ZM28.5,6H27V3H24V6H12V3H9V6H7.5A2.986,2.986,0,0,0,4.515,9L4.5,30a3,3,0,0,0,3,3h21a3.009,3.009,0,0,0,3-3V9A3.009,3.009,0,0,0,28.5,6Zm0,24H7.5V13.5h21Z" transform="translate(6644.3 -2624)" fill="#1e2126" />
-									</g>
-								</svg>
-							</div>
-						</div>
-					</div>
-				</div>
+				<?php $ctrG++;
+					}
+				} ?>
 			</div>
 
 			<h2 style="margin: 10vh 0 4vh 0;color: #26c978;">
@@ -498,173 +490,167 @@ usort($totalItem, function ($a, $b) {
 				</div>
 			</div>
 
-			<!-- <div class="pendingTrans" style="overflow: hidden;">
-				<div style="width: 100%; display: flex;justify-content: center; margin-top: 2vh; color: #ecf0f1;">
-					<h4 class="ongoing yellow">Ongoing</h4>
-					<h4 class="finished" style="margin-left: 5vw;">Finished</h4>
-				</div>
-				<div class="transContainer" style="overflow: hidden;">
-					<div class="transHistoryWrapper" style="margin-bottom: 1vw;direction: ltr;">
-						<div class="transHistoryContainer">
-							<div class="headerTable">
-								<h5 class="white" style="margin-left: 2vw;">Order ID</h5>
-								<h5 class="white" style="margin-left: 8vw;">Date</h5>
-								<h5 class="white" style="margin-left: 10vw;">Customer's Email</h5>
-							</div>
-							<div class="headerSeparator"></div>
+			<h2 style="margin: 10vh 0 5vh 0;color: #d7c13f;">
+				<svg id="Group_199" data-name="Group 199" xmlns="http://www.w3.org/2000/svg" width="36" height="31.5" viewBox="0 0 36 31.5">
+					<path id="Icon_awesome-comment" data-name="Icon awesome-comment" d="M18,2.25c9.942,0,18,6.546,18,14.625a12.981,12.981,0,0,1-4.008,9.19A17.888,17.888,0,0,0,35.845,32.8a.559.559,0,0,1,.105.612.551.551,0,0,1-.513.338,16.08,16.08,0,0,1-9.886-3.614A21.444,21.444,0,0,1,18,31.5c-9.942,0-18-6.546-18-14.625S8.058,2.25,18,2.25Z" transform="translate(0 -2.25)" fill="#1e2126" />
+					<path id="Icon_ionic-ios-star" data-name="Icon ionic-ios-star" d="M2.974,9.5H9.235l1.9-5.678a.689.689,0,0,1,1.294,0l1.9,5.678h6.3a.683.683,0,0,1,.681.681.5.5,0,0,1-.013.115.654.654,0,0,1-.285.481l-5.146,3.626,1.975,5.742a.683.683,0,0,1-.234.766.659.659,0,0,1-.383.166.834.834,0,0,1-.426-.153l-5.022-3.58-5.022,3.58a.8.8,0,0,1-.426.153.611.611,0,0,1-.379-.166.675.675,0,0,1-.234-.766L7.7,14.407l-5.1-3.66-.123-.106a.714.714,0,0,1-.221-.455A.721.721,0,0,1,2.974,9.5Z" transform="translate(5.932 1.75)" fill="#d6b329" />
+				</svg>
+				Ratings</span>
+			</h2>
 
-							<div class="transBlockContainer" style="height: 70vh; overflow: auto;" id="ongoing">
-								<?php $ctr = 1;
-								$ada = "";
-								$ganti = false;
-								foreach ($transaksiItem as $transItem) {
-									if ($transItem['status'] == 0 || $transItem['status'] == 1) {
-										$ganti = false;
-										foreach ($item as $itm) {
-											if ($itm['id_item'] == $transItem['id_item'] && $itm['id_merchant'] == $mchId) {
-												if ($ada != $transItem['id_transaksi']) {
-													if ($ctr != 1) {
-														echo "</div></div>";
-													}
-													$ada = $transItem['id_transaksi'];
-													foreach ($allTrans as $trans) {
-														if ($transItem['id_transaksi'] == $trans['id_transaksi']) {
+			<div class="ratingContainer">
 
-															echo
-																"<div class='transBlock' id='transBlock" . $ctr . "' data-toggle='collapse' data-target='#itemBlockContainer" . $ctr . "' aria-expanded='false' aria-controls='itemBlockContainer" . $ctr . "'>
-																<div class='orderID'>
-																	<p style='margin-left: 2vw;'>" . $trans['id_transaksi'] . "</p>
-																</div>
-																<div class='Date'>
-																	<p style='margin-left: 2vw;'>" . date('d/m/Y', strtotime($trans['tanggal_transaksi'])) . " </p>
-																</div>
-																<div class='kodePromo'>
-																	<p style='margin-left: 2vw;'>" . $trans['email_user'] . "</p>
-																</div>
-															</div>";
-														}
-													}
-													echo "<div class='itemBlockContainer collapse' id='itemBlockContainer" . $ctr . "'>
-															<div class='itemBlockContainer'>";
-												}
-												echo "<div class='itemBlock' idTrans='" . $transItem['id_transaksi'] . "' idItem='" . $transItem['id_item'] . "'>
-														<div class='orderID'>
-															<p>
-																<p style='margin-left: 2vw;'>" . $itm['nama_item'] . "(" . $transItem['jumlah'] . "x)</p>
-															</p>
-														</div>";
-												if ($transItem['status'] == 0) {
-													echo "<div class='Date'>
-														<input type='file' name='file' id='file" . $ctr . "' accept='image/x-png,image/jpg,image/jpeg' class='inputfile' data-multiple-caption='{count} files selected' multiple />
-														<label for='file" . $ctr . "'><span>Choose a file</span></label>
-														</div>
-														<div class='kodePromo'>
-															<button class='updateItemTrans' style='background-color: #D7C13F;margin: 0 0 0 2vw; '>Update</button>
-														</div>";
-												}
-												echo "	<div class='Price' style='width: 10vw;color: #63D99E;'>
-															<p>IDR" . number_format(ceil($transItem['subtotal']), 0, ".", ".") . "</p>
-														</div>
-
-														<h6 class='keterangan' style='color: #ecf0f1'>" . $transItem['keterangan'] . "</h6>
-														<div class='fotobukti' style='display: none;'></div>
-													</div>";
-												$ganti = true;
-											}
-										}
-										$ctr++;
-									}
-								}
-								if ($ganti) {
-									echo "</div></div>";
-								}
-								?>
-							</div>
-
-
-							<div class="transBlockContainer" style="height: 70vh; overflow: auto;" id="finish">
-								<?php $ctr = 1;
-								$ada = "";
-								$ganti = false;
-								foreach ($transaksiItem as $transItem) {
-									if ($transItem['status'] == 2 || $transItem['status'] == -1) {
-
-										$ganti = false;
-										foreach ($item as $itm) {
-											if ($itm['id_item'] == $transItem['id_item'] && $itm['id_merchant'] == $mchId) {
-												if ($ada != $transItem['id_transaksi']) {
-													if ($ctr != 1) {
-														echo "</div></div>";
-													}
-													$ada = $transItem['id_transaksi'];
-													foreach ($allTrans as $trans) {
-														if ($transItem['id_transaksi'] == $trans['id_transaksi']) {
-
-															echo
-																"<div class='transBlock' id='transBlock" . $ctr . "' data-toggle='collapse' data-target='#itemBlockContainer" . $ctr . "' aria-expanded='false' aria-controls='itemBlockContainer" . $ctr . "'>
-																<div class='orderID'>
-																	<p style='margin-left: 2vw;'>" . $trans['id_transaksi'] . "</p>
-																</div>
-																<div class='Date'>
-																	<p style='margin-left: 2vw;'>" . date('d/m/Y', strtotime($trans['tanggal_transaksi'])) . " </p>
-																</div>
-																<div class='kodePromo'>
-																	<p style='margin-left: 2vw;'>" . $trans['email_user'] . "</p>
-																</div>
-															</div>";
-														}
-													}
-													echo "<div class='itemBlockContainer collapse' id='itemBlockContainer" . $ctr . "'>
-															<div class='itemBlockContainer'>";
-												}
-												echo "<div class='itemBlock' idTrans='" . $transItem['id_transaksi'] . "' idItem='" . $transItem['id_item'] . "'>
-																<div class='orderID'>
-																	<p>
-																		<p style='margin-left: 2vw;'>" . $itm['nama_item'] . "(" . $transItem['jumlah'] . "x)</p>
-																	</p>
-																</div>
-																<div class='Date'>
-																	<div class='statusTrans' id='statusPoints" . $ctr . "' style='margin-left: 2vw;'>
-																	</div>
-																</div>
-																<div class='Price' style='width: 10vw;'>
-																	<p>IDR " . number_format(ceil($transItem['subtotal']), 0, ".", ".") . "</p>
-																</div>
-																<div class='Date'>
-																	<p>
-																		<p style='margin-left: 2vw;'>" . date('d/m/Y', strtotime($trans['tanggal_transaksi'])) . "</p>
-																	</p>
-																</div>";
-												if ($transItem['status'] == -1) {
-													echo "		<div class='Date' style='width: 20vw;'>
-																	<p>
-																		<p style='margin-left: 2vw;'>(User) " . $transItem['keterangan']  . "</p>
-																	</p>
-																</div>";
-												}
-
-												echo "<input type='hidden' name='status' id='inputPoints" . $ctr . "' value='" . $transItem['status'] . "'>
-														</div>";
-												$ganti = true;
-											}
-										}
-										$ctr++;
-									}
-								}
-								if ($ganti) {
-									echo "</div></div></div></div>";
-								}
-								?>
-							</div>
-
-
+				<div class="ratingItem">
+					<div class="starContainer">
+						<h3 class="varela" style="color: #d9ac18;margin-bottom: 5vh;">YOU ARE AWESOME!</h3>
+						<div style="display: flex;width: 40%; justify-content: space-around;">
+							<svg xmlns="http://www.w3.org/2000/svg" width="41.736" height="38" viewBox="0 0 41.736 38">
+								<path id="Icon_ionic-ios-star" data-name="Icon ionic-ios-star" d="M42.4,16.529H28.7L24.534,4.343a1.52,1.52,0,0,0-2.832,0L17.538,16.529H3.741A1.481,1.481,0,0,0,2.25,17.99a1.054,1.054,0,0,0,.028.247A1.4,1.4,0,0,0,2.9,19.269l11.263,7.783L9.843,39.375a1.583,1.583,0,0,0,1.351,2,1.849,1.849,0,0,0,.932-.329l10.993-7.682,10.993,7.682a1.768,1.768,0,0,0,.932.329,1.351,1.351,0,0,0,.829-.356,1.432,1.432,0,0,0,.512-1.644L32.061,27.052,43.231,19.2l.27-.228a1.521,1.521,0,0,0,.484-.977A1.565,1.565,0,0,0,42.4,16.529Z" transform="translate(-2.25 -3.375)" fill="#d9ac18" />
+							</svg>
+							<svg xmlns="http://www.w3.org/2000/svg" width="41.736" height="38" viewBox="0 0 41.736 38">
+								<path id="Icon_ionic-ios-star" data-name="Icon ionic-ios-star" d="M42.4,16.529H28.7L24.534,4.343a1.52,1.52,0,0,0-2.832,0L17.538,16.529H3.741A1.481,1.481,0,0,0,2.25,17.99a1.054,1.054,0,0,0,.028.247A1.4,1.4,0,0,0,2.9,19.269l11.263,7.783L9.843,39.375a1.583,1.583,0,0,0,1.351,2,1.849,1.849,0,0,0,.932-.329l10.993-7.682,10.993,7.682a1.768,1.768,0,0,0,.932.329,1.351,1.351,0,0,0,.829-.356,1.432,1.432,0,0,0,.512-1.644L32.061,27.052,43.231,19.2l.27-.228a1.521,1.521,0,0,0,.484-.977A1.565,1.565,0,0,0,42.4,16.529Z" transform="translate(-2.25 -3.375)" fill="#d9ac18" />
+							</svg>
+							<svg xmlns="http://www.w3.org/2000/svg" width="41.736" height="38" viewBox="0 0 41.736 38">
+								<path id="Icon_ionic-ios-star" data-name="Icon ionic-ios-star" d="M42.4,16.529H28.7L24.534,4.343a1.52,1.52,0,0,0-2.832,0L17.538,16.529H3.741A1.481,1.481,0,0,0,2.25,17.99a1.054,1.054,0,0,0,.028.247A1.4,1.4,0,0,0,2.9,19.269l11.263,7.783L9.843,39.375a1.583,1.583,0,0,0,1.351,2,1.849,1.849,0,0,0,.932-.329l10.993-7.682,10.993,7.682a1.768,1.768,0,0,0,.932.329,1.351,1.351,0,0,0,.829-.356,1.432,1.432,0,0,0,.512-1.644L32.061,27.052,43.231,19.2l.27-.228a1.521,1.521,0,0,0,.484-.977A1.565,1.565,0,0,0,42.4,16.529Z" transform="translate(-2.25 -3.375)" fill="#d9ac18" />
+							</svg>
+							<svg xmlns="http://www.w3.org/2000/svg" width="41.736" height="38" viewBox="0 0 41.736 38">
+								<path id="Icon_ionic-ios-star" data-name="Icon ionic-ios-star" d="M42.4,16.529H28.7L24.534,4.343a1.52,1.52,0,0,0-2.832,0L17.538,16.529H3.741A1.481,1.481,0,0,0,2.25,17.99a1.054,1.054,0,0,0,.028.247A1.4,1.4,0,0,0,2.9,19.269l11.263,7.783L9.843,39.375a1.583,1.583,0,0,0,1.351,2,1.849,1.849,0,0,0,.932-.329l10.993-7.682,10.993,7.682a1.768,1.768,0,0,0,.932.329,1.351,1.351,0,0,0,.829-.356,1.432,1.432,0,0,0,.512-1.644L32.061,27.052,43.231,19.2l.27-.228a1.521,1.521,0,0,0,.484-.977A1.565,1.565,0,0,0,42.4,16.529Z" transform="translate(-2.25 -3.375)" fill="#d9ac18" />
+							</svg>
+							<svg xmlns="http://www.w3.org/2000/svg" width="41.736" height="38" viewBox="0 0 41.736 38">
+								<path id="Icon_ionic-ios-star" data-name="Icon ionic-ios-star" d="M42.4,16.529H28.7L24.534,4.343a1.52,1.52,0,0,0-2.832,0L17.538,16.529H3.741A1.481,1.481,0,0,0,2.25,17.99a1.054,1.054,0,0,0,.028.247A1.4,1.4,0,0,0,2.9,19.269l11.263,7.783L9.843,39.375a1.583,1.583,0,0,0,1.351,2,1.849,1.849,0,0,0,.932-.329l10.993-7.682,10.993,7.682a1.768,1.768,0,0,0,.932.329,1.351,1.351,0,0,0,.829-.356,1.432,1.432,0,0,0,.512-1.644L32.061,27.052,43.231,19.2l.27-.228a1.521,1.521,0,0,0,.484-.977A1.565,1.565,0,0,0,42.4,16.529Z" transform="translate(-2.25 -3.375)" fill="#d9ac18" />
+							</svg>
 						</div>
 					</div>
+					<div class="rateContainer">
+						<?php foreach ($rating as $rate) {
+							if ($rate['id_merchant'] == $mchId & $rate['bintang'] == 5) {  ?>
+								<h4 class="yellow" style="margin-top: 5vh;"><?php foreach ($allUser as $users) {
+																				if ($users['id_user'] == $rate['id_user']) {
+																					echo $users['nama_user'];
+																				}
+																			} ?></h4>
+								<div class="rateMessage">
+									<p style="color: #ecf0f1;"><?= $rate['komentar'] ?></p>
+								</div>
+						<?php }
+						} ?>
+					</div>
 				</div>
-			</div> -->
-
-
-
+				<div class="ratingItem">
+					<div class="starContainer">
+						<h3 class="varela" style="color: #d9ac18;margin-bottom: 5vh;">DECENT WORK!</h3>
+						<div style="display: flex;width: 40%; justify-content: space-around;">
+							<svg xmlns="http://www.w3.org/2000/svg" width="41.736" height="38" viewBox="0 0 41.736 38">
+								<path id="Icon_ionic-ios-star" data-name="Icon ionic-ios-star" d="M42.4,16.529H28.7L24.534,4.343a1.52,1.52,0,0,0-2.832,0L17.538,16.529H3.741A1.481,1.481,0,0,0,2.25,17.99a1.054,1.054,0,0,0,.028.247A1.4,1.4,0,0,0,2.9,19.269l11.263,7.783L9.843,39.375a1.583,1.583,0,0,0,1.351,2,1.849,1.849,0,0,0,.932-.329l10.993-7.682,10.993,7.682a1.768,1.768,0,0,0,.932.329,1.351,1.351,0,0,0,.829-.356,1.432,1.432,0,0,0,.512-1.644L32.061,27.052,43.231,19.2l.27-.228a1.521,1.521,0,0,0,.484-.977A1.565,1.565,0,0,0,42.4,16.529Z" transform="translate(-2.25 -3.375)" fill="#d9ac18" />
+							</svg>
+							<svg xmlns="http://www.w3.org/2000/svg" width="41.736" height="38" viewBox="0 0 41.736 38">
+								<path id="Icon_ionic-ios-star" data-name="Icon ionic-ios-star" d="M42.4,16.529H28.7L24.534,4.343a1.52,1.52,0,0,0-2.832,0L17.538,16.529H3.741A1.481,1.481,0,0,0,2.25,17.99a1.054,1.054,0,0,0,.028.247A1.4,1.4,0,0,0,2.9,19.269l11.263,7.783L9.843,39.375a1.583,1.583,0,0,0,1.351,2,1.849,1.849,0,0,0,.932-.329l10.993-7.682,10.993,7.682a1.768,1.768,0,0,0,.932.329,1.351,1.351,0,0,0,.829-.356,1.432,1.432,0,0,0,.512-1.644L32.061,27.052,43.231,19.2l.27-.228a1.521,1.521,0,0,0,.484-.977A1.565,1.565,0,0,0,42.4,16.529Z" transform="translate(-2.25 -3.375)" fill="#d9ac18" />
+							</svg>
+							<svg xmlns="http://www.w3.org/2000/svg" width="41.736" height="38" viewBox="0 0 41.736 38">
+								<path id="Icon_ionic-ios-star" data-name="Icon ionic-ios-star" d="M42.4,16.529H28.7L24.534,4.343a1.52,1.52,0,0,0-2.832,0L17.538,16.529H3.741A1.481,1.481,0,0,0,2.25,17.99a1.054,1.054,0,0,0,.028.247A1.4,1.4,0,0,0,2.9,19.269l11.263,7.783L9.843,39.375a1.583,1.583,0,0,0,1.351,2,1.849,1.849,0,0,0,.932-.329l10.993-7.682,10.993,7.682a1.768,1.768,0,0,0,.932.329,1.351,1.351,0,0,0,.829-.356,1.432,1.432,0,0,0,.512-1.644L32.061,27.052,43.231,19.2l.27-.228a1.521,1.521,0,0,0,.484-.977A1.565,1.565,0,0,0,42.4,16.529Z" transform="translate(-2.25 -3.375)" fill="#d9ac18" />
+							</svg>
+							<svg xmlns="http://www.w3.org/2000/svg" width="41.736" height="38" viewBox="0 0 41.736 38">
+								<path id="Icon_ionic-ios-star" data-name="Icon ionic-ios-star" d="M42.4,16.529H28.7L24.534,4.343a1.52,1.52,0,0,0-2.832,0L17.538,16.529H3.741A1.481,1.481,0,0,0,2.25,17.99a1.054,1.054,0,0,0,.028.247A1.4,1.4,0,0,0,2.9,19.269l11.263,7.783L9.843,39.375a1.583,1.583,0,0,0,1.351,2,1.849,1.849,0,0,0,.932-.329l10.993-7.682,10.993,7.682a1.768,1.768,0,0,0,.932.329,1.351,1.351,0,0,0,.829-.356,1.432,1.432,0,0,0,.512-1.644L32.061,27.052,43.231,19.2l.27-.228a1.521,1.521,0,0,0,.484-.977A1.565,1.565,0,0,0,42.4,16.529Z" transform="translate(-2.25 -3.375)" fill="#d9ac18" />
+							</svg>
+						</div>
+					</div>
+					<div class="rateContainer">
+						<?php foreach ($rating as $rate) {
+							if ($rate['id_merchant'] == $mchId & $rate['bintang'] == 4) {  ?>
+								<h4 class="yellow" style="margin-top: 5vh;"><?php foreach ($allUser as $users) {
+																				if ($users['id_user'] == $rate['id_user']) {
+																					echo $users['nama_user'];
+																				}
+																			} ?></h4>
+								<div class="rateMessage">
+									<p style="color: #ecf0f1;"><?= $rate['komentar'] ?></p>
+								</div>
+						<?php }
+						} ?>
+					</div>
+				</div>
+				<div class="ratingItem">
+					<div class="starContainer">
+						<h3 class="varela" style="color: #d9ac18;margin-bottom: 5vh;">IT'S STILL AVERAGE!</h3>
+						<div style="display: flex;width: 40%; justify-content: space-around;">
+							<svg xmlns="http://www.w3.org/2000/svg" width="41.736" height="38" viewBox="0 0 41.736 38">
+								<path id="Icon_ionic-ios-star" data-name="Icon ionic-ios-star" d="M42.4,16.529H28.7L24.534,4.343a1.52,1.52,0,0,0-2.832,0L17.538,16.529H3.741A1.481,1.481,0,0,0,2.25,17.99a1.054,1.054,0,0,0,.028.247A1.4,1.4,0,0,0,2.9,19.269l11.263,7.783L9.843,39.375a1.583,1.583,0,0,0,1.351,2,1.849,1.849,0,0,0,.932-.329l10.993-7.682,10.993,7.682a1.768,1.768,0,0,0,.932.329,1.351,1.351,0,0,0,.829-.356,1.432,1.432,0,0,0,.512-1.644L32.061,27.052,43.231,19.2l.27-.228a1.521,1.521,0,0,0,.484-.977A1.565,1.565,0,0,0,42.4,16.529Z" transform="translate(-2.25 -3.375)" fill="#d9ac18" />
+							</svg>
+							<svg xmlns="http://www.w3.org/2000/svg" width="41.736" height="38" viewBox="0 0 41.736 38">
+								<path id="Icon_ionic-ios-star" data-name="Icon ionic-ios-star" d="M42.4,16.529H28.7L24.534,4.343a1.52,1.52,0,0,0-2.832,0L17.538,16.529H3.741A1.481,1.481,0,0,0,2.25,17.99a1.054,1.054,0,0,0,.028.247A1.4,1.4,0,0,0,2.9,19.269l11.263,7.783L9.843,39.375a1.583,1.583,0,0,0,1.351,2,1.849,1.849,0,0,0,.932-.329l10.993-7.682,10.993,7.682a1.768,1.768,0,0,0,.932.329,1.351,1.351,0,0,0,.829-.356,1.432,1.432,0,0,0,.512-1.644L32.061,27.052,43.231,19.2l.27-.228a1.521,1.521,0,0,0,.484-.977A1.565,1.565,0,0,0,42.4,16.529Z" transform="translate(-2.25 -3.375)" fill="#d9ac18" />
+							</svg>
+							<svg xmlns="http://www.w3.org/2000/svg" width="41.736" height="38" viewBox="0 0 41.736 38">
+								<path id="Icon_ionic-ios-star" data-name="Icon ionic-ios-star" d="M42.4,16.529H28.7L24.534,4.343a1.52,1.52,0,0,0-2.832,0L17.538,16.529H3.741A1.481,1.481,0,0,0,2.25,17.99a1.054,1.054,0,0,0,.028.247A1.4,1.4,0,0,0,2.9,19.269l11.263,7.783L9.843,39.375a1.583,1.583,0,0,0,1.351,2,1.849,1.849,0,0,0,.932-.329l10.993-7.682,10.993,7.682a1.768,1.768,0,0,0,.932.329,1.351,1.351,0,0,0,.829-.356,1.432,1.432,0,0,0,.512-1.644L32.061,27.052,43.231,19.2l.27-.228a1.521,1.521,0,0,0,.484-.977A1.565,1.565,0,0,0,42.4,16.529Z" transform="translate(-2.25 -3.375)" fill="#d9ac18" />
+							</svg>
+						</div>
+					</div>
+					<div class="rateContainer">
+						<?php foreach ($rating as $rate) {
+							if ($rate['id_merchant'] == $mchId & $rate['bintang'] == 3) {  ?>
+								<h4 class="yellow" style="margin-top: 5vh;"><?php foreach ($allUser as $users) {
+																				if ($users['id_user'] == $rate['id_user']) {
+																					echo $users['nama_user'];
+																				}
+																			} ?></h4>
+								<div class="rateMessage">
+									<p style="color: #ecf0f1;"><?= $rate['komentar'] ?></p>
+								</div>
+						<?php }
+						} ?>
+					</div>
+				</div>
+				<div class="ratingItem">
+					<div class="starContainer">
+						<h3 class="varela" style="color: #d9ac18;margin-bottom: 5vh;">NEED SOME WORK!</h3>
+						<div style="display: flex;width: 40%; justify-content: space-around;">
+							<svg xmlns="http://www.w3.org/2000/svg" width="41.736" height="38" viewBox="0 0 41.736 38">
+								<path id="Icon_ionic-ios-star" data-name="Icon ionic-ios-star" d="M42.4,16.529H28.7L24.534,4.343a1.52,1.52,0,0,0-2.832,0L17.538,16.529H3.741A1.481,1.481,0,0,0,2.25,17.99a1.054,1.054,0,0,0,.028.247A1.4,1.4,0,0,0,2.9,19.269l11.263,7.783L9.843,39.375a1.583,1.583,0,0,0,1.351,2,1.849,1.849,0,0,0,.932-.329l10.993-7.682,10.993,7.682a1.768,1.768,0,0,0,.932.329,1.351,1.351,0,0,0,.829-.356,1.432,1.432,0,0,0,.512-1.644L32.061,27.052,43.231,19.2l.27-.228a1.521,1.521,0,0,0,.484-.977A1.565,1.565,0,0,0,42.4,16.529Z" transform="translate(-2.25 -3.375)" fill="#d9ac18" />
+							</svg>
+							<svg xmlns="http://www.w3.org/2000/svg" width="41.736" height="38" viewBox="0 0 41.736 38">
+								<path id="Icon_ionic-ios-star" data-name="Icon ionic-ios-star" d="M42.4,16.529H28.7L24.534,4.343a1.52,1.52,0,0,0-2.832,0L17.538,16.529H3.741A1.481,1.481,0,0,0,2.25,17.99a1.054,1.054,0,0,0,.028.247A1.4,1.4,0,0,0,2.9,19.269l11.263,7.783L9.843,39.375a1.583,1.583,0,0,0,1.351,2,1.849,1.849,0,0,0,.932-.329l10.993-7.682,10.993,7.682a1.768,1.768,0,0,0,.932.329,1.351,1.351,0,0,0,.829-.356,1.432,1.432,0,0,0,.512-1.644L32.061,27.052,43.231,19.2l.27-.228a1.521,1.521,0,0,0,.484-.977A1.565,1.565,0,0,0,42.4,16.529Z" transform="translate(-2.25 -3.375)" fill="#d9ac18" />
+							</svg>
+						</div>
+					</div>
+					<div class="rateContainer">
+						<?php foreach ($rating as $rate) {
+							if ($rate['id_merchant'] == $mchId & $rate['bintang'] == 2) {  ?>
+								<h4 class="yellow" style="margin-top: 5vh;"><?php foreach ($allUser as $users) {
+																				if ($users['id_user'] == $rate['id_user']) {
+																					echo $users['nama_user'];
+																				}
+																			} ?></h4>
+								<div class="rateMessage">
+									<p style="color: #ecf0f1;"><?= $rate['komentar'] ?></p>
+								</div>
+						<?php }
+						} ?>
+					</div>
+				</div>
+				<div class="ratingItem">
+					<div class="starContainer">
+						<h3 class="varela" style="color: #d9ac18;margin-bottom: 5vh;">BETTER KEEP UP!</h3>
+						<div style="display: flex;width: 40%; justify-content: space-around;">
+							<svg xmlns="http://www.w3.org/2000/svg" width="41.736" height="38" viewBox="0 0 41.736 38">
+								<path id="Icon_ionic-ios-star" data-name="Icon ionic-ios-star" d="M42.4,16.529H28.7L24.534,4.343a1.52,1.52,0,0,0-2.832,0L17.538,16.529H3.741A1.481,1.481,0,0,0,2.25,17.99a1.054,1.054,0,0,0,.028.247A1.4,1.4,0,0,0,2.9,19.269l11.263,7.783L9.843,39.375a1.583,1.583,0,0,0,1.351,2,1.849,1.849,0,0,0,.932-.329l10.993-7.682,10.993,7.682a1.768,1.768,0,0,0,.932.329,1.351,1.351,0,0,0,.829-.356,1.432,1.432,0,0,0,.512-1.644L32.061,27.052,43.231,19.2l.27-.228a1.521,1.521,0,0,0,.484-.977A1.565,1.565,0,0,0,42.4,16.529Z" transform="translate(-2.25 -3.375)" fill="#d9ac18" />
+							</svg>
+						</div>
+					</div>
+					<div class="rateContainer">
+						<?php foreach ($rating as $rate) {
+							if ($rate['id_merchant'] == $mchId & $rate['bintang'] == 1) {  ?>
+								<h4 class="yellow" style="margin-top: 5vh;"><?php foreach ($allUser as $users) {
+																				if ($users['id_user'] == $rate['id_user']) {
+																					echo $users['nama_user'];
+																				}
+																			} ?></h4>
+								<div class="rateMessage">
+									<p style="color: #ecf0f1;"><?= $rate['komentar'] ?></p>
+								</div>
+						<?php }
+						} ?>
+					</div>
+				</div>
+			</div>
 
 			<h2 style="margin-top: 10vh;color: #E2A52A;">
 				<svg xmlns="http://www.w3.org/2000/svg" width="29.5" height="34" viewBox="0 0 31.5 36">
@@ -672,6 +658,42 @@ usort($totalItem, function ($a, $b) {
 				</svg>
 				STASH <span class="yellow">BOX</span>
 			</h2>
+
+
+			<div class="chartWrapper">
+				<div id="containerChart">
+				</div>
+				<div class="waktu">
+					<div class="form-group mb-4" style="margin: 0!important;">
+						<div class="datepicker date input-group p-0 shadow-sm">
+							<input type="text" placeholder="Start Date" class="form-control" name="startDate" id="startDate">
+							<div class="input-group-append" style="overflow: visible;">
+								<svg xmlns="http://www.w3.org/2000/svg" width="48" height="32.5" viewBox="0 0 61 46">
+									<g id="Group_190" data-name="Group 190" transform="translate(-6632 2629)">
+										<path id="Rectangle_348" data-name="Rectangle 348" d="M0,0H46A15,15,0,0,1,61,15V31A15,15,0,0,1,46,46H0a0,0,0,0,1,0,0V0A0,0,0,0,1,0,0Z" transform="translate(6632 -2629)" fill="#d7c13f" />
+										<path id="Icon_material-date-range" data-name="Icon material-date-range" d="M13.5,16.5h-3v3h3Zm6,0h-3v3h3Zm6,0h-3v3h3ZM28.5,6H27V3H24V6H12V3H9V6H7.5A2.986,2.986,0,0,0,4.515,9L4.5,30a3,3,0,0,0,3,3h21a3.009,3.009,0,0,0,3-3V9A3.009,3.009,0,0,0,28.5,6Zm0,24H7.5V13.5h21Z" transform="translate(6644.3 -2624)" fill="#1e2126" />
+									</g>
+								</svg>
+							</div>
+						</div>
+					</div>
+					<button class="showGraph">Update Graph</button>
+					<div class="form-group mb-4" style="margin: 0!important;">
+						<div class="datepicker date input-group p-0 shadow-sm">
+							<input type="text" placeholder="End Date" class="form-control" name="endDate" id="endDate">
+							<div class="input-group-append" style="overflow: visible;">
+								<svg xmlns="http://www.w3.org/2000/svg" width="48" height="32.5" viewBox="0 0 61 46">
+									<g id="Group_190" data-name="Group 190" transform="translate(-6632 2629)">
+										<path id="Rectangle_348" data-name="Rectangle 348" d="M0,0H46A15,15,0,0,1,61,15V31A15,15,0,0,1,46,46H0a0,0,0,0,1,0,0V0A0,0,0,0,1,0,0Z" transform="translate(6632 -2629)" fill="#d7c13f" />
+										<path id="Icon_material-date-range" data-name="Icon material-date-range" d="M13.5,16.5h-3v3h3Zm6,0h-3v3h3Zm6,0h-3v3h3ZM28.5,6H27V3H24V6H12V3H9V6H7.5A2.986,2.986,0,0,0,4.515,9L4.5,30a3,3,0,0,0,3,3h21a3.009,3.009,0,0,0,3-3V9A3.009,3.009,0,0,0,28.5,6Zm0,24H7.5V13.5h21Z" transform="translate(6644.3 -2624)" fill="#1e2126" />
+									</g>
+								</svg>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
 			<div class="addItemContainer">
 				<h2 class="addItemHeader">Adding Item</h2>
 				<div class="addItem">
@@ -886,9 +908,23 @@ usort($totalItem, function ($a, $b) {
 			<input type="number" name="topUpAmount" id="topUpAmount">
 		</div>
 	</div>
-	<div class="subs">
+	<?php
+	$ada = false;
+	$tgl =  date("Y-m-d H:i:s");
+	if ($mchId != "") {
+		foreach ($subscribers as $subs) {
+			if ($subs['id_merchant'] == $mchId && $tgl < $subs['tgl_akhir']) {
+				$ada = true;
+				$subBanner = $subs['banner'];
+				$subId = $subs['id_sub'];
+				$subAkhir = $subs['tgl_akhir'];
+			}
+		}
+	}
+	?>
+	<div class="subs" style="text-align: center;">
 		<input type="file" name="bannerImg" id="bannerImg" accept="image/x-png,image/jpg,image/jpeg" hidden>
-		<p id="countdown">Subscribe to our <span style="color: #d7c13f;">MONTHLY PLAN</span></p>
+		<p id="countdown">Subscribe to our <span style="color: #d7c13f;">PLAN</span></p>
 		<h5 class="varela" id="desc">Create your own ad banner and display it on the shop page</h5>
 		<div class="banner">
 			<h2 style="color: #ecf0f1;">Click here to upload your own image</h2>
@@ -897,9 +933,11 @@ usort($totalItem, function ($a, $b) {
 		<h5 class="varela" id="priceTag">Only GP 30.000 / month</h5>
 		<button class="subscribe">SUBSCRIBE</button>
 	</div>
+
 	<div class="bgblur"></div>
 	<script>
 		$(document).ready(function() {
+
 			var ctr = 1;
 			var ada = true;
 			while (ada) {
@@ -927,7 +965,6 @@ usort($totalItem, function ($a, $b) {
 				var merchantDesc = <?php if (isset($mchNama)) {
 										echo "'" . $mchDesc . "'";
 									} ?>;
-				//alert("A");
 				$("#merchantName").html(merchantName);
 				$("#merchantName").attr("idM", '<?= $mchId ?>');
 				$("#descriptionArea").html(merchantDesc);
@@ -957,7 +994,47 @@ usort($totalItem, function ($a, $b) {
 			$("#finish").css("display", "none");
 			$(".subs").css("display", "none");
 			$(".bgblur").css("display", "none");
+			$(".navBarFix").css("display", "none");
 
+		});
+
+		var nav = false;
+
+		$(window).scroll(function(event) {
+			var scroll = $(window).scrollTop();
+			if (scroll > 1250) {
+				nav = true;
+				$(".navBarFix").removeClass("slideOutUp");
+				$(".navBarFix").addClass("slideInDown animated");
+				$(".navBarFix").css("width", "81vw");
+				$(".navBarFix").css("display", "flex");
+				$(".navBarFix").css("z-index", "99");
+				$(".navBarFix").css("position", "fixed");
+			}
+			if (scroll < 500 && nav) {
+				$(".navBarFix").removeClass("slideInDown");
+				$(".navBarFix").addClass("slideOutUp animated");
+				var time = setTimeout('$(".navBarFix").css("display","none");', 1000);
+			}
+			// Do something
+		});
+
+		$(".stash").click(function() {
+			$('html, body').animate({
+				scrollTop: $(".chartWrapper").offset().top - 50
+			}, 2000);
+		});
+
+		$(".rating").click(function() {
+			$('html, body').animate({
+				scrollTop: $(".ratingContainer").offset().top - 50
+			}, 2000);
+		});
+
+		$(".pending").click(function() {
+			$('html, body').animate({
+				scrollTop: $(".pendingTrans").offset().top - 50
+			}, 2000);
 		});
 
 		var check = false;
@@ -1552,23 +1629,6 @@ usort($totalItem, function ($a, $b) {
 			});
 		}
 
-
-		// $(".chartWrapper").on("click", "#nextYear", function() {
-		// 	modifyYear(1);
-		// });
-
-		// $(".chartWrapper").on("click", "#prevYear", function() {
-		// 	modifyYear(-1);
-		// });
-
-		// $(".chartWrapper").on("click", "#next10Year", function() {
-		// 	modifyYear(10);
-		// });
-
-		// $(".chartWrapper").on("click", "#prev10Year", function() {
-		// 	modifyYear(-10);
-		// });
-
 		$(".finished").click(function() {
 			$("#ongoing").addClass("fadeOut animated");
 			var timer = setTimeout('$("#ongoing").css("display", "none");$("#ongoing").removeClass("fadeOut animated");', 1000);
@@ -1589,13 +1649,6 @@ usort($totalItem, function ($a, $b) {
 			$(".ongoing").addClass("yellow");
 		});
 
-		// $("#ongoing").on("click", "itemBlockContainer", "", function() {
-		// 	$idTrans = $("")
-		// 	alert("A");
-		// });
-
-
-
 		$(".inputfile").change(function() {
 			if (this.files && this.files[0]) {
 				var reader = new FileReader();
@@ -1611,7 +1664,6 @@ usort($totalItem, function ($a, $b) {
 
 
 		$(".itemBlock").on("click", ".updateItemTrans", function() {
-			//alert($(this).parent().siblings(".Date").children(".inputfile").val());
 			if ($(this).parent().siblings(".Date").children(".inputfile").val()) {
 				idTrans = $(this).parent().parent().attr("idTrans");
 				idItem = $(this).parent().parent().attr("idItem");
@@ -1778,15 +1830,67 @@ usort($totalItem, function ($a, $b) {
 				};
 				reader.readAsDataURL(this.files[0]);
 			}
+
 		});
 
 		$(".banner").click(function() {
 			$("#bannerImg").trigger("click");
 		});
 
-		$(".btnIklan").click(function() {
+		<?php if ($ada) { ?>
+			x = setInterval(countdown, 1000);
+			subs = true;
+			var today = new Date();
+			countDownDate = new Date('<?= $subAkhir  ?>');
+			$("#desc").html("Change the banner below to replace your current banner");
+			$("#countdown").css("color", "#d7c13f");
+			$("#priceTag").css("display", "none");
+			$(".subscribe").css("display", "none");
+			var img = $('<img>').attr('src', "data:image/jpeg;base64,<?= base64_encode($subBanner) ?>");
+			$(".banner").html(img);
+		<?php } ?>
+
+		$(".ngiklan").click(function() {
 			$(".subs").css("display", "block");
+			$(".subs").addClass("slideInDown animated");
+			$(".subs").removeClass("slideOutUp");
 			$(".bgblur").css("display", "block");
+			$(".bgblur").removeClass("fadeOutBG");
+			$(".bgblur").addClass("fadeInBG animated");
+		});
+
+		$(".bgblur").click(function() {
+			<?php if ($ada) { ?>
+				foto = $(".banner").find("img").attr("src");
+				if (foto != null) {
+					if (foto.substring(11, 12) == "j") {
+						foto = foto.substring(23, foto.length);
+					} else {
+						foto = foto.substring(22, foto.length);
+					}
+				}
+				id_sub = '<?= $subId ?>';
+				// alert(foto);
+				// alert(id_sub);
+				$.ajax({
+					url: "<?= base_url(); ?>Shop/editBanner",
+					method: "post",
+					data: {
+						id_sub: id_sub,
+						foto: foto
+					},
+					success: function(result) {
+						alertify.success("Success change Banner");
+					}
+				});
+			<?php } ?>
+			$(".subs").removeClass("slideInDown animated");
+			$(".subs").addClass("slideOutUp animated");
+			$(".bgblur").removeClass("fadeInBG animated");
+			$(".bgblur").addClass("fadeOutBG animated");
+			timer[10] = setTimeout("$('.subs').css('display','none')", 1000);
+			timer[11] = setTimeout("$('.bgblur').css('display','none')", 1000);
+
 		});
 	</script>
 </body>

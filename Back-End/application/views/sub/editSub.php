@@ -43,22 +43,30 @@
                 <input readonly type="text" class="form-control" name="idSub" placeholder="Enter Your Tipe Subscription" value="<?= $sub['id_sub']; ?>">
               </div>
               <div class="form-group">
-                <label>Tipe Subscription</label>
-                <input type="text" class="form-control" name="tipeSub" placeholder="Enter Your Tipe Subscription" value="<?= $sub['tipe_sub']; ?>">
+                <label>Merchant</label>
+                <input readonly type="text" class="form-control" name="tipeSub" placeholder="Enter Your Tipe Subscription" value=" <?php foreach ($merchant as $mch) {
+                                                                                                                                      if ($mch['id_merchant'] == $sub['id_merchant']) {
+                                                                                                                                        echo $mch['nama_merchant'];
+                                                                                                                                      }
+                                                                                                                                    } ?>">
+              </div>
+              <div class="form-group foto">
+                <img src="data:image/jpeg;base64,<?= base64_encode($sub['banner']) ?>" style="width: 150px;height: 150px;" alt="" />
               </div>
               <div class="form-group">
-                <label>Keterangan</label>
-                <textarea class="form-control" name="keterangan" rows="6" placeholder="Enter ..."> <?= $sub['keterangan']; ?></textarea>
-              </div>
-              <div class="form-group">
-                <label>Tanggal Awal - Tanggal Akhir</label>
+                <label for="exampleInputFile">Banner Picture</label>
                 <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      <i class="far fa-calendar-alt"></i>
-                    </span>
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" accept="image/x-png,image/jpg,image/jpeg" id="photoBanner">
+                    <label class="custom-file-label" for="exampleInputFile">Choose Photo</label>
                   </div>
-                  <input type="text" class="form-control float-right" id="reservation" name="tglKadaluwarsa" value="<?= date('m/d/Y', strtotime($sub['tanggal_awal']))  ?> - <?= date('m/d/Y', strtotime($sub['tanggal_akhir'])) ?>">
+                </div>
+              </div>
+              <input type="hidden" name="photoBaner" id="fotoBanner">
+              <div class="form-group">
+                <label>Tanggal Akhir</label>
+                <div class="input-group">
+                  <input name="tglAkhir" class="form-control mr-sm-2 date" placeholder="Tanggal Akhir" type="date" value="<?= date('m/d/Y', strtotime($sub['tgl_akhir'])) ?>">
                 </div>
                 <!-- /.input group -->
               </div>
@@ -102,7 +110,35 @@
   <script>
     $(function() {
       $('#reservation').daterangepicker()
-    })
+    });
+
+
+    $("#photoBanner").change(function() {
+      if (this.files && this.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+          var img = $('<img>').attr('src', e.target.result);
+          img.attr("width", "100px");
+          img.attr("height", "100px");
+          $('.foto').html(img);
+        };
+        reader.readAsDataURL(this.files[0]);
+      }
+    });
+
+    $('#insertSub').submit(function() {
+      foto = $(".foto").find('img').attr('src');
+
+      if (foto.substring(11, 12) == "j") {
+        foto = foto.substring(23, foto.length);
+      } else {
+        foto = foto.substring(22, foto.length);
+      }
+      $("#fotoBanner").val(foto);
+
+      return true;
+    });
   </script>
   </body>
 

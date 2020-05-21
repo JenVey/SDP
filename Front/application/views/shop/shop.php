@@ -137,22 +137,38 @@
         </div>
 
         <div class="iklan">
-            <div id="iklanDisplay" class="carousel slide" data-ride="carousel">
+            <div id="iklanDisplay" class="carousel slide" data-ride="carousel" style="overflow: hidden;">
                 <ol class="carousel-indicators">
-                    <li data-target="#iklanDisplay" data-slide-to="0" class="active"></li>
-                    <li data-target="#iklanDisplay" data-slide-to="1"></li>
-                    <li data-target="#iklanDisplay" data-slide-to="2"></li>
+                    <?php $ctr = 0;
+                    $tgl =  date("Y-m-d H:i:s");
+                    foreach ($subscribers as $subs) {
+                        if ($tgl < $subs['tgl_akhir']) {
+                            if ($ctr == 0) { ?>
+                                <li data-target="#iklanDisplay" data-slide-to="<?= $ctr ?>" class="active"></li>
+                            <?php } else { ?>
+                                <li data-target="#iklanDisplay" data-slide-to="<?= $ctr ?>"></li>
+                    <?php
+                            }
+                        }
+                        $ctr++;
+                    } ?>
                 </ol>
                 <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img src="<?php echo base_url(); ?>/asset/Images/contohIklan1.png" class="d-block w-100" alt="...">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="<?php echo base_url(); ?>/asset/Images/contohIklan2.png" class="d-block w-100" alt="...">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="<?php echo base_url(); ?>/asset/Images/contohIklan3.png" class="d-block w-100" alt="...">
-                    </div>
+                    <?php $ctr = 0;
+                    foreach ($subscribers as $subs) {
+                        if ($tgl < $subs['tgl_akhir']) {
+                            if ($ctr == 0) { ?>
+                                <div class="carousel-item active">
+                                    <img style="width: 900px; height: 200px;" src="data:image/jpeg;base64,<?= base64_encode($subs['banner']) ?>" class="d-block w-100" alt="...">
+                                </div>
+                            <?php } else { ?>
+                                <div class="carousel-item">
+                                    <img style="width: 900px; height: 200px;" src="data:image/jpeg;base64,<?= base64_encode($subs['banner']) ?>" class="d-block w-100" alt="...">
+                                </div>
+                    <?php  }
+                        }
+                        $ctr++;
+                    } ?>
                 </div>
             </div>
         </div>

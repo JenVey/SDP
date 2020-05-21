@@ -24,12 +24,15 @@ class InsertSub extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('Sub_model');
+		$this->load->model('Merchant_model');
 		$this->load->library('form_validation');
 	}
 
 	public function index()
 	{
 		$this->load->model('Sub_model');
+
+		$data['merchant'] = $this->Merchant_model->getAllMerchant();
 		$this->load->view('templates/header');
 		$this->load->view('templates/navbar');
 		$this->load->view('templates/sidebar');
@@ -40,11 +43,9 @@ class InsertSub extends CI_Controller
 
 	public function insert()
 	{
-
 		$this->load->model('Sub_model');
-		$this->form_validation->set_rules('tipeSub', 'Tipe Subscription', 'required');
-		$this->form_validation->set_rules('keterangan', 'Keterangan Subscription', 'required');
-		$this->form_validation->set_rules('tglKadaluwarsa', 'Tanggal Kadaluwarsa', 'required');
+		$this->form_validation->set_rules('banner', 'Banner', 'required');
+		$this->form_validation->set_rules('tglAkhir', 'Tanggal Akhir', 'required');
 
 		if ($this->form_validation->run() == FALSE) {
 			$this->load->view('templates/header');

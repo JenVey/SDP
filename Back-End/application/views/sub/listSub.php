@@ -39,10 +39,9 @@
                 <thead>
                   <tr>
                     <th>ID Sub</th>
-                    <th>Tipe Sub</th>
-                    <th>Keterangan</th>
-                    <th>Tgl Awal</th>
+                    <th>Nama Merchant</th>
                     <th>Tgl Akhir</th>
+                    <th>Banner</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -50,10 +49,13 @@
                   <?php foreach ($sub as $subs) : ?>
                     <tr>
                       <td> <?= $subs['id_sub'] ?> </td>
-                      <td> <?= $subs['tipe_sub'] ?> </td>
-                      <td> <?= $subs['keterangan'] ?> </td>
-                      <td> <?= $subs['tgl_awal'] ?> </td>
+                      <td> <?php foreach ($merchant as $mch) {
+                              if ($mch['id_merchant'] == $subs['id_merchant']) {
+                                echo $mch['nama_merchant'];
+                              }
+                            } ?> </td>
                       <td> <?= $subs['tgl_akhir'] ?> </td>
+                      <td> <img src="data:image/jpeg;base64,<?= base64_encode($subs['banner']) ?>" style="width: 150px;height: 150px;" alt="" /> </td>
                       <td>
                         <a href="<?= base_url(); ?>Sub/EditSub/index/<?= $subs['id_sub']; ?>" class="btn btn-info btn-sm">
                           <i class="fas fa-pencil-alt">
