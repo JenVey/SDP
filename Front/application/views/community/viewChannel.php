@@ -41,7 +41,6 @@ if (isset($channelA)) {
 // $bagian2 = substr($bagian, 0, $idx);
 // echo $tim;
 // echo $bagian2;
-
 ?>
 
 <body>
@@ -784,7 +783,6 @@ if (isset($channelA)) {
         ctr = 0;
 
         pesan = $("#inputText").val();
-        //alert(pesan);
         $.ajax({
             url: "<?= base_url(); ?>Community/insertPesan",
             method: "post",
@@ -802,6 +800,8 @@ if (isset($channelA)) {
 
         alertify.success("Message sent");
     });
+
+
     $(".accItem").click(function() {
         if ($(".memberlist").css("display") == "none") {
             $(".memberlist").css("display", "block");
@@ -1462,7 +1462,7 @@ if (isset($channelA)) {
                 keyword: keyword
             },
             success: function(result) {
-                $(".listChannel").html(result);
+                $(".accItemContainer").html(result);
                 $(".searchBarInput").val("");
             }
         });

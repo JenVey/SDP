@@ -34,7 +34,7 @@ class Team_model extends CI_model
         from team t
         left join team_members tm on tm.id_team = t.id_team 
         where tm.id_user= '" . $id . "' 
-        and t.nama_team = '%" . $keyword . "%' ";
+        and t.nama_team like '%" . $keyword . "%' ";
 
         $res = $this->db->query($query);
         return $res->result_array();

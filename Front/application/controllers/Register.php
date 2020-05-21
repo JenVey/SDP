@@ -62,7 +62,6 @@ class Register extends CI_Controller
 		$query = $this->db->query("select * from user");
 		foreach ($query->result_array() as $row) {
 			if ($row['username_user'] == $this->input->post('regUsername')) {
-				echo "A";
 				$ada = 1;
 			}
 			if ($row['email_user'] == $this->input->post('regEmail')) {

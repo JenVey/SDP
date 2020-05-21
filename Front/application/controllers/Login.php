@@ -43,7 +43,6 @@ class Login extends CI_Controller
 		$user = $this->input->post('LogUsername');
 		$pass = $this->input->post('LogPass');
 
-		//echo $pass;
 		foreach ($query->result_array() as $row) {
 			if ($row['email_user'] == $user && $row['pass_user'] == $pass && $row['status'] != -1) {
 				$ada = true;

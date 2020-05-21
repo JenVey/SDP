@@ -34,6 +34,7 @@ class Tournament_model extends CI_model
     public function insertTournament()
     {
         //GENERATE ID
+        date_default_timezone_set('Asia/Jakarta');
         $idUser = $this->session->userdata('id_user');
         $ctr = 1;
         $query = $this->db->query("select * from tournament");

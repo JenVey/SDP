@@ -286,12 +286,10 @@ class Community extends CI_Controller
         $data['teamM'] = $this->TeamMember_model->getAllTeamMember();
         $data['teamR'] = $this->TeamRemin_model->getAllTeamRemin();
         $data['pesan'] = $this->Pesan_model->getAllPesan();
+        $data['tournament'] = $this->Tournament_model->getAllTournament();
+        $data['standing'] = $this->Standing_model->getAllStanding();
+        $data['pertandingan'] = $this->Pertandingan_model->getAllPertandingan();
 
-        // $data['tournament'] = $this->Tournament_model->getAllTournament();
-        // $data['standing'] = $this->Standing_model->getAllStanding();
-        // $data['pertandingan'] = $this->Petandingan_model->getAllPertandingan();
-
-        //$this->load->view('templates/header', $data);
         $this->load->view('community/viewTeam', $data);
     }
 
@@ -305,10 +303,6 @@ class Community extends CI_Controller
         $this->Team_model->editTeam();
     }
 
-    // public function searchTeamMember()
-    // {
-    //     $this->TeamMember_model->searchTeamMember();
-    // }
 
     public function searchTeam()
     {
