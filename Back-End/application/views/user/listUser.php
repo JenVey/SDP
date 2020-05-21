@@ -56,7 +56,7 @@
                       <td> <?= $usr['nama_user'] ?> </td>
                       <td> <?= $usr['email_user'] ?> </td>
                       <td> <?= $usr['trade_link'] ?> </td>
-                      <td> <?= $usr['saldo'] ?> </td>
+                      <td> GP <?= number_format(ceil($usr['saldo']), 0, ".", ".")  ?> </td>
                       <td>
                         <?php if ($usr['status'] == 0) {
                           echo '<span class="badge bg-danger">Offline</span>';

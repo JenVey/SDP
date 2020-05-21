@@ -94,7 +94,6 @@ class Item_model extends CI_model
             order by case when i.nama_item like '" . $keyword . "%' then 0 else 1 end, i.nama_item";
         }
 
-
         $res = $this->db->query($query);
         return $res->result_array();
     }

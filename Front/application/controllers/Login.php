@@ -30,6 +30,8 @@ class Login extends CI_Controller
 	{
 		//$this->session->unset_userdata(array('first_thing', 'second_thing', 'third_thing', 'etc'));
 		//$this->session->unset_userdata($data_session);
+
+		$this->User_model->updateStatus(0);
 		$this->session->sess_destroy();
 		$this->load->view('templates/header');
 		$this->load->view('login');
@@ -59,6 +61,7 @@ class Login extends CI_Controller
 				'id_user' => $id
 			);
 			$this->session->set_userdata($data_session);
+			$this->User_model->updateStatus(1);
 			redirect('MainMenu');
 		} else {
 			$this->session->set_flashdata('flash', 'Wrong Username/Password !!!');
