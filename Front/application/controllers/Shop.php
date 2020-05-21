@@ -36,6 +36,7 @@ class Shop extends CI_Controller
         $this->load->model('Rating_model');
         $this->load->model('Gacha_model');
         $this->load->model('Promo_model');
+        $this->load->model('Pesan_model');
     }
 
     public function index()
@@ -249,6 +250,17 @@ class Shop extends CI_Controller
         $this->load->view('shop/viewHistory', $data);
     }
 
+    public function chatMerchant($idM)
+    {
+        $id = $this->session->userdata('id_user');
+
+        $data['user'] = $this->User_model->getUserById($id);
+        $data['merchantF'] = $this->Merchant_model->getMerchantByIdUser($id);
+        $data['merchant'] = $this->Merchant_model->getMerchantById($idM);
+        $data['pesan'] = $this->Pesan_model->getAllPesan();
+        $this->load->view('shop/chatMerchant', $data);
+    }
+
     public function viewGacha()
     {
         $id = $this->session->userdata('id_user');
@@ -348,6 +360,7 @@ class Shop extends CI_Controller
     public function setGame($id)
     {
         $this->session->set_userdata(array('id_game' => $id));
+        $this->Game_model->tambahKlik();
         redirect('Shop');
     }
 
@@ -406,10 +419,6 @@ class Shop extends CI_Controller
         for ($i = 0; $i < count($cart); $i++) {
             $this->Cart_model->updateStatus2($cart[$i]['id']);
         }
-
-        //$this->Item_model->updateAmount();
-        //}
-        //redirect('Shop');
     }
 
     public function refreshStatus()
@@ -461,5 +470,16 @@ class Shop extends CI_Controller
     public function updateStatusTransItem($status)
     {
         $this->TransItem_model->changeStatus($status);
+    }
+
+    public function insertPesan($idM)
+    {
+        $this->Pesan_model->insertPesan();
+
+        $id = $this->session->userdata('id_user');
+        $data['user'] = $this->User_model->getUserById($id);
+        $data['merchant'] = $this->Merchant_model->getMerchantById($idM);
+        $data['pesan'] = $this->Pesan_model->getAllPesan();
+        $this->load->view('shop/refreshChat', $data);
     }
 }

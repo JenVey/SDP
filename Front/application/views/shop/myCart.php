@@ -27,12 +27,22 @@
 <body>
 	<div class="accList">
 		<button class="backtoMenu">
-			<svg xmlns="http://www.w3.org/2000/svg" width="35" height="27.5" viewBox="0 0 40 32.5">
-				<g id="icon" transform="translate(0 -4.785)">
-					<path id="Path_1402" data-name="Path 1402" d="M39.144,37.285a.871.871,0,0,1-.793-.657h0c-.1-.3-2.573-7.328-11.823-8.721a50.176,50.176,0,0,0-7.037-.475V36.2a1.159,1.159,0,0,1-.456.965.714.714,0,0,1-.882-.063L.381,21.941a1.191,1.191,0,0,1-.381-.9,1.2,1.2,0,0,1,.381-.906L18.16,4.971a.7.7,0,0,1,.882-.055,1.147,1.147,0,0,1,.454.954v8.156c3.866.638,20.5,4.427,20.5,22.18a1.059,1.059,0,0,1-.688,1.068A.84.84,0,0,1,39.144,37.285Z" fill="#f25757" />
+			<svg xmlns="http://www.w3.org/2000/svg" width="66.147" height="34.478" viewBox="0 0 66.147 34.478">
+				<g id="Group_197" data-name="Group 197" transform="translate(-160.188 89.73)">
+					<g id="Group_194" data-name="Group 194" transform="translate(161.205 -88.73)">
+						<path id="Path_1941" data-name="Path 1941" d="M180.46-63.507S164.484-59.5,161.455-73.551l-.25-15.179h16s6.628.129,14.753,9.178l-2.993,3.241s-6.271-7.509-11.759-8.279l-11.368-.065.107,11.007s2.174,8.183,11.8,6.771Z" transform="translate(-161.205 88.73)" fill="#d6b329" stroke="#1e2126" stroke-miterlimit="10" stroke-width="2" />
+						<path id="Path_1942" data-name="Path 1942" d="M207.553-73.278l4.026,5.407L203.5-56.928,195.33-67.839s13.328-20.666,24.232-20.891h15.965v14.7S233.6-59.977,216.248-63.378l2.815-3.466S229.5-65.4,230.966-74.1L230.93-84.59H219.562s-5.488-.417-18.958,16.655l2.9,3.9,2.822-3.733-1.684-2.307Z" transform="translate(-171.397 88.73)" fill="#d6b329" stroke="#1e2126" stroke-miterlimit="10" stroke-width="2" />
+					</g>
+					<g id="Group_195" data-name="Group 195" transform="translate(205.237 -82.496)">
+						<ellipse id="Ellipse_189" data-name="Ellipse 189" cx="2.247" cy="2.156" rx="2.247" ry="2.156" transform="translate(3.923)" fill="#1a1818" stroke="#d6b329" stroke-miterlimit="10" stroke-width="0.25" />
+						<ellipse id="Ellipse_190" data-name="Ellipse 190" cx="2.247" cy="2.156" rx="2.247" ry="2.156" transform="translate(7.995 4.312)" fill="#1a1818" stroke="#d6b329" stroke-miterlimit="10" stroke-width="0.25" />
+						<ellipse id="Ellipse_191" data-name="Ellipse 191" cx="2.247" cy="2.156" rx="2.247" ry="2.156" transform="translate(0 4.312)" fill="#1a1818" stroke="#d6b329" stroke-miterlimit="10" stroke-width="0.25" />
+						<ellipse id="Ellipse_192" data-name="Ellipse 192" cx="2.247" cy="2.156" rx="2.247" ry="2.156" transform="translate(3.923 8.236)" fill="#1a1818" stroke="#d6b329" stroke-miterlimit="10" stroke-width="0.25" />
+					</g>
+					<ellipse id="Ellipse_193" data-name="Ellipse 193" cx="4.119" cy="4.115" rx="4.119" ry="4.115" transform="translate(170.161 -81.779)" fill="#1a1818" stroke="#d6b329" stroke-miterlimit="10" stroke-width="0.25" />
 				</g>
 			</svg>
-			<h5 class="backText">Back to menu</h5>
+			<h5 class="backText">Back to Home</h5>
 		</button>
 		<div class="titleAccList">
 			<div class="hl"></div>
@@ -258,11 +268,12 @@
 																<div class="merchantName" style="margin-left: 2.3vw; width: 10.3vw;">
 																	<a><?php foreach ($merchant as $mch) {
 																			if ($itm['id_merchant'] == $mch['id']) {
+																				$mchId = $mch['id'];
 																				echo $mch['nama'];
 																			}
 																		} ?></a></div>
 																<div class="Price" style="width: 13vw;">
-																	<p>IDR <?= ceil($transItem['subtotal']) ?></p>
+																	<p>IDR <?= number_format(ceil($transItem['subtotal']), 0, ".", ".") ?></p>
 																</div>
 																<div class="game" style="width: 11.5vw;">
 																	<strong><?php foreach ($games as $game) {
@@ -311,7 +322,7 @@
 				<path id="Subtraction_1" data-name="Subtraction 1" d="M58.5,117A58.515,58.515,0,0,1,35.729,4.6,58.515,58.515,0,0,1,81.271,112.4,58.135,58.135,0,0,1,58.5,117ZM46.255,43.083A14.744,14.744,0,0,0,35.1,47.94a16.522,16.522,0,0,0-4.546,11.651,15.532,15.532,0,0,0,4.427,11.054,14.351,14.351,0,0,0,10.742,4.641c.83,0,1.627-.024,2.369-.071.769-.05,1.411-.1,1.962-.144a15.353,15.353,0,0,0,1.77-.263c.586-.12,1.082-.22,1.436-.287a12.738,12.738,0,0,0,1.34-.359c.557-.175.919-.3,1.076-.359s.551-.211,1.076-.407c.554-.206.868-.326.933-.358.794-.318,1.2-.608,1.2-.862a4.761,4.761,0,0,0-.335-.957,4.378,4.378,0,0,1-.335-1.675c0-.061-.022-.441-.072-1.268-.048-.783-.072-1.515-.072-2.177,0-1.905.161-2.984.479-3.206a8.251,8.251,0,0,1,1.46-.551,6.389,6.389,0,0,1,1.316-.31c.127,0,.191-.242.191-.718a2.131,2.131,0,0,0-.1-.67c-3.276.164-4.918.239-5.168.239-.091,0-2.025-.074-6.269-.239a1.16,1.16,0,0,0-.192.789c0,.4.064.6.192.6a11.088,11.088,0,0,1,2.129.287c.9.19,1.428.447,1.555.765a14.083,14.083,0,0,1,.382,4.116v.335l.048,3.924c0,.381-.113.622-.335.717a14.06,14.06,0,0,1-6.221,1.053,10.649,10.649,0,0,1-4.863-1.118,11.979,11.979,0,0,1-3.966-3.355,15.964,15.964,0,0,1-.311-19.6A9.841,9.841,0,0,1,46.4,45.093a11.9,11.9,0,0,1,6.675,1.639,7.371,7.371,0,0,1,3.087,4.917c.1.159.3.239.622.239.666,0,1-.241,1-.717,0-.314-.062-2.255-.191-5.934C52.325,43.808,48.509,43.083,46.255,43.083ZM70.61,74.9c.947,0,3.04.081,6.221.239a2.311,2.311,0,0,0,.1-.718c0-.444-.064-.67-.192-.67a9.619,9.619,0,0,1-2.082-.382c-.968-.254-1.54-.593-1.7-1.005a13.99,13.99,0,0,1-.383-4.163V51.122c0-1.519.024-2.678.072-3.445a8.36,8.36,0,0,1,.167-1.459.457.457,0,0,1,.335-.359,13.1,13.1,0,0,1,3.35-.335,5.382,5.382,0,0,1,4.594,1.985,8.841,8.841,0,0,1,1.483,5.384,7.14,7.14,0,0,1-1.723,4.784,5.274,5.274,0,0,1-4.115,2.011,9.3,9.3,0,0,1-3.206-.527.082.082,0,0,0-.037-.01c-.045,0-.081.051-.107.153a1.31,1.31,0,0,0,.144,1.1c.666.889,1.906,1.34,3.685,1.34a9.5,9.5,0,0,0,4.33-.981,8.826,8.826,0,0,0,3.087-2.488,12.192,12.192,0,0,0,1.746-3.11,8.609,8.609,0,0,0-.358-7.105,7.227,7.227,0,0,0-2.465-2.728,12.443,12.443,0,0,0-3.11-1.436,11.109,11.109,0,0,0-3.182-.479c-.915,0-2.042.032-3.35.1s-2.457.1-3.4.1l-5.742-.1a1.2,1.2,0,0,0-.192.813c0,.381.064.574.192.574a8.3,8.3,0,0,1,1.89.336c.841.222,1.316.464,1.411.717a18.1,18.1,0,0,1,.336,4.116V68.157c0,2.6-.113,4.118-.336,4.5-.159.286-.642.528-1.436.718a8.664,8.664,0,0,1-1.866.287c-.1,0-.144.209-.144.622a1.5,1.5,0,0,0,.144.861Z" fill="#d7c13f" />
 			</svg>
 			<h2 class="yellow" style="margin-top: 4vw;">Own Balance</h2>
-			<h5 style="margin-top: 2vw;color: #ecf0f1;">Current Balance : <span style="color: #63D99E;">GP <?= $user['saldo'] ?></span></h25>
+			<h5 style="margin-top: 2vw;color: #ecf0f1;">Current Balance : <span style="color: #63D99E;">GP <?= number_format(ceil($user['saldo']), 0, ".", ".") ?></span></h25>
 		</div>
 	</div>
 	<div style="display: none;">
@@ -707,61 +718,64 @@
 
 
 		$(".itemBlock").click(function(e) {
-			idTrans = $(this).attr("idTrans");
-			idItem = $(this).attr("idItem");
-			harga = $(this).attr("harga");
-			bootbox.dialog({
-				title: "Action",
-				message: "<p>Status: <span style='color:#63D99E;'>Waiting for Merchant's Response</span><br>What are you going to do?</p>",
-				buttons: {
-					cancel: {
-						label: "Nothing",
-						className: 'back',
-						callback: function() {}
-					},
-					noclose: {
-						label: "Chat the Merchant",
-						className: 'chatMerchant',
-						callback: function() {
-
-						}
-					},
-					ok: {
-						label: "Cancel the Item",
-						className: 'cancel',
-						callback: function() {
-							bootbox.prompt({
-								title: "Reason : ",
-								inputType: 'textarea',
-								required: true,
-								callback: function(result) {
-									if (result) {
-										keterangan = result;
-										bootbox.confirm("Are you sure?", function(result) {
-											if (result) {
-												$.ajax({
-													url: "<?= base_url(); ?>Shop/updateStatusTransItem/-1",
-													method: "post",
-													data: {
-														id_transaksi: idTrans,
-														id_item: idItem,
-														keterangan: keterangan,
-														harga: harga
-													},
-													success: function(result) {
-														window.location.href = '<?= base_url(); ?>Shop/viewCart';
-														alertify.success("Successfully Cancelled the item");
-													}
-												});
-											}
-										});
+			status = $(this).children("[name='statusItem']").val();
+			if (status == 0 || status == 1) {
+				idTrans = $(this).attr("idTrans");
+				idItem = $(this).attr("idItem");
+				harga = $(this).attr("harga");
+				bootbox.dialog({
+					title: "Action",
+					message: "<p>Status: <span style='color:#63D99E;'>Waiting for Merchant's Response</span><br>What are you going to do?</p>",
+					buttons: {
+						cancel: {
+							label: "Nothing",
+							className: 'back',
+							callback: function() {}
+						},
+						noclose: {
+							label: "Chat the Merchant",
+							className: 'chatMerchant',
+							callback: function() {
+								window.location.href = '<?= base_url(); ?>Shop/chatMerchant/'.concat('<?= $mchId ?>');
+							}
+						},
+						ok: {
+							label: "Cancel the Item",
+							className: 'cancel',
+							callback: function() {
+								bootbox.prompt({
+									title: "Reason : ",
+									inputType: 'textarea',
+									required: true,
+									callback: function(result) {
+										if (result) {
+											keterangan = result;
+											bootbox.confirm("Are you sure?", function(result) {
+												if (result) {
+													$.ajax({
+														url: "<?= base_url(); ?>Shop/updateStatusTransItem/-1",
+														method: "post",
+														data: {
+															id_transaksi: idTrans,
+															id_item: idItem,
+															keterangan: keterangan,
+															harga: harga
+														},
+														success: function(result) {
+															window.location.href = '<?= base_url(); ?>Shop/viewCart';
+															alertify.success("Successfully Cancelled the item");
+														}
+													});
+												}
+											});
+										}
 									}
-								}
-							});
+								});
+							}
 						}
 					}
-				}
-			});
+				});
+			}
 		});
 	</script>
 </body>

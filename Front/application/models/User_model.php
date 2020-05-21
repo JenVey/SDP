@@ -126,6 +126,7 @@ class User_model extends CI_model
         $query = "update user set saldo = '" . $saldo . "' where id_user = '" . $id . "' ";
         $this->db->query($query);
         $this->session->unset_userdata('total');
+        $this->session->unset_userdata('cashback');
     }
 
     public function updateSaldoG($cek)

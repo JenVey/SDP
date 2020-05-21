@@ -102,9 +102,23 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <li class="nav-item">
           <a href="<?= base_url(); ?>Transaksi" class="nav-link">
-            <i class="nav-icon fa fa-gamepad"></i>
+            <i class="nav-icon fa fa-receipt"></i>
             <p>
               List Transaksi
+            </p>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+
+    <nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <li class="nav-item">
+          <a href="<?= base_url(); ?>Promo" class="nav-link">
+            <i class="nav-icon fa fa-percentage"></i>
+            <p>
+              List Promo
             </p>
           </a>
         </li>

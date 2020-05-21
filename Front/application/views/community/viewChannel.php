@@ -102,13 +102,13 @@ if (isset($channelA)) {
                 <input type="text" placeholder="Search your channel" name="searchBar" class="searchBarInput">
             </div>
         </div>
-        <div class="accItemContainer listChannel">
+        <div class="accItemContainer">
             <?php foreach ($channel as $chn) { ?>
-                <div class="accItem" idChannel="<?= $chn['id_channel'] ?>" <?php if (isset($channelA)) {
-                                                                                if ($chn['id_channel'] == $channelA['id_channel']) {
-                                                                                    echo "id='active'";
-                                                                                }
-                                                                            } ?>>
+                <div class="accItem listChannel" idChannel="<?= $chn['id_channel'] ?>" <?php if (isset($channelA)) {
+                                                                                            if ($chn['id_channel'] == $channelA['id_channel']) {
+                                                                                                echo "id='active'";
+                                                                                            }
+                                                                                        } ?>>
                     <div class="profileImg" style="margin-left: 0;"><img src="data:image/jpeg;base64,<?= base64_encode($chn['foto_channel']) ?>" width="50" height="50" alt="" /></div>
                     <h6 class="profileName"><?= $chn['nama_channel'] ?></h6>
                 </div>
@@ -121,7 +121,7 @@ if (isset($channelA)) {
             <div class="profileStats">
                 <!-- Max Line 10 -->
                 <h5 class="profileName" style="font-size: 15px;margin-top: 0.5vh;"><?= $user['nama_user'] ?></h5>
-                <h6 class="profileBalance">GP <?= $user['saldo'] ?></h6>
+                <h6 class="profileBalance">GP <?= number_format(ceil($user['saldo']), 0, ".", ".") ?></h6>
             </div>
         </div>
         <button class="Home">
@@ -204,6 +204,7 @@ if (isset($channelA)) {
                     </button>
                 </div>
             </div>
+
             <div class="chatSection">
                 <div class="chatWrapper">
                     <div class="chatField">
@@ -251,6 +252,9 @@ if (isset($channelA)) {
                 </div>
                 <button id="sendButton">
                 </button>
+
+
+
                 <div id="tournament" class="settings">
                     <h3 class="yellow">Tournament</h3>
                     <div id="tournamentContainer">
@@ -526,7 +530,6 @@ if (isset($channelA)) {
             <h1 class="yellow newName" contenteditable>Channel Name</h1>
         </div>
         <div style="position: absolute; bottom: -10vh; right: -8vw;">
-
 
             <svg xmlns="http://www.w3.org/2000/svg" width="1008.299" height="1005.162" viewBox="0 0 48.299 45.162">
                 <g id="channel" transform="translate(0 -1.86)">
@@ -1124,7 +1127,6 @@ if (isset($channelA)) {
     });
 
     $(".accItemContainer").on("click", ".listChannel", function() {
-        alert("A");
         idChannel = $(this).attr("idChannel");
         $.ajax({
             url: "<?= base_url(); ?>Community/chooseChannel",
@@ -1137,6 +1139,7 @@ if (isset($channelA)) {
             }
         });
     });
+
 
     var headerTopUp = $("#topUpHeader").html();
     var bodyTopUp = $("#topUpBody").html();
@@ -1336,10 +1339,10 @@ if (isset($channelA)) {
             jumlah_slot = $('[name="slotTour"]').val();
             id_game = $("#TourGame").val();
             tanggal_mulai = $("#tourDate").val();
-            // alert(nama_turnament);
-            // alert(jumlah_slot);
-            // alert(id_game);
-            alert(tanggal_mulai);
+            //alert(nama_turnament);
+            //alert(jumlah_slot);
+            //alert(id_game);
+            //alert(tanggal_mulai);
 
             $.ajax({
                 url: "<?= base_url(); ?>Community/insertTournament",
@@ -1356,14 +1359,11 @@ if (isset($channelA)) {
                     $(".createTournamentForm").collapse("hide");
                     $(".tourneys").html(result);
                     alertify.success("Success add Tournament");
-
                 }
             });
         }
 
     });
-
-
 
     $(".tourneys").on("click", ".tourneyItem", function() {
         id_turnament = $(this).attr("idTournament");
@@ -1409,8 +1409,6 @@ if (isset($channelA)) {
             });
         }
     });
-
-
 
 
     $("#saveChange").click(function() {
@@ -1469,7 +1467,6 @@ if (isset($channelA)) {
             }
         });
     });
-
 
     $(".btnTeams").click(function() {
         window.location.href = '<?= base_url(); ?>Community/viewTeam';

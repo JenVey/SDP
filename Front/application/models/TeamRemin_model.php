@@ -48,6 +48,8 @@ class TeamRemin_model extends CI_model
         $tgl = strtotime($tgl);
         $tgl = date("Y-d-m H:i", $tgl);
 
+
+
         $data = [
             "id_reminder" => $generateId,
             "judul" => $this->input->post('judul'),

@@ -1,8 +1,9 @@
 	
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class InsertSub extends CI_Controller {
+class InsertSub extends CI_Controller
+{
 
 	/**
 	 * Index Page for this controller.
@@ -19,13 +20,13 @@ class InsertSub extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
-    public function __construct()
-    {
-        parent::__construct();
+	public function __construct()
+	{
+		parent::__construct();
 		$this->load->model('Sub_model');
 		$this->load->library('form_validation');
-    }
-    
+	}
+
 	public function index()
 	{
 		$this->load->model('Sub_model');
@@ -34,37 +35,33 @@ class InsertSub extends CI_Controller {
 		$this->load->view('templates/sidebar');
 		$this->load->view('sub/insertSub');
 		//$this->load->view('templates/footer',$data);
-	
+
 	}
 
 	public function insert()
 	{
-		
-		$this->load->model('Sub_model');
-		$this->form_validation->set_rules('tipeSub','Tipe Subscription','required');
-		$this->form_validation->set_rules('keterangan','Keterangan Subscription','required');
-		$this->form_validation->set_rules('tglKadaluwarsa','Tanggal Kadaluwarsa','required');
 
-		if( $this->form_validation->run() == FALSE){
+		$this->load->model('Sub_model');
+		$this->form_validation->set_rules('tipeSub', 'Tipe Subscription', 'required');
+		$this->form_validation->set_rules('keterangan', 'Keterangan Subscription', 'required');
+		$this->form_validation->set_rules('tglKadaluwarsa', 'Tanggal Kadaluwarsa', 'required');
+
+		if ($this->form_validation->run() == FALSE) {
 			$this->load->view('templates/header');
 			$this->load->view('templates/navbar');
 			$this->load->view('templates/sidebar');
 			$this->load->view('sub/insertSub');
-		}else{
+		} else {
 			$this->Sub_model->insertSub();
-			$this->session->set_flashdata('flash','Success Insert Subscription !!!');
+			$this->session->set_flashdata('flash', 'Success Insert Subscription !!!');
 			redirect('sub/listSub');
-		}	
-    
+		}
 	}
 
 	public function delete($id)
 	{
 		$this->Sub_model->deleteSub($id);
-		$this->session->set_flashdata('flash','Success Deleted');
+		$this->session->set_flashdata('flash', 'Success Deleted');
 		redirect('sub/listSub');
 	}
-
-		
 }
- 
