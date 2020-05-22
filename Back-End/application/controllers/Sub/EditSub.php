@@ -42,7 +42,8 @@ class EditSub extends CI_Controller
 	{
 
 		$data['sub'] = $this->Sub_model->getSubById($id);
-		$this->form_validation->set_rules('tglKadaluwarsa', 'Tanggal Kadaluawarsa', 'required');
+		$data['merchant'] = $this->Merchant_model->getAllMerchant();
+		$this->form_validation->set_rules('tglAkhir', 'Tanggal Kadaluawarsa', 'required');
 
 		if ($this->form_validation->run() == FALSE) {
 			$this->load->view('templates/header', $data);

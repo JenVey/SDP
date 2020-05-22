@@ -39,8 +39,15 @@
                 </div>
               <?php endif; ?>
               <div class="form-group">
-                <label>Merchant</label>
-                <input type="text" class="form-control" name="tipeSub" placeholder="Enter Your Tipe Subscription">
+                <div class="form-group">
+                  <label>Merchant</label>
+                  <select class="form-control" name="idMerchant">
+                    <?php foreach ($merchant as $mch) {
+                      echo   "<option value=" . $mch['id_merchant'] . ">" . $mch['nama_merchant'] . "</option>";
+                    } ?>
+
+                  </select>
+                </div>
               </div>
               <div class="form-group foto">
               </div>
@@ -53,7 +60,7 @@
                   </div>
                 </div>
               </div>
-              <input type="hidden" name="photoBaner" id="fotoBanner">
+              <input type="hidden" name="photoBanner" id="fotoBanner">
               <div class="form-group">
                 <label>Tanggal Akhir</label>
                 <div class="input-group">

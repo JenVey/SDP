@@ -148,7 +148,7 @@
 
                         onclose: function() {
                             $(".footer").html('Try again next week! :)');
-                            alert(total);
+                            //alert(total);
                             $.ajax({
                                 url: "<?= base_url(); ?>Shop/updateSaldoG/tambah",
                                 method: "post",

@@ -425,6 +425,7 @@ class Community extends CI_Controller
         if (isset($_SESSION['idFriend'])) {
             $data['friend'] = $this->Friend_model->getFriendByIdUser($id);
             $data['friendA'] = $this->User_model->getFriendById();
+            $data['pesan'] = $this->Pesan_model->getAllPesan();
             $this->load->view('community/accItemContainerF', $data);
         }
     }
