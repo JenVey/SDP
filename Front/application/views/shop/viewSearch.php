@@ -308,7 +308,6 @@
                                 window.location.href = '<?= base_url(); ?>Shop/viewGacha/';
                             }
                         });
-
                     },
                     function() {
                         alertify.success('Ok, Take Your Time.');
@@ -321,7 +320,6 @@
                 alertify.error("Insufficient Balance");
             }
         });
-
 
         $(".addtoCart").click(function() {
             addCart = 1;
@@ -339,7 +337,6 @@
             });
 
         });
-
 
 
         $(".searchButton").click(function() {

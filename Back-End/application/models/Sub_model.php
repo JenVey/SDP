@@ -7,7 +7,7 @@ class Sub_model extends CI_model
         return $this->db->get('subscribers')->result_array();
     }
 
-    public function insertSubs()
+    public function insertSub()
     {
         $ctr = 1;
         $query = $this->db->query("select * from subscribers");
@@ -28,14 +28,14 @@ class Sub_model extends CI_model
             $generateId = $cekNewId . $ctr;
         }
 
-        $tglAwal =  date("Y-m-d H:i:s");
-        $tglAkhir = date('Y-m-d H:i:s', strtotime('+31 days', strtotime($tglAwal)));
-        $foto = $this->input->post('foto');
+        $tglAkhir =  $this->input->post('tglAkhir');
+        $tglAkhir = date('Y-m-d H:i:s', strtotime($tglAkhir));
+        $foto = $this->input->post('photoBanner');
         $foto = base64_decode($foto);
 
         $data = [
             "id_sub" => $generateId,
-            "id_merchant" => $this->input->post('id_merchant'),
+            "id_merchant" => $this->input->post('idMerchant'),
             "banner" => $foto,
             "tgl_akhir" => $tglAkhir
         ];
@@ -55,16 +55,16 @@ class Sub_model extends CI_model
 
     public function editSub($id)
     {
-        $tglAwal =  date("Y-m-d H:i:s");
-        $tglAkhir = date('Y-m-d H:i:s', strtotime('+31 days', strtotime($tglAwal)));
-        $foto = $this->input->post('foto');
+
+        $tglAkhir =  $this->input->post('tglAkhir');
+        $tglAkhir = date('Y-m-d H:i:s', strtotime($tglAkhir));
+        $foto = $this->input->post('photoBanner');
         $foto = base64_decode($foto);
 
         $data = [
             "banner" => $foto,
             "tgl_akhir" => $tglAkhir
         ];
-
 
         $this->db->where('id_sub', $id);
         $this->db->update('subscribers', $data);

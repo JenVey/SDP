@@ -254,7 +254,8 @@
 									?>
 													<div class="itemBlockContainer collapse" id="itemBlockContainer<?= $ctr ?>">
 														<div class="itemBlockContainer">
-															<div class="itemBlock" idTrans="<?= $transItem['id_transaksi'] ?>" idItem="<?= $transItem['id_item'] ?>" harga="<?= $transItem['subtotal'] ?>">
+															<div class="itemBlock" idTrans="<?= $transItem['id_transaksi'] ?>" idItem="<?= $transItem['id_item'] ?>" idMerchant="<?= $itm['id_merchant'] ?>" harga="<?= $transItem['subtotal'] ?>">
+
 																<div class="itemName" style="width: 12.4vw;">
 																	<p>
 																		<?= $itm['nama_item'] ?>(<?= $transItem['jumlah'] ?>x)
@@ -723,6 +724,8 @@
 				idTrans = $(this).attr("idTrans");
 				idItem = $(this).attr("idItem");
 				harga = $(this).attr("harga");
+				idMerchant = $(this).attr("idMerchant");
+
 				bootbox.dialog({
 					title: "Action",
 					message: "<p>Status: <span style='color:#63D99E;'>Waiting for Merchant's Response</span><br>What are you going to do?</p>",
@@ -736,7 +739,7 @@
 							label: "Chat the Merchant",
 							className: 'chatMerchant',
 							callback: function() {
-								window.location.href = '<?= base_url(); ?>Shop/chatMerchant/'.concat('<?= $mchId ?>');
+								window.location.href = '<?= base_url(); ?>Shop/chatMerchant/'.concat(idMerchant);
 							}
 						},
 						ok: {

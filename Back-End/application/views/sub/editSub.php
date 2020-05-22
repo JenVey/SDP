@@ -29,7 +29,7 @@
           </div>
           <!-- /.card-header -->
           <!-- form start -->
-          <form method="post" action="<?= base_url(); ?>Sub/EditSub/edit/<?= $sub['id_sub'] ?>">
+          <form id="editSub" method="post" action="<?= base_url(); ?>Sub/EditSub/edit/<?= $sub['id_sub'] ?>">
             <div class="card-body">
               <?php if (validation_errors()) : ?>
                 <div class="alert alert-danger alert-dismissible">
@@ -62,7 +62,7 @@
                   </div>
                 </div>
               </div>
-              <input type="hidden" name="photoBaner" id="fotoBanner">
+              <input type="hidden" name="photoBanner" id="fotoBanner">
               <div class="form-group">
                 <label>Tanggal Akhir</label>
                 <div class="input-group">
@@ -127,7 +127,7 @@
       }
     });
 
-    $('#insertSub').submit(function() {
+    $('#editSub').submit(function() {
       foto = $(".foto").find('img').attr('src');
 
       if (foto.substring(11, 12) == "j") {

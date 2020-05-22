@@ -55,7 +55,7 @@
                               }
                             } ?> </td>
                       <td> <?= $subs['tgl_akhir'] ?> </td>
-                      <td> <img src="data:image/jpeg;base64,<?= base64_encode($subs['banner']) ?>" style="width: 150px;height: 150px;" alt="" /> </td>
+                      <td> <img src="data:image/jpeg;base64,<?= base64_encode($subs['banner']) ?>" style="width: 700px;height: 150px;" alt="" /> </td>
                       <td>
                         <a href="<?= base_url(); ?>Sub/EditSub/index/<?= $subs['id_sub']; ?>" class="btn btn-info btn-sm">
                           <i class="fas fa-pencil-alt">

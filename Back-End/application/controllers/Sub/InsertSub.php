@@ -31,20 +31,18 @@ class InsertSub extends CI_Controller
 	public function index()
 	{
 		$this->load->model('Sub_model');
-
 		$data['merchant'] = $this->Merchant_model->getAllMerchant();
-		$this->load->view('templates/header');
-		$this->load->view('templates/navbar');
-		$this->load->view('templates/sidebar');
-		$this->load->view('sub/insertSub');
-		//$this->load->view('templates/footer',$data);
-
+		$this->load->view('templates/header', $data);
+		$this->load->view('templates/navbar', $data);
+		$this->load->view('templates/sidebar', $data);
+		$this->load->view('sub/insertSub', $data);
 	}
 
 	public function insert()
 	{
 		$this->load->model('Sub_model');
-		$this->form_validation->set_rules('banner', 'Banner', 'required');
+		$data['merchant'] = $this->Merchant_model->getAllMerchant();
+		$this->form_validation->set_rules('photoBanner', 'Banner', 'required');
 		$this->form_validation->set_rules('tglAkhir', 'Tanggal Akhir', 'required');
 
 		if ($this->form_validation->run() == FALSE) {
