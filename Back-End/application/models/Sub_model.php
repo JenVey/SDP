@@ -44,8 +44,13 @@ class Sub_model extends CI_model
 
     public function deleteSub($id)
     {
+
+        $data = [
+            "status" => 0
+        ];
+
         $this->db->where('id_sub', $id);
-        $this->db->delete('subscribers');
+        $this->db->update('subscribers', $data);
     }
 
     public function getSubById($id)

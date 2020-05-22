@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>gather.owl - Chat Merchant</title>
+    <title>gather.owl - Chat User</title>
     <link rel="icon" href="<?php echo base_url(); ?>asset/Images/android-chrome-512x512.png">
     <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/bootstrap.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/Ours.css">
@@ -19,34 +19,51 @@
     <script src="<?php echo base_url(); ?>asset/Js/bootstrap.js"></script>
 </head>
 <?php
-foreach ($merchant as $mch) {
-    $mchId = $mch['id'];
-    $mchNama = $mch['nama'];
-    $mchDesc = $mch['bio'];
-    $mchFoto = $mch['foto'];
-    $mchRating = $mch['rating'];
+
+if (!empty($merchant)) {
+    foreach ($merchant as $mch) {
+        $mchId = $mch['id'];
+        $mchNama = $mch['nama'];
+        $mchDesc = $mch['bio'];
+        $mchFoto = $mch['foto'];
+        $mchRating = $mch['rating'];
+    }
 }
 
-//cekUser kirim pesan
-$listUser = array();
+$listMerchant = array();
 foreach ($pesan as $psn) {
     $ada = false;
-    if ($psn['id_penerima'] == $mchId) {
-
-        for ($i = 0; $i < count($listUser); $i++) {
-            if ($listUser[$i] == $psn['id_pengirim']) {
+    if ($psn['id_pengirim'] == $user['id_user'] && $psn['tipe_penerima'] == "Merchant") {
+        for ($i = 0; $i < count($listMerchant); $i++) {
+            if ($listMerchant[$i] == $psn['id_penerima']) {
+                echo "masuk";
                 $ada = true;
             }
         }
 
         if (!$ada) {
-            array_push($listUser, $psn['id_pengirim']);
+            echo "push ";
+            array_push($listMerchant, $psn['id_penerima']);
         }
     }
 }
+
+foreach ($merchantF as $mchF) {
+    $ada = false;
+    for ($i = 0; $i < count($listMerchant); $i++) {
+        if ($listMerchant[$i] == $mchF['id']) {
+            $ada = true;
+        }
+    }
+
+    if (!$ada) {
+        array_push($listMerchant,  $mchF['id']);
+    }
+}
+
+//var_dump($listMerchant);
+
 ?>
-
-
 
 <body>
     <div class="accList">
@@ -70,36 +87,41 @@ foreach ($pesan as $psn) {
         </button>
         <div class="titleAccList">
             <div class="hl"></div>
-            <h3 style="color: #ecf0f1;">Customers</h3>
+            <h3 style="color: #ecf0f1;">Merchant</h3>
             <div class="hl"></div>
         </div>
         <div class="accItemContainer">
-            <?php for ($i = 0; $i < count($listUser); $i++) {
-                foreach ($allUser as $users) {
-                    if ($listUser[$i] == $users['id_user']) { ?>
-                        <div class="accItem listCust" idCust="<?= $users['id_user'] ?>">
-                            <div class="profileImg" style="margin-left: 0;"><img class="profileImg" src="data:image/jpeg;base64,<?= base64_encode($users['foto']) ?>" width="50" height="50" alt="" /></div>
-                            <div class="profileStats">
-                                <h6 class="profileName">
-                                    <?php $notif = false;
-                                    foreach ($pesan as $psn) {
-                                        if ($psn['id_pengirim'] == $users['id_user'] && $psn['id_penerima'] == $mchId) {
-                                            if ($psn['status'] == 0) {
-                                                $notif = true;
-                                            }
-                                        }
-                                    }
-                                    if ($notif) {
-                                        echo $users['nama_user'] . " (ADA PESAN BARU)";
+            <?php
+            if (count($listMerchant) > 0) {
+                for ($i = 0; $i < count($listMerchant); $i++) {
+                    foreach ($allMerchant as $allMch) {
+                        if ($listMerchant[$i] == $allMch['id']) {
+            ?>
+                            <div class="accItem listMerchant" idMerchant="<?= $allMch['id'] ?>">
+                                <div class="profileImg" style="margin-left: 0;"><img class="profileImg" src="data:image/jpeg;base64,<?= base64_encode($allMch['foto']) ?>" width="50" height="50" alt="" /></div>
+                                <div class="profileStats">
+                                    <h6 class="profileName"> <?= $allMch['nama'] ?> </h6>
+                                    <?php
+                                    if (isset($allMch['rating'])) {
+                                        echo "<h6 class='profileBalance' style='float: left;'>";
+                                        echo $allMch['rating'];
+                                        echo "</h6>";
+                                        echo "<svg style='float: left;margin-top: 5px;' xmlns='http://www.w3.org/2000/svg' width='10.125' height='8.62' viewBox='0 0 35.125 33.62'>";
+                                        echo "<path class='solid_star' data-name='solid star' d='M36.178,1.157,31.891,9.85l-9.592,1.4a2.1,2.1,0,0,0-1.162,3.585l6.94,6.762-1.641,9.553a2.1,2.1,0,0,0,3.046,2.213l8.581-4.51,8.581,4.51a2.1,2.1,0,0,0,3.046-2.213L48.048,21.6l6.94-6.762a2.1,2.1,0,0,0-1.162-3.585l-9.592-1.4L39.947,1.157a2.1,2.1,0,0,0-3.769,0Z' transform='translate(-20.5 0.013)' fill='#d7c13f' /></svg>";
                                     } else {
-                                        echo $users['nama_user'];
-                                    } ?>
-                                </h6>
+                                        echo "<h6 class='profileBalance' style='float: left;'>";
+                                        echo "Unrated";
+                                        echo "</h6>";
+                                    }
+                                    ?>
+                                </div>
                             </div>
-                        </div>
-            <?php }
+            <?php
+                        }
+                    }
                 }
-            } ?>
+            }
+            ?>
         </div>
     </div>
     <div class="profile">
@@ -113,7 +135,7 @@ foreach ($pesan as $psn) {
         </div>
     </div>
     <div class="bodyContainer">
-        <?php if (!isset($custA)) { ?>
+        <?php if (empty($merchant)) { ?>
             <div id="banner">
                 <object data="<?= base_url(); ?>asset/Images/SVG/chat.svg" type="image/svg+xml" style="margin-top: 15vh;"></object>
                 <svg xmlns="http://www.w3.org/2000/svg" width="730" height="105" viewBox="0 0 730 105">
@@ -125,17 +147,17 @@ foreach ($pesan as $psn) {
         <?php } else { ?>
             <div class="chatHeader">
                 <div class="headerDetails">
-                    <div class="chatLogo"><img src="data:image/jpeg;base64,<?= base64_encode($custA['foto']) ?>" /></div>
+                    <div class="chatLogo"><img src="data:image/jpeg;base64,<?= base64_encode($mchFoto) ?>" /></div>
                     <div class="channelHeader">
-                        <h4 style="color: #ecf0f1;"><?= $custA['nama_user'] ?></h4>
+                        <h4 style="color: #ecf0f1;"><?= $mchNama ?></h4>
+                        <p class="yellow"><?= $mchRating ?></p>
                     </div>
                 </div>
                 <div class="actionContainer">
-                    <h3 style="color: #F25757;">Block Customer</h3>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 30 30">
-                        <path id="Icon_material-block" data-name="Icon material-block" d="M18,3A15,15,0,1,0,33,18,15.005,15.005,0,0,0,18,3ZM6,18A12,12,0,0,1,18,6a11.854,11.854,0,0,1,7.35,2.535L8.535,25.35A11.854,11.854,0,0,1,6,18ZM18,30a11.854,11.854,0,0,1-7.35-2.535L27.465,10.65A11.854,11.854,0,0,1,30,18,12,12,0,0,1,18,30Z" transform="translate(-3 -3)" fill="#f25757" />
+                    <h3 class="yellow">Visit Shop</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="52.544" height="46.706" viewBox="0 0 52.544 46.706">
+                        <path id="shop" data-name="Icon metro-shop" d="M19.068,19.953,21.377,4.627H9.367L4.35,17.763a4.6,4.6,0,0,0-.236,1.46c0,3.223,3.357,5.838,7.505,5.838,3.824,0,6.985-2.23,7.45-5.108Zm11.317,5.108c4.145,0,7.505-2.616,7.505-5.838,0-.12-.009-.239-.015-.353L36.39,4.627H24.38L22.892,18.858c-.006.12-.012.239-.012.365,0,3.223,3.36,5.838,7.505,5.838Zm14.6,3.053V39.657H15.79V28.132a12.283,12.283,0,0,1-4.171.724,12.035,12.035,0,0,1-1.667-.143V47.246a4.1,4.1,0,0,0,4.081,4.087h32.7a4.1,4.1,0,0,0,4.087-4.087V28.716a12.542,12.542,0,0,1-1.667.143A12.131,12.131,0,0,1,44.981,28.114ZM56.424,17.763,51.4,4.627H39.394l2.306,15.3c.45,2.89,3.611,5.132,7.453,5.132,4.145,0,7.505-2.616,7.505-5.838A4.688,4.688,0,0,0,56.424,17.763Z" transform="translate(-4.113 -4.627)" fill="#d7c13f;" />
                     </svg>
-
                 </div>
             </div>
 
@@ -144,7 +166,7 @@ foreach ($pesan as $psn) {
                     <div class="chatField">
                         <?php $cekTgl = "";
                         foreach ($pesan as $psn) {
-                            if ($psn['id_penerima'] == $mchId && $psn['id_pengirim'] == $custA['id_user']) {
+                            if ($psn['id_penerima'] == $mchId && $psn['id_pengirim'] == $user['id_user']) {
                                 $tgl = date('d F Y', strtotime($psn['tgl']));
                                 if ($tgl != $cekTgl) {
                                     $cekTgl = $tgl; ?>
@@ -189,6 +211,7 @@ foreach ($pesan as $psn) {
             </div>
         <?php } ?>
     </div>
+
 
 
     <script>
@@ -267,11 +290,8 @@ foreach ($pesan as $psn) {
             delete keys[e.which];
         });
 
-        <?php if (isset($custA)) { ?>
-            idCust = '<?= $custA['id_user'] ?>';
-        <?php } ?>
-
-        <?php if (isset($mchId)) { ?>
+        <?php if (isset($user) && isset($mchId)) { ?>
+            idUser = '<?= $user['id_user'] ?>';
             idMerchant = '<?= $mchId ?>';
         <?php } ?>
 
@@ -290,16 +310,13 @@ foreach ($pesan as $psn) {
                 $(".chatField").css("height", height);
                 ctr = 0;
 
-
-                //alert(pesan);
-                //alert(idMerchant);
                 $.ajax({
-                    url: "<?= base_url(); ?>Shop/insertPesan/".concat('<?= $mchId ?>/merchant'),
+                    url: "<?= base_url(); ?>Shop/insertPesan/".concat(idMerchant).concat('/user'),
                     method: "post",
                     data: {
-                        id_pengirim: idMerchant,
-                        id_penerima: idCust,
-                        tipe_penerima: "Customer",
+                        id_pengirim: idUser,
+                        id_penerima: idMerchant,
+                        tipe_penerima: "Merchant",
                         pesan: pesan
                     },
                     success: function(result) {
@@ -313,20 +330,9 @@ foreach ($pesan as $psn) {
             }
         });
 
-        $(".accItemContainer").on("click", ".listCust", function() {
-            idCust = $(this).attr("idCust");
-            $.ajax({
-                url: "<?= base_url(); ?>Shop/readCust",
-                method: "post",
-                data: {
-                    id_pengirim: idCust,
-                    id_penerima: idMerchant
-                },
-                success: function(result) {
-                    window.location.href = '<?= base_url(); ?>Shop/chatMerchant/'.concat(idCust);
-                }
-            });
-
+        $(".accItemContainer").on("click", ".listMerchant", function() {
+            idMerchant = $(this).attr("idMerchant");
+            window.location.href = '<?= base_url(); ?>Shop/chatUser/'.concat(idMerchant);
         });
 
 
@@ -335,7 +341,7 @@ foreach ($pesan as $psn) {
         });
 
         $(".actionContainer").click(function() {
-
+            window.location.href = '<?= base_url(); ?>Shop/viewMerchant/'.concat(idMerchant);
         });
 
         $(".wrapProfile").click(function() {

@@ -9,6 +9,10 @@
   <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/Ours.css">
   <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/indexCSS.css">
   <script src="<?php echo base_url(); ?>asset/Js/jquery-min.js"></script>
+  <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/alertify.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/alerts.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/themes/default.css">
+  <script src="<?php echo base_url(); ?>asset/Js/alertify.js"></script>
 </head>
 
 <body>
@@ -158,7 +162,8 @@
         window.location.href = '<?= base_url(); ?>Email/index/'.concat(email);
         $('.forgot').fadeOut("slow");
         $('.yourEmail').fadeOut("slow");
-        $('.success').fadeIn("slow");
+        // $('.success').fadeIn("slow");
+        alertify.success("Email sent")
       });
 
 
@@ -168,7 +173,7 @@
         window.location.href = '<?= base_url(); ?>Email/index/'.concat(phone);
         $('.forgot').fadeOut("slow");
         $('.yourPhone').fadeOut("slow");
-        $('.success').fadeIn("slow");
+        // $('.success').fadeIn("slow");
       });
 
 

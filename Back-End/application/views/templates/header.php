@@ -31,6 +31,7 @@
   <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/bootstrap.css">
 
   <script src="<?php echo base_url(); ?>asset/Js/jquery-min.js"></script>
+  <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/bootstrap-datepicker3.css">
 
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">

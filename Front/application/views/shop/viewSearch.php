@@ -338,7 +338,6 @@
 
         });
 
-
         $(".searchButton").click(function() {
             isi = $(".Searchinput").val();
             if (isi == "") {
@@ -353,7 +352,6 @@
 
             }
         });
-
 
         $(".cartButton").click(function() {
             window.location.href = '<?= base_url(); ?>Shop/viewCart/';

@@ -12,7 +12,7 @@ class Komen_model extends CI_model
 
     public function getKomenByIdItem($id)
     {
-        $query = "select u.nama_user as 'nama', k.pesan as 'pesan', k.reply as 'reply', u.foto as 'foto'
+        $query = "select u.nama_user as 'nama', k.pesan as 'pesan', u.foto as 'foto'
         from item_komentar k 
         join item i on k.id_item = i.id_item 
         join user u on u.id_user = k.id_user 

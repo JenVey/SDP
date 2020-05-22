@@ -239,6 +239,7 @@ class Shop extends CI_Controller
         $data['games'] = $this->Game_model->getAllGame();
         $data['subscribers'] = $this->Subs_model->getAllSubs();
         $data['rating'] = $this->Rating_model->getAllRating();
+        $data['pesan'] = $this->Pesan_model->getAllPesan();
         $this->load->view('shop/viewProfile', $data);
     }
 
@@ -256,15 +257,52 @@ class Shop extends CI_Controller
         $this->load->view('shop/viewHistory', $data);
     }
 
-    public function chatMerchant($idM)
+    public function chatUser($jenis)
     {
-        $id = $this->session->userdata('id_user');
+        if ($jenis == "room") {
+            $id = $this->session->userdata('id_user');
+            $data['user'] = $this->User_model->getUserById($id);
+            $data['merchantF'] = $this->Merchant_model->getMerchantByIdUser($id);
+            $data['allMerchant'] = $this->Merchant_model->getAllMerchant();
+            $data['pesan'] = $this->Pesan_model->getAllPesan();
+            $this->load->view('shop/chatUser', $data);
+        } else {
+            $id = $this->session->userdata('id_user');
+            $data['user'] = $this->User_model->getUserById($id);
+            $data['merchantF'] = $this->Merchant_model->getMerchantByIdUser($id);
+            $data['allMerchant'] = $this->Merchant_model->getAllMerchant();
+            $data['merchant'] = $this->Merchant_model->getMerchantById($jenis);
+            $data['pesan'] = $this->Pesan_model->getAllPesan();
+            $this->load->view('shop/chatUser', $data);
+        }
 
-        $data['user'] = $this->User_model->getUserById($id);
-        $data['merchantF'] = $this->Merchant_model->getMerchantByIdUser($id);
-        $data['merchant'] = $this->Merchant_model->getMerchantById($idM);
-        $data['pesan'] = $this->Pesan_model->getAllPesan();
-        $this->load->view('shop/chatMerchant', $data);
+        // if (isset($_SESSION['idMerchant'])) {
+        //     $idM = $_SESSION['idMerchant'];
+        // }
+    }
+
+    public function chooseMerchant()
+    {
+    }
+
+    public function chatMerchant($jenis)
+    {
+        if ($jenis == "room") {
+            $id = $this->session->userdata('id_user');
+            $data['user'] = $this->User_model->getUserById($id);
+            $data['allUser'] = $this->User_model->getAllUser();
+            $data['merchant'] = $this->Merchant_model->getMerchantUser($id);
+            $data['pesan'] = $this->Pesan_model->getAllPesan();
+            $this->load->view('shop/chatMerchant', $data);
+        } else {
+            $id = $this->session->userdata('id_user');
+            $data['user'] = $this->User_model->getUserById($id);
+            $data['allUser'] = $this->User_model->getAllUser();
+            $data['merchant'] = $this->Merchant_model->getMerchantUser($id);
+            $data['custA'] = $this->User_model->getUserById($jenis);
+            $data['pesan'] = $this->Pesan_model->getAllPesan();
+            $this->load->view('shop/chatMerchant', $data);
+        }
     }
 
     public function viewGacha()
@@ -478,15 +516,28 @@ class Shop extends CI_Controller
         $this->TransItem_model->changeStatus($status);
     }
 
-    public function insertPesan($idM)
+    public function insertPesan($idM, $jenis)
     {
         $this->Pesan_model->insertPesan();
+        if ($jenis == "user") {
+            $id = $this->session->userdata('id_user');
+            $data['user'] = $this->User_model->getUserById($id);
+            $data['merchant'] = $this->Merchant_model->getMerchantById($idM);
+            $data['pesan'] = $this->Pesan_model->getAllPesan();
+            $this->load->view('shop/refreshChatU', $data);
+        } else {
+            $id = $this->session->userdata('id_user');
+            $data['user'] = $this->User_model->getUserById($id);
+            $data['custA'] = $this->User_model->getUserById($jenis);
+            $data['merchant'] = $this->Merchant_model->getMerchantUser($id);
+            $data['pesan'] = $this->Pesan_model->getAllPesan();
+            $this->load->view('shop/refreshChatM', $data);
+        }
+    }
 
-        $id = $this->session->userdata('id_user');
-        $data['user'] = $this->User_model->getUserById($id);
-        $data['merchant'] = $this->Merchant_model->getMerchantById($idM);
-        $data['pesan'] = $this->Pesan_model->getAllPesan();
-        $this->load->view('shop/refreshChat', $data);
+    public function readCust()
+    {
+        $this->Pesan_model->readCust();
     }
 
     public function insertSubs()

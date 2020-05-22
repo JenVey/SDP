@@ -36,7 +36,8 @@ class Subs_model extends CI_model
             "id_sub" => $generateId,
             "id_merchant" => $this->input->post('id_merchant'),
             "banner" => $foto,
-            "tgl_akhir" => $tglAkhir
+            "tgl_akhir" => $tglAkhir,
+            "status" => 1
         ];
         $this->db->insert('subscribers', $data);
     }
@@ -51,7 +52,7 @@ class Subs_model extends CI_model
             "banner" => $foto
         ];
 
-        echo $foto;
+        //echo $foto;
 
         $this->db->where('id_sub', $idSub);
         $this->db->update('subscribers', $data);

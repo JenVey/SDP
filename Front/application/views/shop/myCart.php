@@ -739,7 +739,7 @@
 							label: "Chat the Merchant",
 							className: 'chatMerchant',
 							callback: function() {
-								window.location.href = '<?= base_url(); ?>Shop/chatMerchant/'.concat(idMerchant);
+								window.location.href = '<?= base_url(); ?>Shop/chatUser/'.concat(idMerchant);
 							}
 						},
 						ok: {

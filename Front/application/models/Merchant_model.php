@@ -8,15 +8,16 @@ class Merchant_model extends CI_model
         $query = "select m.id_merchant as 'id', m.nama_merchant as 'nama',  round(sum(r.bintang)/count(r.bintang)) as 'rating' , m.foto_profil as 'foto', m.id_user as 'id_user'
         from merchant m 
         left join merchant_rating r on r.id_merchant = m.id_merchant
-        group by m.id_merchant";
+        group by m.id_merchant,m.nama_merchant,m.id_user";
 
         $res = $this->db->query($query);
         return $res->result_array();
     }
+
     public function getMerchantById($id)
     {
         //return $this->db->get_where('merchant', ['id_merchant' => $id])->row_array();
-        $query = "select m.id_merchant as 'id', m.nama_merchant as 'nama',  round(sum(r.bintang)/count(r.bintang)) as 'rating' , m.foto_profil as 'foto', m.foto_profil as 'foto', m.bio as 'bio'
+        $query = "select m.id_merchant as 'id', m.nama_merchant as 'nama',  round(sum(r.bintang)/count(r.bintang)) as 'rating' , m.foto_profil as 'foto', m.bio as 'bio'
         from merchant m 
         left join merchant_rating r on r.id_merchant = m.id_merchant 
         where m.id_merchant = '" . $id . "'
