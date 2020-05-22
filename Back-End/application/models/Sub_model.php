@@ -4,16 +4,14 @@ class Sub_model extends CI_model
 
     public function getAllSub()
     {
-        return $this->db->get('subscription_detail')->result_array();
+        return $this->db->get('subscribers')->result_array();
     }
 
-    public function insertSub()
+    public function insertSubs()
     {
-        //GENERATE ID
         $ctr = 1;
-        $query = $this->db->query("select * from subscription_detail");
-        $newId = $this->input->post('tipeSub');
-        $cekNewId = 'S' . substr(strtoupper($newId), 0, 1);
+        $query = $this->db->query("select * from subscribers");
+        $cekNewId = 'SU';
         foreach ($query->result_array() as $row) {
             $cekId = substr(strtoupper($row['id_sub']), 0, 2);
             if ($cekId == $cekNewId) {
@@ -30,48 +28,45 @@ class Sub_model extends CI_model
             $generateId = $cekNewId . $ctr;
         }
 
-        $tgl = $this->input->post('tglKadaluwarsa');
-        $tglAwal = substr($tgl, 0, 10);
-        $tglAkhir = substr($tgl, 14);
-        $newTglAwal = date("Y-m-d H:i:s", strtotime($tglAwal));
-        $newTglAkhir = date("Y-m-d H:i:s", strtotime($tglAkhir));
+        $tglAwal =  date("Y-m-d H:i:s");
+        $tglAkhir = date('Y-m-d H:i:s', strtotime('+31 days', strtotime($tglAwal)));
+        $foto = $this->input->post('foto');
+        $foto = base64_decode($foto);
 
         $data = [
             "id_sub" => $generateId,
-            "tipe_sub" => $this->input->post('tipeSub'),
-            "keterangan" => $this->input->post('keterangan'),
-            "tgl_awal" => $newTglAwal,
-            "tgl_akhir" => $newTglAkhir
+            "id_merchant" => $this->input->post('id_merchant'),
+            "banner" => $foto,
+            "tgl_akhir" => $tglAkhir
         ];
-        $this->db->insert('subscription_detail', $data);
+        $this->db->insert('subscribers', $data);
     }
 
     public function deleteSub($id)
     {
         $this->db->where('id_sub', $id);
-        $this->db->delete('subscription_detail');
+        $this->db->delete('subscribers');
     }
 
     public function getSubById($id)
     {
-        return $this->db->get_where('subscription_detail', ['id_sub' => $id])->row_array();
+        return $this->db->get_where('subscribers', ['id_sub' => $id])->row_array();
     }
 
     public function editSub($id)
     {
-        $tgl = $this->input->post('tglKadaluwarsa');
-        $tglAwal = substr($tgl, 0, 10);
-        $tglAkhir = substr($tgl, 14);
-        $newTglAwal = date("Y-m-d H:i:s", strtotime($tglAwal));
-        $newTglAkhir = date("Y-m-d H:i:s", strtotime($tglAkhir));
+        $tglAwal =  date("Y-m-d H:i:s");
+        $tglAkhir = date('Y-m-d H:i:s', strtotime('+31 days', strtotime($tglAwal)));
+        $foto = $this->input->post('foto');
+        $foto = base64_decode($foto);
+
         $data = [
-            "tipe_sub" => $this->input->post('tipeSub'),
-            "keterangan" => $this->input->post('keterangan'),
-            "tgl_awal" => $newTglAwal,
-            "tgl_akhir" => $newTglAkhir
+            "banner" => $foto,
+            "tgl_akhir" => $tglAkhir
         ];
 
+
         $this->db->where('id_sub', $id);
-        $this->db->update('subscription_detail', $data);
+        $this->db->update('subscribers', $data);
     }
 }

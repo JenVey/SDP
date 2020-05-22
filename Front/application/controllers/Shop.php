@@ -99,6 +99,7 @@ class Shop extends CI_Controller
             $data['item'] = $this->Item_model->getItemByIdGame($config['per_page'], $start);
             $data['games'] = $this->Game_model->getAllGame();
             $data['pagination'] = $this->pagination->create_links();
+            $data['subscribers'] = $this->Subs_model->getAllSubs();
             $this->load->view('templates/header', $data);
             $this->load->view('shop/shop', $data);
         } else {
@@ -110,6 +111,7 @@ class Shop extends CI_Controller
             //$data['item'] = $this->Item_model->getAllItem();
             $data['games'] = $this->Game_model->getAllGame();
             $data['pagination'] = $this->pagination->create_links();
+            $data['subscribers'] = $this->Subs_model->getAllSubs();
             $this->load->view('templates/header', $data);
             $this->load->view('shop/shop', $data);
         }
@@ -228,12 +230,15 @@ class Shop extends CI_Controller
     {
         $id = $this->session->userdata('id_user');
         $data['user'] = $this->User_model->getUserById($id);
+        $data['allUser'] = $this->User_model->getAllUser();
         $data['merchantF'] = $this->Merchant_model->getMerchantByIdUser($id);
         $data['merchant'] = $this->Merchant_model->getMerchantUser($id);
         $data['allTrans'] = $this->Trans_model->getAllTrans();
         $data['transaksiItem'] = $this->TransItem_model->getAllTransItem();
         $data['item'] = $this->Item_model->getItemByIdUser($id);
         $data['games'] = $this->Game_model->getAllGame();
+        $data['subscribers'] = $this->Subs_model->getAllSubs();
+        $data['rating'] = $this->Rating_model->getAllRating();
         $this->load->view('shop/viewProfile', $data);
     }
 
@@ -487,5 +492,10 @@ class Shop extends CI_Controller
     public function insertSubs()
     {
         $this->Subs_model->insertSubs();
+    }
+
+    public function editBanner()
+    {
+        $this->Subs_model->editBanner();
     }
 }

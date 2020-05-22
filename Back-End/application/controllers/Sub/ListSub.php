@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class ListSub extends CI_Controller {
+class ListSub extends CI_Controller
+{
 
 	/**
 	 * Index Page for this controller.
@@ -18,21 +19,22 @@ class ListSub extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
-    public function __construct()
-    {
-        parent::__construct();
-        $this->load->model('Sub_model');
-    }
-    
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->model('Sub_model');
+		$this->load->model('Merchant_model');
+	}
+
 	public function index()
-	{   
-        $this->load->model('Sub_model');
+	{
+		$this->load->model('Sub_model');
 		$data['sub'] = $this->Sub_model->getAllSub();
-		
-		$this->load->view('templates/header',$data);
-		$this->load->view('templates/navbar',$data);
-		$this->load->view('templates/sidebar',$data);
-		$this->load->view('sub/listSub',$data);
-        //$this->load->view('templates/footer');
+		$data['merchant'] = $this->Merchant_model->getAllMerchant();
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('templates/navbar', $data);
+		$this->load->view('templates/sidebar', $data);
+		$this->load->view('sub/listSub', $data);
 	}
 }

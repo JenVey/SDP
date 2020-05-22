@@ -23,6 +23,7 @@ class EditSub extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('Sub_model');
+		$this->load->model('Merchant_model');
 		$this->load->library('form_validation');
 	}
 
@@ -30,7 +31,7 @@ class EditSub extends CI_Controller
 	{
 		$this->load->model('Sub_model');
 		$data['sub'] = $this->Sub_model->getSubById($id);
-
+		$data['merchant'] = $this->Merchant_model->getAllMerchant();
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/navbar');
 		$this->load->view('templates/sidebar');

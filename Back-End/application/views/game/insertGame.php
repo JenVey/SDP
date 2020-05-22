@@ -52,7 +52,6 @@
                     <label class="custom-file-label" for="exampleInputFile">Choose Photo</label>
                   </div>
                 </div>
-
               </div>
               <input type="hidden" name="photoGame" id="fotoGame">
             </div>

@@ -28,6 +28,10 @@
   <!-- summernote -->
   <link rel="stylesheet" href="<?php echo base_url(); ?>/asset/plugins/summernote/summernote-bs4.css">
 
+  <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/bootstrap.css">
+
+  <script src="<?php echo base_url(); ?>asset/Js/jquery-min.js"></script>
+
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
