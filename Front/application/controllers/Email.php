@@ -29,26 +29,31 @@ class Email extends CI_Controller
     {
         $email = $this->uri->segment('3');
 
+        $ada = false;
         $query = $this->db->query("select * from user");
         foreach ($query->result_array() as $row) {
             if ($row['email_user'] == $email) {
                 $id = $row['id_user'];
                 $nama = $row['nama_user'];
+                $ada = true;
             }
         }
 
-        $config['protocol']    = 'smtp';
-        $config['smtp_host']    = 'ssl://smtp.gmail.com';
-        $config['smtp_port']    = '465';
-        $config['smtp_timeout'] = '7';
-        $config['smtp_user']    = 'noreply.morningowl@gmail.com';
-        $config['smtp_pass']    = 'kirimemail123';
-        $config['charset']    = 'utf-8';
-        $config['newline']    = "\r\n";
-        $config['mailtype'] = 'html'; // or html
-        $config['validation'] = TRUE; // bool whether to validate email or not      
 
-        $message =  "<body style='width: 100% !important;
+        if ($ada) {
+
+            $config['protocol']    = 'smtp';
+            $config['smtp_host']    = 'ssl://smtp.gmail.com';
+            $config['smtp_port']    = '465';
+            $config['smtp_timeout'] = '7';
+            $config['smtp_user']    = 'noreply.morningowl@gmail.com';
+            $config['smtp_pass']    = 'kirimemail123';
+            $config['charset']    = 'utf-8';
+            $config['newline']    = "\r\n";
+            $config['mailtype'] = 'html'; // or html
+            $config['validation'] = TRUE; // bool whether to validate email or not      
+
+            $message =  "<body style='width: 100% !important;
         height: 100%;
         margin: 0;
         line-height: 1.4;
@@ -149,15 +154,16 @@ class Email extends CI_Controller
         </table>
     </body>";
 
-        $this->load->library('email', $config);
-        $this->email->set_newline("\r\n");
-        $this->email->from('morningowl.company@gmail.com', 'ADMIN');
-        $this->email->to($email);
-        $this->email->subject('FORGOT PASSWORD');
-        $this->email->message($message);
+            $this->load->library('email', $config);
+            $this->email->set_newline("\r\n");
+            $this->email->from('morningowl.company@gmail.com', 'ADMIN');
+            $this->email->to($email);
+            $this->email->subject('FORGOT PASSWORD');
+            $this->email->message($message);
 
-        $this->email->send();
-        echo $this->email->print_debugger();
+            $this->email->send();
+            echo $this->email->print_debugger();
+        }
         redirect('login');
     }
 
@@ -171,8 +177,6 @@ class Email extends CI_Controller
                 $nama = $row['nama_user'];
             }
         }
-
-
 
         $config['protocol']    = 'smtp';
         $config['smtp_host']    = 'ssl://smtp.gmail.com';

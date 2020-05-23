@@ -71,8 +71,19 @@ usort($totalItem, function ($a, $b) {
 	return $b['jumlah'] <=> $a['jumlah'];
 });
 
+$jmlChat = 0;
+if ($mchId != "") {
+	foreach ($pesan as $psn) {
+		if ($psn['id_penerima'] == $mchId) {
+			if ($psn['status'] == 0) {
+				$jmlChat++;
+			}
+		}
+	}
+}
 
 ?>
+
 
 <body>
 	<input type="file" name="profileIMG" id="profileIMG" accept="image/x-png,image/jpg,image/jpeg" style="display: none;" />
@@ -124,13 +135,22 @@ usort($totalItem, function ($a, $b) {
 		</div>
 
 		<button class="changeProfile">
-			<svg id="changeProfileIcon" style="margin-left: 20px;" xmlns="http://www.w3.org/2000/svg" width="21" height="18" viewBox="0 0 44.998 36.001">
+			<svg id="changeProfileIcon" xmlns="http://www.w3.org/2000/svg" width="21" height="18" viewBox="0 0 44.998 36.001">
 				<path id="Icon_awesome-user-edit" data-name="Icon awesome-user-edit" d="M15.75,18a9,9,0,1,0-9-9A9,9,0,0,0,15.75,18Zm6.3,2.25H20.876a12.24,12.24,0,0,1-10.252,0H9.45A9.452,9.452,0,0,0,0,29.7v2.925A3.376,3.376,0,0,0,3.375,36H22.7a3.376,3.376,0,0,1-.183-1.5L23,30.22l.084-.78.555-.555,5.435-5.435a9.354,9.354,0,0,0-7.024-3.2Zm3.185,10.216-.478,4.289a1.119,1.119,0,0,0,1.237,1.237l4.282-.478,9.7-9.7-5.041-5.041-9.7,9.689ZM44.508,18.907l-2.665-2.665a1.685,1.685,0,0,0-2.377,0L36.809,18.9l-.288.288,5.048,5.041,2.939-2.939a1.693,1.693,0,0,0,0-2.384Z" fill="#ecf0f1" />
 			</svg>
-			<svg id="saveChangesIcon" style="margin-left: 20px;" xmlns="http://www.w3.org/2000/svg" width="21" height="18" viewBox="0 0 28.242 20.121">
+			<svg id="saveChangesIcon" xmlns="http://www.w3.org/2000/svg" width="21" height="18" viewBox="0 0 28.242 20.121">
 				<path id="Icon_feather-check" data-name="Icon feather-check" d="M30,9,13.5,25.5,6,18" transform="translate(-3.879 -6.879)" fill="none" stroke="#1E2126" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
 			</svg>
-			<p class="changeProfileText" style="margin-right: 10px;">Edit Profile</p>
+			<p class="changeProfileText" style="font-size: 16px;">Edit Profile</p>
+		</button>
+		<button class="chatroom">
+			<svg xmlns="http://www.w3.org/2000/svg" width="21" height="18" viewBox="0 0 35.496 29.812">
+				<g id="Icon_ionic-ios-chatbubbles" data-name="Icon ionic-ios-chatbubbles" transform="translate(-3.375 -3.375)">
+					<path id="Path_1946" data-name="Path 1946" d="M35.03,22.911a1.53,1.53,0,0,1,.282-.874,2.438,2.438,0,0,1,.179-.222,10.353,10.353,0,0,0,2.355-6.471c.026-6.607-6.613-11.968-14.821-11.968-7.159,0-13.132,4.092-14.531,9.524a9.754,9.754,0,0,0-.316,2.451c0,6.615,6.383,12.118,14.591,12.118a20.658,20.658,0,0,0,4.027-.552c.964-.222,1.92-.516,2.167-.595a2.642,2.642,0,0,1,.794-.122,2.59,2.59,0,0,1,.862.143l4.838,1.44a1.33,1.33,0,0,0,.333.072.632.632,0,0,0,.683-.573.792.792,0,0,0-.043-.193Z" transform="translate(1.026)" fill="#ecf0f1" />
+					<path id="Path_1947" data-name="Path 1947" d="M26.456,27.88c-.307.072-.7.15-1.126.229a18.6,18.6,0,0,1-2.9.322c-8.209,0-14.591-5.5-14.591-12.118a11.418,11.418,0,0,1,.128-1.534,8.417,8.417,0,0,1,.2-.917c.085-.322.188-.645.3-.96l-.683.509a10.05,10.05,0,0,0-4.4,8.019,9.389,9.389,0,0,0,2.116,5.876c.2.251.307.444.273.573s-1.015,4.443-1.015,4.443a.527.527,0,0,0,.23.552A.782.782,0,0,0,5.414,33a.713.713,0,0,0,.247-.043l4.787-1.584a1.558,1.558,0,0,1,.486-.079,1.578,1.578,0,0,1,.538.093,16.774,16.774,0,0,0,5.179.86A14.586,14.586,0,0,0,26.9,28.3s.273-.315.589-.688C27.173,27.708,26.815,27.8,26.456,27.88Z" transform="translate(0 0.183)" fill="#ecf0f1" />
+				</g>
+			</svg>
+			Chatroom
 		</button>
 		<div class="profileSeparator" style="margin-top: 40px;"></div>
 		<div class="Balance">
@@ -168,6 +188,7 @@ usort($totalItem, function ($a, $b) {
 				<h1 class="yellow varela">gather.owl</h1>
 			</button>
 			<div class="navsContainer">
+				<h5 class="yellow navItem merchant" style="margin:0 2vw;">My Merchant</h5>
 				<h5 class="yellow navItem pending" style="margin:0 2vw;">Transaction</h5>
 				<h5 class="yellow navItem rating" style="margin:0 2vw;">Ratings</h5>
 				<h5 class="yellow navItem stash" style="margin:0 2vw;">Stash Box</h5>
@@ -178,6 +199,7 @@ usort($totalItem, function ($a, $b) {
 				<h1 class="yellow varela">gather.owl</h1>
 			</button>
 			<div class="navsContainer">
+				<h5 class="yellow navItem merchant" style="margin:0 2vw;">My Merchant</h5>
 				<h5 class="yellow navItem pending" style="margin:0 2vw;">Transaction</h5>
 				<h5 class="yellow navItem rating" style="margin:0 2vw;">Ratings</h5>
 				<h5 class="yellow navItem stash" style="margin:0 2vw;">Stash Box</h5>
@@ -227,13 +249,24 @@ usort($totalItem, function ($a, $b) {
 		<?php
 		if (count($merchant) > 0) { ?>
 
-			<button class="ngiklan">
-				<svg xmlns="http://www.w3.org/2000/svg" width="27.947" height="20.96" viewBox="0 0 27.947 20.96">
-					<path id="ad" data-name="Icon awesome-ad" d="M8.6,15.853h2.017l-1.009-2.9Zm10.615-.873a1.31,1.31,0,1,0,1.31,1.31A1.312,1.312,0,0,0,19.213,14.98ZM25.327,4.5H2.62A2.621,2.621,0,0,0,0,7.12V22.84a2.621,2.621,0,0,0,2.62,2.62H25.327a2.621,2.621,0,0,0,2.62-2.62V7.12A2.621,2.621,0,0,0,25.327,4.5ZM13.678,20.22h-.925a.875.875,0,0,1-.825-.587l-.4-1.16H7.689l-.4,1.16a.873.873,0,0,1-.825.587H5.536a.873.873,0,0,1-.825-1.16l2.931-8.44a1.31,1.31,0,0,1,1.237-.88h1.455a1.31,1.31,0,0,1,1.237.881L14.5,19.06A.873.873,0,0,1,13.678,20.22Zm9.466-.873a.873.873,0,0,1-.873.873H21.4a.86.86,0,0,1-.654-.31,3.94,3.94,0,1,1-.219-7.309V10.613A.873.873,0,0,1,21.4,9.74h.873a.873.873,0,0,1,.873.873Z" transform="translate(0 -4.5)" fill="#d7c13f" />
-				</svg>
-
-				Create Ad
-			</button>
+			<div style="display: flex; width: 500px; justify-content: space-around;position: relative;">
+				<button class="ngiklan">
+					<svg xmlns="http://www.w3.org/2000/svg" width="27.947" height="20.96" viewBox="0 0 27.947 20.96">
+						<path id="ad" data-name="Icon awesome-ad" d="M8.6,15.853h2.017l-1.009-2.9Zm10.615-.873a1.31,1.31,0,1,0,1.31,1.31A1.312,1.312,0,0,0,19.213,14.98ZM25.327,4.5H2.62A2.621,2.621,0,0,0,0,7.12V22.84a2.621,2.621,0,0,0,2.62,2.62H25.327a2.621,2.621,0,0,0,2.62-2.62V7.12A2.621,2.621,0,0,0,25.327,4.5ZM13.678,20.22h-.925a.875.875,0,0,1-.825-.587l-.4-1.16H7.689l-.4,1.16a.873.873,0,0,1-.825.587H5.536a.873.873,0,0,1-.825-1.16l2.931-8.44a1.31,1.31,0,0,1,1.237-.88h1.455a1.31,1.31,0,0,1,1.237.881L14.5,19.06A.873.873,0,0,1,13.678,20.22Zm9.466-.873a.873.873,0,0,1-.873.873H21.4a.86.86,0,0,1-.654-.31,3.94,3.94,0,1,1-.219-7.309V10.613A.873.873,0,0,1,21.4,9.74h.873a.873.873,0,0,1,.873.873Z" transform="translate(0 -4.5)" fill="#d7c13f" />
+					</svg>
+					Create My Ad
+				</button>
+				<button class="chatCust">
+					<svg xmlns="http://www.w3.org/2000/svg" width="35.496" height="29.812" viewBox="0 0 35.496 29.812">
+						<g id="Icon_ionic-ios-chatbubbles" data-name="Icon ionic-ios-chatbubbles" transform="translate(-3.375 -3.375)">
+							<path id="Path_1946" data-name="Path 1946" d="M35.03,22.911a1.53,1.53,0,0,1,.282-.874,2.438,2.438,0,0,1,.179-.222,10.353,10.353,0,0,0,2.355-6.471c.026-6.607-6.613-11.968-14.821-11.968-7.159,0-13.132,4.092-14.531,9.524a9.754,9.754,0,0,0-.316,2.451c0,6.615,6.383,12.118,14.591,12.118a20.658,20.658,0,0,0,4.027-.552c.964-.222,1.92-.516,2.167-.595a2.642,2.642,0,0,1,.794-.122,2.59,2.59,0,0,1,.862.143l4.838,1.44a1.33,1.33,0,0,0,.333.072.632.632,0,0,0,.683-.573.792.792,0,0,0-.043-.193Z" transform="translate(1.026)" fill="#d7c13f" />
+							<path id="Path_1947" data-name="Path 1947" d="M26.456,27.88c-.307.072-.7.15-1.126.229a18.6,18.6,0,0,1-2.9.322c-8.209,0-14.591-5.5-14.591-12.118a11.418,11.418,0,0,1,.128-1.534,8.417,8.417,0,0,1,.2-.917c.085-.322.188-.645.3-.96l-.683.509a10.05,10.05,0,0,0-4.4,8.019,9.389,9.389,0,0,0,2.116,5.876c.2.251.307.444.273.573s-1.015,4.443-1.015,4.443a.527.527,0,0,0,.23.552A.782.782,0,0,0,5.414,33a.713.713,0,0,0,.247-.043l4.787-1.584a1.558,1.558,0,0,1,.486-.079,1.578,1.578,0,0,1,.538.093,16.774,16.774,0,0,0,5.179.86A14.586,14.586,0,0,0,26.9,28.3s.273-.315.589-.688C27.173,27.708,26.815,27.8,26.456,27.88Z" transform="translate(0 0.183)" fill="#d7c13f" />
+						</g>
+					</svg>
+					Chat With Customer
+				</button>
+				<p class="bubbleNotif">99999</p>
+			</div>
 
 			<h2 class="yellow" style="margin-top: 10vh;">
 				<svg style="margin-bottom: 5px;" xmlns="http://www.w3.org/2000/svg" width="20" height="29" viewBox="0 0 27 36">
@@ -913,7 +946,7 @@ usort($totalItem, function ($a, $b) {
 	$tgl =  date("Y-m-d H:i:s");
 	if ($mchId != "") {
 		foreach ($subscribers as $subs) {
-			if ($subs['id_merchant'] == $mchId && $tgl < $subs['tgl_akhir']) {
+			if ($subs['id_merchant'] == $mchId && $tgl < $subs['tgl_akhir'] && $subs['status'] == 1) {
 				$ada = true;
 				$subBanner = $subs['banner'];
 				$subId = $subs['id_sub'];
@@ -924,7 +957,7 @@ usort($totalItem, function ($a, $b) {
 	?>
 	<div class="subs" style="text-align: center;">
 		<input type="file" name="bannerImg" id="bannerImg" accept="image/x-png,image/jpg,image/jpeg" hidden>
-		<p id="countdown">Subscribe to our <span style="color: #d7c13f;">PLAN</span></p>
+		<p id="countdown">Subscribe to our <span style="color: #d7c13f;">MONTHLY PLAN</span></p>
 		<h5 class="varela" id="desc">Create your own ad banner and display it on the shop page</h5>
 		<div class="banner">
 			<h2 style="color: #ecf0f1;">Click here to upload your own image</h2>
@@ -995,6 +1028,7 @@ usort($totalItem, function ($a, $b) {
 			$(".subs").css("display", "none");
 			$(".bgblur").css("display", "none");
 			$(".navBarFix").css("display", "none");
+			$(".bubbleNotif").html('<?= $jmlChat ?>')
 
 		});
 
@@ -1891,6 +1925,20 @@ usort($totalItem, function ($a, $b) {
 			timer[10] = setTimeout("$('.subs').css('display','none')", 1000);
 			timer[11] = setTimeout("$('.bgblur').css('display','none')", 1000);
 
+		});
+
+		$(".merchant").click(function() {
+			$('html, body').animate({
+				scrollTop: $(".navBar").offset().top - 50
+			}, 2000);
+		});
+
+		$(".chatroom").click(function() {
+			window.location.href = '<?= base_url(); ?>Shop/chatUser/room';
+		});
+
+		$(".chatCust").click(function() {
+			window.location.href = '<?= base_url(); ?>Shop/chatMerchant/room';
 		});
 	</script>
 </body>

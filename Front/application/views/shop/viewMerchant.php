@@ -661,7 +661,7 @@ if (!empty($rating)) {
         });
 
         $(".merchantChat").click(function() {
-            window.location.href = '<?= base_url(); ?>Shop/chatMerchant/'.concat('<?= $mchId ?>');
+            window.location.href = '<?= base_url(); ?>Shop/chatUser/'.concat('<?= $mchId ?>');
         });
     </script>
 </body>

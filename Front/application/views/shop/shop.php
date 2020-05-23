@@ -142,21 +142,21 @@
                     <?php $ctr = 0;
                     $tgl =  date("Y-m-d H:i:s");
                     foreach ($subscribers as $subs) {
-                        if ($tgl < $subs['tgl_akhir']) {
+                        if ($tgl < $subs['tgl_akhir'] && $subs['status'] == 1) {
                             if ($ctr == 0) { ?>
                                 <li data-target="#iklanDisplay" data-slide-to="<?= $ctr ?>" class="active"></li>
                             <?php } else { ?>
                                 <li data-target="#iklanDisplay" data-slide-to="<?= $ctr ?>"></li>
                     <?php
                             }
+                            $ctr++;
                         }
-                        $ctr++;
                     } ?>
                 </ol>
                 <div class="carousel-inner">
                     <?php $ctr = 0;
                     foreach ($subscribers as $subs) {
-                        if ($tgl < $subs['tgl_akhir']) {
+                        if ($tgl < $subs['tgl_akhir'] && $subs['status'] == 1) {
                             if ($ctr == 0) { ?>
                                 <div class="carousel-item active">
                                     <img style="width: 900px; height: 200px;" src="data:image/jpeg;base64,<?= base64_encode($subs['banner']) ?>" class="d-block w-100" alt="...">
@@ -166,8 +166,8 @@
                                     <img style="width: 900px; height: 200px;" src="data:image/jpeg;base64,<?= base64_encode($subs['banner']) ?>" class="d-block w-100" alt="...">
                                 </div>
                     <?php  }
+                            $ctr++;
                         }
-                        $ctr++;
                     } ?>
                 </div>
             </div>

@@ -66,7 +66,7 @@
               <div class="form-group">
                 <label>Tanggal Akhir</label>
                 <div class="input-group">
-                  <input name="tglAkhir" class="form-control mr-sm-2 date" placeholder="Tanggal Akhir" type="date" value="<?= date('m/d/Y', strtotime($sub['tgl_akhir'])) ?>">
+                  <input name="tglAkhir" class="form-control mr-sm-2 date" placeholder="Tanggal Akhir" type="date" value="<?= date('Y-m-d', strtotime($sub['tgl_akhir'])) ?>">
                 </div>
                 <!-- /.input group -->
               </div>
@@ -106,6 +106,8 @@
   <script src="<?php echo base_url(); ?>/asset/dist/js/adminlte.min.js"></script>
   <!-- AdminLTE for demo purposes -->
   <script src="<?php echo base_url(); ?>/asset/dist/js/demo.js"></script>
+
+  <script src="<?php echo base_url(); ?>asset/Js/bootstrap-datepicker.js"></script>
   <!-- Page script -->
   <script>
     $(function() {

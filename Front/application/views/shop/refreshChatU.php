@@ -150,11 +150,8 @@ foreach ($merchant as $mch) {
                 idMerchant = '<?= $mchId ?>';
             <?php } ?>
 
-
-            //alert(pesan);
-            //alert(idMerchant);
             $.ajax({
-                url: "<?= base_url(); ?>Shop/insertPesan/".concat('<?= $mchId ?>'),
+                url: "<?= base_url(); ?>Shop/insertPesan/".concat('<?= $mchId ?>/user'),
                 method: "post",
                 data: {
                     id_pengirim: idUser,

@@ -3,7 +3,7 @@ class Pesan_model extends CI_model
 {
     public function getAllPesan()
     {
-        $query = "select u.nama_user as 'pengirim', p.pesan as 'pesan', p.tanggal as 'tgl', p.status as 'status', p.id_penerima as 'id_penerima', u.foto as 'foto', p.id_pengirim as 'id_pengirim'
+        $query = "select u.nama_user as 'pengirim', p.pesan as 'pesan', p.tanggal as 'tgl', p.status as 'status', p.id_penerima as 'id_penerima', u.foto as 'foto', p.id_pengirim as 'id_pengirim',p.tipe_penerima as 'tipe_penerima'
         from pesan p
         left join user u on u.id_user = p.id_pengirim 
         order by p.tanggal";
@@ -114,6 +114,14 @@ class Pesan_model extends CI_model
         $id = $this->session->userdata('id_user');
         $idFriend =  $this->input->post('idFriend');
         $query = "update pesan set status = 1 where id_pengirim = '" . $idFriend . "' and id_penerima = '" . $id . "'";
+        $this->db->query($query);
+    }
+
+    public function readCust()
+    {
+        $idCust = $this->input->post('id_pengirim');
+        $idMch =  $this->input->post('id_penerima');
+        $query = "update pesan set status = 1 where id_pengirim = '" . $idCust . "' and id_penerima = '" . $idMch . "'";
         $this->db->query($query);
     }
 }
