@@ -42,6 +42,10 @@ class Team_model extends CI_model
 
     public function deleteTeam($id)
     {
+
+        $this->db->where('id_team', $id);
+        $this->db->delete('team_members');
+
         $this->db->where('id_team', $id);
         $this->db->delete('team');
     }

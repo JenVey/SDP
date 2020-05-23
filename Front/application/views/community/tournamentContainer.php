@@ -1,8 +1,14 @@
-<?php foreach ($tournament as $turney) { ?>
-    <div class="tourneyItem" idTournament=<?= $turney['id_turnament'] ?>>
+<?php foreach ($tournament as $turney) {
+    if ($turney['jenis_pemain'] == 1) {
+        $jenis = "person";
+    } else {
+        $jenis = "team";
+    }
+?>
+    <div class="tourneyItem" jenis="<?= $jenis ?>" idTournament=<?= $turney['id_turnament'] ?> jumlah_pemain=<?= $turney['jumlah_pemain'] ?> jumlah_slot=<?= $turney['jumlah_slot'] ?>>
         <h2 class="yellow varela" style="margin-top: 2vh;"><?= $turney['nama_game'] ?></h2>
         <h6 class="varela" style="margin-top: 1vh;color: #ecf0f1;"><?= $turney['nama_turnament'] ?></h6>
-        <h6 style="font-size: 12px; color: rgba(236,240,241,0.37);"><?= $turney['jumlah_slot'] ?> Slots</h6>
+        <h6 style="font-size: 12px; color: rgba(236,240,241,0.37);"><?= $turney['jumlah_slot'] ?> Slots | <?= ucfirst($jenis)  ?></h6>
         <div class="standingsContainer">
             <h6 class="varela" style="color: #ecf0f1;">Standings</h6>
             <div class="standings">

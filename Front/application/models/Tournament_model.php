@@ -3,7 +3,7 @@ class Tournament_model extends CI_model
 {
     public function getAllTournament()
     {
-        $query = "select t.id_turnament as 'id_turnament', t.nama_turnament as 'nama_turnament', t.jumlah_pemain as 'jumlah_pemain', t.tanggal_mulai as 'tanggal_mulai' , t.jumlah_slot as 'jumlah_slot', t.tanggal_mulai as 'tanggal_mulai' ,g.nama_game as 'nama_game', t.status as 'status'
+        $query = "select t.id_game as 'id_game',t.jenis_pemain as 'jenis_pemain', t.id_turnament as 'id_turnament', t.nama_turnament as 'nama_turnament', t.jumlah_pemain as 'jumlah_pemain', t.tanggal_mulai as 'tanggal_mulai' , t.jumlah_slot as 'jumlah_slot', t.tanggal_mulai as 'tanggal_mulai' ,g.nama_game as 'nama_game', t.status as 'status'
         from tournament t
         join channel c on c.id_channel = t.id_channel 
         join game g on g.id_game = t.id_game ";
@@ -20,7 +20,7 @@ class Tournament_model extends CI_model
 
     public function getAllTournamentByIdChannel($id)
     {
-        $query = "select t.id_turnament as 'id_turnament', t.nama_turnament as 'nama_turnament', t.jumlah_pemain as 'jumlah_pemain', t.tanggal_mulai as 'tgl_mulai' , t.jumlah_slot as 'jumlah_slot', t.tanggal_mulai as 'tanggal_mulai' ,g.nama_game as 'nama_game', t.status as 'status'
+        $query = "select t.id_game as 'id_game', t.jenis_pemain as 'jenis_pemain',t.id_turnament as 'id_turnament', t.nama_turnament as 'nama_turnament', t.jumlah_pemain as 'jumlah_pemain', t.tanggal_mulai as 'tgl_mulai' , t.jumlah_slot as 'jumlah_slot', t.tanggal_mulai as 'tanggal_mulai' ,g.nama_game as 'nama_game', t.status as 'status'
         from tournament t
         join channel c on c.id_channel = t.id_channel 
         join game g on g.id_game = t.id_game
@@ -61,6 +61,13 @@ class Tournament_model extends CI_model
         $tgl = strtotime($tgl);
         $tgl = date("Y-d-m H:i", $tgl);
 
+        $jenis = $this->input->post('jenis_pemain');
+        if ($jenis == "Team") {
+            $jenis = 0;
+        } else {
+            $jenis = 1;
+        }
+
         $this->session->set_userdata(array('idTurnament' => $generateId));
         $data = [
             "id_turnament" => $generateId,
@@ -70,6 +77,7 @@ class Tournament_model extends CI_model
             "jumlah_pemain" =>  "0",
             "tanggal_mulai" =>  $tgl,
             "jumlah_slot" =>  $this->input->post('jumlah_slot'),
+            "jenis_pemain" => $jenis,
             "status" => 0
         ];
         $this->db->insert('tournament', $data);
@@ -89,5 +97,28 @@ class Tournament_model extends CI_model
     {
         $this->db->where('id_turnament', $id);
         $this->db->delete('tournament');
+    }
+
+    public function tambahPemain()
+    {
+        $idTurney = $this->input->post("id_turnament");
+        echo $idTurney;
+        $query = $this->db->query("select * from tournament");
+        foreach ($query->result_array() as $row) {
+            if ($row['id_turnament'] == $idTurney) {
+                $jml = $row['jumlah_pemain'];
+            }
+        }
+
+        $jml += 1;
+
+        $data = [
+            "jumlah_pemain" => $jml
+        ];
+
+        $this->db->where('id_turnament', $idTurney);
+        $this->db->update('tournament', $data);
+
+        redirect('Community/refreshTournament');
     }
 }

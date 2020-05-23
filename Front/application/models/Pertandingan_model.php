@@ -83,75 +83,106 @@ class Pertandingan_model extends CI_model
         $idTeam = $this->input->post('id_team');
         $slot =  $this->input->post('jumlah_slot');
 
-        $randomBagian = array();
 
 
-        if ($slot == 2) {
-            array_push($randomBagian, "finalteam1");
-            array_push($randomBagian, "finalteam2");
-        } else {
-            $ctr = $slot / 4;
-            for ($i = 1; $i <= $ctr; $i++) {
-                for ($j = 1; $j <= 2; $j++) {
-                    if ($slot == 4) {
-                        array_push($randomBagian, "semifinalkiri1team" . $j);
-                        array_push($randomBagian, "semifinalkanan1team" . $j);
-                    } else if ($slot == 8) {
-                        array_push($randomBagian, "quarterfinalkiri" . $i . "team" . $j);
-                        array_push($randomBagian, "quarterfinalkanan" . $i . "team" . $j);
-                    } else if ($slot == 16 || $slot == 32) {
-                        array_push($randomBagian, "round1kiri" . $i . "team" . $j);
-                        array_push($randomBagian, "round1kanan" . $i . "team" . $j);
-                    }
-                }
-            }
-        }
-
-
-
+        $join = false;
         $query = $this->db->query("select * from pertandingan");
         foreach ($query->result_array() as $row) {
             if ($row['id_turnament'] == $idTurnament) {
-                for ($i = 0; $i < $slot; $i++) {
-
-                    if ($randomBagian[$i] == $row['bagian'] . "team1") {
-                        if ($row['team_1'] != "") {
-                            $randomBagian[$i] = "";
-                        }
-                    }
-
-                    if ($randomBagian[$i] == $row['bagian'] . "team2") {
-                        if ($row['team_2'] != "") {
-                            $randomBagian[$i] = "";
-                        }
-                    }
+                if ($row['team_1'] == $idTeam || $row['team_2'] == $idTeam) {
+                    $join = true;
                 }
             }
         }
 
-        $ada = false;
-        $bagian = "";
-        while ($ada == false) {
-            $rand = rand(0, $slot - 1);
-            if ($randomBagian[$rand] != "") {
-                $bagian = $randomBagian[$rand];
-                $ada = true;
+        if (!$join) {
+            $randomBagian = array();
+            if ($slot == 2) {
+                array_push($randomBagian, "finalteam1");
+                array_push($randomBagian, "finalteam2");
+            } else {
+                $ctr = $slot / 4;
+                for ($i = 1; $i <= $ctr; $i++) {
+                    for ($j = 1; $j <= 2; $j++) {
+                        if ($slot == 4) {
+                            array_push($randomBagian, "semifinalkiriteam" . $j);
+                            array_push($randomBagian, "semifinalkananteam" . $j);
+                        } else if ($slot == 8) {
+                            array_push($randomBagian, "quarterfinalkiri" . $i . "team" . $j);
+                            array_push($randomBagian, "quarterfinalkanan" . $i . "team" . $j);
+                        } else if ($slot == 16 || $slot == 32) {
+                            array_push($randomBagian, "round1kiri" . $i . "team" . $j);
+                            array_push($randomBagian, "round1kanan" . $i . "team" . $j);
+                        }
+                    }
+                }
             }
-        }
 
-        $tim = substr($bagian, -5);
-        $idx = strpos($bagian, "team");
-        $bagian2 = substr($bagian, 0, $idx);
 
-        if ($tim == "team1") {
-            $query = "update pertandingan set team_1 = '" . $idTeam . "' where bagian = '" . $bagian2 . "' and id_turnament='" . $idTurnament . "' ";
-            $res = $this->db->query($query);
-            return $res->result_array();
-        } else if ($tim == "team2") {
 
-            $query = "update pertandingan set team_2 = '" . $idTeam . "' where bagian = '" . $bagian2 . "' and id_turnament='" . $idTurnament . "' ";
-            $res = $this->db->query($query);
-            return $res->result_array();
+            $query = $this->db->query("select * from pertandingan");
+            foreach ($query->result_array() as $row) {
+                if ($row['id_turnament'] == $idTurnament) {
+                    for ($i = 0; $i < $slot; $i++) {
+
+                        if ($randomBagian[$i] == $row['bagian'] . "team1") {
+                            if ($row['team_1'] != "") {
+                                $randomBagian[$i] = "";
+                            }
+                        }
+
+                        if ($randomBagian[$i] == $row['bagian'] . "team2") {
+                            if ($row['team_2'] != "") {
+                                $randomBagian[$i] = "";
+                            }
+                        }
+                    }
+                }
+            }
+
+            $ada = false;
+            $bagian = "";
+            while ($ada == false) {
+                $rand = rand(0, $slot - 1);
+                if ($randomBagian[$rand] != "") {
+                    $bagian = $randomBagian[$rand];
+                    $ada = true;
+                }
+            }
+
+            $tim = substr($bagian, -5);
+            $idx = strpos($bagian, "team");
+            $bagian2 = substr($bagian, 0, $idx);
+
+            if ($tim == "team1") {
+                echo "masuk1";
+                echo  $bagian2;
+                $query = "update pertandingan set team_1 = '" . $idTeam . "' where bagian = '" . $bagian2 . "' and id_turnament='" . $idTurnament . "' ";
+                $this->db->query($query);
+            } else if ($tim == "team2") {
+                echo "masuk2";
+                echo $bagian2;
+                $query = "update pertandingan set team_2 = '" . $idTeam . "' where bagian = '" . $bagian2 . "' and id_turnament='" . $idTurnament . "' ";
+                $this->db->query($query);
+            }
+
+            $query = $this->db->query("select * from tournament");
+            foreach ($query->result_array() as $row) {
+                if ($row['id_turnament'] == $idTurnament) {
+                    $jml = $row['jumlah_pemain'];
+                }
+            }
+            $jml += 1;
+            $data = [
+                "jumlah_pemain" => $jml
+            ];
+
+            $this->db->where('id_turnament', $idTurnament);
+            $this->db->update('tournament', $data);
+
+            redirect('Community/refreshTournament');
+        } else {
+            echo "joined";
         }
     }
 

@@ -15,10 +15,12 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/datepicker.css">
     <script src="<?php echo base_url(); ?>asset/Js/alertify.js"></script>
     <script src="<?php echo base_url(); ?>asset/Js/jquery-min.js"></script>
+
     <script src="<?php echo base_url(); ?>asset/Js/bootstrap.js"></script>
     <script src="<?php echo base_url(); ?>asset/Js/textFit.js"></script>
     <script src="<?php echo base_url(); ?>asset/Js/datepicker.js"></script>
     <script src="<?php echo base_url(); ?>asset/Js/jquery-clockpicker.min.js"></script>
+    <script src="<?php echo base_url(); ?>asset/Js/bootbox.js"></script>
 </head>
 <?php
 date_default_timezone_set('Asia/Jakarta');
@@ -41,6 +43,17 @@ if (isset($channelA)) {
 // $bagian2 = substr($bagian, 0, $idx);
 // echo $tim;
 // echo $bagian2;
+
+$adaTeam = "false";
+$ctrTeam = 0;
+foreach ($team as $tim) {
+    if ($tim['id_user'] == $user['id_user']) {
+        $adaTeam = "true";
+        $ctrTeam++;
+    }
+}
+
+
 ?>
 
 <body>
@@ -258,44 +271,47 @@ if (isset($channelA)) {
                     <h3 class="yellow">Tournament</h3>
                     <div id="tournamentContainer">
                         <div class="createTournamentForm collapse" id="tourneyForm">
-                            <div class="tourname">
+                            <div class="headerInput" style="align-items: flex-end;color: #ecf0f1;">
                                 <h5 class="varela">Tournament Name</h5>
-                                <input type="text" name="tourName" id="tourName">
+                                <h5 class="varela">Participant </h5>
+                                <h5 class="varela">Slot(s)</h5>
+                                <h5 class="varela">Game</h5>
+                                <h5 class="varela">Start Date</h5>
                             </div>
-                            <div class="tourname">
-                                <h5 class="varela" style="margin-left: 6.5vw; margin-right: 2vw;">Game</h5>
+                            <div class="input">
+                                <input type="text" name="tourName" id="tourName">
+                                <select id="TourJenis" class="form-control">
+                                    <option value="User">User</option>
+                                    <option value="Team" selected>Team</option>
+                                </select>
+                                <div style="width: 100%; display: flex;">
+                                    <input type="number" name="slotTour" id="slotTour" value="2" readonly style="margin-right: 1.8vw;">
+                                    <button class="minusBut">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="41" height="36" viewBox="0 0 46 41">
+                                            <g id="Group_185" data-name="Group 185" transform="translate(-15819.5 3056.5)">
+                                                <g id="Group_182" data-name="Group 182" transform="translate(86 -93)">
+                                                    <rect id="Rectangle_302" data-name="Rectangle 302" width="43" height="38" rx="8" transform="translate(15735 -2962)" stroke-width="3" stroke="none" stroke-linecap="round" stroke-linejoin="bevel" fill="#d7c13f" />
+                                                </g>
+                                                <path id="Icon_material-add" data-name="Icon material-add" d="M28.5,19.5H7.5v-3h21Z" transform="translate(15824.7 -3054)" fill="#4C525D" />
+                                            </g>
+                                        </svg>
+                                    </button>
+                                    <button class="plusBut">
+                                        <svg class="plus" xmlns="http://www.w3.org/2000/svg" width="41" height="36" viewBox="0 0 46 41">
+                                            <g id="Group_186" data-name="Group 186" transform="translate(-15879.5 3056.5)">
+                                                <g id="Group_184" data-name="Group 184" transform="translate(146 -93)">
+                                                    <rect id="Rectangle_302" data-name="Rectangle 302" width="43" height="38" rx="8" transform="translate(15735 -2962)" stroke-width="3" stroke="none" stroke-linecap="round" stroke-linejoin="bevel" fill="#d7c13f" />
+                                                </g>
+                                                <path id="Icon_material-add" data-name="Icon material-add" d="M28.5,19.5h-9v9h-3v-9h-9v-3h9v-9h3v9h9Z" transform="translate(15884.7 -3054)" fill="#4C525D" />
+                                            </g>
+                                        </svg>
+                                    </button>
+                                </div>
                                 <select id="TourGame" class="form-control">
                                     <?php foreach ($game as $games) { ?>
                                         <option value="<?= $games['id_game'] ?>"><?= $games['nama_game'] ?></option>
                                     <?php } ?>
                                 </select>
-                            </div>
-                            <div class="tourname slot">
-                                <h5 class="varela">Slot(s)</h5>
-                                <input type="number" name="slotTour" id="slotTour" value="2" readonly style="margin-left: 1.8vw;">
-                                <button class="minusBut">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="41" height="36" viewBox="0 0 46 41">
-                                        <g id="Group_185" data-name="Group 185" transform="translate(-15819.5 3056.5)">
-                                            <g id="Group_182" data-name="Group 182" transform="translate(86 -93)">
-                                                <rect id="Rectangle_302" data-name="Rectangle 302" width="43" height="38" rx="8" transform="translate(15735 -2962)" stroke-width="3" stroke="none" stroke-linecap="round" stroke-linejoin="bevel" fill="#d7c13f" />
-                                            </g>
-                                            <path id="Icon_material-add" data-name="Icon material-add" d="M28.5,19.5H7.5v-3h21Z" transform="translate(15824.7 -3054)" fill="#4C525D" />
-                                        </g>
-                                    </svg>
-                                </button>
-                                <button class="plusBut">
-                                    <svg class="plus" xmlns="http://www.w3.org/2000/svg" width="41" height="36" viewBox="0 0 46 41">
-                                        <g id="Group_186" data-name="Group 186" transform="translate(-15879.5 3056.5)">
-                                            <g id="Group_184" data-name="Group 184" transform="translate(146 -93)">
-                                                <rect id="Rectangle_302" data-name="Rectangle 302" width="43" height="38" rx="8" transform="translate(15735 -2962)" stroke-width="3" stroke="none" stroke-linecap="round" stroke-linejoin="bevel" fill="#d7c13f" />
-                                            </g>
-                                            <path id="Icon_material-add" data-name="Icon material-add" d="M28.5,19.5h-9v9h-3v-9h-9v-3h9v-9h3v9h9Z" transform="translate(15884.7 -3054)" fill="#4C525D" />
-                                        </g>
-                                    </svg>
-                                </button>
-                            </div>
-                            <div class="tourname" style="width: 80%;margin-left: 9vw;">
-                                <h5 class="varela">Start Date</h5>
                                 <div class="form-group mb-4" style="margin: 0!important;">
                                     <div class="datepicker date input-group p-0 shadow-sm" data-date-start-date="+1d" style="margin-right: 12vw;">
                                         <input type="text" placeholder="Date" class="form-control" name="tourDate" id="tourDate">
@@ -317,11 +333,17 @@ if (isset($channelA)) {
                             </button>
                         <?php } ?>
                         <div class="tourneys">
-                            <?php foreach ($tournament as $turney) { ?>
-                                <div class="tourneyItem" idTournament=<?= $turney['id_turnament'] ?> jumlah_pemain=<?= $turney['jumlah_pemain'] ?> jumlah_slot=<?= $turney['jumlah_slot'] ?>>
+                            <?php foreach ($tournament as $turney) {
+                                if ($turney['jenis_pemain'] == 1) {
+                                    $jenis = "person";
+                                } else {
+                                    $jenis = "team";
+                                }
+                            ?>
+                                <div class="tourneyItem" jenis="<?= $jenis ?>" idTournament=<?= $turney['id_turnament'] ?> jumlah_pemain=<?= $turney['jumlah_pemain'] ?> jumlah_slot=<?= $turney['jumlah_slot'] ?>>
                                     <h2 class="yellow varela" style="margin-top: 2vh;"><?= $turney['nama_game'] ?></h2>
                                     <h6 class="varela" style="margin-top: 1vh;color: #ecf0f1;"><?= $turney['nama_turnament'] ?></h6>
-                                    <h6 style="font-size: 12px; color: rgba(236,240,241,0.37);"><?= $turney['jumlah_slot'] ?> Slots</h6>
+                                    <h6 style="font-size: 12px; color: rgba(236,240,241,0.37);"><?= $turney['jumlah_slot'] ?> Slots | <?= ucfirst($jenis)  ?></h6>
                                     <div class="standingsContainer">
                                         <h6 class="varela" style="color: #ecf0f1;">Standings</h6>
                                         <div class="standings">
@@ -1343,7 +1365,8 @@ if (isset($channelA)) {
             //alert(jumlah_slot);
             //alert(id_game);
             //alert(tanggal_mulai);
-
+            jenis_pemain = $("#TourJenis").val();
+            alert(jenis_pemain);
             $.ajax({
                 url: "<?= base_url(); ?>Community/insertTournament",
                 method: "post",
@@ -1353,7 +1376,8 @@ if (isset($channelA)) {
                     id_game: id_game,
                     nama_turnament: nama_turnament,
                     tanggal_mulai: tanggal_mulai,
-                    jumlah_slot: jumlah_slot
+                    jumlah_slot: jumlah_slot,
+                    jenis_pemain: jenis_pemain
                 },
                 success: function(result) {
                     $(".createTournamentForm").collapse("hide");
@@ -1365,48 +1389,246 @@ if (isset($channelA)) {
 
     });
 
+    var adaTeam = '<?= $adaTeam ?>';
     $(".tourneys").on("click", ".tourneyItem", function() {
         id_turnament = $(this).attr("idTournament");
         jumlahPemain = $(this).attr("jumlah_pemain");
         jumlahSlot = $(this).attr("jumlah_slot");
 
         if (jumlahPemain == jumlahSlot) {
-            alertify.alert("Notice", "Slot is full");
-        } else {
-            alertify.confirm('Confirmation', 'Join tournament ?',
-                function() {
-                    $.ajax({
-                        url: "<?= base_url(); ?>Community/joinPertandingan",
-                        method: "post",
-                        data: {
-                            id_turnament: id_turnament,
-                            id_team: "YOSUAAAA",
-                            jumlahPemain: jumlahPemain,
-                            jumlah_slot: jumlahSlot
-                        },
-                        success: function(result) {
-                            alertify.success('Success join tournament!');
-                        }
-                    });
-                },
-                function() {
-                    alert(id_turnament);
-                    $.ajax({
-                        url: "<?= base_url(); ?>Community/setTournament",
-                        method: "post",
-                        data: {
-                            id_turnament: id_turnament
-                        },
-                        success: function(result) {
-                            window.location.href = '<?= base_url(); ?>Community/viewTournament';
-                        }
-                    });
 
+            <?php if (isset($_SESSION['admin']) || isset($_SESSION['master'])) { ?>
+                dialog = bootbox.dialog({
+                    title: "Action",
+                    message: "<p>What are you going to do?</p>",
+                    closeButton: false,
+                    buttons: {
+                        cancel: {
+                            label: "Nothing",
+                            className: 'back',
+                            callback: function() {
+
+                            }
+                        },
+                        noclose: {
+                            label: "View Bracket",
+                            className: 'view',
+                            callback: function() {
+                                $.ajax({
+                                    url: "<?= base_url(); ?>Community/setTournament",
+                                    method: "post",
+                                    data: {
+                                        id_turnament: id_turnament
+                                    },
+                                    success: function(result) {
+                                        window.location.href = '<?= base_url(); ?>Community/viewTournament';
+                                    }
+                                });
+                            }
+                        }
+                    }
+                });
+            <?php } else { ?>
+                alertify.alert("Notice", "Slot is full");
+            <?php } ?>
+        } else {
+            if ($(this).attr("jenis") == "team") {
+                if (adaTeam == 'true') {
+                    dialog = bootbox.dialog({
+                        title: "Action",
+                        message: "<p>What are you going to do?</p>",
+                        closeButton: false,
+                        buttons: {
+                            cancel: {
+                                label: "Nothing",
+                                className: 'back',
+                                callback: function() {
+
+                                }
+                            },
+                            noclose: {
+                                label: "View Bracket",
+                                className: 'view',
+                                callback: function() {
+                                    $.ajax({
+                                        url: "<?= base_url(); ?>Community/setTournament",
+                                        method: "post",
+                                        data: {
+                                            id_turnament: id_turnament
+                                        },
+                                        success: function(result) {
+                                            window.location.href = '<?= base_url(); ?>Community/viewTournament';
+                                        }
+                                    });
+                                }
+                            },
+                            ok: {
+                                label: "Join Tournament",
+                                className: 'join',
+                                callback: function() {
+                                    bootbox.prompt({
+                                        title: "Joining Tournament",
+                                        message: "<p>Choose your team</p>",
+                                        closeButton: false,
+                                        inputType: 'select',
+                                        inputOptions: [
+                                            <?php
+                                            $ctrTeam2 = 0;
+                                            foreach ($team as $tim) {
+                                                if ($tim['id_user'] == $user['id_user']) {
+                                                    if ($ctrTeam2 == $ctrTeam) {
+                                                        echo "{
+                                                            text: '" . $tim['nama_team'] . "',
+                                                            value: '" . $tim['nama_team'] . "',
+                                                            }";
+                                                    } else {
+                                                        echo "{
+                                                            text: '" . $tim['nama_team'] . "',
+                                                            value: '" . $tim['nama_team'] . "',
+                                                            },";
+                                                    }
+                                                    $ctrTeam2++;
+                                                }
+                                            } ?>
+                                        ],
+                                        required: true,
+                                        callback: function(result) {
+                                            namaTeam = result;
+                                            if (result) {
+                                                bootbox.confirm({
+                                                    message: "Are you sure?",
+                                                    closeButton: false,
+                                                    callback: function(result) {
+                                                        if (result) {
+                                                            $.ajax({
+                                                                url: "<?= base_url(); ?>Community/joinPertandingan",
+                                                                method: "post",
+                                                                data: {
+                                                                    id_turnament: id_turnament,
+                                                                    id_team: namaTeam,
+                                                                    jumlahPemain: jumlahPemain,
+                                                                    jumlah_slot: jumlahSlot
+                                                                },
+                                                                success: function(result) {
+                                                                    if (result == "joined") {
+                                                                        alertify.error('Already Joined Tournament');
+                                                                    } else {
+                                                                        $(".tourneys").html(result);
+                                                                        alertify.success('Successfully Joined Tournament');
+                                                                    }
+                                                                }
+                                                            });
+                                                        }
+                                                    }
+                                                });
+                                            }
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    });
+                } else {
+                    //TIDAK ADA TEAM
+                    dialog = bootbox.dialog({
+                        title: "Action",
+                        message: "<p>What are you going to do?</p>",
+                        closeButton: false,
+                        buttons: {
+                            cancel: {
+                                label: "Nothing",
+                                className: 'back',
+                                callback: function() {
+
+                                }
+                            },
+                            noclose: {
+                                label: "View Bracket",
+                                className: 'view',
+                                callback: function() {
+                                    //ViewTournament
+                                    $.ajax({
+                                        url: "<?= base_url(); ?>Community/setTournament",
+                                        method: "post",
+                                        data: {
+                                            id_turnament: id_turnament
+                                        },
+                                        success: function(result) {
+                                            window.location.href = '<?= base_url(); ?>Community/viewTournament';
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    });
                 }
-            ).set('labels', {
-                ok: 'Join',
-                cancel: 'View Tournament'
-            });
+
+            } else {
+                //USER
+                bootbox.dialog({
+                    title: "Action",
+                    message: "<p>What are you going to do?</p>",
+                    closeButton: false,
+                    buttons: {
+                        cancel: {
+                            label: "Nothing",
+                            className: 'back',
+                            callback: function() {
+
+                            }
+                        },
+                        noclose: {
+                            label: "View Bracket",
+                            className: 'view',
+                            callback: function() {
+                                //ViewTournament
+                                $.ajax({
+                                    url: "<?= base_url(); ?>Community/setTournament",
+                                    method: "post",
+                                    data: {
+                                        id_turnament: id_turnament
+                                    },
+                                    success: function(result) {
+                                        window.location.href = '<?= base_url(); ?>Community/viewTournament';
+                                    }
+                                });
+                            }
+                        },
+                        ok: {
+                            label: "Join Tournament",
+                            className: 'join',
+                            callback: function() {
+                                bootbox.confirm({
+                                    message: "Are you sure?",
+                                    closeButton: false,
+                                    callback: function(result) {
+                                        if (result) {
+                                            $.ajax({
+                                                url: "<?= base_url(); ?>Community/joinPertandingan",
+                                                method: "post",
+                                                data: {
+                                                    id_turnament: id_turnament,
+                                                    id_team: '<?= $user['nama_user'] ?>',
+                                                    jumlahPemain: jumlahPemain,
+                                                    jumlah_slot: jumlahSlot
+                                                },
+                                                success: function(result) {
+                                                    if (result == "joined") {
+                                                        alertify.error('Already Joined Tournament');
+                                                    } else {
+                                                        $(".tourneys").html(result);
+                                                        alertify.success('Successfully Joined Tournament');
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    }
+                });
+            }
         }
     });
 

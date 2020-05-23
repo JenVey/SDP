@@ -130,13 +130,6 @@ foreach ($pesan as $psn) {
                         <h4 style="color: #ecf0f1;"><?= $custA['nama_user'] ?></h4>
                     </div>
                 </div>
-                <div class="actionContainer">
-                    <h3 style="color: #F25757;">Block Customer</h3>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 30 30">
-                        <path id="Icon_material-block" data-name="Icon material-block" d="M18,3A15,15,0,1,0,33,18,15.005,15.005,0,0,0,18,3ZM6,18A12,12,0,0,1,18,6a11.854,11.854,0,0,1,7.35,2.535L8.535,25.35A11.854,11.854,0,0,1,6,18ZM18,30a11.854,11.854,0,0,1-7.35-2.535L27.465,10.65A11.854,11.854,0,0,1,30,18,12,12,0,0,1,18,30Z" transform="translate(-3 -3)" fill="#f25757" />
-                    </svg>
-
-                </div>
             </div>
 
             <div class="chatSection">
@@ -144,7 +137,7 @@ foreach ($pesan as $psn) {
                     <div class="chatField">
                         <?php $cekTgl = "";
                         foreach ($pesan as $psn) {
-                            if ($psn['id_penerima'] == $mchId && $psn['id_pengirim'] == $custA['id_user']) {
+                            if ($psn['id_penerima'] == $mchId && $psn['id_pengirim'] == $custA['id_user'] || $psn['id_penerima'] == $custA['id_user'] && $psn['id_pengirim'] == $mchId) {
                                 $tgl = date('d F Y', strtotime($psn['tgl']));
                                 if ($tgl != $cekTgl) {
                                     $cekTgl = $tgl; ?>
@@ -154,7 +147,7 @@ foreach ($pesan as $psn) {
                                         <div style="width: 5vw; height: 1px; background-color: #ecf0f1;"></div>
                                     </div>
                                 <?php }
-                                if ($psn['pengirim'] != $user['nama_user']) { ?>
+                                if ($psn['id_pengirim'] == $custA['id_user'] && $psn['id_penerima'] == $mchId) { ?>
                                     <div class="othersText">
                                         <div class="senderImg"><img src="data:image/jpeg;base64,<?= base64_encode($psn['foto']) ?>" /></div>
                                         <div class="nameText">
@@ -169,12 +162,14 @@ foreach ($pesan as $psn) {
                                     <div class="myText">
                                         <div class="my nameText">
                                             <div class="text mine">
-                                                <h6 class="mySenderName"><?= $psn['pengirim'] ?></h6>
+                                                <h6 class="mySenderName">
+                                                    <?= $mchNama ?>
+                                                </h6>
                                                 <p><?= $psn['pesan'] ?></p>
                                                 <p class="myTextDate"><?= date('H:i', strtotime($psn['tgl'])) ?></p>
                                             </div>
                                         </div>
-                                        <div class="senderImg" style="margin:0 1vw 0 1vw;"><img src="data:image/jpeg;base64,<?= base64_encode($psn['foto']) ?>" /></div>
+                                        <div class="senderImg" style="margin:0 1vw 0 1vw;"><img src="data:image/jpeg;base64,<?= base64_encode($mchFoto) ?>" /></div>
                                     </div>
                                 <?php } ?>
                         <?php }
@@ -316,7 +311,7 @@ foreach ($pesan as $psn) {
         $(".accItemContainer").on("click", ".listCust", function() {
             idCust = $(this).attr("idCust");
             $.ajax({
-                url: "<?= base_url(); ?>Shop/readCust",
+                url: "<?= base_url(); ?>Shop/read/cust",
                 method: "post",
                 data: {
                     id_pengirim: idCust,
@@ -332,10 +327,6 @@ foreach ($pesan as $psn) {
 
         $(".backtoMenu").click(function() {
             window.location.href = '<?= base_url(); ?>MainMenu';
-        });
-
-        $(".actionContainer").click(function() {
-
         });
 
         $(".wrapProfile").click(function() {

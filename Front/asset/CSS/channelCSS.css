@@ -517,14 +517,12 @@ button{
 }
 
 .createTournamentForm{
-	width: 60%;
-	height: 35vh;
-	background-color: #1e2126;
-	box-shadow: 0 0 3px #D7C13F;
-	border-radius: 15px;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+    width: 65%;
+    height: 45vh;
+    background-color: #1e2126;
+    box-shadow: 0 0 3px #D7C13F;
+    border-radius: 15px;
+    display: flex;
 }
 
 .tourname{
@@ -1267,4 +1265,80 @@ img{
 
 .search:focus{
 	box-shadow: none!important;
+}
+
+.back{
+    background-color: #F25757;
+    color: #ecf0f1;
+}
+
+.view{
+    background-color: #D7C13F;
+    color: #ecf0f1;
+}
+
+.join{
+    background-color: #63D99E;
+    color: #ecf0f1;
+}
+
+.modal-content{
+    background-color: #1e2126;
+    color: #ecf0f1;
+}
+
+.bootbox-input{
+    background-color: #585D68!important;
+}
+
+.modal-title{
+    color: #1e2126;
+}
+
+.modal-header{
+    background-color: #d7c13f;
+    border-bottom: solid 1px #d7c13f
+}
+
+.modal-footer{
+    border-top: solid 1px #d7c13f
+}
+
+.bootbox-cancel{
+    background-color: #969BA6!important;
+}
+
+.bootbox-cancel:hover{
+    color: #1e2126;
+}
+
+.btn-primary{
+    background-color: #D7C13F;
+    border:solid 1px #D7C13F;
+}
+
+.btn-primary:hover{
+    color: #1e2126!important;
+    background-color: #D7C13F;
+}
+
+#TourJenis{
+    border: solid 2px #d7c13f; 
+    background: none;
+}
+
+#TourJenis option{
+    color: #1e2126;
+    background-color: #ecf0f1;;
+    border-radius: 15px;
+}
+
+.headerInput,.input{
+    width: 50%;
+    height: 100%;
+    padding: 4vh 1vw;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }

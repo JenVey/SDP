@@ -310,22 +310,6 @@
 		<input type="hidden" name="result_data" id="result-data" value=""></div>
 		<input type="hidden" name="total" id="total" value=""></div>
 	</form>
-	<div id="bodyTrans">
-		<h2 class="header">What kind of payment?</h2>
-		<div class="pilihTrans" id="pilihCredit">
-			<svg style="margin-top: 10vw;" xmlns="http://www.w3.org/2000/svg" width="118.755" height="84.674" viewBox="0 0 118.755 84.674">
-				<path id="Icon_metro-credit-card" data-name="Icon metro-credit-card" d="M110.192,5.784H13.7c-6.123,0-11.133,4.763-11.133,10.584V79.874c0,5.821,5.01,10.584,11.133,10.584h96.488c6.123,0,11.133-4.763,11.133-10.584V16.368c0-5.821-5.01-10.584-11.133-10.584ZM13.7,12.84h96.488a3.672,3.672,0,0,1,3.711,3.528V26.953H9.993V16.368A3.672,3.672,0,0,1,13.7,12.84ZM110.192,83.4H13.7a3.672,3.672,0,0,1-3.711-3.528V48.121H113.9V79.874a3.672,3.672,0,0,1-3.711,3.528ZM17.415,62.234h7.422V76.346H17.415Zm14.844,0h7.422V76.346H32.259Zm14.844,0h7.422V76.346H47.1Z" transform="translate(-2.57 -5.784)" fill="#D7C13F" />
-			</svg>
-			<h2 class="yellow" style="margin-top: 4vw;">Credit Card</h2>
-		</div>
-		<div class="pilihTrans" id="pilihBalance">
-			<svg style="margin-top: 8.5vw;" xmlns="http://www.w3.org/2000/svg" width="117" height="117" viewBox="0 0 117 117">
-				<path id="Subtraction_1" data-name="Subtraction 1" d="M58.5,117A58.515,58.515,0,0,1,35.729,4.6,58.515,58.515,0,0,1,81.271,112.4,58.135,58.135,0,0,1,58.5,117ZM46.255,43.083A14.744,14.744,0,0,0,35.1,47.94a16.522,16.522,0,0,0-4.546,11.651,15.532,15.532,0,0,0,4.427,11.054,14.351,14.351,0,0,0,10.742,4.641c.83,0,1.627-.024,2.369-.071.769-.05,1.411-.1,1.962-.144a15.353,15.353,0,0,0,1.77-.263c.586-.12,1.082-.22,1.436-.287a12.738,12.738,0,0,0,1.34-.359c.557-.175.919-.3,1.076-.359s.551-.211,1.076-.407c.554-.206.868-.326.933-.358.794-.318,1.2-.608,1.2-.862a4.761,4.761,0,0,0-.335-.957,4.378,4.378,0,0,1-.335-1.675c0-.061-.022-.441-.072-1.268-.048-.783-.072-1.515-.072-2.177,0-1.905.161-2.984.479-3.206a8.251,8.251,0,0,1,1.46-.551,6.389,6.389,0,0,1,1.316-.31c.127,0,.191-.242.191-.718a2.131,2.131,0,0,0-.1-.67c-3.276.164-4.918.239-5.168.239-.091,0-2.025-.074-6.269-.239a1.16,1.16,0,0,0-.192.789c0,.4.064.6.192.6a11.088,11.088,0,0,1,2.129.287c.9.19,1.428.447,1.555.765a14.083,14.083,0,0,1,.382,4.116v.335l.048,3.924c0,.381-.113.622-.335.717a14.06,14.06,0,0,1-6.221,1.053,10.649,10.649,0,0,1-4.863-1.118,11.979,11.979,0,0,1-3.966-3.355,15.964,15.964,0,0,1-.311-19.6A9.841,9.841,0,0,1,46.4,45.093a11.9,11.9,0,0,1,6.675,1.639,7.371,7.371,0,0,1,3.087,4.917c.1.159.3.239.622.239.666,0,1-.241,1-.717,0-.314-.062-2.255-.191-5.934C52.325,43.808,48.509,43.083,46.255,43.083ZM70.61,74.9c.947,0,3.04.081,6.221.239a2.311,2.311,0,0,0,.1-.718c0-.444-.064-.67-.192-.67a9.619,9.619,0,0,1-2.082-.382c-.968-.254-1.54-.593-1.7-1.005a13.99,13.99,0,0,1-.383-4.163V51.122c0-1.519.024-2.678.072-3.445a8.36,8.36,0,0,1,.167-1.459.457.457,0,0,1,.335-.359,13.1,13.1,0,0,1,3.35-.335,5.382,5.382,0,0,1,4.594,1.985,8.841,8.841,0,0,1,1.483,5.384,7.14,7.14,0,0,1-1.723,4.784,5.274,5.274,0,0,1-4.115,2.011,9.3,9.3,0,0,1-3.206-.527.082.082,0,0,0-.037-.01c-.045,0-.081.051-.107.153a1.31,1.31,0,0,0,.144,1.1c.666.889,1.906,1.34,3.685,1.34a9.5,9.5,0,0,0,4.33-.981,8.826,8.826,0,0,0,3.087-2.488,12.192,12.192,0,0,0,1.746-3.11,8.609,8.609,0,0,0-.358-7.105,7.227,7.227,0,0,0-2.465-2.728,12.443,12.443,0,0,0-3.11-1.436,11.109,11.109,0,0,0-3.182-.479c-.915,0-2.042.032-3.35.1s-2.457.1-3.4.1l-5.742-.1a1.2,1.2,0,0,0-.192.813c0,.381.064.574.192.574a8.3,8.3,0,0,1,1.89.336c.841.222,1.316.464,1.411.717a18.1,18.1,0,0,1,.336,4.116V68.157c0,2.6-.113,4.118-.336,4.5-.159.286-.642.528-1.436.718a8.664,8.664,0,0,1-1.866.287c-.1,0-.144.209-.144.622a1.5,1.5,0,0,0,.144.861Z" fill="#d7c13f" />
-			</svg>
-			<h2 class="yellow" style="margin-top: 4vw;">Own Balance</h2>
-			<h5 style="margin-top: 2vw;color: #ecf0f1;">Current Balance : <span style="color: #63D99E;">GP <?= number_format(ceil($user['saldo']), 0, ".", ".") ?></span></h25>
-		</div>
-	</div>
 	<div style="display: none;">
 		<div id="topUpHeader">
 			<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 23.245 15">
@@ -338,7 +322,6 @@
 			<input type="text" name="topUpAmount" id="kodePromo">
 		</div>
 	</div>
-	<div class="bgblur" hidden></div>
 	<script>
 		var id = 0;
 
@@ -508,14 +491,14 @@
 
 
 		//MIDTRANS
-		$(".checkOut").click(function() {
-			$(".bgblur").attr("hidden", false);
-			$("#bodyTrans").css("display", "flex");
-			$("#bodyTrans").addClass("slideInDown");
-			$('body').css("overflow", "hidden");
-		});
+		// $(".checkOut").click(function() {
+		// 	$(".bgblur").attr("hidden", false);
+		// 	$("#bodyTrans").css("display", "flex");
+		// 	$("#bodyTrans").addClass("slideInDown");
+		// 	$('body').css("overflow", "hidden");
+		// });
 
-		$("#pilihBalance").click(function() {
+		$(".checkOut").click(function() {
 			alertify.confirm('Balance Payment', 'Are you sure?',
 				function() {
 					var grandtotal = $(".GrandTotalInput").html();
@@ -580,122 +563,6 @@
 				ok: 'Buy',
 				cancel: 'Cancel'
 			});
-		});
-
-		// $("#pilihCredit").click(function() {
-		// 	alertify.confirm('Credit Card Payment', 'Are you sure?',
-
-		// 		function() {
-		// 			var grandtotal = $(".GrandTotal").html();
-		// 			grandtotal = grandtotal.replace(/[^a-z0-9\s]/gi, '');
-		// 			grandtotal = grandtotal.substring(4, grandtotal.length);
-		// 			//alert(grandtotal);
-		// 			if (grandtotal > 0) {
-		// 				//alert("a");
-		// 				$(".bgblur").trigger("click");
-		// 				event.preventDefault();
-		// 				$(this).attr("disabled", "disabled");
-
-		// 				var cart = [];
-		// 				for (var i = 1; i <= id; i++) {
-		// 					if ($("#check" + i + "Item").prop('checked')) {
-		// 						var amount = $("#item" + i + "Amount").html();
-		// 						amount = amount.substring(0, amount.indexOf('/'));
-		// 						let obj = {
-		// 							id: $("#item" + i).attr("idItem"),
-		// 							price: parseInt($("#item" + i + "Price").attr("harga")),
-		// 							quantity: parseInt(amount),
-		// 							name: $("#item" + i + "Name").attr("nama"),
-		// 							subtotal: $("#item" + i + "Subtotal").attr("subtotal")
-		// 						}
-		// 						cart.push(obj);
-		// 					}
-		// 				}
-		// 				cartt = JSON.stringify(cart);
-
-		// 				var grandtotal = $(".GrandTotal").html();
-		// 				grandtotal = grandtotal.replace(/[^a-z0-9\s]/gi, '');
-		// 				grandtotal = grandtotal.substring(4, grandtotal.length);
-		// 				var gross_amount = grandtotal;
-		// 				$("#total").val(grandtotal);
-		// 				total = $("#total").val();
-
-		// 				nama = $(".profile").attr("nama");
-		// 				phone = $(".profile").attr("phone");
-		// 				email = $(".profile").attr("email");
-		// 				$.ajax({
-		// 					method: 'POST',
-		// 					url: '<?= base_url() ?>Midtrans/snap/token',
-		// 					data: {
-		// 						cart: cartt,
-		// 						gross_amount: gross_amount,
-		// 						nama: nama,
-		// 						phone: phone,
-		// 						email: email
-		// 					},
-		// 					cache: false,
-
-		// 					success: function(data) {
-		// 						console.log('token = ' + data);
-
-		// 						var resultType = document.getElementById('result-type');
-		// 						var resultData = document.getElementById('result-data');
-
-		// 						function changeResult(type, data) {
-		// 							$("#result-type").val(type);
-		// 							$("#result-data").val(JSON.stringify(data));
-		// 							for (var i = 0; i < cart.length; i++) {
-		// 								$('<input>').attr({
-		// 									type: 'hidden',
-		// 									name: 'cart[]',
-		// 									value: cart[i]["id"]
-		// 								}).appendTo('#payment-form');
-		// 							}
-		// 							//resultType.innerHTML = type;
-		// 							//resultData.innerHTML = JSON.stringify(data);
-		// 						}
-
-		// 						snap.pay(data, {
-		// 							onSuccess: function(result) {
-		// 								changeResult('success', result);
-		// 								console.log(result.status_message);
-		// 								console.log(result);
-		// 								alertify.success("Success buy item");
-		// 								$("#payment-form").submit();
-		// 							},
-		// 							onPending: function(result) {
-		// 								changeResult('pending', result);
-		// 								console.log(result.status_message);
-		// 								$("#payment-form").submit();
-		// 							},
-		// 							onError: function(result) {
-		// 								changeResult('error', result);
-		// 								console.log(result.status_message);
-		// 								$("#payment-form").submit();
-		// 							}
-		// 						});
-
-		// 					}
-		// 				});
-		// 			} else {
-		// 				alertify.error('No item selected');
-		// 				$(".bgblur").trigger("click");
-		// 			}
-		// 		},
-		// 		function() {
-		// 			alertify.error('Payment Cancelled');
-		// 			$(".bgblur").trigger("click");
-		// 		}).set('labels', {
-		// 		ok: 'Yes!',
-		// 		cancel: 'Nope!'
-		// 	});
-		// });
-
-		$(".bgblur").click(function() {
-			$(".bgblur").attr("hidden", true);
-			$("#bodyTrans").css("display", "none");
-			$("#bodyTrans").attr("class", "");
-			$('body').css("overflow-y", "auto");
 		});
 
 		$("input[name='enterPromo']").on("input", function() {

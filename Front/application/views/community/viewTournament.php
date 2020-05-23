@@ -32,32 +32,27 @@
 foreach ($tournament as $turney) {
     if ($turney['id_turnament'] == $_SESSION['idTournament']) {
         $slot = $turney['jumlah_slot'];
+        $tglMulai = $turney['tanggal_mulai'];
+        $idTurney = $turney['id_turnament'];
+        $idGame = $turney['id_game'];
     }
 }
-
-// foreach ($pertandingan as $stand) {
-//     echo "A";
-//     if ($stand['id_turnament'] == $idTurney && strpos($stand['bagian'], 'round1kiri') === true) {
-//         echo $stand['team_1'];
-//         echo "A";
-//     }
-// }
-// echo $slot;
 $idTurney = $_SESSION['idTournament'];
 ?>
-
 
 <body>
     <header class="hero">
         <div class="hero-wrap">
-            <p class="intro" id="intro"><?= $channelA['nama_channel'] ?></p>
+            <p class="intro" id="intro"></p>
             <h1 id="headline">IEM KATOWICE</h1>
-            <p class="year"><i class="fa fa-star"></i> <?php foreach ($tournament as $turney) {
-                                                            if ($turney['id_turnament'] == $_SESSION['idTournament']) {
-                                                                echo $turney['tanggal_mulai'];
-                                                            }
-                                                        } ?> <i class="fa fa-star"></i></p>
-            <p>Counter Strike : Global Offensive</p>
+            <p class="year"><i class="fa fa-star"></i> <?= date_format(date_create($tglMulai), "d F Y")  ?> <i class="fa fa-star"></i></p>
+            <p>
+                <?php foreach ($games as $game) {
+                    if ($game['id_game'] == $idGame) {
+                        echo $game['nama_game'];
+                    }
+                } ?>
+            </p>
         </div>
     </header>
 
@@ -68,19 +63,19 @@ $idTurney = $_SESSION['idTournament'];
                     <?php if ($slot > 31) { ?>
                         <div class="round round-one current">
                             <div class="round-details" bagian="round1kiri">Round 1<br /></div>
-                            <?php foreach ($pertandingan as $stand) {
-                                if ($stand['id_turnament'] == $idTurney && strpos($stand['bagian'], 'round1kiri') !== false) { ?>
-                                    <ul class="matchup" bagian="<?= $stand['bagian'] ?>">
-                                        <?php if ($stand['team_1'] == "") { ?>
+                            <?php foreach ($pertandingan as $tanding) {
+                                if ($tanding['id_turnament'] == $idTurney && strpos($tanding['bagian'], 'round1kiri') !== false) { ?>
+                                    <ul class="matchup" bagian="<?= $tanding['bagian'] ?>">
+                                        <?php if ($tanding['team_1'] == "") { ?>
                                             <li class="team team-top">&nbsp;<span class="score">&nbsp;</span></li>
                                         <?php } else { ?>
-                                            <li class="team team-top"><?= $stand['team_1'] ?><span class="score"><?= $stand['skor_1'] ?></span></li>
+                                            <li class="team team-top"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
                                         <?php } ?>
 
-                                        <?php if ($stand['team_2'] == "") { ?>
+                                        <?php if ($tanding['team_2'] == "") { ?>
                                             <li class="team team-bottom">&nbsp;<span class="score">&nbsp;</span></li>
                                         <?php } else { ?>
-                                            <li class="team team-bottom"><?= $stand['team_2'] ?><span class="score"><?= $stand['skor_2'] ?></span></li>
+                                            <li class="team team-bottom"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
                                         <?php } ?>
                                     </ul>
                             <?php }
@@ -88,19 +83,19 @@ $idTurney = $_SESSION['idTournament'];
                         </div>
                         <div class="round round-two">
                             <div class="round-details" bagian="round2kiri">Round 2<br /></div>
-                            <?php foreach ($pertandingan as $stand) {
-                                if ($stand['id_turnament'] == $idTurney && strpos($stand['bagian'], 'round2kiri') !== false) { ?>
-                                    <ul class="matchup" bagian="<?= $stand['bagian'] ?>">
-                                        <?php if ($stand['team_1'] == "") { ?>
+                            <?php foreach ($pertandingan as $tanding) {
+                                if ($tanding['id_turnament'] == $idTurney && strpos($tanding['bagian'], 'round2kiri') !== false) { ?>
+                                    <ul class="matchup" bagian="<?= $tanding['bagian'] ?>">
+                                        <?php if ($tanding['team_1'] == "") { ?>
                                             <li class="team team-top">&nbsp;<span class="score">&nbsp;</span></li>
                                         <?php } else { ?>
-                                            <li class="team team-top"><?= $stand['team_1'] ?><span class="score"><?= $stand['skor_1'] ?></span></li>
+                                            <li class="team team-top"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
                                         <?php } ?>
 
-                                        <?php if ($stand['team_2'] == "") { ?>
+                                        <?php if ($tanding['team_2'] == "") { ?>
                                             <li class="team team-bottom">&nbsp;<span class="score">&nbsp;</span></li>
                                         <?php } else { ?>
-                                            <li class="team team-bottom"><?= $stand['team_2'] ?><span class="score"><?= $stand['skor_2'] ?></span></li>
+                                            <li class="team team-bottom"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
                                         <?php } ?>
                                     </ul>
                             <?php }
@@ -114,19 +109,19 @@ $idTurney = $_SESSION['idTournament'];
                                 <div class="round round-two">
                                 <?php } ?>
                                 <div class="round-details" bagian="round1kiri">Round 1<br /></div>
-                                <?php foreach ($pertandingan as $stand) {
-                                    if ($stand['id_turnament'] == $idTurney && strpos($stand['bagian'], 'round1kiri') !== false) { ?>
-                                        <ul class="matchup" bagian="<?= $stand['bagian'] ?>">
-                                            <?php if ($stand['team_1'] == "") { ?>
+                                <?php foreach ($pertandingan as $tanding) {
+                                    if ($tanding['id_turnament'] == $idTurney && strpos($tanding['bagian'], 'round1kiri') !== false) { ?>
+                                        <ul class="matchup" bagian="<?= $tanding['bagian'] ?>">
+                                            <?php if ($tanding['team_1'] == "") { ?>
                                                 <li class="team team-top">&nbsp;<span class="score">&nbsp;</span></li>
                                             <?php } else { ?>
-                                                <li class="team team-top"><?= $stand['team_1'] ?><span class="score"><?= $stand['skor_1'] ?></span></li>
+                                                <li class="team team-top"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
                                             <?php } ?>
 
-                                            <?php if ($stand['team_2'] == "") { ?>
+                                            <?php if ($tanding['team_2'] == "") { ?>
                                                 <li class="team team-bottom">&nbsp;<span class="score">&nbsp;</span></li>
                                             <?php } else { ?>
-                                                <li class="team team-bottom"><?= $stand['team_2'] ?><span class="score"><?= $stand['skor_2'] ?></span></li>
+                                                <li class="team team-bottom"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
                                             <?php } ?>
                                         </ul>
                                 <?php }
@@ -141,19 +136,19 @@ $idTurney = $_SESSION['idTournament'];
                                     <div class="round round-three">
                                     <?php } ?>
                                     <div class="round-details" bagian="quarterfinalkiri">Quarter Final<br /></div>
-                                    <?php foreach ($pertandingan as $stand) {
-                                        if ($stand['id_turnament'] == $idTurney && strpos($stand['bagian'], 'quarterfinalkiri') !== false) { ?>
-                                            <ul class="matchup" bagian="<?= $stand['bagian'] ?>">
-                                                <?php if ($stand['team_1'] == "") { ?>
+                                    <?php foreach ($pertandingan as $tanding) {
+                                        if ($tanding['id_turnament'] == $idTurney && strpos($tanding['bagian'], 'quarterfinalkiri') !== false) { ?>
+                                            <ul class="matchup" bagian="<?= $tanding['bagian'] ?>">
+                                                <?php if ($tanding['team_1'] == "") { ?>
                                                     <li class="team team-top">&nbsp;<span class="score">&nbsp;</span></li>
                                                 <?php } else { ?>
-                                                    <li class="team team-top"><?= $stand['team_1'] ?><span class="score"><?= $stand['skor_1'] ?></span></li>
+                                                    <li class="team team-top"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
                                                 <?php } ?>
 
-                                                <?php if ($stand['team_2'] == "") { ?>
+                                                <?php if ($tanding['team_2'] == "") { ?>
                                                     <li class="team team-bottom">&nbsp;<span class="score">&nbsp;</span></li>
                                                 <?php } else { ?>
-                                                    <li class="team team-bottom"><?= $stand['team_2'] ?><span class="score"><?= $stand['skor_2'] ?></span></li>
+                                                    <li class="team team-bottom"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
                                                 <?php } ?>
                                             </ul>
                                     <?php }
@@ -175,19 +170,19 @@ $idTurney = $_SESSION['idTournament'];
                                             <div class="semis-l">
                                             <?php } ?>
                                             <div class="round-details" bagian="semifinalkiri">semifinals <br /></div>
-                                            <?php foreach ($pertandingan as $stand) {
-                                                if ($stand['id_turnament'] == $idTurney && strpos($stand['bagian'], 'semifinalkiri') !== false) { ?>
-                                                    <ul class="matchup championship" bagian="<?= $stand['bagian'] . "1" ?>">
-                                                        <?php if ($stand['team_1'] == "") { ?>
+                                            <?php foreach ($pertandingan as $tanding) {
+                                                if ($tanding['id_turnament'] == $idTurney && strpos($tanding['bagian'], 'semifinalkiri') !== false) { ?>
+                                                    <ul class="matchup championship" bagian="<?= $tanding['bagian'] . "1" ?>">
+                                                        <?php if ($tanding['team_1'] == "") { ?>
                                                             <li class="team team-top">&nbsp;<span class="score">&nbsp;</span></li>
                                                         <?php } else { ?>
-                                                            <li class="team team-top"><?= $stand['team_1'] ?><span class="score"><?= $stand['skor_1'] ?></span></li>
+                                                            <li class="team team-top"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
                                                         <?php } ?>
 
-                                                        <?php if ($stand['team_2'] == "") { ?>
+                                                        <?php if ($tanding['team_2'] == "") { ?>
                                                             <li class="team team-bottom">&nbsp;<span class="score">&nbsp;</span></li>
                                                         <?php } else { ?>
-                                                            <li class="team team-bottom"><?= $stand['team_2'] ?><span class="score"><?= $stand['skor_2'] ?></span></li>
+                                                            <li class="team team-bottom"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
                                                         <?php } ?>
                                                     </ul>
                                             <?php }
@@ -202,19 +197,19 @@ $idTurney = $_SESSION['idTournament'];
                                                 <?php } ?>
                                                 <i class="fa fa-trophy"></i>
                                                 <div class="round-details" bagian="final">final <br /></div>
-                                                <?php foreach ($pertandingan as $stand) {
-                                                    if ($stand['id_turnament'] == $idTurney && $stand['bagian'] == 'final') { ?>
-                                                        <ul class="matchup" bagian="<?= $stand['bagian'] . "1" ?>">
-                                                            <?php if ($stand['team_1'] == "") { ?>
+                                                <?php foreach ($pertandingan as $tanding) {
+                                                    if ($tanding['id_turnament'] == $idTurney && $tanding['bagian'] == 'final') { ?>
+                                                        <ul class="matchup" bagian="<?= $tanding['bagian'] . "1" ?>">
+                                                            <?php if ($tanding['team_1'] == "") { ?>
                                                                 <li class="team team-top">&nbsp;<span class="score">&nbsp;</span></li>
                                                             <?php } else { ?>
-                                                                <li class="team team-top"><?= $stand['team_1'] ?><span class="score"><?= $stand['skor_1'] ?></span></li>
+                                                                <li class="team team-top"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
                                                             <?php } ?>
 
-                                                            <?php if ($stand['team_2'] == "") { ?>
+                                                            <?php if ($tanding['team_2'] == "") { ?>
                                                                 <li class="team team-bottom">&nbsp;<span class="score">&nbsp;</span></li>
                                                             <?php } else { ?>
-                                                                <li class="team team-bottom"><?= $stand['team_2'] ?><span class="score"><?= $stand['skor_2'] ?></span></li>
+                                                                <li class="team team-bottom"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
                                                             <?php } ?>
                                                         </ul>
                                                 <?php }
@@ -227,19 +222,19 @@ $idTurney = $_SESSION['idTournament'];
                                                             <div class="semis-r">
                                                             <?php } ?>
                                                             <div class="round-details" bagian="semifinalkanan">semifinals <br /></div>
-                                                            <?php foreach ($pertandingan as $stand) {
-                                                                if ($stand['id_turnament'] == $idTurney && strpos($stand['bagian'], 'semifinalkanan') !== false) { ?>
-                                                                    <ul class="matchup" bagian="<?= $stand['bagian'] . "1" ?>">
-                                                                        <?php if ($stand['team_1'] == "") { ?>
+                                                            <?php foreach ($pertandingan as $tanding) {
+                                                                if ($tanding['id_turnament'] == $idTurney && strpos($tanding['bagian'], 'semifinalkanan') !== false) { ?>
+                                                                    <ul class="matchup" bagian="<?= $tanding['bagian'] . "1" ?>">
+                                                                        <?php if ($tanding['team_1'] == "") { ?>
                                                                             <li class="team team-top">&nbsp;<span class="score">&nbsp;</span></li>
                                                                         <?php } else { ?>
-                                                                            <li class="team team-top"><?= $stand['team_1'] ?><span class="score"><?= $stand['skor_1'] ?></span></li>
+                                                                            <li class="team team-top"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
                                                                         <?php } ?>
 
-                                                                        <?php if ($stand['team_2'] == "") { ?>
+                                                                        <?php if ($tanding['team_2'] == "") { ?>
                                                                             <li class="team team-bottom">&nbsp;<span class="score">&nbsp;</span></li>
                                                                         <?php } else { ?>
-                                                                            <li class="team team-bottom"><?= $stand['team_2'] ?><span class="score"><?= $stand['skor_2'] ?></span></li>
+                                                                            <li class="team team-bottom"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
                                                                         <?php } ?>
                                                                     </ul>
                                                             <?php }
@@ -256,19 +251,19 @@ $idTurney = $_SESSION['idTournament'];
                                                                         <div class="round round-three">
                                                                         <?php } ?>
                                                                         <div class="round-details" bagian="quarterfinalkanan">Quarter Final<br /></div>
-                                                                        <?php foreach ($pertandingan as $stand) {
-                                                                            if ($stand['id_turnament'] == $idTurney && strpos($stand['bagian'], 'quarterfinalkanan') !== false) { ?>
-                                                                                <ul class="matchup" bagian="<?= $stand['bagian'] ?>">
-                                                                                    <?php if ($stand['team_1'] == "") { ?>
+                                                                        <?php foreach ($pertandingan as $tanding) {
+                                                                            if ($tanding['id_turnament'] == $idTurney && strpos($tanding['bagian'], 'quarterfinalkanan') !== false) { ?>
+                                                                                <ul class="matchup" bagian="<?= $tanding['bagian'] ?>">
+                                                                                    <?php if ($tanding['team_1'] == "") { ?>
                                                                                         <li class="team team-top">&nbsp;<span class="score">&nbsp;</span></li>
                                                                                     <?php } else { ?>
-                                                                                        <li class="team team-top"><?= $stand['team_1'] ?><span class="score"><?= $stand['skor_1'] ?></span></li>
+                                                                                        <li class="team team-top"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
                                                                                     <?php } ?>
 
-                                                                                    <?php if ($stand['team_2'] == "") { ?>
+                                                                                    <?php if ($tanding['team_2'] == "") { ?>
                                                                                         <li class="team team-bottom">&nbsp;<span class="score">&nbsp;</span></li>
                                                                                     <?php } else { ?>
-                                                                                        <li class="team team-bottom"><?= $stand['team_2'] ?><span class="score"><?= $stand['skor_2'] ?></span></li>
+                                                                                        <li class="team team-bottom"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
                                                                                     <?php } ?>
                                                                                 </ul>
                                                                         <?php }
@@ -278,19 +273,19 @@ $idTurney = $_SESSION['idTournament'];
                                                                         <?php if ($slot > 15 && $slot < 31) { ?>
                                                                             <div class="round round-two current">
                                                                                 <div class="round-details" bagian="round1kanan">Round 1<br /></div>
-                                                                                <?php foreach ($pertandingan as $stand) {
-                                                                                    if ($stand['id_turnament'] == $idTurney && strpos($stand['bagian'], 'round1kanan') !== false) { ?>
-                                                                                        <ul class="matchup" bagian="<?= $stand['bagian'] ?>">
-                                                                                            <?php if ($stand['team_1'] == "") { ?>
+                                                                                <?php foreach ($pertandingan as $tanding) {
+                                                                                    if ($tanding['id_turnament'] == $idTurney && strpos($tanding['bagian'], 'round1kanan') !== false) { ?>
+                                                                                        <ul class="matchup" bagian="<?= $tanding['bagian'] ?>">
+                                                                                            <?php if ($tanding['team_1'] == "") { ?>
                                                                                                 <li class="team team-top">&nbsp;<span class="score">&nbsp;</span></li>
                                                                                             <?php } else { ?>
-                                                                                                <li class="team team-top"><?= $stand['team_1'] ?><span class="score"><?= $stand['skor_1'] ?></span></li>
+                                                                                                <li class="team team-top"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
                                                                                             <?php } ?>
 
-                                                                                            <?php if ($stand['team_2'] == "") { ?>
+                                                                                            <?php if ($tanding['team_2'] == "") { ?>
                                                                                                 <li class="team team-bottom">&nbsp;<span class="score">&nbsp;</span></li>
                                                                                             <?php } else { ?>
-                                                                                                <li class="team team-bottom"><?= $stand['team_2'] ?><span class="score"><?= $stand['skor_2'] ?></span></li>
+                                                                                                <li class="team team-bottom"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
                                                                                             <?php } ?>
                                                                                         </ul>
                                                                                 <?php }
@@ -301,19 +296,19 @@ $idTurney = $_SESSION['idTournament'];
                                                                         <?php if ($slot > 31) { ?>
                                                                             <div class="round round-two">
                                                                                 <div class="round-details" bagian="round2kanan">Round 2<br /></div>
-                                                                                <?php foreach ($pertandingan as $stand) {
-                                                                                    if ($stand['id_turnament'] == $idTurney && strpos($stand['bagian'], 'round2kanan') !== false) { ?>
-                                                                                        <ul class="matchup" bagian="<?= $stand['bagian'] ?>">
-                                                                                            <?php if ($stand['team_1'] == "") { ?>
+                                                                                <?php foreach ($pertandingan as $tanding) {
+                                                                                    if ($tanding['id_turnament'] == $idTurney && strpos($tanding['bagian'], 'round2kanan') !== false) { ?>
+                                                                                        <ul class="matchup" bagian="<?= $tanding['bagian'] ?>">
+                                                                                            <?php if ($tanding['team_1'] == "") { ?>
                                                                                                 <li class="team team-top">&nbsp;<span class="score">&nbsp;</span></li>
                                                                                             <?php } else { ?>
-                                                                                                <li class="team team-top"><?= $stand['team_1'] ?><span class="score"><?= $stand['skor_1'] ?></span></li>
+                                                                                                <li class="team team-top"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
                                                                                             <?php } ?>
 
-                                                                                            <?php if ($stand['team_2'] == "") { ?>
+                                                                                            <?php if ($tanding['team_2'] == "") { ?>
                                                                                                 <li class="team team-bottom">&nbsp;<span class="score">&nbsp;</span></li>
                                                                                             <?php } else { ?>
-                                                                                                <li class="team team-bottom"><?= $stand['team_2'] ?><span class="score"><?= $stand['skor_2'] ?></span></li>
+                                                                                                <li class="team team-bottom"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
                                                                                             <?php } ?>
                                                                                         </ul>
                                                                                 <?php }
@@ -321,19 +316,19 @@ $idTurney = $_SESSION['idTournament'];
                                                                             </div>
                                                                             <div class="round round-one current">
                                                                                 <div class="round-details" bagian="round1kanan">Round 1<br /></div>
-                                                                                <?php foreach ($pertandingan as $stand) {
-                                                                                    if ($stand['id_turnament'] == $idTurney && strpos($stand['bagian'], 'round1kanan') !== false) { ?>
-                                                                                        <ul class="matchup" bagian="<?= $stand['bagian'] ?>">
-                                                                                            <?php if ($stand['team_1'] == "") { ?>
+                                                                                <?php foreach ($pertandingan as $tanding) {
+                                                                                    if ($tanding['id_turnament'] == $idTurney && strpos($tanding['bagian'], 'round1kanan') !== false) { ?>
+                                                                                        <ul class="matchup" bagian="<?= $tanding['bagian'] ?>">
+                                                                                            <?php if ($tanding['team_1'] == "") { ?>
                                                                                                 <li class="team team-top">&nbsp;<span class="score">&nbsp;</span></li>
                                                                                             <?php } else { ?>
-                                                                                                <li class="team team-top"><?= $stand['team_1'] ?><span class="score"><?= $stand['skor_1'] ?></span></li>
+                                                                                                <li class="team team-top"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
                                                                                             <?php } ?>
 
-                                                                                            <?php if ($stand['team_2'] == "") { ?>
+                                                                                            <?php if ($tanding['team_2'] == "") { ?>
                                                                                                 <li class="team team-bottom">&nbsp;<span class="score">&nbsp;</span></li>
                                                                                             <?php } else { ?>
-                                                                                                <li class="team team-bottom"><?= $stand['team_2'] ?><span class="score"><?= $stand['skor_2'] ?></span></li>
+                                                                                                <li class="team team-bottom"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
                                                                                             <?php } ?>
                                                                                         </ul>
                                                                                 <?php }

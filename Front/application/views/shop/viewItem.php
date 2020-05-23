@@ -194,37 +194,49 @@ if ($ada == false) {
         <h3 class="yellow varela" style="margin-left: 2vw;">Comments</h3>
         <?php if ($mchId != $item['id_merchant']) { ?>
             <div class="enterComment">
-                <form method="post" action="<?= base_url(); ?>/Shop/insertComment/<?= $item['id_item'] ?>">
-                    <textarea name="commentUser" placeholder="Wanna ask about the item?" id="commentMe" cols="169" rows="6"></textarea>
-                    <input type="hidden" name="idUser" value="<?= $user['id_user'] ?>">
-                    <button class="sendComment" type="submit">
-                        <h5>Send</h5>
-                    </button>
-                </form>
+                <textarea name="commentUser" placeholder="Wanna ask about the item?" id="commentMe" cols="169" rows="6"></textarea>
+                <button class="sendComment">
+                    <h5>Send</h5>
+                </button>
             </div>
         <?php } ?>
         <div class="commentSection">
             <?php foreach ($komen as $comment) : ?>
-                <div class="commentWrapper">
+                <div class="commentWrapper" idComment="<?= $comment['id_komentar'] ?>">
                     <div class="commentUser">
-                        <div class="userDetails">
+                        <div class=" userDetails">
                             <div class="senderImg" style="content: url('data:image/jpeg;base64,<?= base64_encode($comment['foto']) ?>')">
                             </div>
                             <h5 class="userName"><?= $comment['nama'] ?></h5>
                         </div>
                         <p class="comment varela"><?= $comment['pesan'] ?></p>
                     </div>
-                    <?php if ($comment['reply'] != "") { ?>
-                        <div class="replyMerchant">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 56.122 42.518">
-                                <path id="Icon_awesome-reply" data-name="Icon awesome-reply" d="M55.212,29.788,35.919,44.212c-1.689,1.263-4.35.238-4.35-1.724v-7.6C13.962,34.716,0,31.661,0,17.214,0,11.383,4.339,5.606,9.134,2.586c1.5-.943,3.629.24,3.078,1.768C7.242,18.117,14.57,21.77,31.569,21.982V13.639c0-1.965,2.664-2.985,4.35-1.724L55.212,26.34A2.087,2.087,0,0,1,55.212,29.788Z" transform="translate(0 -2.25)" fill="#1E2126" />
-                            </svg>
-                            <h5 class="merchantName"><?= $namaMerchant ?></h5>
-                            <p class="comment varela"><?= $comment['reply'] ?></p>
-                        </div>
-                    <?php } ?>
+                    <?php foreach ($reply as $rep) {
+                        if ($rep['id_komentar'] == $comment['id_komentar']) { ?>
+                            <div class="replyMerchant">
+                                <svg style="align-self: flex-start; margin-top: 2px;" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 56.122 42.518">
+                                    <path id="Icon_awesome-reply" data-name="Icon awesome-reply" d="M55.212,29.788,35.919,44.212c-1.689,1.263-4.35.238-4.35-1.724v-7.6C13.962,34.716,0,31.661,0,17.214,0,11.383,4.339,5.606,9.134,2.586c1.5-.943,3.629.24,3.078,1.768C7.242,18.117,14.57,21.77,31.569,21.982V13.639c0-1.965,2.664-2.985,4.35-1.724L55.212,26.34A2.087,2.087,0,0,1,55.212,29.788Z" transform="translate(0 -2.25)" fill="#1E2126" />
+                                </svg>
+                                <h5 class="merchantName"><?php
+                                                            if (substr($rep['id_pengirim'], 0, 1) == "U") {
+                                                                foreach ($allUser as $users) {
+                                                                    if ($users['id_user'] == $rep['id_pengirim']) {
+                                                                        echo "<span class='yellow'>" . $users['nama_user'] . "</span>";
+                                                                    }
+                                                                }
+                                                            } else {
+                                                                foreach ($merchant as $mch) {
+                                                                    if ($mch['id'] == $rep['id_pengirim']) {
+                                                                        echo $mch['nama'];
+                                                                    }
+                                                                }
+                                                            }
+                                                            ?></h5>
+                                <p class="comment varela"><?= $rep['pesan'] ?></p>
+                            </div>
+                    <?php }
+                    } ?>
                 </div>
-                <div style="width: 85%; height: 1px; background-color: #D7C13F; margin: 2vh 0 2vh;"></div>
             <?php endforeach; ?>
         </div>
     </div>
@@ -234,6 +246,39 @@ if ($ada == false) {
         var filter = 0;
         textFit($(".titleGame"));
         textFit($(".profileName"));
+
+        $(document).ready(function() {
+            $(".replyTab").css("display", "none");
+        });
+
+        $(".commentUser").click(function() {
+            if (!$(this).siblings(".replyTab").length) {
+                $(this).parent().append("<div class='replyTab'><div id='replyMe' contenteditable></div><button class='replyComment'><h5>Send</h5></button></div>");
+                var message = $(this).children(".comment").html();
+                $(this).siblings(".replyTab").children("#replyMe").prepend("<span class='yellow' style='border-right: solid 2px #1e2126;margin-right: 5px; padding-right:10px;box-sizing:border-box;' contenteditable='false'>" + message + "</span>");
+            } else if ($(this).siblings(".replyTab").children("#replyMe").children("span").length) {
+                $(this).siblings(".replyTab").children("#replyMe").children("span").remove();
+                var message = $(this).children(".comment").html();
+                $(this).siblings(".replyTab").children("#replyMe").prepend("<span class='yellow' style='border-right: solid 2px #1e2126;margin-right: 5px; padding-right:10px;box-sizing:border-box;' contenteditable='false'>" + message + "</span>");
+            } else {
+                var message = $(this).children(".comment").html();
+                $(this).siblings(".replyTab").children("#replyMe").prepend("<span class='yellow' style='border-right: solid 2px #1e2126;margin-right: 5px; padding-right:10px;box-sizing:border-box;' contenteditable='false'>" + message + "</span>");
+            }
+        });
+        $(".replyMerchant").click(function() {
+            if (!$(this).siblings(".replyTab").length) {
+                $(this).parent().append("<div class='replyTab'><div id='replyMe' contenteditable></div><button class='replyComment'><h5>Send</h5></button></div>");
+                var message = $(this).children(".comment").html();
+                $(this).siblings(".replyTab").children("#replyMe").prepend("<span class='yellow' style='border-right: solid 2px #1e2126;margin-right: 5px; padding-right:10px;box-sizing:border-box;' contenteditable='false'>" + message + "</span>");
+            } else if ($(this).siblings(".replyTab").children("#replyMe").children("span").length) {
+                $(this).siblings(".replyTab").children("#replyMe").children("span").remove();
+                var message = $(this).children(".comment").html();
+                $(this).siblings(".replyTab").children("#replyMe").prepend("<span class='yellow' style='border-right: solid 2px #1e2126;margin-right: 5px; padding-right:10px;box-sizing:border-box;' contenteditable='false'>" + message + "</span>");
+            } else {
+                var message = $(this).children(".comment").html();
+                $(this).siblings(".replyTab").children("#replyMe").prepend("<span class='yellow' style='border-right: solid 2px #1e2126;margin-right: 5px; padding-right:10px;box-sizing:border-box;' contenteditable='false'>" + message + "</span>");
+            }
+        });
 
 
 
@@ -327,6 +372,54 @@ if ($ada == false) {
 
         $(".cartButton").click(function() {
             window.location.href = '<?= base_url(); ?>Shop/viewCart/';
+        });
+
+
+        $(".sendComment").click(function() {
+            idItem = $(".AddtoCart").attr('idItem');
+            pesan = $("#commentMe").val();
+            idUser = '<?= $user['id_user'] ?>';
+
+            $.ajax({
+                url: "<?= base_url(); ?>Shop/insertComment/komen",
+                method: "post",
+                data: {
+                    id_item: idItem,
+                    idUser: idUser,
+                    pesan: pesan
+                },
+                success: function(result) {
+                    $(".commentSection").html(result);
+                    $("#commentMe").val("");
+                    alertify.success("Comment sent");
+                }
+            });
+        });
+
+        $(".commentWrapper").on("click", ".replyComment", function() {
+            idKomen = $(this).parent().parent().attr('idComment');
+            idItem = $(".AddtoCart").attr('idItem');
+            <?php if ($mchId != $item['id_merchant']) { ?>
+                id_pengirim = '<?= $user['id_user'] ?>';
+            <?php } else { ?>
+                id_pengirim = '<?= $mchId ?>';
+            <?php } ?>
+
+            pesan = $("#replyMe").html();
+            $.ajax({
+                url: "<?= base_url(); ?>Shop/insertComment/reply",
+                method: "post",
+                data: {
+                    id_item: idItem,
+                    id_komentar: idKomen,
+                    id_pengirim: id_pengirim,
+                    pesan: pesan
+                },
+                success: function(result) {
+                    $(".commentSection").html(result);
+                    alertify.success("Reply sent");
+                }
+            });
         });
     </script>
 </body>

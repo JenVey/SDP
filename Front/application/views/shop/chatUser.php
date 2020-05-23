@@ -98,7 +98,19 @@ foreach ($merchantF as $mchF) {
                             <div class="accItem listMerchant" idMerchant="<?= $allMch['id'] ?>">
                                 <div class="profileImg" style="margin-left: 0;"><img class="profileImg" src="data:image/jpeg;base64,<?= base64_encode($allMch['foto']) ?>" width="50" height="50" alt="" /></div>
                                 <div class="profileStats">
-                                    <h6 class="profileName"> <?= $allMch['nama'] ?> </h6>
+                                    <h6 class="profileName"> <?php $notif = false;
+                                                                foreach ($pesan as $psn) {
+                                                                    if ($psn['id_pengirim'] == $allMch['id'] && $psn['id_penerima'] == $user['id_user']) {
+                                                                        if ($psn['status'] == 0) {
+                                                                            $notif = true;
+                                                                        }
+                                                                    }
+                                                                }
+                                                                if ($notif) {
+                                                                    echo $allMch['nama'] . " (ADA PESAN BARU)";
+                                                                } else {
+                                                                    echo $allMch['nama'];
+                                                                } ?> </h6>
                                     <?php
                                     if (isset($allMch['rating'])) {
                                         echo "<h6 class='profileBalance' style='float: left;'>";
@@ -164,7 +176,7 @@ foreach ($merchantF as $mchF) {
                     <div class="chatField">
                         <?php $cekTgl = "";
                         foreach ($pesan as $psn) {
-                            if ($psn['id_penerima'] == $mchId && $psn['id_pengirim'] == $user['id_user']) {
+                            if ($psn['id_penerima'] == $mchId && $psn['id_pengirim'] == $user['id_user'] || $psn['id_penerima'] == $user['id_user'] && $psn['id_pengirim'] == $mchId) {
                                 $tgl = date('d F Y', strtotime($psn['tgl']));
                                 if ($tgl != $cekTgl) {
                                     $cekTgl = $tgl; ?>
@@ -176,9 +188,9 @@ foreach ($merchantF as $mchF) {
                                 <?php }
                                 if ($psn['pengirim'] != $user['nama_user']) { ?>
                                     <div class="othersText">
-                                        <div class="senderImg"><img src="data:image/jpeg;base64,<?= base64_encode($psn['foto']) ?>" /></div>
+                                        <div class="senderImg"><img src="data:image/jpeg;base64,<?= base64_encode($psn['foto_merchant']) ?>" /></div>
                                         <div class="nameText">
-                                            <h6 class="senderName"><?= $psn['pengirim'] ?></h6>
+                                            <h6 class="senderName"><?= $psn['nama_merchant'] ?></h6>
                                             <div class="text">
                                                 <p><?= $psn['pesan'] ?></p>
                                                 <p class="textDate"><?= date('H:i', strtotime($psn['tgl'])) ?></p>
@@ -288,8 +300,11 @@ foreach ($merchantF as $mchF) {
             delete keys[e.which];
         });
 
-        <?php if (isset($user) && isset($mchId)) { ?>
+        <?php if (isset($user)) { ?>
             idUser = '<?= $user['id_user'] ?>';
+        <?php } ?>
+
+        <?php if (isset($mchId)) { ?>
             idMerchant = '<?= $mchId ?>';
         <?php } ?>
 
@@ -330,7 +345,17 @@ foreach ($merchantF as $mchF) {
 
         $(".accItemContainer").on("click", ".listMerchant", function() {
             idMerchant = $(this).attr("idMerchant");
-            window.location.href = '<?= base_url(); ?>Shop/chatUser/'.concat(idMerchant);
+            $.ajax({
+                url: "<?= base_url(); ?>Shop/read/merchant",
+                method: "post",
+                data: {
+                    id_pengirim: idMerchant,
+                    id_penerima: idUser
+                },
+                success: function(result) {
+                    window.location.href = '<?= base_url(); ?>Shop/chatUser/'.concat(idMerchant);
+                }
+            });
         });
 
 

@@ -11,7 +11,7 @@ foreach ($merchant as $mch) {
     <div class="chatField">
         <?php $cekTgl = "";
         foreach ($pesan as $psn) {
-            if ($psn['id_penerima'] == $mchId && $psn['id_pengirim'] == $user['id_user']) {
+            if ($psn['id_penerima'] == $mchId && $psn['id_pengirim'] == $user['id_user'] || $psn['id_penerima'] == $user['id_user'] && $psn['id_pengirim'] == $mchId) {
                 $tgl = date('d F Y', strtotime($psn['tgl']));
                 if ($tgl != $cekTgl) {
                     $cekTgl = $tgl; ?>
@@ -23,9 +23,9 @@ foreach ($merchant as $mch) {
                 <?php }
                 if ($psn['pengirim'] != $user['nama_user']) { ?>
                     <div class="othersText">
-                        <div class="senderImg"><img src="data:image/jpeg;base64,<?= base64_encode($psn['foto']) ?>" /></div>
+                        <div class="senderImg"><img src="data:image/jpeg;base64,<?= base64_encode($psn['foto_merchant']) ?>" /></div>
                         <div class="nameText">
-                            <h6 class="senderName"><?= $psn['pengirim'] ?></h6>
+                            <h6 class="senderName"><?= $psn['nama_merchant'] ?></h6>
                             <div class="text">
                                 <p><?= $psn['pesan'] ?></p>
                                 <p class="textDate"><?= date('H:i', strtotime($psn['tgl'])) ?></p>

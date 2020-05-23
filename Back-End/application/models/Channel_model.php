@@ -47,6 +47,9 @@ class Channel_model extends CI_model
     public function deleteChannel($id)
     {
         $this->db->where('id_channel', $id);
+        $this->db->delete('cahnnel_user');
+
+        $this->db->where('id_channel', $id);
         $this->db->delete('channel');
     }
 

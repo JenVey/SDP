@@ -284,3 +284,72 @@ button{
 	margin-left: 22vw;
 }
 
+.replyTab{
+    width: 92%;
+    height: 24vh;
+    margin-left: 4vw;
+    padding: 20px;
+    display: flex;
+    justify-content: flex-end;
+    color: #ecf0f1;
+    box-sizing: border-box;
+    position: relative;
+    padding-right: 6vw;
+}
+
+.replyComment{
+    width: 100px;
+    background-color: #D7C13F;
+    color: #ecf0f1;
+    border-radius: 100px;
+    position: absolute;
+    bottom: 20px;
+    right: 120px;
+}
+
+.replyComment:hover{
+    color: #383D47;
+}
+
+#replyMe{
+    outline: none;
+    resize: none;
+    background-color:#26292F;
+    border-radius: 15px;
+    border: none;
+    padding: 10px;
+    color: white;
+    width: 85%;
+    height: 15vh;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+#replyMe::placeholder{
+    color: white;
+}
+
+#replyMe::-webkit-scrollbar {
+    width: 1px;
+    
+}
+
+#replyMe::-webkit-scrollbar:hover{
+    width: 2px;
+}
+#replyMe::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+ 
+#replyMe::-webkit-scrollbar-thumb {
+      background-color: #D7C13F;
+      outline: 1px solid slategrey;
+      border-radius: 100px;
+}
+
+
+.commentUser:hover,.replyMerchant:hover{
+    background-color: rgba(30,33,38,0.67);
+    cursor: pointer;
+}
+
