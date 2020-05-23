@@ -36,13 +36,11 @@ foreach ($pesan as $psn) {
     if ($psn['id_pengirim'] == $user['id_user'] && $psn['tipe_penerima'] == "Merchant") {
         for ($i = 0; $i < count($listMerchant); $i++) {
             if ($listMerchant[$i] == $psn['id_penerima']) {
-                echo "masuk";
                 $ada = true;
             }
         }
 
         if (!$ada) {
-            echo "push ";
             array_push($listMerchant, $psn['id_penerima']);
         }
     }

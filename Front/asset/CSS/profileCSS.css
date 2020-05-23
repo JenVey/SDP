@@ -185,9 +185,11 @@ p{margin: 0;}
 .logout{
 	width: 200px;
 	height: 50px;
+	padding-top: 0px;
 	background-color: #F25757;
 	border-radius: 15px;
-	margin-top: 40px;
+	margin-top: 20px!important ;
+	margin-bottom: 30px!important ;
 	border: none;
 	color: #ECF0F1;
 	font-family: Varela;
