@@ -23,6 +23,7 @@ class Komen_model extends CI_model
 
     public function insertComment($idItem)
     {
+        date_default_timezone_set('Asia/Jakarta');
         $query = $this->db->query("select * from item_komentar");
         $komen = $this->input->post('pesan');
         $user = $this->input->post('idUser');
@@ -45,11 +46,13 @@ class Komen_model extends CI_model
             $generateId = $cekNewId . $ctr;
         }
 
+        $tgl = date("Y-m-d H:i:s");
         $data = [
             "id_komentar" => $generateId,
             "id_item" => $idItem,
             "id_user" => $user,
-            "pesan" => $komen
+            "pesan" => $komen,
+            "tgl_komentar" => $tgl
         ];
 
         $this->db->insert('item_komentar', $data);

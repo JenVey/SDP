@@ -334,7 +334,7 @@ foreach ($team as $tim) {
                                     }
                             ?>
                                     <div class="tourneyItem" jenis="<?= $jenis ?>" jumlahPemain="<?= $turney['jumlah_pemain'] ?>" jumlahSlot="<?= $turney['jumlah_slot'] ?>" idTournament=<?= $turney['id_turnament'] ?> statusTurney="<?= $turney['status'] ?>">
-                                        <h2 class="yellow varela" style="margin-top: 2vh;"><?= $turney['nama_game'] ?></h2>
+                                        <h4 class="yellow varela" style="margin-top: 2vh;"><?= $turney['nama_game'] ?></h4>
                                         <h6 class="varela" style="margin-top: 1vh;color: #ecf0f1;"><?= $turney['nama_turnament'] ?></h6>
                                         <h6 style="font-size: 12px; color: rgba(236,240,241,0.37);"><?= $turney['jumlah_slot'] ?> Slots | <?= ucfirst($jenis)  ?></h6>
                                         <div class="standingsContainer">
@@ -344,7 +344,7 @@ foreach ($team as $tim) {
                                                     2
                                                     <h6><?php foreach ($standing as $stand) {
                                                             if ($stand['id_turnament'] == $turney['id_turnament']) {
-                                                                echo $stand['juara2'];
+                                                                echo $stand['juara_2'];
                                                             }
                                                         }
                                                         ?></h6>
@@ -353,7 +353,7 @@ foreach ($team as $tim) {
                                                     1
                                                     <h6><?php foreach ($standing as $stand) {
                                                             if ($stand['id_turnament'] == $turney['id_turnament']) {
-                                                                echo $stand['juara1'];
+                                                                echo $stand['juara_1'];
                                                             }
                                                         }
                                                         ?></h6>
@@ -362,7 +362,7 @@ foreach ($team as $tim) {
                                                     3
                                                     <h6><?php foreach ($standing as $stand) {
                                                             if ($stand['id_turnament'] == $turney['id_turnament']) {
-                                                                echo $stand['juara3'];
+                                                                echo $stand['juara_3'];
                                                             }
                                                         }
                                                         ?></h6>
@@ -376,7 +376,7 @@ foreach ($team as $tim) {
                                                 echo "<p class='ongoing'> Full </p>";
                                             } else if ($turney['status'] == 2) {
                                                 echo "<p class='ongoing'> OnGoing </p>";
-                                            } else if ($turney['status'] == 2) {
+                                            } else if ($turney['status'] == 3) {
                                                 echo "<p class='finished'> Finished </p>";
                                             } ?>
                                             <p>Start: <span style="color: rgba(215,193,63,0.70);"><?= date_format(date_create($turney['tanggal_mulai']), "d F Y")  ?></span></p>
@@ -537,7 +537,8 @@ foreach ($team as $tim) {
         <div class="container" style="z-index: 4;">
             <input type="file" name="imageInput" id="imageInput" accept="image/x-png,image/jpg,image/jpeg" hidden>
             <div class="imageWrapper">
-                <div class="image">
+                <div class="image" style="display: flex;justify-content: center;align-items: center;">
+                    <h5 style="color: #1e2126;">Click here to upload your picture</h5>
                 </div>
             </div>
         </div>

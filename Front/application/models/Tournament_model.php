@@ -81,6 +81,11 @@ class Tournament_model extends CI_model
             "status" => 0
         ];
         $this->db->insert('tournament', $data);
+
+        $data = [
+            "id_turnament" => $generateId,
+        ];
+        $this->db->insert('tournament_standing', $data);
     }
 
     //-1 = cancel

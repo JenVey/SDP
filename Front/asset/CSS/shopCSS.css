@@ -173,8 +173,8 @@ select:focus{
 
 .iklan{
 	display: inline-block;
-	width: 900px;
-	height: 200px;
+	width: 50vw;
+	height: 23.1vh;
 	background-color: #585D68;
 	margin-top: 10vh;
 	border: solid 2px #1e2126;
@@ -203,10 +203,10 @@ select:focus{
 
 .gamesContainer{
 	width: 90%;
-	height: 600px;
+	height: 60vh;
 	margin: 7vh 0 7vh 4vw;
 	display:flex;
-	background-color: #585D68;
+	background-color: #1e2126;
 	align-items: center;
 	border-radius: 30px;
 	box-shadow:
@@ -217,19 +217,18 @@ select:focus{
 	  0 256px 223px -27px rgba(0, 0, 0, 0.024)
 	;
 	border: solid 2px #1e2126;
+	overflow: hidden;
 	
 }
 
 .gamescollection{
 	width: 100%;
-	height: 420px;
+	height: 100%;
 	display: grid;
 	grid-gap: 50px;
 	grid-template-columns: repeat(auto-fill, minmax(170px, 2fr));
 	grid-template-rows: repeat(1, 180px);
-	padding: 20px;
-	padding-left: 7.25%;
-	padding-right: 7.25%;
+	padding: 50px;
 	overflow: auto;
 	background-color: transparent;
 }
@@ -238,6 +237,9 @@ select:focus{
 	width: 180px;
 	height: 180px;
 	background-color: #1e2126;
+	background: linear-gradient(145deg, #202329, #1b1e22);
+	box-shadow:  30px 30px 56px #101215, 
+				 -30px -30px 56px #2c3037;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
@@ -246,6 +248,7 @@ select:focus{
 	transform: skewX(-5deg);
 	overflow: hidden;
 	border-radius: 15px;
+	border: solid 1px #1e2126;
 }
 
 .titleGame{
@@ -255,7 +258,7 @@ select:focus{
 
 .itemGame:hover{
 	cursor: pointer;
-	box-shadow: 0 0 3px #D7C13F;
+	border: solid 1px #D7C13F;
 }
 
 .gamescollection::-webkit-scrollbar {
@@ -298,16 +301,12 @@ select:focus{
 	flex-direction: column;
 	align-items: flex-start;
 	width: 18.2vw;
-	background-color: #4C525D;
+	background-color: #1e2126;
 	border-radius: 15px;
 	border: none;
-	box-shadow:
-	  0 26.7px 22.9px -41px rgba(0, 0, 0, 0.09),
-	  0 51.8px 46.4px -41px rgba(0, 0, 0, 0.058),
-	  0 77.4px 71.4px -41px rgba(0, 0, 0, 0.044),
-	  0 114.1px 101.2px -41px rgba(0, 0, 0, 0.033),
-	  0 261px 172px -41px rgba(0, 0, 0, 0.02)
-	;
+	background: linear-gradient(145deg, #202329, #1b1e22);
+	box-shadow:  30px 30px 56px #101215, 
+				 -30px -30px 56px #2c3037;
 	border: solid 2px #1e2126;
 }
 
@@ -443,27 +442,27 @@ img{
 }
 
 .backtoMenu{
-    width: 100%;
-    height: 10%;
-    border: none;
-    margin-left: 0;
-    background: transparent;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	width: 100%;
+	height: 10%;
+	border: none;
+	margin-left: 0;
+	background: transparent;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 .backtoMenu:hover{
-    background-color: rgba(215,193,63,0.10);
+	background-color: rgba(215,193,63,0.10);
 }
 
 .backtoMenu:hover #Path_1402{
-    fill: #585D68;
+	fill: #585D68;
 }
 
 .backText{
-    color: #d7c13f;
-    margin-bottom: 0;
-    margin-left: 30px;
+	color: #d7c13f;
+	margin-bottom: 0;
+	margin-left: 30px;
 }
 
 .merchantContainer{
@@ -485,14 +484,12 @@ img{
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    background-color:#585D68;
+    background-color:#1e2126;
 	border: solid 2px #1e2126;
     border-radius: 15px;
-    box-shadow:
-      0 3.3px 1.7px rgba(0, 0, 0, 0.035),
-      0 8.4px 5.6px rgba(0, 0, 0, 0.054),
-      0 27px 25px rgba(0, 0, 0, 0.08)
-    ;
+	background: linear-gradient(145deg, #202329, #1b1e22);
+	box-shadow:  30px 30px 56px #101215, 
+				 -30px -30px 56px #2c3037;
 }
 
 .merchantIMG{
@@ -501,7 +498,6 @@ img{
     border-radius: 15px;
     overflow: hidden;
     margin-left: 1vw;
-	border: solid 1px #d7c13f;
 }
 
 .merchantIMG img{
@@ -515,7 +511,7 @@ img{
 
 .merchantAcc:hover{
     cursor: pointer;
-	box-shadow: 0 0 3px #D7C13F;
+	border: solid 2px #d7c13f;
 }
 
 .merchantDetails{
@@ -537,20 +533,16 @@ img{
 .pageblock{
 	width: 2.5vw;
 	height: 80%;
-	background-color: #585D68;
+	background-color: #1e2126;
 	border-radius: 15px;
 	margin: 0 0.5vw;
-	box-shadow: 0 0 3px #D7C13F;
 	color: #ecf0f1;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	box-shadow:
-      0 3.3px 1.7px rgba(0, 0, 0, 0.055),
-      0 8.4px 5.6px rgba(0, 0, 0, 0.074),
-      0 27px 25px rgba(0, 0, 0, 0.1)
-    ;
-	border: solid 2px #1e2126;
+	background: linear-gradient(145deg, #393f4d, #303541);
+	box-shadow:  5px 5px 10px #1e2128, 
+				 -5px -5px 10px #4c5568;
 }
 
 .pageblock:hover{
@@ -561,8 +553,9 @@ img{
 
 .pageblock:hover #Icon_ionic-ios-arrow-round-back{
 	fill:#1e2126;
+	color: #1e2126;
 }
 
 .pageblock.active{
-    background-color: #d7c13f;
+	background-color: #d7c13f;
 }

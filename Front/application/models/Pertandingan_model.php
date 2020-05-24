@@ -232,8 +232,7 @@ class Pertandingan_model extends CI_model
         //0 = belum selesai
         //1 = tim1 menang
         //2 = tim2 menang
-        $team1 = $this->input->post("");
-        $team2 = $this->input->post("");
+
         $idMatch = $this->input->post('idMatch');
 
         $data = [
@@ -243,6 +242,29 @@ class Pertandingan_model extends CI_model
         ];
 
         $this->db->where('id_match', $idMatch);
+        $this->db->update('pertandingan', $data);
+    }
+
+    public function updateTeamPertandingan()
+    {
+        $idTurney = $this->input->post("id_turnament");
+        $bagian = $this->input->post('bagian');
+        $side = $this->input->post('side');
+        if ($side == "team1") {
+            $data = [
+                "team_1" => $this->input->post('nama_team')
+            ];
+        } else {
+            $data = [
+                "team_2" => $this->input->post('nama_team')
+            ];
+        }
+
+        echo $bagian;
+
+
+        $this->db->where('bagian', $bagian);
+        $this->db->where('id_turnament', $idTurney);
         $this->db->update('pertandingan', $data);
     }
 }

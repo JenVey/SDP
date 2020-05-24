@@ -191,9 +191,8 @@ class Community extends CI_Controller
             $cekKanan = $pembagian - $cekKiri;
 
             $this->Pertandingan_model->insertPertandingan('semifinalkiri');
-
             $this->Pertandingan_model->insertPertandingan('semifinalkanan');
-
+            $this->Pertandingan_model->insertPertandingan('third');
             $kiri = 1;
             $kanan = 1;
             $ctr = 0;
@@ -501,5 +500,15 @@ class Community extends CI_Controller
     public function updateSkor()
     {
         $this->Pertandingan_model->updateSkor();
+    }
+
+    public function updateTeamPertandingan()
+    {
+        $this->Pertandingan_model->updateTeamPertandingan();
+    }
+
+    public function updateStanding()
+    {
+        $this->Standing_model->updateStanding();
     }
 }

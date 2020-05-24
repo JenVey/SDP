@@ -7,7 +7,7 @@
         }
 ?>
         <div class="tourneyItem" jenis="<?= $jenis ?>" jumlahPemain="<?= $turney['jumlah_pemain'] ?>" jumlahSlot="<?= $turney['jumlah_slot'] ?>" idTournament=<?= $turney['id_turnament'] ?> statusTurney="<?= $turney['status'] ?>">
-            <h2 class="yellow varela" style="margin-top: 2vh;"><?= $turney['nama_game'] ?></h2>
+            <h4 class="yellow varela" style="margin-top: 2vh;"><?= $turney['nama_game'] ?></h4>
             <h6 class="varela" style="margin-top: 1vh;color: #ecf0f1;"><?= $turney['nama_turnament'] ?></h6>
             <h6 style="font-size: 12px; color: rgba(236,240,241,0.37);"><?= $turney['jumlah_slot'] ?> Slots | <?= ucfirst($jenis)  ?></h6>
             <div class="standingsContainer">
@@ -17,7 +17,7 @@
                         2
                         <h6><?php foreach ($standing as $stand) {
                                 if ($stand['id_turnament'] == $turney['id_turnament']) {
-                                    echo $stand['juara2'];
+                                    echo $stand['juara_2'];
                                 }
                             }
                             ?></h6>
@@ -26,7 +26,7 @@
                         1
                         <h6><?php foreach ($standing as $stand) {
                                 if ($stand['id_turnament'] == $turney['id_turnament']) {
-                                    echo $stand['juara1'];
+                                    echo $stand['juara_1'];
                                 }
                             }
                             ?></h6>
@@ -35,7 +35,7 @@
                         3
                         <h6><?php foreach ($standing as $stand) {
                                 if ($stand['id_turnament'] == $turney['id_turnament']) {
-                                    echo $stand['juara3'];
+                                    echo $stand['juara_3'];
                                 }
                             }
                             ?></h6>
@@ -49,7 +49,7 @@
                     echo "<p class='ongoing'> Full </p>";
                 } else if ($turney['status'] == 2) {
                     echo "<p class='ongoing'> OnGoing </p>";
-                } else if ($turney['status'] == 2) {
+                } else if ($turney['status'] == 3) {
                     echo "<p class='finished'> Finished </p>";
                 } ?>
                 <p>Start: <span style="color: rgba(215,193,63,0.70);"><?= date_format(date_create($turney['tanggal_mulai']), "d F Y")  ?></span></p>
