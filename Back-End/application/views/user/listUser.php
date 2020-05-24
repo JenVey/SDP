@@ -60,7 +60,7 @@
                       <td>
                         <?php if ($usr['status'] == 0) {
                           echo '<span class="badge bg-danger">Offline</span>';
-                        } else {
+                        } else if ($usr['status'] == 1) {
                           echo '<span class="badge bg-success">Online</span>';
                         }
                         ?>

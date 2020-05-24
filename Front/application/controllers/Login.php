@@ -33,7 +33,6 @@ class Login extends CI_Controller
 
 		$this->User_model->updateStatus(0);
 		$this->session->sess_destroy();
-		$this->load->view('templates/header');
 		$this->load->view('login');
 	}
 

@@ -9,8 +9,13 @@
 	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/Ours.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/registerCSS.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/bootstrap-datepicker3.css">
+	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/alertify.css">
+	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/alerts.css">
+	<link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/themes/default.css">
+	<script src="<?php echo base_url(); ?>asset/Js/alertify.js"></script>
 	<script src="<?php echo base_url(); ?>asset/Js/jquery-min.js"></script>
 	<script src="<?php echo base_url(); ?>asset/Js/bootstrap-datepicker.js"></script>
+	<script src="<?php echo base_url(); ?>asset/Js/bootstrap.js"></script>
 </head>
 
 <body bgcolor="#353B48">
@@ -23,10 +28,10 @@
 			<?= validation_errors(); ?>
 		</div>
 	<?php endif; ?>
+	<form id="registerForm" action="<?= base_url(); ?>Register/insertUser" method="POST" class="">
+		<div class="regContainer" style="margin-bottom:20px; width: 1500px;height: 900px; position: absolute;">
+			<p class="Title" style="left: 87px; top: 10vh; position: absolute;">Register <em>Your Account</em></p>
 
-	<div class="regContainer" style="margin-bottom:20px; width: 1500px;height: 900px; position: absolute;">
-		<p class="Title" style="left: 87px; top: 10vh; position: absolute;">Register <em>Your Account</em></p>
-		<form action="<?= base_url(); ?>Register/insertUser" class="register" method="post">
 			<div class="gridRegister" style="top:25vh">
 				<div class="Form-Title"> Account Info
 					<hr style="border: 1px solid #D7C13F" width="100%">
@@ -34,13 +39,13 @@
 				<div class="Form-Title"> Your Info
 					<hr style="border: 1px solid #D7C13F" width="100%">
 				</div>
-				<div><input name="regUsername" class="form-control mr-sm-2" type="text" placeholder="Username" aria-label="Username" maxlength="12"></div>
-				<div><input name="regName" class="form-control mr-sm-2" type="text" placeholder="Name" aria-label="Name" maxlength="24"></div>
-				<div><input name="regEmail" class="form-control mr-sm-2" type="texts" placeholder="Email" aria-label="Email" maxlength="64"></div>
-				<div><input name="regDOB" class="form-control mr-sm-2 date" placeholder="DOB" type="text"></div>
-				<div><input name="regPass" class="form-control mr-sm-2" type="password" placeholder="Password" aria-label="Password" maxlength="12"></div>
-				<div><input name="regPhone" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="form-control mr-sm-2" type="number" placeholder="Phone Number" aria-label="Phone Number" maxlength="12"></div>
-				<div><input name="regCPass" class="form-control mr-sm-2" type="password" placeholder="Confirm Password" aria-label="Confirm Password" maxlength="12"></div>
+				<div><input id="regUsername" name="regUsername" class="form-control mr-sm-2" type="text" placeholder="Username" aria-label="Username" maxlength="12"></div>
+				<div><input id="regName" name="regName" class="form-control mr-sm-2" type="text" placeholder="Name" aria-label="Name" maxlength="24"></div>
+				<div><input id="regEmail" name="regEmail" class="form-control mr-sm-2" type="texts" placeholder="Email" aria-label="Email" maxlength="64"></div>
+				<div><input id="regDOB" name="regDOB" class="form-control mr-sm-2 date" placeholder="DOB" type="text"></div>
+				<div><input id="regPass" name="regPass" class="form-control mr-sm-2" type="password" placeholder="Password" aria-label="Password" maxlength="12"></div>
+				<div><input id="regPhone" name="regPhone" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="form-control mr-sm-2" type="number" placeholder="Phone Number" aria-label="Phone Number" maxlength="12"></div>
+				<div><input id="regCPass" name="regCPass" class="form-control mr-sm-2" type="password" placeholder="Confirm Password" aria-label="Confirm Password" maxlength="12"></div>
 				<input class="jk" type="hidden" name="regJk" value="">
 				<div class="Gender">
 					<!--girl-->
@@ -136,18 +141,20 @@
 				</div>
 			</div>
 			<button id="register" type="submit" style="top:72vh">Register</button>
-		</form>
-	</div>
+
+		</div>
+	</form>
 	<script>
 		$('.boy').click(function() {
 			$('#Group_116').css('opacity', 1);
 			$('#Group_64').css('opacity', 0.3);
-			$('.jk').value('L');
+			$('.jk').val('L');
+
 		});
 		$('.girl').click(function() {
 			$('#Group_116').css('opacity', 0.3);
 			$('#Group_64').css('opacity', 1);
-			$('.jk').value('P');
+			$('.jk').val('P');
 		});
 		$('.date').datepicker({
 			autoclose: true,

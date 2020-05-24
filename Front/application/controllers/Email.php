@@ -47,7 +47,7 @@ class Email extends CI_Controller
             $config['smtp_port']    = '465';
             $config['smtp_timeout'] = '7';
             $config['smtp_user']    = 'noreply.morningowl@gmail.com';
-            $config['smtp_pass']    = 'kirimemail123';
+            $config['smtp_pass']    = 'qyonojwgyxjnwioo';
             $config['charset']    = 'utf-8';
             $config['newline']    = "\r\n";
             $config['mailtype'] = 'html'; // or html
@@ -164,7 +164,7 @@ class Email extends CI_Controller
             $this->email->send();
             echo $this->email->print_debugger();
         }
-        redirect('login');
+        // redirect('login');
     }
 
     public function verifikasi($id)
@@ -183,7 +183,7 @@ class Email extends CI_Controller
         $config['smtp_port']    = '465';
         $config['smtp_timeout'] = '7';
         $config['smtp_user']    = 'noreply.morningowl@gmail.com';
-        $config['smtp_pass']    = 'kirimemail123';
+        $config['smtp_pass']    = 'qyonojwgyxjnwioo';
         $config['charset']    = 'utf-8';
         $config['newline']    = "\r\n";
         $config['mailtype'] = 'html'; // or html
@@ -299,6 +299,7 @@ class Email extends CI_Controller
 
         $this->email->send();
         $this->email->print_debugger();
-        redirect('login');
+        $this->session->set_flashdata('flash2', 'ada');
+        redirect('Login');
     }
 }

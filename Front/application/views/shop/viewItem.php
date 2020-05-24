@@ -164,7 +164,7 @@ if ($ada == false) {
                     </p>
                 </h3>
 
-                <h4 style="color: #42b77c;">IDR <?= ceil($item['harga_item']) ?></h4>
+                <h4 style="color: #42b77c;">IDR <?= number_format(ceil($item['harga_item']), 0, ".", ".") ?></h4>
                 <div class="descBox">
                     <p><?= $item['desc_item'] ?></p>
                 </div>

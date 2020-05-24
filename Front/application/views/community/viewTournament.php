@@ -28,13 +28,26 @@
     <title>gather.owl - Tournament</title>
 </head>
 <?php
+if (isset($channelA)) {
+    foreach ($channelU as $chnU) {
+        if ($chnU['id_channel'] == $channelA['id_channel'] && $chnU['id_user'] == $user['id_user']) {
+            if ($chnU['jenis'] == 2) {
+                $_SESSION["master"] = "true";
+            } else if ($chnU['jenis'] == 1) {
+                $_SESSION["admin"] = "true";
+            }
+        }
+    }
+}
 
 foreach ($tournament as $turney) {
     if ($turney['id_turnament'] == $_SESSION['idTournament']) {
         $slot = $turney['jumlah_slot'];
         $tglMulai = $turney['tanggal_mulai'];
         $idTurney = $turney['id_turnament'];
-        $idGame = $turney['id_game'];
+        $namaTurney = $turney['nama_turnament'];
+        $namaChannel = $turney['nama_channel'];
+        $namaGame = $turney['nama_game'];
     }
 }
 $idTurney = $_SESSION['idTournament'];
@@ -43,15 +56,11 @@ $idTurney = $_SESSION['idTournament'];
 <body>
     <header class="hero">
         <div class="hero-wrap">
-            <p class="intro" id="intro"></p>
-            <h1 id="headline">IEM KATOWICE</h1>
+            <p class="intro" id="intro"><?= $namaChannel ?></p>
+            <h1 id="headline"><?= $namaTurney ?></h1>
             <p class="year"><i class="fa fa-star"></i> <?= date_format(date_create($tglMulai), "d F Y")  ?> <i class="fa fa-star"></i></p>
             <p>
-                <?php foreach ($games as $game) {
-                    if ($game['id_game'] == $idGame) {
-                        echo $game['nama_game'];
-                    }
-                } ?>
+                <?= $namaGame  ?>
             </p>
         </div>
     </header>
@@ -64,41 +73,73 @@ $idTurney = $_SESSION['idTournament'];
                         <div class="round round-one current">
                             <div class="round-details" bagian="round1kiri">Round 1<br /></div>
                             <?php foreach ($pertandingan as $tanding) {
-                                if ($tanding['id_turnament'] == $idTurney && strpos($tanding['bagian'], 'round1kiri') !== false) { ?>
-                                    <ul class="matchup" bagian="<?= $tanding['bagian'] ?>">
-                                        <?php if ($tanding['team_1'] == "") { ?>
-                                            <li class="team team-top">&nbsp;<span class="score">&nbsp;</span></li>
+                                if ($tanding['id_turnament'] == $idTurney && strpos($tanding['bagian'], 'round1kiri') !== false) {
+                                    if ($tanding['status'] != 0) { ?>
+                                        <ul class="matchup championship" status="finished" bagian="<?= $tanding['bagian'] ?>" idMatch="<?= $tanding['id_match'] ?>">
                                         <?php } else { ?>
-                                            <li class="team team-top"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
-                                        <?php } ?>
+                                            <ul class="matchup championship" bagian="<?= $tanding['bagian'] ?>" idMatch="<?= $tanding['id_match'] ?>">
+                                            <?php }  ?>
+                                            <?php if ($tanding['team_1'] == "") { ?>
+                                                <li class="team team-top">&nbsp;<span class="score">&nbsp;</span></li>
+                                                <?php } else {
+                                                if ($tanding['status'] == 1) { ?>
+                                                    <li class="team team-top winner"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
+                                                <?php } else if ($tanding['status'] == 2) { ?>
+                                                    <li class="team team-top loser"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
+                                                <?php } else { ?>
+                                                    <li class="team team-top"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
+                                            <?php }
+                                            } ?>
 
-                                        <?php if ($tanding['team_2'] == "") { ?>
-                                            <li class="team team-bottom">&nbsp;<span class="score">&nbsp;</span></li>
-                                        <?php } else { ?>
-                                            <li class="team team-bottom"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
-                                        <?php } ?>
-                                    </ul>
-                            <?php }
+                                            <?php if ($tanding['team_2'] == "") { ?>
+                                                <li class="team team-bottom">&nbsp;<span class="score">&nbsp;</span></li>
+                                                <?php } else {
+                                                if ($tanding['status'] == 2) { ?>
+                                                    <li class="team team-bottom winner"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
+                                                <?php } else if ($tanding['status'] == 1) { ?>
+                                                    <li class="team team-bottom loser"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
+                                                <?php } else { ?>
+                                                    <li class="team team-bottom"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
+                                            <?php }
+                                            } ?>
+                                            </ul>
+                                    <?php }
                             } ?>
                         </div>
                         <div class="round round-two">
                             <div class="round-details" bagian="round2kiri">Round 2<br /></div>
                             <?php foreach ($pertandingan as $tanding) {
-                                if ($tanding['id_turnament'] == $idTurney && strpos($tanding['bagian'], 'round2kiri') !== false) { ?>
-                                    <ul class="matchup" bagian="<?= $tanding['bagian'] ?>">
-                                        <?php if ($tanding['team_1'] == "") { ?>
-                                            <li class="team team-top">&nbsp;<span class="score">&nbsp;</span></li>
+                                if ($tanding['id_turnament'] == $idTurney && strpos($tanding['bagian'], 'round2kiri') !== false) {
+                                    if ($tanding['status'] != 0) { ?>
+                                        <ul class="matchup championship" status="finished" bagian="<?= $tanding['bagian'] ?>" idMatch="<?= $tanding['id_match'] ?>">
                                         <?php } else { ?>
-                                            <li class="team team-top"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
-                                        <?php } ?>
+                                            <ul class="matchup championship" bagian="<?= $tanding['bagian'] ?>" idMatch="<?= $tanding['id_match'] ?>">
+                                            <?php }  ?>
+                                            <?php if ($tanding['team_1'] == "") { ?>
+                                                <li class="team team-top">&nbsp;<span class="score">&nbsp;</span></li>
+                                                <?php } else {
+                                                if ($tanding['status'] == 1) { ?>
+                                                    <li class="team team-top winner"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
+                                                <?php } else if ($tanding['status'] == 2) { ?>
+                                                    <li class="team team-top loser"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
+                                                <?php } else { ?>
+                                                    <li class="team team-top"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
+                                            <?php }
+                                            } ?>
 
-                                        <?php if ($tanding['team_2'] == "") { ?>
-                                            <li class="team team-bottom">&nbsp;<span class="score">&nbsp;</span></li>
-                                        <?php } else { ?>
-                                            <li class="team team-bottom"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
-                                        <?php } ?>
-                                    </ul>
-                            <?php }
+                                            <?php if ($tanding['team_2'] == "") { ?>
+                                                <li class="team team-bottom">&nbsp;<span class="score">&nbsp;</span></li>
+                                                <?php } else {
+                                                if ($tanding['status'] == 2) { ?>
+                                                    <li class="team team-bottom winner"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
+                                                <?php } else if ($tanding['status'] == 1) { ?>
+                                                    <li class="team team-bottom loser"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
+                                                <?php } else { ?>
+                                                    <li class="team team-bottom"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
+                                            <?php }
+                                            } ?>
+                                            </ul>
+                                    <?php }
                             } ?>
                         </div>
                     <?php
@@ -110,21 +151,37 @@ $idTurney = $_SESSION['idTournament'];
                                 <?php } ?>
                                 <div class="round-details" bagian="round1kiri">Round 1<br /></div>
                                 <?php foreach ($pertandingan as $tanding) {
-                                    if ($tanding['id_turnament'] == $idTurney && strpos($tanding['bagian'], 'round1kiri') !== false) { ?>
-                                        <ul class="matchup" bagian="<?= $tanding['bagian'] ?>">
-                                            <?php if ($tanding['team_1'] == "") { ?>
-                                                <li class="team team-top">&nbsp;<span class="score">&nbsp;</span></li>
+                                    if ($tanding['id_turnament'] == $idTurney && strpos($tanding['bagian'], 'round1kiri') !== false) {
+                                        if ($tanding['status'] != 0) { ?>
+                                            <ul class="matchup championship" status="finished" bagian="<?= $tanding['bagian'] ?>" idMatch="<?= $tanding['id_match'] ?>">
                                             <?php } else { ?>
-                                                <li class="team team-top"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
-                                            <?php } ?>
+                                                <ul class="matchup championship" bagian="<?= $tanding['bagian'] ?>" idMatch="<?= $tanding['id_match'] ?>">
+                                                <?php }  ?>
+                                                <?php if ($tanding['team_1'] == "") { ?>
+                                                    <li class="team team-top">&nbsp;<span class="score">&nbsp;</span></li>
+                                                    <?php } else {
+                                                    if ($tanding['status'] == 1) { ?>
+                                                        <li class="team team-top winner"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
+                                                    <?php } else if ($tanding['status'] == 2) { ?>
+                                                        <li class="team team-top loser"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
+                                                    <?php } else { ?>
+                                                        <li class="team team-top"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
+                                                <?php }
+                                                } ?>
 
-                                            <?php if ($tanding['team_2'] == "") { ?>
-                                                <li class="team team-bottom">&nbsp;<span class="score">&nbsp;</span></li>
-                                            <?php } else { ?>
-                                                <li class="team team-bottom"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
-                                            <?php } ?>
-                                        </ul>
-                                <?php }
+                                                <?php if ($tanding['team_2'] == "") { ?>
+                                                    <li class="team team-bottom">&nbsp;<span class="score">&nbsp;</span></li>
+                                                    <?php } else {
+                                                    if ($tanding['status'] == 2) { ?>
+                                                        <li class="team team-bottom winner"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
+                                                    <?php } else if ($tanding['status'] == 1) { ?>
+                                                        <li class="team team-bottom loser"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
+                                                    <?php } else { ?>
+                                                        <li class="team team-bottom"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
+                                                <?php }
+                                                } ?>
+                                                </ul>
+                                        <?php }
                                 } ?>
                                 </div>
 
@@ -137,21 +194,37 @@ $idTurney = $_SESSION['idTournament'];
                                     <?php } ?>
                                     <div class="round-details" bagian="quarterfinalkiri">Quarter Final<br /></div>
                                     <?php foreach ($pertandingan as $tanding) {
-                                        if ($tanding['id_turnament'] == $idTurney && strpos($tanding['bagian'], 'quarterfinalkiri') !== false) { ?>
-                                            <ul class="matchup" bagian="<?= $tanding['bagian'] ?>">
-                                                <?php if ($tanding['team_1'] == "") { ?>
-                                                    <li class="team team-top">&nbsp;<span class="score">&nbsp;</span></li>
+                                        if ($tanding['id_turnament'] == $idTurney && strpos($tanding['bagian'], 'quarterfinalkiri') !== false) {
+                                            if ($tanding['status'] != 0) { ?>
+                                                <ul class="matchup championship" status="finished" bagian="<?= $tanding['bagian'] ?>" idMatch="<?= $tanding['id_match'] ?>">
                                                 <?php } else { ?>
-                                                    <li class="team team-top"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
-                                                <?php } ?>
+                                                    <ul class="matchup championship" bagian="<?= $tanding['bagian'] ?>" idMatch="<?= $tanding['id_match'] ?>">
+                                                    <?php }  ?>
+                                                    <?php if ($tanding['team_1'] == "") { ?>
+                                                        <li class="team team-top">&nbsp;<span class="score">&nbsp;</span></li>
+                                                        <?php } else {
+                                                        if ($tanding['status'] == 1) { ?>
+                                                            <li class="team team-top winner"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
+                                                        <?php } else if ($tanding['status'] == 2) { ?>
+                                                            <li class="team team-top loser"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
+                                                        <?php } else { ?>
+                                                            <li class="team team-top"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
+                                                    <?php }
+                                                    } ?>
 
-                                                <?php if ($tanding['team_2'] == "") { ?>
-                                                    <li class="team team-bottom">&nbsp;<span class="score">&nbsp;</span></li>
-                                                <?php } else { ?>
-                                                    <li class="team team-bottom"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
-                                                <?php } ?>
-                                            </ul>
-                                    <?php }
+                                                    <?php if ($tanding['team_2'] == "") { ?>
+                                                        <li class="team team-bottom">&nbsp;<span class="score">&nbsp;</span></li>
+                                                        <?php } else {
+                                                        if ($tanding['status'] == 2) { ?>
+                                                            <li class="team team-bottom winner"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
+                                                        <?php } else if ($tanding['status'] == 1) { ?>
+                                                            <li class="team team-bottom loser"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
+                                                        <?php } else { ?>
+                                                            <li class="team team-bottom"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
+                                                    <?php }
+                                                    } ?>
+                                                    </ul>
+                                            <?php }
                                     } ?>
                                     </div>
 
@@ -171,26 +244,42 @@ $idTurney = $_SESSION['idTournament'];
                                             <?php } ?>
                                             <div class="round-details" bagian="semifinalkiri">semifinals <br /></div>
                                             <?php foreach ($pertandingan as $tanding) {
-                                                if ($tanding['id_turnament'] == $idTurney && strpos($tanding['bagian'], 'semifinalkiri') !== false) { ?>
-                                                    <ul class="matchup championship" bagian="<?= $tanding['bagian'] . "1" ?>">
-                                                        <?php if ($tanding['team_1'] == "") { ?>
-                                                            <li class="team team-top">&nbsp;<span class="score">&nbsp;</span></li>
+                                                if ($tanding['id_turnament'] == $idTurney && strpos($tanding['bagian'], 'semifinalkiri') !== false) {
+                                                    if ($tanding['status'] != 0) { ?>
+                                                        <ul class="matchup championship" status="finished" bagian="<?= $tanding['bagian'] . "1" ?>" idMatch="<?= $tanding['id_match'] ?>">
                                                         <?php } else { ?>
-                                                            <li class="team team-top"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
-                                                        <?php } ?>
+                                                            <ul class="matchup championship" bagian="<?= $tanding['bagian'] . "1" ?>" idMatch="<?= $tanding['id_match'] ?>">
+                                                            <?php }  ?>
+                                                            <?php if ($tanding['team_1'] == "") { ?>
+                                                                <li class="team team-top">&nbsp;<span class="score">&nbsp;</span></li>
+                                                                <?php } else {
+                                                                if ($tanding['status'] == 1) { ?>
+                                                                    <li class="team team-top winner"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
+                                                                <?php } else if ($tanding['status'] == 2) { ?>
+                                                                    <li class="team team-top loser"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
+                                                                <?php } else { ?>
+                                                                    <li class="team team-top"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
+                                                            <?php }
+                                                            } ?>
 
-                                                        <?php if ($tanding['team_2'] == "") { ?>
-                                                            <li class="team team-bottom">&nbsp;<span class="score">&nbsp;</span></li>
-                                                        <?php } else { ?>
-                                                            <li class="team team-bottom"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
-                                                        <?php } ?>
-                                                    </ul>
-                                            <?php }
+                                                            <?php if ($tanding['team_2'] == "") { ?>
+                                                                <li class="team team-bottom">&nbsp;<span class="score">&nbsp;</span></li>
+                                                                <?php } else {
+                                                                if ($tanding['status'] == 2) { ?>
+                                                                    <li class="team team-bottom winner"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
+                                                                <?php } else if ($tanding['status'] == 1) { ?>
+                                                                    <li class="team team-bottom loser"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
+                                                                <?php } else { ?>
+                                                                    <li class="team team-bottom"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
+                                                            <?php }
+                                                            } ?>
+                                                            </ul>
+                                                    <?php }
                                             } ?>
                                             </div>
                                         <?php
                                     } ?>
-                                        <?php if ($slot == 1) { ?>
+                                        <?php if ($slot == 2) { ?>
                                             <div class="final current">
                                             <?php } else { ?>
                                                 <div class="final">
@@ -198,21 +287,37 @@ $idTurney = $_SESSION['idTournament'];
                                                 <i class="fa fa-trophy"></i>
                                                 <div class="round-details" bagian="final">final <br /></div>
                                                 <?php foreach ($pertandingan as $tanding) {
-                                                    if ($tanding['id_turnament'] == $idTurney && $tanding['bagian'] == 'final') { ?>
-                                                        <ul class="matchup" bagian="<?= $tanding['bagian'] . "1" ?>">
-                                                            <?php if ($tanding['team_1'] == "") { ?>
-                                                                <li class="team team-top">&nbsp;<span class="score">&nbsp;</span></li>
+                                                    if ($tanding['id_turnament'] == $idTurney && $tanding['bagian'] == 'final') {
+                                                        if ($tanding['status'] != 0) { ?>
+                                                            <ul class="matchup championship" status="finished" bagian="<?= $tanding['bagian'] . "1" ?>" idMatch="<?= $tanding['id_match'] ?>">
                                                             <?php } else { ?>
-                                                                <li class="team team-top"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
-                                                            <?php } ?>
+                                                                <ul class="matchup championship" bagian="<?= $tanding['bagian'] . "1" ?>" idMatch="<?= $tanding['id_match'] ?>">
+                                                                <?php }  ?>
+                                                                <?php if ($tanding['team_1'] == "") { ?>
+                                                                    <li class="team team-top">&nbsp;<span class="score">&nbsp;</span></li>
+                                                                    <?php } else {
+                                                                    if ($tanding['status'] == 1) { ?>
+                                                                        <li class="team team-top winner"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
+                                                                    <?php } else if ($tanding['status'] == 2) { ?>
+                                                                        <li class="team team-top loser"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
+                                                                    <?php } else { ?>
+                                                                        <li class="team team-top"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
+                                                                <?php }
+                                                                } ?>
 
-                                                            <?php if ($tanding['team_2'] == "") { ?>
-                                                                <li class="team team-bottom">&nbsp;<span class="score">&nbsp;</span></li>
-                                                            <?php } else { ?>
-                                                                <li class="team team-bottom"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
-                                                            <?php } ?>
-                                                        </ul>
-                                                <?php }
+                                                                <?php if ($tanding['team_2'] == "") { ?>
+                                                                    <li class="team team-bottom">&nbsp;<span class="score">&nbsp;</span></li>
+                                                                    <?php } else {
+                                                                    if ($tanding['status'] == 2) { ?>
+                                                                        <li class="team team-bottom winner"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
+                                                                    <?php } else if ($tanding['status'] == 1) { ?>
+                                                                        <li class="team team-bottom loser"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
+                                                                    <?php } else { ?>
+                                                                        <li class="team team-bottom"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
+                                                                <?php }
+                                                                } ?>
+                                                                </ul>
+                                                        <?php }
                                                 } ?>
                                                 </div>
                                                 <?php if ($slot > 3) { ?>
@@ -223,21 +328,37 @@ $idTurney = $_SESSION['idTournament'];
                                                             <?php } ?>
                                                             <div class="round-details" bagian="semifinalkanan">semifinals <br /></div>
                                                             <?php foreach ($pertandingan as $tanding) {
-                                                                if ($tanding['id_turnament'] == $idTurney && strpos($tanding['bagian'], 'semifinalkanan') !== false) { ?>
-                                                                    <ul class="matchup" bagian="<?= $tanding['bagian'] . "1" ?>">
-                                                                        <?php if ($tanding['team_1'] == "") { ?>
-                                                                            <li class="team team-top">&nbsp;<span class="score">&nbsp;</span></li>
+                                                                if ($tanding['id_turnament'] == $idTurney && strpos($tanding['bagian'], 'semifinalkanan') !== false) {
+                                                                    if ($tanding['status'] != 0) { ?>
+                                                                        <ul class="matchup championship" status="finished" bagian="<?= $tanding['bagian'] . "1" ?>" idMatch="<?= $tanding['id_match'] ?>">
                                                                         <?php } else { ?>
-                                                                            <li class="team team-top"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
-                                                                        <?php } ?>
+                                                                            <ul class="matchup championship" bagian="<?= $tanding['bagian'] . "1" ?>" idMatch="<?= $tanding['id_match'] ?>">
+                                                                            <?php }  ?>
+                                                                            <?php if ($tanding['team_1'] == "") { ?>
+                                                                                <li class="team team-top">&nbsp;<span class="score">&nbsp;</span></li>
+                                                                                <?php } else {
+                                                                                if ($tanding['status'] == 1) { ?>
+                                                                                    <li class="team team-top winner"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
+                                                                                <?php } else if ($tanding['status'] == 2) { ?>
+                                                                                    <li class="team team-top loser"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
+                                                                                <?php } else { ?>
+                                                                                    <li class="team team-top"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
+                                                                            <?php }
+                                                                            } ?>
 
-                                                                        <?php if ($tanding['team_2'] == "") { ?>
-                                                                            <li class="team team-bottom">&nbsp;<span class="score">&nbsp;</span></li>
-                                                                        <?php } else { ?>
-                                                                            <li class="team team-bottom"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
-                                                                        <?php } ?>
-                                                                    </ul>
-                                                            <?php }
+                                                                            <?php if ($tanding['team_2'] == "") { ?>
+                                                                                <li class="team team-bottom">&nbsp;<span class="score">&nbsp;</span></li>
+                                                                                <?php } else {
+                                                                                if ($tanding['status'] == 2) { ?>
+                                                                                    <li class="team team-bottom winner"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
+                                                                                <?php } else if ($tanding['status'] == 1) { ?>
+                                                                                    <li class="team team-bottom loser"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
+                                                                                <?php } else { ?>
+                                                                                    <li class="team team-bottom"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
+                                                                            <?php }
+                                                                            } ?>
+                                                                            </ul>
+                                                                    <?php }
                                                             } ?>
                                                             </div>
                                                         <?php } ?>
@@ -252,21 +373,37 @@ $idTurney = $_SESSION['idTournament'];
                                                                         <?php } ?>
                                                                         <div class="round-details" bagian="quarterfinalkanan">Quarter Final<br /></div>
                                                                         <?php foreach ($pertandingan as $tanding) {
-                                                                            if ($tanding['id_turnament'] == $idTurney && strpos($tanding['bagian'], 'quarterfinalkanan') !== false) { ?>
-                                                                                <ul class="matchup" bagian="<?= $tanding['bagian'] ?>">
-                                                                                    <?php if ($tanding['team_1'] == "") { ?>
-                                                                                        <li class="team team-top">&nbsp;<span class="score">&nbsp;</span></li>
+                                                                            if ($tanding['id_turnament'] == $idTurney && strpos($tanding['bagian'], 'quarterfinalkanan') !== false) {
+                                                                                if ($tanding['status'] != 0) { ?>
+                                                                                    <ul class="matchup championship" status="finished" bagian="<?= $tanding['bagian'] ?>" idMatch="<?= $tanding['id_match'] ?>">
                                                                                     <?php } else { ?>
-                                                                                        <li class="team team-top"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
-                                                                                    <?php } ?>
+                                                                                        <ul class="matchup championship" bagian="<?= $tanding['bagian'] ?>" idMatch="<?= $tanding['id_match'] ?>">
+                                                                                        <?php }  ?>
+                                                                                        <?php if ($tanding['team_1'] == "") { ?>
+                                                                                            <li class="team team-top">&nbsp;<span class="score">&nbsp;</span></li>
+                                                                                            <?php } else {
+                                                                                            if ($tanding['status'] == 1) { ?>
+                                                                                                <li class="team team-top winner"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
+                                                                                            <?php } else if ($tanding['status'] == 2) { ?>
+                                                                                                <li class="team team-top loser"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
+                                                                                            <?php } else { ?>
+                                                                                                <li class="team team-top"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
+                                                                                        <?php }
+                                                                                        } ?>
 
-                                                                                    <?php if ($tanding['team_2'] == "") { ?>
-                                                                                        <li class="team team-bottom">&nbsp;<span class="score">&nbsp;</span></li>
-                                                                                    <?php } else { ?>
-                                                                                        <li class="team team-bottom"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
-                                                                                    <?php } ?>
-                                                                                </ul>
-                                                                        <?php }
+                                                                                        <?php if ($tanding['team_2'] == "") { ?>
+                                                                                            <li class="team team-bottom">&nbsp;<span class="score">&nbsp;</span></li>
+                                                                                            <?php } else {
+                                                                                            if ($tanding['status'] == 2) { ?>
+                                                                                                <li class="team team-bottom winner"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
+                                                                                            <?php } else if ($tanding['status'] == 1) { ?>
+                                                                                                <li class="team team-bottom loser"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
+                                                                                            <?php } else { ?>
+                                                                                                <li class="team team-bottom"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
+                                                                                        <?php }
+                                                                                        } ?>
+                                                                                        </ul>
+                                                                                <?php }
                                                                         } ?>
                                                                         </div>
 
@@ -274,21 +411,37 @@ $idTurney = $_SESSION['idTournament'];
                                                                             <div class="round round-two current">
                                                                                 <div class="round-details" bagian="round1kanan">Round 1<br /></div>
                                                                                 <?php foreach ($pertandingan as $tanding) {
-                                                                                    if ($tanding['id_turnament'] == $idTurney && strpos($tanding['bagian'], 'round1kanan') !== false) { ?>
-                                                                                        <ul class="matchup" bagian="<?= $tanding['bagian'] ?>">
-                                                                                            <?php if ($tanding['team_1'] == "") { ?>
-                                                                                                <li class="team team-top">&nbsp;<span class="score">&nbsp;</span></li>
+                                                                                    if ($tanding['id_turnament'] == $idTurney && strpos($tanding['bagian'], 'round1kanan') !== false) {
+                                                                                        if ($tanding['status'] != 0) { ?>
+                                                                                            <ul class="matchup championship" status="finished" bagian="<?= $tanding['bagian'] ?>" idMatch="<?= $tanding['id_match'] ?>">
                                                                                             <?php } else { ?>
-                                                                                                <li class="team team-top"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
-                                                                                            <?php } ?>
+                                                                                                <ul class="matchup championship" bagian="<?= $tanding['bagian'] ?>" idMatch="<?= $tanding['id_match'] ?>">
+                                                                                                <?php }  ?>
+                                                                                                <?php if ($tanding['team_1'] == "") { ?>
+                                                                                                    <li class="team team-top">&nbsp;<span class="score">&nbsp;</span></li>
+                                                                                                    <?php } else {
+                                                                                                    if ($tanding['status'] == 1) { ?>
+                                                                                                        <li class="team team-top winner"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
+                                                                                                    <?php } else if ($tanding['status'] == 2) { ?>
+                                                                                                        <li class="team team-top loser"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
+                                                                                                    <?php } else { ?>
+                                                                                                        <li class="team team-top"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
+                                                                                                <?php }
+                                                                                                } ?>
 
-                                                                                            <?php if ($tanding['team_2'] == "") { ?>
-                                                                                                <li class="team team-bottom">&nbsp;<span class="score">&nbsp;</span></li>
-                                                                                            <?php } else { ?>
-                                                                                                <li class="team team-bottom"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
-                                                                                            <?php } ?>
-                                                                                        </ul>
-                                                                                <?php }
+                                                                                                <?php if ($tanding['team_2'] == "") { ?>
+                                                                                                    <li class="team team-bottom">&nbsp;<span class="score">&nbsp;</span></li>
+                                                                                                    <?php } else {
+                                                                                                    if ($tanding['status'] == 2) { ?>
+                                                                                                        <li class="team team-bottom winner"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
+                                                                                                    <?php } else if ($tanding['status'] == 1) { ?>
+                                                                                                        <li class="team team-bottom loser"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
+                                                                                                    <?php } else { ?>
+                                                                                                        <li class="team team-bottom"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
+                                                                                                <?php }
+                                                                                                } ?>
+                                                                                                </ul>
+                                                                                        <?php }
                                                                                 } ?>
                                                                             </div>
                                                                         <?php } ?>
@@ -297,39 +450,67 @@ $idTurney = $_SESSION['idTournament'];
                                                                             <div class="round round-two">
                                                                                 <div class="round-details" bagian="round2kanan">Round 2<br /></div>
                                                                                 <?php foreach ($pertandingan as $tanding) {
-                                                                                    if ($tanding['id_turnament'] == $idTurney && strpos($tanding['bagian'], 'round2kanan') !== false) { ?>
-                                                                                        <ul class="matchup" bagian="<?= $tanding['bagian'] ?>">
-                                                                                            <?php if ($tanding['team_1'] == "") { ?>
-                                                                                                <li class="team team-top">&nbsp;<span class="score">&nbsp;</span></li>
+                                                                                    if ($tanding['id_turnament'] == $idTurney && strpos($tanding['bagian'], 'round2kanan') !== false) {
+                                                                                        if ($tanding['status'] != 0) { ?>
+                                                                                            <ul class="matchup championship" status="finished" bagian="<?= $tanding['bagian'] ?>" idMatch="<?= $tanding['id_match'] ?>">
                                                                                             <?php } else { ?>
-                                                                                                <li class="team team-top"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
-                                                                                            <?php } ?>
+                                                                                                <ul class="matchup championship" bagian="<?= $tanding['bagian'] ?>" idMatch="<?= $tanding['id_match'] ?>">
+                                                                                                <?php }  ?>
+                                                                                                <?php if ($tanding['team_1'] == "") { ?>
+                                                                                                    <li class="team team-top">&nbsp;<span class="score">&nbsp;</span></li>
+                                                                                                    <?php } else {
+                                                                                                    if ($tanding['status'] == 1) { ?>
+                                                                                                        <li class="team team-top winner"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
+                                                                                                    <?php } else if ($tanding['status'] == 2) { ?>
+                                                                                                        <li class="team team-top loser"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
+                                                                                                    <?php } else { ?>
+                                                                                                        <li class="team team-top"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
+                                                                                                <?php }
+                                                                                                } ?>
 
-                                                                                            <?php if ($tanding['team_2'] == "") { ?>
-                                                                                                <li class="team team-bottom">&nbsp;<span class="score">&nbsp;</span></li>
-                                                                                            <?php } else { ?>
-                                                                                                <li class="team team-bottom"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
-                                                                                            <?php } ?>
-                                                                                        </ul>
-                                                                                <?php }
+                                                                                                <?php if ($tanding['team_2'] == "") { ?>
+                                                                                                    <li class="team team-bottom">&nbsp;<span class="score">&nbsp;</span></li>
+                                                                                                    <?php } else {
+                                                                                                    if ($tanding['status'] == 2) { ?>
+                                                                                                        <li class="team team-bottom winner"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
+                                                                                                    <?php } else if ($tanding['status'] == 1) { ?>
+                                                                                                        <li class="team team-bottom loser"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
+                                                                                                    <?php } else { ?>
+                                                                                                        <li class="team team-bottom"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
+                                                                                                <?php }
+                                                                                                } ?>
+                                                                                                </ul>
+                                                                                        <?php }
                                                                                 } ?>
                                                                             </div>
                                                                             <div class="round round-one current">
                                                                                 <div class="round-details" bagian="round1kanan">Round 1<br /></div>
                                                                                 <?php foreach ($pertandingan as $tanding) {
                                                                                     if ($tanding['id_turnament'] == $idTurney && strpos($tanding['bagian'], 'round1kanan') !== false) { ?>
-                                                                                        <ul class="matchup" bagian="<?= $tanding['bagian'] ?>">
+                                                                                        <ul class="matchup championship" bagian="<?= $tanding['bagian'] ?>" idMatch="<?= $tanding['id_match'] ?>">
                                                                                             <?php if ($tanding['team_1'] == "") { ?>
                                                                                                 <li class="team team-top">&nbsp;<span class="score">&nbsp;</span></li>
-                                                                                            <?php } else { ?>
-                                                                                                <li class="team team-top"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
-                                                                                            <?php } ?>
+                                                                                                <?php } else {
+                                                                                                if ($tanding['status'] == 1) { ?>
+                                                                                                    <li class="team team-top winner"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
+                                                                                                <?php } else if ($tanding['status'] == 2) { ?>
+                                                                                                    <li class="team team-top loser"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
+                                                                                                <?php } else { ?>
+                                                                                                    <li class="team team-top"><?= $tanding['team_1'] ?><span class="score"><?= $tanding['skor_1'] ?></span></li>
+                                                                                            <?php }
+                                                                                            } ?>
 
                                                                                             <?php if ($tanding['team_2'] == "") { ?>
                                                                                                 <li class="team team-bottom">&nbsp;<span class="score">&nbsp;</span></li>
-                                                                                            <?php } else { ?>
-                                                                                                <li class="team team-bottom"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
-                                                                                            <?php } ?>
+                                                                                                <?php } else {
+                                                                                                if ($tanding['status'] == 2) { ?>
+                                                                                                    <li class="team team-bottom winner"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
+                                                                                                <?php } else if ($tanding['status'] == 1) { ?>
+                                                                                                    <li class="team team-bottom loser"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
+                                                                                                <?php } else { ?>
+                                                                                                    <li class="team team-bottom"><?= $tanding['team_2'] ?><span class="score"><?= $tanding['skor_2'] ?></span></li>
+                                                                                            <?php }
+                                                                                            } ?>
                                                                                         </ul>
                                                                                 <?php }
                                                                                 } ?>
@@ -337,7 +518,17 @@ $idTurney = $_SESSION['idTournament'];
                                                                         <?php } ?>
                                                                     </div>
                                                                 <?php } ?>
+
+                                                                <div class="round third-place">
+                                                                    <div class="round-details" bagian="third">Third Place <br /></div>
+                                                                    <ul class="matchup" bagian="third1">
+                                                                        <li class="team team-top">&nbsp;<span class="score">&nbsp;</span></li>
+                                                                        <li class="team team-bottom">&nbsp;<span class="score">&nbsp;</span></li>
+                                                                    </ul>
+                                                                </div>
                                                             </div>
+
+
 
     </section>
 
@@ -424,8 +615,13 @@ $idTurney = $_SESSION['idTournament'];
     <script src="Js/jquery-min.js"></script>
     <script src="Js/alertify.js"></script>
     <script>
-        var admin = true; // <= Check admin
-        var slots = parseInt('<?= $slot ?>'); // <= Total Slot
+        var mulai = true; // <= Check mulai
+
+        <?php if (isset($_SESSION['admin']) || isset($_SESSION['master'])) { ?>
+            var admin = true; // <= Check admin
+        <?php } ?>
+
+        var slots = parseInt('<?= $slot ?>');; // <= Total Slot
         ////////////////////////////////////
         var MAXround1kiri = -1;
         var MAXround1kanan = -1;
@@ -435,6 +631,7 @@ $idTurney = $_SESSION['idTournament'];
         var MAXquarterfinalkanan = -1;
         var MAXsemifinalkiri = -1;
         var MAXsemifinalkanan = -1;
+        var MAXthird = -1;
         var MAXfinal = -1;
         //////////////////////////////////////////////////
         var edit;
@@ -444,6 +641,7 @@ $idTurney = $_SESSION['idTournament'];
             if (slots >= 4) {
                 MAXsemifinalkiri = 1;
                 MAXsemifinalkanan = 1;
+                MAXthird = 1;
             }
             if (slots >= 8) {
                 MAXquarterfinalkiri = 2;
@@ -458,10 +656,13 @@ $idTurney = $_SESSION['idTournament'];
                 MAXround2kiri = 4;
                 MAXround2kanan = 4;
             }
-            checkFinished();
+            if (mulai) {
+                checkEmpty();
+                checkWinner();
+            }
         });
         /////////////////EFFECTS/////////////////////
-        if (admin) {
+        if (admin && mulai) {
             $("li").mouseover(function() {
                 if ($(this).parent().parent().hasClass("current") && $(this).parent().attr("status") != "finished") {
                     $(this).css("cursor", "pointer");
@@ -480,7 +681,9 @@ $idTurney = $_SESSION['idTournament'];
                 if ($(this).parent().parent().hasClass("current") && $(this).parent().attr("status") != "finished") {
                     var parent = $(this).parent();
                     var team1 = parent.children(".team-top").html();
+                    team1 = team1.replace(parent.children(".team-top").children("span").text(), "");
                     var team2 = parent.children(".team-bottom").html();
+                    team2 = team2.replace(parent.children(".team-bottom").children("span").text(), "");
                     var score1 = parent.children(".team-top").children(".score").html();
                     var score2 = parent.children(".team-bottom").children(".score").html();
                     $("#team1").html(team1);
@@ -537,6 +740,7 @@ $idTurney = $_SESSION['idTournament'];
                 $("#winner2").html("LOSER");
                 $(this).html("WINNER");
             });
+
             $(".createButton").click(function() {
                 $(".create").removeClass("slideInDown");
                 $(".create").addClass("slideOutUp");
@@ -548,14 +752,40 @@ $idTurney = $_SESSION['idTournament'];
                     $("[bagian='" + edit + "']").children(".team-bottom").addClass("winner");
                     $("[bagian='" + edit + "']").children(".team-top").addClass("loser");
                     $("[bagian='" + edit + "']").attr("status", "finished");
-                    var teamname = $("[bagian='" + edit + "']").children(".team-bottom").html();
+                    var teamname = $("[bagian='" + edit + "']").children(".team-bottom").text();
+                    teamname = teamname.replace($("[bagian='" + edit + "']").children(".team-bottom").children("span").text(), "");
                     nextRound(edit, teamname);
+                    if (edit == "semifinalkiri1") {
+                        var teamname = $("[bagian='" + edit + "']").children(".team-top").text();
+                        teamname = teamname.replace($("[bagian='" + edit + "']").children(".team-top").children("span").text(), "");
+                        thirdround("atas", teamname);
+                    } else if (edit == "semifinalkanan1") {
+                        var teamname = $("[bagian='" + edit + "']").children(".team-top").text();
+                        teamname = teamname.replace($("[bagian='" + edit + "']").children(".team-top").children("span").text(), "");
+                        thirdround("bawah", teamname);
+                    }
                 } else if ($("#winner2").html() == "LOSER") {
                     $("[bagian='" + edit + "']").children(".team-bottom").addClass("loser");
                     $("[bagian='" + edit + "']").children(".team-top").addClass("winner");
                     $("[bagian='" + edit + "']").attr("status", "finished");
-                    var teamname = $("[bagian='" + edit + "']").children(".team-top").html();
+                    var teamname = $("[bagian='" + edit + "']").children(".team-top").text();
+                    teamname = teamname.replace($("[bagian='" + edit + "']").children(".team-top").children("span").text(), "");
                     nextRound(edit, teamname);
+                    if (edit == "semifinalkiri1") {
+                        var teamname = $("[bagian='" + edit + "']").children(".team-bottom").text();
+                        teamname = teamname.replace($("[bagian='" + edit + "']").children(".team-bottom").children("span").text(), "");
+                        thirdround("atas", teamname);
+                    } else if (edit == "semifinalkanan1") {
+                        var teamname = $("[bagian='" + edit + "']").children(".team-bottom").text();
+                        teamname = teamname.replace($("[bagian='" + edit + "']").children(".team-bottom").children("span").text(), "");
+                        thirdround("bawah", teamname);
+                    }
+                }
+                status = 0;
+                if ($("#winner1").html() == "LOSER") {
+                    status = 2;
+                } else if ($("#winner2").html() == "LOSER") {
+                    status = 1;
                 }
                 $("[bagian='" + edit + "']").children(".team-top").children(".score").html(score1);
                 $("[bagian='" + edit + "']").children(".team-bottom").children(".score").html(score2);
@@ -564,7 +794,124 @@ $idTurney = $_SESSION['idTournament'];
                 $("#winner1").html("WINNER");
                 $("#winner2").html("WINNER");
                 edit = "";
+
+                idMatch = $("[bagian='" + edit + "']").attr("idMatch");
+                edit = "";
+                team1 = $("#team1").html();
+                team2 = $("#team2").html();
+
+                //UPDATE PERTANDINGAN
+                $.ajax({
+                    url: "<?= base_url(); ?>Community/updateSkor",
+                    method: "post",
+                    data: {
+                        idMatch: idMatch,
+                        team1: team1,
+                        team2: team2,
+                        skor1: score1,
+                        skor2: score2,
+                        status: status
+                    },
+                    success: function(result) {
+
+                    }
+                });
             });
+
+            function checkEmpty() {
+                if (MAXround1kiri != -1) {
+                    for (var i = 1; i <= MAXround1kiri; i++) {
+                        var team1 = $("[bagian='round1kiri" + i + "']").children(".team-top").text();
+                        team1 = team1.replace($("[bagian='round1kiri" + i + "']").children(".team-top").children("span").text(), "");
+                        var team2 = $("[bagian='round1kiri" + i + "']").children(".team-bottom").text();
+                        team2 = team2.replace($("[bagian='round1kiri" + i + "']").children(".team-bottom").children("span").text(), "");
+                        if (team1.length == 1) {
+                            $("[bagian='round1kiri" + i + "']").children(".team-bottom").addClass("winner");
+                            $("[bagian='round1kiri" + i + "']").children(".team-top").addClass("loser");
+                        } else if (team2.length == 1) {
+                            $("[bagian='round1kiri" + i + "']").children(".team-bottom").addClass("loser");
+                            $("[bagian='round1kiri" + i + "']").children(".team-top").addClass("winner");
+                        }
+                        var team1 = $("[bagian='round1kanan" + i + "']").children(".team-top").text();
+                        team1 = team1.replace($("[bagian='round1kanan" + i + "']").children(".team-top").children("span").text(), "");
+                        var team2 = $("[bagian='round1kanan" + i + "']").children(".team-bottom").text();
+                        team2 = team2.replace($("[bagian='round1kanan" + i + "']").children(".team-bottom").children("span").text(), "");
+                        if (team1.length == 1) {
+                            $("[bagian='round1kanan" + i + "']").children(".team-bottom").addClass("winner");
+                            $("[bagian='round1kanan" + i + "']").children(".team-top").addClass("loser");
+                        } else if (team2.length == 1) {
+                            $("[bagian='round1kanan" + i + "']").children(".team-bottom").addClass("loser");
+                            $("[bagian='round1kanan" + i + "']").children(".team-top").addClass("winner");
+                        }
+                    }
+                    checkFinished();
+                } else if (MAXquarterfinalkiri != -1) {
+                    for (var i = 1; i <= MAXquarterfinalkiri; i++) {
+                        var team1 = $("[bagian='quarterfinalkiri" + i + "']").children(".team-top").text();
+                        team1 = team1.replace($("[bagian='quarterfinalkiri" + i + "']").children(".team-top").children("span").text(), "");
+                        var team2 = $("[bagian='quarterfinalkiri" + i + "']").children(".team-bottom").text();
+                        team2 = team2.replace($("[bagian='quarterfinalkiri" + i + "']").children(".team-bottom").children("span").text(), "");
+                        if (team1.length == 1) {
+                            $("[bagian='quarterfinalkiri" + i + "']").children(".team-bottom").addClass("winner");
+                            $("[bagian='quarterfinalkiri" + i + "']").children(".team-top").addClass("loser");
+                        } else if (team2.length == 1) {
+                            $("[bagian='quarterfinalkiri" + i + "']").children(".team-bottom").addClass("loser");
+                            $("[bagian='quarterfinalkiri" + i + "']").children(".team-top").addClass("winner");
+                        }
+                        var team1 = $("[bagian='quarterfinalkanan" + i + "']").children(".team-top").text();
+                        team1 = team1.replace($("[bagian='quarterfinalkanan" + i + "']").children(".team-top").children("span").text(), "");
+                        var team2 = $("[bagian='quarterfinalkanan" + i + "']").children(".team-bottom").text();
+                        team2 = team2.replace($("[bagian='quarterfinalkanan" + i + "']").children(".team-bottom").children("span").text(), "");
+                        if (team1.length == 1) {
+                            $("[bagian='quarterfinalkanan" + i + "']").children(".team-bottom").addClass("winner");
+                            $("[bagian='quarterfinalkanan" + i + "']").children(".team-top").addClass("loser");
+                        } else if (team2.length == 1) {
+                            $("[bagian='quarterfinalkanan" + i + "']").children(".team-bottom").addClass("loser");
+                            $("[bagian='quarterfinalkanan" + i + "']").children(".team-top").addClass("winner");
+                        }
+                    }
+                    checkFinished();
+                } else if (MAXsemifinalkiri != -1) {
+                    for (var i = 1; i <= MAXsemifinalkiri; i++) {
+                        var team1 = $("[bagian='semifinalkiri" + i + "']").children(".team-top").text();
+                        team1 = team1.replace($("[bagian='semifinalkiri" + i + "']").children(".team-top").children("span").text(), "");
+                        var team2 = $("[bagian='semifinalkiri" + i + "']").children(".team-bottom").text();
+                        team2 = team2.replace($("[bagian='semifinalkiri" + i + "']").children(".team-bottom").children("span").text(), "");
+                        if (team1.length == 1) {
+                            $("[bagian='semifinalkiri" + i + "']").children(".team-bottom").addClass("winner");
+                            $("[bagian='semifinalkiri" + i + "']").children(".team-top").addClass("loser");
+                        } else if (team2.length == 1) {
+                            $("[bagian='semifinalkiri" + i + "']").children(".team-bottom").addClass("loser");
+                            $("[bagian='semifinalkiri" + i + "']").children(".team-top").addClass("winner");
+                        }
+                        var team1 = $("[bagian='semifinalkanan" + i + "']").children(".team-top").text();
+                        team1 = team1.replace($("[bagian='semifinalkanan" + i + "']").children(".team-top").children("span").text(), "");
+                        var team2 = $("[bagian='semifinalkanan" + i + "']").children(".team-bottom").text();
+                        team2 = team2.replace($("[bagian='semifinalkanan" + i + "']").children(".team-bottom").children("span").text(), "");
+                        if (team1.length == 1) {
+                            $("[bagian='semifinalkanan" + i + "']").children(".team-bottom").addClass("winner");
+                            $("[bagian='semifinalkanan" + i + "']").children(".team-top").addClass("loser");
+                        } else if (team2.length == 1) {
+                            $("[bagian='semifinalkanan" + i + "']").children(".team-bottom").addClass("loser");
+                            $("[bagian='semifinalkanan" + i + "']").children(".team-top").addClass("winner");
+                        }
+                    }
+                    checkFinished();
+                } else if (MAXsemifinalkiri == -1) {
+                    var team1 = $("[bagian='final']").children(".team-top").text();
+                    team1 = team1.replace($("[bagian='final']").children(".team-top").children("span").text(), "");
+                    var team2 = $("[bagian='final']").children(".team-bottom").text();
+                    team2 = team2.replace($("[bagian='final']").children(".team-bottom").children("span").text(), "");
+                    if (team1.length == 1) {
+                        $("[bagian='final']").children(".team-bottom").addClass("winner");
+                        $("[bagian='final']").children(".team-top").addClass("loser");
+                    } else if (team2.length == 1) {
+                        $("[bagian='final']").children(".team-bottom").addClass("loser");
+                        $("[bagian='final']").children(".team-top").addClass("winner");
+                    }
+                    checkFinished();
+                }
+            }
 
             function nextRound(bagian, teamname) {
                 var side;
@@ -579,17 +926,26 @@ $idTurney = $_SESSION['idTournament'];
                     if (jenis == 1) {
                         if (MAXround2kiri > 0) {
                             var nama = "[bagian='round2" + letak + urutan + "']";
-                            $(nama).children(".team-" + side).html(teamname);
-                            $(nama).children(".team-" + side).children(".score").html("0");
+                            var score = $(nama).children(".team-" + side).children(".score").html();
+                            $(nama).children(".team-" + side).html(teamname + "<span class='score'>" + score + "</span>");
+                            if ($(nama).children(".team-" + side).children(".score").html() == "&nbsp;") {
+                                $(nama).children(".team-" + side).children(".score").html("0");
+                            }
                         } else {
                             var nama = "[bagian='quarterfinal" + letak + urutan + "']";
-                            $(nama).children(".team-" + side).html(teamname);
-                            $(nama).children(".team-" + side).children(".score").html("0");
+                            var score = $(nama).children(".team-" + side).children(".score").html();
+                            $(nama).children(".team-" + side).html(teamname + "<span class='score'>" + score + "</span>");
+                            if ($(nama).children(".team-" + side).children(".score").html() == "&nbsp;") {
+                                $(nama).children(".team-" + side).children(".score").html("0");
+                            }
                         }
                     } else {
                         var nama = "[bagian='quarterfinal" + letak + urutan + "']";
-                        $(nama).children(".team-" + side).html(teamname);
-                        $(nama).children(".team-" + side).children(".score").html("0");
+                        var score = $(nama).children(".team-" + side).children(".score").html();
+                        $(nama).children(".team-" + side).html(teamname + "<span class='score'>" + score + "</span>");
+                        if ($(nama).children(".team-" + side).children(".score").html() == "&nbsp;") {
+                            $(nama).children(".team-" + side).children(".score").html("0");
+                        }
                     }
                 } else if (bagian.substring(0, 1) == "q") {
                     var nama = "";
@@ -607,15 +963,156 @@ $idTurney = $_SESSION['idTournament'];
                         nama = "[bagian='semifinalkanan1']";
                         side = "bottom";
                     }
-                    $(nama).children(".team-" + side).html(teamname);
-                    $(nama).children(".team-" + side).children(".score").html("0");
+                    var score = $(nama).children(".team-" + side).children(".score").html();
+                    $(nama).children(".team-" + side).html(teamname + "<span class='score'>" + score + "</span>");
+                    if ($(nama).children(".team-" + side).children(".score").html() == "&nbsp;") {
+                        $(nama).children(".team-" + side).children(".score").html("0");
+                    }
                 } else if (bagian.substring(0, 1) == "s") {
                     if (bagian == "semifinalkiri1") side = "top";
                     else side = "bottom";
-                    $("[bagian='final1']").children(".team-" + side).html(teamname);
-                    $("[bagian='final1']").children(".team-" + side).children(".score").html("0");
+                    var score = $("[bagian='final1']").children(".team-" + side).children(".score").html();
+                    $("[bagian='final1']").children(".team-" + side).html(teamname + "<span class='score'>" + score + "</span>");
+                    if ($("[bagian='final1']").children(".team-" + side).children(".score").html() == "&nbsp;") {
+                        $("[bagian='final1']").children(".team-" + side).children(".score").html("0");
+                    }
                 }
                 checkFinished();
+            }
+
+            function thirdround(bagian, teamname) {
+                if (bagian == "atas") {
+                    var score = $("[bagian='third1']").children(".team-top").children(".score").html();
+                    $("[bagian='third1']").children(".team-top").html(teamname + "<span class='score'>" + score + "</span>");
+                    if ($("[bagian='third1']").children(".team-top").children(".score").html() == "&nbsp;") {
+                        $("[bagian='third1']").children(".team-top").children(".score").html("0");
+                    }
+                } else {
+                    var score = $("[bagian='third1']").children(".team-bottom").children(".score").html();
+                    $("[bagian='third1']").children(".team-bottom").html(teamname + "<span class='score'>" + score + "</span>");
+                    if ($("[bagian='third1']").children(".team-bottom").children(".score").html() == "&nbsp;") {
+                        $("[bagian='third1']").children(".team-bottom").children(".score").html("0");
+                    }
+                }
+            }
+
+            function checkWinner() {
+                for (var i = 1; i <= MAXround1kiri; i++) {
+                    var team1 = $("[bagian='round1kiri" + i + "']").children(".team-top").text();
+                    team1 = team1.replace($("[bagian='round1kiri" + i + "']").children(".team-top").children("span").text(), "");
+                    var team2 = $("[bagian='round1kiri" + i + "']").children(".team-bottom").text();
+                    team2 = team2.replace($("[bagian='round1kiri" + i + "']").children(".team-bottom").children("span").text(), "");
+                    if ($("[bagian='round1kiri" + i + "']").children(".team-top").hasClass("winner")) {
+                        $("[bagian='round1kiri" + i + "']").attr("status", "finished");
+                        nextRound("round1kiri" + i, team1);
+                    } else if ($("[bagian='round1kiri" + i + "']").children(".team-bottom").hasClass("winner")) {
+                        $("[bagian='round1kiri" + i + "']").attr("status", "finished");
+                        nextRound("round1kiri" + i, team2);
+                    }
+                    var team1 = $("[bagian='round1kanan" + i + "']").children(".team-top").text();
+                    team1 = team1.replace($("[bagian='round1kanan" + i + "']").children(".team-top").children("span").text(), "");
+                    var team2 = $("[bagian='round1kanan" + i + "']").children(".team-bottom").text();
+                    team2 = team2.replace($("[bagian='round1kanan" + i + "']").children(".team-bottom").children("span").text(), "");
+                    if ($("[bagian='round1kanan" + i + "']").children(".team-top").hasClass("winner")) {
+                        $("[bagian='round1kanan" + i + "']").attr("status", "finished");
+                        nextRound("round1kanan" + i, team1);
+                    } else if ($("[bagian='round1kanan" + i + "']").children(".team-bottom").hasClass("winner")) {
+                        $("[bagian='round1kanan" + i + "']").attr("status", "finished");
+                        nextRound("round1kanan" + i, team2);
+                    }
+                }
+                for (var i = 1; i <= MAXround2kiri; i++) {
+                    var team1 = $("[bagian='round2kiri" + i + "']").children(".team-top").text();
+                    team1 = team1.replace($("[bagian='round2kiri" + i + "']").children(".team-top").children("span").text(), "");
+                    var team2 = $("[bagian='round2kiri" + i + "']").children(".team-bottom").text();
+                    team2 = team2.replace($("[bagian='round2kiri" + i + "']").children(".team-bottom").children("span").text(), "");
+                    if ($("[bagian='round2kiri" + i + "']").children(".team-top").hasClass("winner")) {
+                        $("[bagian='round2kiri" + i + "']").attr("status", "finished");
+                        nextRound("round2kiri" + i, team1);
+                    } else if ($("[bagian='round2kiri" + i + "']").children(".team-bottom").hasClass("winner")) {
+                        $("[bagian='round2kiri" + i + "']").attr("status", "finished");
+                        nextRound("round2kiri" + i, team2);
+                    }
+                    var team1 = $("[bagian='round2kanan" + i + "']").children(".team-top").text();
+                    team1 = team1.replace($("[bagian='round2kanan" + i + "']").children(".team-top").children("span").text(), "");
+                    var team2 = $("[bagian='round2kanan" + i + "']").children(".team-bottom").text();
+                    team2 = team2.replace($("[bagian='round2kanan" + i + "']").children(".team-bottom").children("span").text(), "");
+                    if ($("[bagian='round2kanan" + i + "']").children(".team-top").hasClass("winner")) {
+                        $("[bagian='round2kanan" + i + "']").attr("status", "finished");
+                        nextRound("round2kanan" + i, team1);
+                    } else if ($("[bagian='round2kanan" + i + "']").children(".team-bottom").hasClass("winner")) {
+                        $("[bagian='round2kanan" + i + "']").attr("status", "finished");
+                        nextRound("round2kanan" + i, team2);
+                    }
+                }
+                for (var i = 1; i <= MAXquarterfinalkiri; i++) {
+                    var team1 = $("[bagian='quarterfinalkiri" + i + "']").children(".team-top").text();
+                    team1 = team1.replace($("[bagian='quarterfinalkiri" + i + "']").children(".team-top").children("span").text(), "");
+                    var team2 = $("[bagian='quarterfinalkiri" + i + "']").children(".team-bottom").text();
+                    team2 = team2.replace($("[bagian='quarterfinalkiri" + i + "']").children(".team-bottom").children("span").text(), "");
+                    if ($("[bagian='quarterfinalkiri" + i + "']").children(".team-top").hasClass("winner")) {
+                        $("[bagian='quarterfinalkiri" + i + "']").attr("status", "finished");
+                        nextRound("quarterfinalkiri" + i, team1);
+                    } else if ($("[bagian='quarterfinalkiri" + i + "']").children(".team-bottom").hasClass("winner")) {
+                        $("[bagian='quarterfinalkiri" + i + "']").attr("status", "finished");
+                        nextRound("quarterfinalkiri" + i, team2);
+                    }
+                    var team1 = $("[bagian='quarterfinalkanan" + i + "']").children(".team-top").text();
+                    team1 = team1.replace($("[bagian='quarterfinalkanan" + i + "']").children(".team-top").children("span").text(), "");
+                    var team2 = $("[bagian='quarterfinalkanan" + i + "']").children(".team-bottom").text();
+                    team2 = team2.replace($("[bagian='quarterfinalkanan" + i + "']").children(".team-bottom").children("span").text(), "");
+                    if ($("[bagian='quarterfinalkanan" + i + "']").children(".team-top").hasClass("winner")) {
+                        $("[bagian='quarterfinalkanan" + i + "']").attr("status", "finished");
+                        nextRound("quarterfinalkanan" + i, team1);
+                    } else if ($("[bagian='quarterfinalkanan" + i + "']").children(".team-bottom").hasClass("winner")) {
+                        $("[bagian='quarterfinalkanan" + i + "']").attr("status", "finished");
+                        nextRound("quarterfinalkanan" + i, team2);
+                    }
+                }
+                var team1 = $("[bagian='semifinalkiri1']").children(".team-top").text();
+                team1 = team1.replace($("[bagian='semifinalkiri1']").children(".team-top").children("span").text(), "");
+                var team2 = $("[bagian='semifinalkiri1']").children(".team-bottom").text();
+                team2 = team2.replace($("[bagian='semifinalkiri1']").children(".team-bottom").children("span").text(), "");
+                if ($("[bagian='semifinalkiri1']").children(".team-top").hasClass("winner")) {
+                    $("[bagian='semifinalkiri1']").attr("status", "finished");
+                    nextRound("semifinalkiri1", team1);
+                    thirdround("atas", team2);
+                } else if ($("[bagian='semifinalkiri1']").children(".team-bottom").hasClass("winner")) {
+                    $("[bagian='semifinalkiri1']").attr("status", "finished");
+                    nextRound("semifinalkiri1", team2);
+                    thirdround("atas", team1);
+                }
+                var team1 = $("[bagian='semifinalkanan1']").children(".team-top").text();
+                team1 = team1.replace($("[bagian='semifinalkanan1']").children(".team-top").children("span").text(), "");
+                var team2 = $("[bagian='semifinalkanan1']").children(".team-bottom").text();
+                team2 = team2.replace($("[bagian='semifinalkanan1']").children(".team-bottom").children("span").text(), "");
+                if ($("[bagian='semifinalkanan1']").children(".team-top").hasClass("winner")) {
+                    $("[bagian='semifinalkanan1']").attr("status", "finished");
+                    nextRound("semifinalkanan1", team1);
+                    thirdround("bawah", team2);
+                } else if ($("[bagian='semifinalkanan1']").children(".team-bottom").hasClass("winner")) {
+                    $("[bagian='semifinalkanan1']").attr("status", "finished");
+                    nextRound("semifinalkanan1", team2);
+                    thirdround("bawah", team1);
+                }
+                var team1 = $("[bagian='third1']").children(".team-top").text();
+                team1 = team1.replace($("[bagian='third1']").children(".team-top").children("span").text(), "");
+                var team2 = $("[bagian='third1']").children(".team-bottom").text();
+                team2 = team2.replace($("[bagian='third1']").children(".team-bottom").children("span").text(), "");
+                if ($("[bagian='third1']").children(".team-top").hasClass("winner")) {
+                    $("[bagian='third1']").attr("status", "finished");
+                } else if ($("[bagian='third1']").children(".team-bottom").hasClass("winner")) {
+                    $("[bagian='third1']").attr("status", "finished");
+                }
+                var team1 = $("[bagian='final1']").children(".team-top").text();
+                team1 = team1.replace($("[bagian='final1']").children(".team-top").children("span").text(), "");
+                var team2 = $("[bagian='final1']").children(".team-bottom").text();
+                team2 = team2.replace($("[bagian='final1']").children(".team-bottom").children("span").text(), "");
+                if ($("[bagian='final1']").children(".team-top").hasClass("winner")) {
+                    $("[bagian='final1']").attr("status", "finished");
+                } else if ($("[bagian='final1']").children(".team-bottom").hasClass("winner")) {
+                    $("[bagian='final1']").attr("status", "finished");
+                }
             }
 
             function checkFinished() {
@@ -705,16 +1202,24 @@ $idTurney = $_SESSION['idTournament'];
                     $("[bagian='semifinalkanan']").parent().removeClass("current");
                 }
                 if ($("[bagian='semifinalkanan']").children(".date").html() == "Finished" && $("[bagian='semifinalkiri']").children(".date").html() == "Finished") {
-                    $("[bagian='final']").parent().addClass("current");
+                    $("[bagian='third']").parent().addClass("current");
                     MAXsemifinalkiri = -1;
                     MAXsemifinalkanan = -1;
+                }
+                if ($('[bagian="third1"]').attr("status") == "finished" && !$("[bagian='third']").children(".date").length) {
+                    var winner = $("[bagian='third1']").children(".winner").html();
+                    var loser = $("[bagian='third1']").children(".loser").html();
+                    $("[bagian='third']").append("<span class='date'>3rd : " + winner + "</span>");
+                    $("[bagian='third']").parent().removeClass("current");
+                    $("[bagian='final']").parent().addClass("current");
+                    MAXthird = -1;
                 }
                 if ($('[bagian="final1"]').attr("status") == "finished") {
                     $(".fa-trophy").css("color", "#d7c13f");
                     $("[bagian='final1']").parent().removeClass("current");
                     var winner = $("[bagian='final1']").children(".winner").html();
                     var loser = $("[bagian='final1']").children(".loser").html();
-                    $("[bagian='final']").append("<span class='date'>Winner :" + winner + "</span>");
+                    $("[bagian='final']").append("<span class='date'>1st : " + winner + "<br>2nd : " + loser + "</span>");
 
                 }
             }

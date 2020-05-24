@@ -216,7 +216,7 @@ class Trans_model extends CI_model
         $config['smtp_port']    = '465';
         $config['smtp_timeout'] = '7';
         $config['smtp_user']    = 'noreply.morningowl@gmail.com';
-        $config['smtp_pass']    = 'kirimemail123';
+        $config['smtp_pass']    = 'qyonojwgyxjnwioo';
         $config['charset']    = 'utf-8';
         $config['newline']    = "\r\n";
         $config['mailtype'] = 'html'; // or html

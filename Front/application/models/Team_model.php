@@ -86,10 +86,8 @@ class Team_model extends CI_model
 
 
         $this->db->insert('team_members', $data);
-
         $this->session->set_userdata(array('insertTeam' => "true"));
         $this->session->set_userdata(array('idTeam' => $generateId));
-        $this->TeamMember_model->insertTeamMember();
     }
 
 

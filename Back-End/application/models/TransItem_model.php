@@ -43,7 +43,7 @@ class TransItem_model extends CI_model
                         "jumlah_item" => $amount
                     ];
 
-                    echo $amount;
+                    //echo $amount;
 
                     $this->db->where('id_item', $row2['id_item']);
                     $this->db->update('item', $data2);
@@ -57,13 +57,13 @@ class TransItem_model extends CI_model
                                 if ($row4['id_user'] == $row3['id_user']) {
 
                                     //ADMIN
-                                    $admin = $harga * 2 / 100;
+                                    $admin = 1000;
 
                                     $harga -= $admin;
                                     $saldo = $row4['saldo'];
                                     $saldo += $harga;
 
-                                    echo $saldo;
+                                    // echo $saldo;
 
                                     $queryUpdate = "update user set saldo = '" . $saldo . "' where id_user = '" . $row4['id_user'] . "' ";
                                     $this->db->query($queryUpdate);

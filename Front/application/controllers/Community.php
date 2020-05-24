@@ -251,15 +251,20 @@ class Community extends CI_Controller
         $this->session->unset_userdata('idTurnament');
         redirect('Community/refreshTournament');
     }
+    public function cancelTournament()
+    {
+        $this->Tournament_model->cancelTournament();
+        redirect('Community/refreshTournament');
+    }
 
     public function joinPertandingan()
     {
         $this->Pertandingan_model->joinPertandingan();
     }
 
-
     public function refreshTournament()
     {
+        $data['channelA'] = $this->Channel_model->getChannelById();
         $data['game'] = $this->Game_model->getAllGame();
         $data['tournament'] = $this->Tournament_model->getAllTournament();
         $data['standing'] = $this->Standing_model->getAllStanding();
@@ -295,6 +300,7 @@ class Community extends CI_Controller
     public function insertTeam()
     {
         $this->Team_model->insertTeam();
+        $this->TeamMember_model->insertTeamMember();
         redirect('Community/refreshAccItem');
     }
     public function editTeam()
@@ -474,7 +480,6 @@ class Community extends CI_Controller
     {
         $idTour = $this->input->post('id_turnament');
         $this->session->set_userdata(array('idTournament' => $idTour));
-        //redirect('Community/viewTournament');
     }
 
     public function viewTournament()
@@ -482,6 +487,7 @@ class Community extends CI_Controller
         $id = $this->session->userdata('id_user');
         $data['user'] = $this->User_model->getUserById($id);
 
+        $data['channelU'] = $this->ChannelUser_model->getAllChannelUser();
         $data['channelA'] = $this->Channel_model->getChannelById();
         $data['tournament'] = $this->Tournament_model->getAllTournament();
         $data['standing'] = $this->Standing_model->getAllStanding();
@@ -490,5 +496,10 @@ class Community extends CI_Controller
         $data['team'] = $this->Team_model->getAllTeam();
 
         $this->load->view('community/viewTournament', $data);
+    }
+
+    public function updateSkor()
+    {
+        $this->Pertandingan_model->updateSkor();
     }
 }

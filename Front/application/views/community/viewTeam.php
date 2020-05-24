@@ -260,7 +260,6 @@ if (isset($teamA)) {
                                         $jenis = "team";
                                     } ?>
 
-
                                     <div class="tourneyItem" jenis="<?= $jenis ?>" idTournament=<?= $turney['id_turnament'] ?> jumlah_pemain=<?= $turney['jumlah_pemain'] ?> jumlah_slot=<?= $turney['jumlah_slot'] ?>>
                                         <h2 class="yellow varela" style="margin-top: 2vh;"><?= $turney['nama_game'] ?></h2>
                                         <h6 class="varela" style="margin-top: 1vh;color: #ecf0f1;"><?= $turney['nama_turnament'] ?></h6>
@@ -298,12 +297,12 @@ if (isset($teamA)) {
                                             </div>
                                         </div>
                                         <div class="startDate">
-                                            <?php if ($turney['status'] == -1) {
-                                                echo "<p class='ongoing'> Cancelled </p>";
-                                            } else if ($turney['status'] == 0) {
+                                            <?php if ($turney['status'] == 0) {
                                                 echo "<p class='available'> Available </p>";
                                             } else if ($turney['status'] == 1) {
-                                                echo "<p class='ongoing'> Ongoing </p>";
+                                                echo "<p class='ongoing'> Full </p>";
+                                            } else if ($turney['status'] == 2) {
+                                                echo "<p class='ongoing'> OnGoing </p>";
                                             } else if ($turney['status'] == 2) {
                                                 echo "<p class='finished'> Finished </p>";
                                             } ?>
