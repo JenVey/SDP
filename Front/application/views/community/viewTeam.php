@@ -18,11 +18,13 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/bootstrap-clockpicker.css">
 
     <script src="<?php echo base_url(); ?>asset/Js/alertify.js"></script>
+
     <script src="<?php echo base_url(); ?>asset/Js/jquery-min.js"></script>
     <script src="<?php echo base_url(); ?>asset/Js/bootstrap.js"></script>
     <script src="<?php echo base_url(); ?>asset/Js/textFit.js"></script>
     <script src="<?php echo base_url(); ?>asset/Js/datepicker.js"></script>
     <script src="<?php echo base_url(); ?>asset/Js/jquery-clockpicker.min.js"></script>
+    <script src="<?php echo base_url(); ?>asset/Js/bootbox.js"></script>
 
 </head>
 <?php
@@ -250,11 +252,19 @@ if (isset($teamA)) {
                                     }
                                 }
                                 //agar muncul sekali
-                                if ($ada) { ?>
-                                    <div class="tourneyItem" idTournament=<?= $turney['id_turnament'] ?> jumlah_pemain=<?= $turney['jumlah_pemain'] ?> jumlah_slot=<?= $turney['jumlah_slot'] ?>>
+                                if ($ada) {
+
+                                    if ($turney['jenis_pemain'] == 1) {
+                                        $jenis = "person";
+                                    } else {
+                                        $jenis = "team";
+                                    } ?>
+
+
+                                    <div class="tourneyItem" jenis="<?= $jenis ?>" idTournament=<?= $turney['id_turnament'] ?> jumlah_pemain=<?= $turney['jumlah_pemain'] ?> jumlah_slot=<?= $turney['jumlah_slot'] ?>>
                                         <h2 class="yellow varela" style="margin-top: 2vh;"><?= $turney['nama_game'] ?></h2>
                                         <h6 class="varela" style="margin-top: 1vh;color: #ecf0f1;"><?= $turney['nama_turnament'] ?></h6>
-                                        <h6 style="font-size: 12px; color: rgba(236,240,241,0.37);"><?= $turney['jumlah_slot'] ?> Slots</h6>
+                                        <h6 style="font-size: 12px; color: rgba(236,240,241,0.37);"><?= $turney['jumlah_slot'] ?> Slots | <?= ucfirst($jenis)  ?></h6>
                                         <div class="standingsContainer">
                                             <h6 class="varela" style="color: #ecf0f1;">Standings</h6>
                                             <div class="standings">
@@ -300,6 +310,7 @@ if (isset($teamA)) {
                                             <p>Start: <span style="color: rgba(215,193,63,0.70);"><?= date_format(date_create($turney['tanggal_mulai']), "d F Y")  ?></span></p>
                                         </div>
                                     </div>
+
                             <?php }
                             } ?>
                         </div>
@@ -1070,16 +1081,6 @@ if (isset($teamA)) {
             jam = $('[name="reminderTime"]').val();
             waktu = hari + " " + jam;
 
-            alert(waktu);
-
-            // foto = $(".imageContainer").find('img').attr('src');
-
-            // if (foto.substring(11, 12) == "j") {
-            //     foto = foto.substring(23, foto.length);
-            // } else {
-            //     foto = foto.substring(22, foto.length);
-            // }
-
             $.ajax({
                 url: "<?= base_url(); ?>Community/insertReminder",
                 method: "post",
@@ -1157,6 +1158,40 @@ if (isset($teamA)) {
             }
         });
     });
+
+    $(".tourneys").on("click", ".tourneyItem", function() {
+        id_turnament = $(this).attr("idTournament");
+        dialog = bootbox.dialog({
+            title: "Action",
+            message: "<p>What are you going to do?</p>",
+            closeButton: false,
+            buttons: {
+                cancel: {
+                    label: "Nothing",
+                    className: 'back',
+                    callback: function() {}
+                },
+                noclose: {
+                    label: "View Bracket",
+                    className: 'view',
+                    callback: function() {
+                        $.ajax({
+                            url: "<?= base_url(); ?>Community/setTournament",
+                            method: "post",
+                            data: {
+                                id_turnament: id_turnament
+                            },
+                            success: function(result) {
+                                window.location.href = '<?= base_url(); ?>Community/viewTournament';
+                            }
+                        });
+                    }
+                }
+            }
+
+        });
+    });
+</script>
 </script>
 
 </html>

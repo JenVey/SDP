@@ -3,9 +3,10 @@ class Pesan_model extends CI_model
 {
     public function getAllPesan()
     {
-        $query = "select u.nama_user as 'pengirim', p.pesan as 'pesan', p.tanggal as 'tgl', p.status as 'status', p.id_penerima as 'id_penerima', u.foto as 'foto', p.id_pengirim as 'id_pengirim',p.tipe_penerima as 'tipe_penerima'
+        $query = "select m.nama_merchant as 'nama_merchant',m.foto_profil as 'foto_merchant', u.nama_user as 'pengirim', p.pesan as 'pesan', p.tanggal as 'tgl', p.status as 'status', p.id_penerima as 'id_penerima', u.foto as 'foto', p.id_pengirim as 'id_pengirim',p.tipe_penerima as 'tipe_penerima'
         from pesan p
         left join user u on u.id_user = p.id_pengirim 
+        left join merchant m on m.id_merchant = p.id_pengirim
         order by p.tanggal";
 
         $res = $this->db->query($query);
@@ -15,27 +16,6 @@ class Pesan_model extends CI_model
     public function getAllPesanByIdPengirim($id)
     {
         $cek = substr($id, 0, 1);
-        // if ($cek == "C") {
-        //     $query = "SELECT U.NAMA 'pengirim', P.PESAN AS 'pesan', P.TANGGAL AS 'tgl', P.STATUS AS 'status'
-        //     FROM PESAN P
-        //     JOIN CHANNEL C ON C.ID_CHANNEL = P.ID_PENERIMA
-        //     JOIN USER U ON U.ID_USER = P.ID_PENGIRIM
-        //     WHERE P.ID_PENERIMA = '" . $id . "'
-        //     ORDER BY P.TANGGAL";
-        // } else if ($cek == "T") {
-        //     $query = "SELECT U.NAMA 'pengirim', P.PESAN AS 'pesan', P.TANGGAL AS 'tgl', P.STATUS AS 'status'
-        //     FROM PESAN P
-        //     JOIN TEAM T ON T.ID_TEAM = P.ID_PENERIMA
-        //     JOIN USER U ON U.ID_USER = P.ID_PENGIRIM
-        //     WHERE P.ID_PENERIMA = '" . $id . "'
-        //     ORDER BY P.TANGGAL";
-        // } else if ($cek == "U") {
-        //     $query = "SELECT U.NAMA 'pengirim', P.PESAN AS 'pesan', P.TANGGAL AS 'tgl', P.STATUS AS 'status'
-        //     FROM PESAN P
-        //     JOIN USER U ON U.ID_USER = P.ID_PENERIMA
-        //     WHERE P.ID_PENERIMA = '" . $id . "'
-        //     ORDER BY P.TANGGAL";
-        // }
 
         $id = $this->input->post('');
         $query = "select u.nama_user as 'pengirim', p.pesan as 'pesan', p.tanggal as 'tgl', p.status as 'status'
@@ -122,6 +102,14 @@ class Pesan_model extends CI_model
         $idCust = $this->input->post('id_pengirim');
         $idMch =  $this->input->post('id_penerima');
         $query = "update pesan set status = 1 where id_pengirim = '" . $idCust . "' and id_penerima = '" . $idMch . "'";
+        $this->db->query($query);
+    }
+
+    public function readMerchant()
+    {
+        $idMch = $this->input->post('id_pengirim');
+        $idUser =  $this->input->post('id_penerima');
+        $query = "update pesan set status = 1 where id_pengirim = '" . $idMch . "' and id_penerima = '" . $idUser . "'";
         $this->db->query($query);
     }
 }

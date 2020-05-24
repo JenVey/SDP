@@ -58,9 +58,8 @@ class Community extends CI_Controller
         $data['game'] = $this->Game_model->getAllGame();
         $data['tournament'] = $this->Tournament_model->getAllTournament();
         $data['standing'] = $this->Standing_model->getAllStanding();
-        //$data['pertandingan'] = $this->Petandingan_model->getAllPertandingan();
-        //$data['team'] = $this->Team_model->getAllTeam();
-        //$this->load->view('templates/header', $data);
+        $data['pertandingan'] = $this->Pertandingan_model->getAllPertandingan();
+        $data['team'] = $this->Team_model->getAllTeam();
         $this->load->view('community/viewChannel', $data);
     }
 
@@ -487,7 +486,8 @@ class Community extends CI_Controller
         $data['tournament'] = $this->Tournament_model->getAllTournament();
         $data['standing'] = $this->Standing_model->getAllStanding();
         $data['pertandingan'] = $this->Pertandingan_model->getAllPertandingan();
-        //$data['team'] = $this->Team_model->getAllTeam();
+        $data['games'] = $this->Game_model->getAllGame();
+        $data['team'] = $this->Team_model->getAllTeam();
 
         $this->load->view('community/viewTournament', $data);
     }

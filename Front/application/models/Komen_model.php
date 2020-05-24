@@ -12,7 +12,7 @@ class Komen_model extends CI_model
 
     public function getKomenByIdItem($id)
     {
-        $query = "select u.nama_user as 'nama', k.pesan as 'pesan', u.foto as 'foto'
+        $query = "select u.nama_user as 'nama', k.pesan as 'pesan', u.foto as 'foto',k.id_komentar as 'id_komentar'
         from item_komentar k 
         join item i on k.id_item = i.id_item 
         join user u on u.id_user = k.id_user 
@@ -24,7 +24,7 @@ class Komen_model extends CI_model
     public function insertComment($idItem)
     {
         $query = $this->db->query("select * from item_komentar");
-        $komen = $this->input->post('commentUser');
+        $komen = $this->input->post('pesan');
         $user = $this->input->post('idUser');
 
         $ctr = 1;

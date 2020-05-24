@@ -38,6 +38,7 @@ class Shop extends CI_Controller
         $this->load->model('Promo_model');
         $this->load->model('Pesan_model');
         $this->load->model('Subs_model');
+        $this->load->model('Reply_model');
     }
 
     public function index()
@@ -121,11 +122,13 @@ class Shop extends CI_Controller
     {
         $id = $this->session->userdata('id_user');
         $data['user'] = $this->User_model->getUserById($id);
+        $data['allUser'] = $this->User_model->getAllUser();
         $data['merchantF'] = $this->Merchant_model->getMerchantByIdUser($id);
         $data['merchant'] = $this->Merchant_model->getAllMerchant();
         $data['item'] = $this->Item_model->getItemById($idI);
         $data['games'] = $this->Game_model->getAllGame();
         $data['komen'] = $this->Komen_model->getKomenByIdItem($idI);
+        $data['reply'] = $this->Reply_model->getAllReply();
         $this->load->view('shop/viewItem', $data);
     }
 
@@ -298,6 +301,7 @@ class Shop extends CI_Controller
             $id = $this->session->userdata('id_user');
             $data['user'] = $this->User_model->getUserById($id);
             $data['allUser'] = $this->User_model->getAllUser();
+            $data['allMerchant'] = $this->Merchant_model->getAllMerchant();
             $data['merchant'] = $this->Merchant_model->getMerchantUser($id);
             $data['custA'] = $this->User_model->getUserById($jenis);
             $data['pesan'] = $this->Pesan_model->getAllPesan();
@@ -408,18 +412,25 @@ class Shop extends CI_Controller
         redirect('Shop');
     }
 
-    public function insertComment($id)
+    public function insertComment($jenis)
     {
-        $this->form_validation->set_rules('commentUser', 'Comment', 'required');
-
-
-        if ($this->form_validation->run() == FALSE) {
-            $this->load->view('register');
+        $idI = $this->input->post("id_item");
+        if ($jenis == "komen") {
+            $this->Komen_model->insertComment($idI);
         } else {
-            $this->Komen_model->insertComment($id);
-            redirect('Shop/viewItem/' . $id);
+            $this->Reply_model->insertReply();
         }
+        $id = $this->session->userdata('id_user');
+        $data['user'] = $this->User_model->getUserById($id);
+        $data['allUser'] = $this->User_model->getAllUser();
+        $data['merchant'] = $this->Merchant_model->getAllMerchant();
+        $data['item'] = $this->Item_model->getItemById($idI);
+        $data['komen'] = $this->Komen_model->getKomenByIdItem($idI);
+        $data['reply'] = $this->Reply_model->getAllReply();
+
+        $this->load->view('shop/refreshComment', $data);
     }
+
 
     public function unlikeMerchant()
     {
@@ -527,17 +538,24 @@ class Shop extends CI_Controller
             $this->load->view('shop/refreshChatU', $data);
         } else {
             $id = $this->session->userdata('id_user');
+            $idCust = $this->input->post("id_penerima");
             $data['user'] = $this->User_model->getUserById($id);
-            $data['custA'] = $this->User_model->getUserById($jenis);
-            $data['merchant'] = $this->Merchant_model->getMerchantUser($id);
+            $data['allUser'] = $this->User_model->getAllUser();
+            $data['allMerchant'] = $this->Merchant_model->getAllMerchant();
+            $data['merchant'] = $this->Merchant_model->getMerchantById($idM);
+            $data['custA'] = $this->User_model->getUserById($idCust);
             $data['pesan'] = $this->Pesan_model->getAllPesan();
             $this->load->view('shop/refreshChatM', $data);
         }
     }
 
-    public function readCust()
+    public function read($jenis)
     {
-        $this->Pesan_model->readCust();
+        if ($jenis == "cust") {
+            $this->Pesan_model->readCust();
+        } else {
+            $this->Pesan_model->readMerchant();
+        }
     }
 
     public function insertSubs()

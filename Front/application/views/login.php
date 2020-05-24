@@ -13,6 +13,8 @@
   <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/alerts.css">
   <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/themes/default.css">
   <script src="<?php echo base_url(); ?>asset/Js/alertify.js"></script>
+  <script src="<?php echo base_url(); ?>asset/Js/bootbox.js"></script>
+  <script src="<?php echo base_url(); ?>asset/Js/bootstrap.js"></script>
 </head>
 
 <body>
@@ -35,50 +37,6 @@
   <p class="SubTitle" style="left: 90px;top: 410px;">A place where we can gather and shop items.
     <br />Same time, same place.</p>
   <div class="RegButton" onclick="location.href='<?= base_url(); ?>Register'"> Register now</div>
-
-  <div class="forgot">
-    <h1 style="position: absolute; left: 230px;top:40px; z-index: 2; color: white; font-family: Varela;">Which one is still yours?</h1>
-    <h4 style="position: absolute; left: 240px; top: 90px; z-index: 2; color: white; font-family: Varela;">so we can send the verification to you</h4>
-    <div class="chooseDivs" id="email">
-      <svg xmlns="http://www.w3.org/2000/svg" width="170.948" height="124.6" viewBox="0 0 120.948 74.6" style="margin-top: 80px;">
-        <path id="Icon_zocial-email" data-name="Icon zocial-email" d="M.072,72.061V10.675q0-.107.35-2.025L39.96,39.556.539,74.192a8.345,8.345,0,0,1-.467-2.131ZM5.32,4.388A5.449,5.449,0,0,1,7.3,4.068H113.789a7.173,7.173,0,0,1,2.1.32L76.233,35.4l-5.248,3.837L60.6,47.016l-10.38-7.78L44.976,35.4Zm.117,73.961L45.209,43.5,60.6,54.9,76,43.5l39.772,34.849a6.075,6.075,0,0,1-1.983.32H7.3a5.726,5.726,0,0,1-1.866-.32ZM81.248,39.556,120.67,8.651a5.862,5.862,0,0,1,.35,2.025V72.061a7.517,7.517,0,0,1-.35,2.131Z" transform="translate(-0.072 -4.068)" fill="#d7c13f" />
-      </svg>
-      <h1 style="color: white; margin-top: 100px;">E-Mail</h1>
-    </div>
-    <div class="chooseDivs" id="phone">
-      <svg xmlns="http://www.w3.org/2000/svg" width="121.126" height="252.899" viewBox="0 0 151.126 282.899">
-        <path id="Icon_ionic-ios-phone-portrait" data-name="Icon ionic-ios-phone-portrait" d="M139.516,2.25H32.466c-12.352,0-22.341,9.219-22.341,20.775v240.59c0,11.619,9.99,21.533,22.341,21.533H139.449a21.644,21.644,0,0,0,21.8-21.533V23.025C161.318,11.469,151.868,2.25,139.516,2.25ZM75.6,16.774H95.846a2.625,2.625,0,0,1,2.7,2.526,2.625,2.625,0,0,1-2.7,2.526H75.6A2.625,2.625,0,0,1,72.9,19.3,2.625,2.625,0,0,1,75.6,16.774Zm10.462,258.9c-6.48,0-11.744-4.925-11.744-10.988S79.579,253.7,86.059,253.7,97.8,258.627,97.8,264.689,92.539,275.677,86.059,275.677Zm63.109-30.942H22.274a1.312,1.312,0,0,1-1.35-1.263V35.718a1.312,1.312,0,0,1,1.35-1.263H149.168a1.312,1.312,0,0,1,1.35,1.263V243.472A1.312,1.312,0,0,1,149.168,244.735Z" transform="translate(-10.125 -2.25)" fill="#d7c13f" />
-      </svg>
-      <h1 style="color: white; margin-top: 50px;">Phone Number</h1>
-    </div>
-    <div style="width: 1px; height: 350px; position: absolute; left: 437px;
-				top: 160px; background: #D7C13F;"></div>
-  </div>
-
-  <div class="yourEmail" style="width: 880px; height: 650px;  background-color: #585D68; padding: 10px; box-sizing: border-box; text-align: center;">
-    <p class="Title" id="ttlEmail" style="position:absolute; ">What is your <em>E-mail?</em></p>
-    <input id="iptEmail" type="text" style="width: 500px; height: 50px; font-size: 16pt; background-color:#353B48; border: none; color: #D7C13F; padding-left: 10px; border-radius: 20px; position: absolute; left: 200px; top:300px;">
-    <input class="btnEmail" type="submit" name="submit" value="Submit">
-  </div>
-
-  <div class="yourPhone" style="width: 880px; height: 650px;  background-color: #585D68; padding: 10px; box-sizing: border-box; text-align: center;">
-    <p class="Title" id="ttlPhone" style="position:absolute; ">What is your <em>Phone Number?</em></p>
-    <input id="iptPhone" type="text" style="width: 500px; height: 50px; font-size: 16pt; background-color:#353B48; border: none; color: #D7C13F; padding-left: 10px; border-radius: 20px; position: absolute; left: 200px; top:300px;">
-    <input class="btnPhone" type="submit" name="submit" value="Submit">
-  </div>
-
-  <div class="success">
-    <div class="check">
-      <div class="textVeri">SUCCESS</div>
-      <div class="textExp">The mail will expire in 24 hours</div>
-      <svg id=centang1 xmlns="http://www.w3.org/2000/svg" width="215" height="215" viewBox="0 0 215 215">
-        <ellipse id="Ellipse_58" data-name="Ellipse 58" cx="107.5" cy="107.5" rx="107.5" ry="107.5" fill="#69f0ae" />
-      </svg>
-      <svg id="centang2" xmlns="http://www.w3.org/2000/svg" width="134.385" height="117.583" viewBox="0 0 134.385 117.583">
-        <path id="Path_1265" data-name="Path 1265" d="M319.351,289.686l40.308,36.955,57.109-83.981,20.167,16.8L359.659,360.243,302.55,296.416Z" transform="translate(-302.55 -242.66)" fill="#fff" />
-      </svg>
-    </div>
-  </div>
 
   <div class="svgLanding" style="content: url('<?= base_url(); ?>asset/Images/SVG/LandingPage.svg');"></div>
   <!--Segitiga-->
@@ -114,69 +72,33 @@
 
   <script>
     $(document).ready(function() {
-
-      $('.forgot').hide();
-      $('.success').hide();
-      $('.yourEmail').hide();
-      $('.yourPhone').hide();
-
       $('.forgotClick2').click(function() {
-        $(".forgot").fadeIn("slow");
+        //$(".forgot").fadeIn("slow");
+        bootbox.prompt({
+          title: "Forgot Password",
+          message: "<p>My email is</p>",
+          inputType: 'email',
+          required: true,
+          closeButton: false,
+          callback: function(result) {
+            email = result;
+            if (result) {
+              bootbox.confirm({
+                message: "We will send the recovery link in your email",
+                closeButton: false,
+                callback: function(result) {
+                  if (result) {
+                    window.location.href = '<?= base_url(); ?>Email/index/'.concat(email);
+                    $('.forgot').fadeOut("slow");
+                    $('.yourEmail').fadeOut("slow");
+                    alertify.success("Email sent")
+                  }
+                }
+              });
+            }
+          }
+        });
       });
-
-
-      $(document).mouseup(function(e) {
-        var container = $(".forgot");
-        // If the target of the click isn't the container
-        if (!container.is(e.target) && container.has(e.target).length === 0) {
-          $(".forgot").fadeOut("slow");
-        }
-      });
-
-      $(document).mouseup(function(e) {
-        var container = $(".yourEmail");
-        // If the target of the click isn't the container
-        if (!container.is(e.target) && container.has(e.target).length === 0) {
-          $(".yourEmail").fadeOut("slow");
-        }
-      });
-
-      $(document).mouseup(function(e) {
-        var container = $(".yourPhone");
-        // If the target of the click isn't the container
-        if (!container.is(e.target) && container.has(e.target).length === 0) {
-          $(".yourPhone").fadeOut("slow");
-        }
-      });
-
-      $('#email').click(function() {
-        $('.yourEmail').fadeIn("slow");
-      });
-
-      $('#phone').click(function() {
-        $('.yourPhone').fadeIn("slow");
-      });
-
-      $('.btnEmail').click(function() {
-        var email = $('#iptEmail').val();
-        window.location.href = '<?= base_url(); ?>Email/index/'.concat(email);
-        $('.forgot').fadeOut("slow");
-        $('.yourEmail').fadeOut("slow");
-        // $('.success').fadeIn("slow");
-        alertify.success("Email sent")
-      });
-
-
-      $('.btnPhone').click(function() {
-        var phone = $('#iptPhone').val();
-        alert(phone);
-        window.location.href = '<?= base_url(); ?>Email/index/'.concat(phone);
-        $('.forgot').fadeOut("slow");
-        $('.yourPhone').fadeOut("slow");
-        // $('.success').fadeIn("slow");
-      });
-
-
 
     });
   </script>
