@@ -90,7 +90,7 @@ foreach ($pesan as $psn) {
                                         }
                                     }
                                     if ($notif) {
-                                        echo $users['nama_user'] . " (ADA PESAN BARU)";
+                                        echo $users['nama_user'] . " <b>(New message)</b>";
                                     } else {
                                         echo $users['nama_user'];
                                     } ?>

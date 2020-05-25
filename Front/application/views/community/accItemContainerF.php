@@ -22,7 +22,7 @@
                                                                                     }
                                                                                 } ?>>
                 <div class="profileImg" style="margin-left: 0;"><img src="data:image/jpeg;base64,<?= base64_encode($frn['foto']) ?>" width="50" height="50" alt="" /></div>
-                <h6 class="profileName"><?= $frn['nama_user'] . " (ADA PESAN BARU)" ?></h6>
+                <h6 class="profileName"><?= $frn['nama_user'] . " <b>(New message)</b>" ?></h6>
             </div>
         <?php } ?>
 <?php

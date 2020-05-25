@@ -209,7 +209,7 @@ if ($ada == false) {
                             </div>
                             <h5 class="userName"><?= $comment['nama'] ?></h5>
                         </div>
-                        <p class="comment varela"><?= $comment['pesan'] ?></p>
+                        <p class="comment varela"><?= $comment['pesan'] ?><span class="yellow commentDate" style="font-size: 8px;font-family: Roboto;letter-spacing: 2px;"> - <?= date('d/m/Y', strtotime($comment['tgl_komentar'])) ?></span></p>
                     </div>
                     <?php foreach ($reply as $rep) {
                         if ($rep['id_komentar'] == $comment['id_komentar']) { ?>
@@ -232,7 +232,7 @@ if ($ada == false) {
                                                                 }
                                                             }
                                                             ?></h5>
-                                <p class="comment varela"><?= $rep['pesan'] ?></p>
+                                <p class="comment varela"><?= $rep['pesan'] ?><span class="yellow commentDate" style="font-size: 8px;font-family: Roboto;letter-spacing: 2px;"> - <?= date('d/m/Y', strtotime($rep['tgl_reply'])) ?></span></p>
                             </div>
                     <?php }
                     } ?>
@@ -255,13 +255,16 @@ if ($ada == false) {
             if (!$(this).siblings(".replyTab").length) {
                 $(this).parent().append("<div class='replyTab'><div id='replyMe' contenteditable></div><button class='replyComment'><h5>Send</h5></button></div>");
                 var message = $(this).children(".comment").html();
+                message = message.replace($(this).children(".comment").children(".commentDate").text(), "");
                 $(this).siblings(".replyTab").children("#replyMe").prepend("<span class='yellow' style='border-right: solid 2px #1e2126;margin-right: 5px; padding-right:10px;box-sizing:border-box;' contenteditable='false'>" + message + "</span>");
             } else if ($(this).siblings(".replyTab").children("#replyMe").children("span").length) {
                 $(this).siblings(".replyTab").children("#replyMe").children("span").remove();
                 var message = $(this).children(".comment").html();
+                message = message.replace($(this).children(".comment").children(".commentDate").text(), "");
                 $(this).siblings(".replyTab").children("#replyMe").prepend("<span class='yellow' style='border-right: solid 2px #1e2126;margin-right: 5px; padding-right:10px;box-sizing:border-box;' contenteditable='false'>" + message + "</span>");
             } else {
                 var message = $(this).children(".comment").html();
+                message = message.replace($(this).children(".comment").children(".commentDate").text(), "");
                 $(this).siblings(".replyTab").children("#replyMe").prepend("<span class='yellow' style='border-right: solid 2px #1e2126;margin-right: 5px; padding-right:10px;box-sizing:border-box;' contenteditable='false'>" + message + "</span>");
             }
         });
@@ -269,13 +272,16 @@ if ($ada == false) {
             if (!$(this).siblings(".replyTab").length) {
                 $(this).parent().append("<div class='replyTab'><div id='replyMe' contenteditable></div><button class='replyComment'><h5>Send</h5></button></div>");
                 var message = $(this).children(".comment").html();
+                message = message.replace($(this).children(".comment").children(".commentDate").text(), "");
                 $(this).siblings(".replyTab").children("#replyMe").prepend("<span class='yellow' style='border-right: solid 2px #1e2126;margin-right: 5px; padding-right:10px;box-sizing:border-box;' contenteditable='false'>" + message + "</span>");
             } else if ($(this).siblings(".replyTab").children("#replyMe").children("span").length) {
                 $(this).siblings(".replyTab").children("#replyMe").children("span").remove();
                 var message = $(this).children(".comment").html();
+                message = message.replace($(this).children(".comment").children(".commentDate").text(), "");
                 $(this).siblings(".replyTab").children("#replyMe").prepend("<span class='yellow' style='border-right: solid 2px #1e2126;margin-right: 5px; padding-right:10px;box-sizing:border-box;' contenteditable='false'>" + message + "</span>");
             } else {
                 var message = $(this).children(".comment").html();
+                message = message.replace($(this).children(".comment").children(".commentDate").text(), "");
                 $(this).siblings(".replyTab").children("#replyMe").prepend("<span class='yellow' style='border-right: solid 2px #1e2126;margin-right: 5px; padding-right:10px;box-sizing:border-box;' contenteditable='false'>" + message + "</span>");
             }
         });

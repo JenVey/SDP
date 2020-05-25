@@ -47,6 +47,8 @@
 				<div><input id="regPhone" name="regPhone" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="form-control mr-sm-2" type="number" placeholder="Phone Number" aria-label="Phone Number" maxlength="12"></div>
 				<div><input id="regCPass" name="regCPass" class="form-control mr-sm-2" type="password" placeholder="Confirm Password" aria-label="Confirm Password" maxlength="12"></div>
 				<input class="jk" type="hidden" name="regJk" value="">
+				<input type="file" name="foto" id="foto">
+				<div class="altImg"> </div>
 				<div class="Gender">
 					<!--girl-->
 					<svg class="girl" xmlns="http://www.w3.org/2000/svg" width="76.433" height="100" viewBox="0 0 76.433 100">
@@ -145,6 +147,11 @@
 		</div>
 	</form>
 	<script>
+		$(document).ready(function() {
+			$("#foto").val("<?= base_url() . 'asset/Images/altProfile.png' ?>");
+			$("#foto").trigger("change");
+		});
+
 		$('.boy').click(function() {
 			$('#Group_116').css('opacity', 1);
 			$('#Group_64').css('opacity', 0.3);
@@ -162,6 +169,28 @@
 				year: 2000,
 				month: 00,
 				day: 00
+			}
+		});
+
+		// function profile() {
+		// 	altProfile = $("#foto");
+		// 	if (altProfile.files && altProfile.files[0]) {
+		// 		var reader = new FileReader();
+		// 		reader.onload = function(e) {
+		// 			var img = $('<img>').attr('src', e.target.result);
+		// 			$('.altImg').html(img);
+		// 		};
+		// 		reader.readAsDataURL(altProfile.files[0]);
+		// 	}
+		// }
+		$('#foto').change(function() {
+			if (this.files && this.files[0]) {
+				var reader = new FileReader();
+				reader.onload = function(e) {
+					var img = $('<img>').attr('src', e.target.result);
+					$('.altImg').html(img);
+				};
+				reader.readAsDataURL(this.files[0]);
 			}
 		});
 	</script>

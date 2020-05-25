@@ -48,6 +48,7 @@ foreach ($tournament as $turney) {
         $namaTurney = $turney['nama_turnament'];
         $namaChannel = $turney['nama_channel'];
         $namaGame = $turney['nama_game'];
+        $turneyStatus = $turney['status'];
     }
 }
 $idTurney = $_SESSION['idTournament'];
@@ -648,10 +649,17 @@ $idTurney = $_SESSION['idTournament'];
     <script src="Js/jquery-min.js"></script>
     <script src="Js/alertify.js"></script>
     <script>
-        var mulai = true; // <= Check mulai
+        <?php if ($turneyStatus == 2) { ?>
+            var mulai = true; // <= Check mulai
+        <?php } else { ?>
+            var mulai = false;
+        <?php } ?>
+
 
         <?php if (isset($_SESSION['admin']) || isset($_SESSION['master'])) { ?>
             var admin = true; // <= Check admin
+        <?php } else { ?>
+            var admin = false;
         <?php } ?>
 
         var slots = parseInt('<?= $slot ?>');; // <= Total Slot

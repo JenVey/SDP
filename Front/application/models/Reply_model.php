@@ -3,8 +3,8 @@ class Reply_model extends CI_model
 {
     public function getAllReply()
     {
-        $query = "select * from reply
-        order by 3";
+        $query = "select * from item_reply 
+        order by item_reply.tgl_reply desc";
         $res = $this->db->query($query);
         return $res->result_array();
         //return $this->db->get('item_reply')->result_array();

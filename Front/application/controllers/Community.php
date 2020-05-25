@@ -497,6 +497,11 @@ class Community extends CI_Controller
         $this->load->view('community/viewTournament', $data);
     }
 
+    public function cekTournament()
+    {
+        $this->Tournament_model->cekTournament();
+    }
+
     public function updateSkor()
     {
         $this->Pertandingan_model->updateSkor();

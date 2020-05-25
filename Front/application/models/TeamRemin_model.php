@@ -4,7 +4,13 @@ class TeamRemin_model extends CI_model
 
     public function getAllTeamRemin()
     {
-        return $this->db->get('team_reminder')->result_array();
+        $query = "select *
+        from team_reminder tr
+        order by tr.waktu asc ";
+        $res = $this->db->query($query);
+
+        return $res->result_array();
+        // $this->db->get('team_reminder')->result_array();
     }
 
     public function getAllTeamReminByIdTeam($idTeam)
@@ -46,8 +52,7 @@ class TeamRemin_model extends CI_model
 
         $tgl = $this->input->post('waktu');
         $tgl = strtotime($tgl);
-        $tgl = date("Y-d-m H:i", $tgl);
-
+        $tgl = date("Y-m-d H:i", $tgl);
 
 
         $data = [

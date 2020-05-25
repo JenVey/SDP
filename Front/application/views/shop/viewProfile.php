@@ -23,6 +23,7 @@
 	<script src="<?php echo base_url(); ?>asset/Js/textFit.js"></script>
 	<script src="<?php echo base_url(); ?>asset/Js/alertify.js"></script>
 	<script src="<?php echo base_url(); ?>asset/Js/datepicker.js"></script>
+	<script src="<?php echo base_url(); ?>asset/Js/bootbox.js"></script>
 	<script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-3P7SuUbxsTWXgTf3"></script>
 	<script src="https://code.highcharts.com/highcharts.js"></script>
 	<script src="https://code.highcharts.com/modules/exporting.js"></script>
@@ -265,7 +266,7 @@ if ($mchId != "") {
 					</svg>
 					Chat With Customer
 				</button>
-				<p class="bubbleNotif">99999</p>
+				<p class="bubbleNotif"></p>
 			</div>
 
 			<h2 class="yellow" style="margin-top: 10vh;">
@@ -366,7 +367,7 @@ if ($mchId != "") {
 															</div>";
 													}
 													echo "	<div class='Price' style='width: 10vw;color: #63D99E;'>
-																<p>IDR" . number_format(ceil($transItem['subtotal']), 0, ".", ".") . "</p>
+																<p>IDR " . number_format(ceil($transItem['subtotal']), 0, ".", ".") . "</p>
 															</div>
 
 															<h6 class='keterangan' style='color: #ecf0f1'>" . $transItem['keterangan'] . "</h6>
@@ -389,7 +390,7 @@ if ($mchId != "") {
 															</div>";
 													}
 													echo "	<div class='Price' style='width: 10vw;color: #63D99E;'>
-																<p>IDR" . number_format(ceil($transItem['subtotal']), 0, ".", ".") . "</p>
+																<p>IDR " . number_format(ceil($transItem['subtotal']), 0, ".", ".") . "</p>
 															</div>
 
 															<h6 class='keterangan' style='color: #ecf0f1'>" . $transItem['keterangan'] . "</h6>
@@ -1029,7 +1030,12 @@ if ($mchId != "") {
 			$(".subs").css("display", "none");
 			$(".bgblur").css("display", "none");
 			$(".navBarFix").css("display", "none");
-			$(".bubbleNotif").html('<?= $jmlChat ?>')
+			$(".bubbleNotif").css("display", "none");
+			<?php if ($jmlChat > 0) { ?>
+				$(".bubbleNotif").css("display", "block");
+				$(".bubbleNotif").html('<?= $jmlChat ?>')
+			<?php } ?>
+
 
 		});
 
@@ -1199,39 +1205,50 @@ if ($mchId != "") {
 		$(".addtoStash").click(function() {
 			var price = $(".additemPrice").html();
 			var stok = $(".addStok").html();
+
 			if (!isNaN(price) && !isNaN(stok)) {
-				name = $('.additemTitle').html();
-				id_game = $('.addItemGame option:selected').val();
-				desc = $('.additemDesc').html();
-				id_merchant = $('#merchantName').attr("idM");
-				foto = $("#imgDisplay").find('img').attr('src');
 
-				if (foto.substring(11, 12) == "j") {
-					foto = foto.substring(23, foto.length);
-				} else {
-					foto = foto.substring(22, foto.length);
-				}
+				bootbox.confirm({
+					message: "We will add 1000 to your price as administration.",
+					closeButton: false,
+					callback: function(result) {
+						if (result) {
+							name = $('.additemTitle').html();
+							id_game = $('.addItemGame option:selected').val();
+							desc = $('.additemDesc').html();
+							id_merchant = $('#merchantName').attr("idM");
+							foto = $("#imgDisplay").find('img').attr('src');
 
-				$.ajax({
-					url: "<?= base_url(); ?>Shop/insertItem",
-					method: "post",
-					data: {
-						name: name,
-						id_game: id_game,
-						price: price,
-						stok: stok,
-						desc: desc,
-						id_merchant: id_merchant,
-						foto: foto
-					},
-					success: function(result) {
-						alertify.success("SUCCESS TAMBAH ITEM !!!");
-						window.location.href = '<?= base_url(); ?>Shop/viewProfile/';
+							if (foto.substring(11, 12) == "j") {
+								foto = foto.substring(23, foto.length);
+							} else {
+								foto = foto.substring(22, foto.length);
+							}
+
+							$.ajax({
+								url: "<?= base_url(); ?>Shop/insertItem",
+								method: "post",
+								data: {
+									name: name,
+									id_game: id_game,
+									price: price,
+									stok: stok,
+									desc: desc,
+									id_merchant: id_merchant,
+									foto: foto
+								},
+								success: function(result) {
+									alertify.success("SUCCESS TAMBAH ITEM !!!");
+									window.location.href = '<?= base_url(); ?>Shop/viewProfile/';
+								}
+							});
+						}
 					}
 				});
+
 			} else {
-				if (isNaN(price)) alert("Price must be a number");
-				else if (isNaN(stok)) alert("Stok must be a number");
+				if (isNaN(price)) alertify.error("Price must be a number");
+				else if (isNaN(stok)) alertify.error("Stok must be a number");
 			}
 		});
 
@@ -1727,10 +1744,11 @@ if ($mchId != "") {
 						$(".ganti").children(".Date").css("display", "none");
 						$(".ganti").children(".kodePromo").css("display", "none");
 						$(".ganti").children(".keterangan").html("Awaiting admin 's approval");
+						alertify.success("Image sent");
 					}
 				});
 			} else {
-				alert("MASUKKAN FOTO DULU");
+				alertify.error("You haven't upload any image yet");
 			}
 		});
 

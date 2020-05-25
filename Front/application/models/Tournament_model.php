@@ -59,7 +59,7 @@ class Tournament_model extends CI_model
 
         $tgl = $this->input->post('tanggal_mulai');
         $tgl = strtotime($tgl);
-        $tgl = date("Y-d-m H:i", $tgl);
+        $tgl = date("Y-m-d H:i", $tgl);
 
         $jenis = $this->input->post('jenis_pemain');
         if ($jenis == "Team") {
@@ -131,5 +131,23 @@ class Tournament_model extends CI_model
         $this->db->update('tournament', $data);
 
         redirect('Community/refreshTournament');
+    }
+
+    public function cekTournament()
+    {
+        date_default_timezone_set('Asia/Jakarta');
+        $tgl = date("Y-m-d H:i:s");
+
+        $query = $this->db->query("select * from tournament");
+        foreach ($query->result_array() as $row) {
+            if ($tgl >= $row['tanggal_mulai'] && $row['status'] == 1) {
+                $data = [
+                    "status" => 2
+                ];
+
+                $this->db->where('id_turnament', $row['id_turnament']);
+                $this->db->update('tournament', $data);
+            }
+        }
     }
 }

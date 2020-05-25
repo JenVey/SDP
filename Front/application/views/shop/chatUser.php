@@ -107,7 +107,7 @@ foreach ($merchantF as $mchF) {
                                                                     }
                                                                 }
                                                                 if ($notif) {
-                                                                    echo $allMch['nama'] . " (ADA PESAN BARU)";
+                                                                    echo $allMch['nama'] . " <b>(New message)</b>";
                                                                 } else {
                                                                     echo $allMch['nama'];
                                                                 } ?> </h6>

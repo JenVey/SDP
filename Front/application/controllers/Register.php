@@ -72,13 +72,13 @@ class Register extends CI_Controller
 		}
 
 		if ($ada == 1) {
-			$this->form_validation->set_message('username_check', 'Usename sudah ada !!!');
+			$this->form_validation->set_message('username_check', 'Usename is already in use!');
 			return false;
 		} else if ($ada == 2) {
-			$this->form_validation->set_message('username_check', 'Email telah dipakai !!!');
+			$this->form_validation->set_message('username_check', 'Email is already in use!');
 			return false;
 		} else if ($ada == 3) {
-			$this->form_validation->set_message('username_check', 'Nomor HP telah dipakai !!!');
+			$this->form_validation->set_message('username_check', 'Phone number is already in use!');
 			return false;
 		} else {
 			return true;

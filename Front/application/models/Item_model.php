@@ -7,10 +7,23 @@ class Item_model extends CI_model
         $query = "select * from item i 
         join merchant m on m.id_merchant = i.id_merchant 
         join game g on g.id_game = i.id_game
-        and i.jumlah_item > 0 ";
-        //ORDER BY I.TANGGAL_UPLOAD DESC";
+        and i.jumlah_item > 0
+        order by i.tanggal_upload desc";
         $res = $this->db->query($query);
         return $res->result_array();
+    }
+
+
+    public function getItem($limit, $start)
+    {
+        $this->db->select('*');
+        $this->db->from('item i');
+        $this->db->join('merchant m', 'm.id_merchant = i.id_merchant');
+        $this->db->join('game g', ' g.id_game = i.id_game');
+        $this->db->where('i.jumlah_item >', 0);
+        $this->db->order_by('i.tanggal_upload', 'desc');
+        $this->db->limit($limit, $start);
+        return  $this->db->get()->result_array();
     }
 
     public function getItemById($id)
@@ -240,16 +253,6 @@ class Item_model extends CI_model
     }
 
 
-    public function getItem($limit, $start)
-    {
-        $this->db->select('*');
-        $this->db->from('item i');
-        $this->db->join('merchant m', 'm.id_merchant = i.id_merchant');
-        $this->db->join('game g', ' g.id_game = i.id_game');
-        $this->db->where('i.jumlah_item >', 0);
-        $this->db->limit($limit, $start);
-        return  $this->db->get()->result_array();
-    }
 
     public function countAllItem()
     {

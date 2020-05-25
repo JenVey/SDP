@@ -183,14 +183,14 @@
 																		<?= $itm['desc_item'] ?>
 																	</p>
 																</div>
-																<div class="merchantName" style="margin-left: 2.3vw; width: 10.3vw;">
+																<div class="merchantName" style="margin-left: 2.3vw; width: 10.3vw; color: #63D99E">
 																	<a><?php foreach ($merchant as $mch) {
 																			if ($itm['id_merchant'] == $mch['id']) {
 																				echo $mch['nama'];
 																			}
 																		} ?></a></div>
 																<div class="Price" style="width: 13vw;">
-																	<p>IDR <?= ceil($transItem['subtotal']) ?></p>
+																	<p>IDR <?= number_format(ceil($transItem['subtotal']), 0, ".", ".") ?></p>
 																</div>
 																<div class="game" style="width: 11.5vw;">
 																	<strong><?php foreach ($games as $game) {

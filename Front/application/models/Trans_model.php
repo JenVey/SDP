@@ -191,7 +191,6 @@ class Trans_model extends CI_model
                 }
                 $cashback = $total * $potongan / 100;
 
-
                 $data = [
                     "Gross_Amount" => $total,
                     "cashback" => $cashback
@@ -228,52 +227,52 @@ class Trans_model extends CI_model
         line-height: 1.4;
         background-color: #F5F7F9;
         -webkit-text-size-adjust: none;'>
-        <table class='email-wrapper' width='100%' cellpadding='0' cellspacing='0' style='width: 100%;
+    <table class='email-wrapper' width='100%' cellpadding='0' cellspacing='0' style='width: 100%;
         margin: 0;
         padding: 0;
         background-color: #F5F7F9;'>
-            <tr>
-                <td align='center'>
-                    <table class='email-content' width='100%' cellpadding='0' cellspacing='0'>
-                        <!-- Logo -->
-                        <tr>
-                            <td class='email-masthead' style='padding: 25px 0;
+        <tr>
+            <td align='center'>
+                <table class='email-content' width='100%' cellpadding='0' cellspacing='0'>
+                    <!-- Logo -->
+                    <tr>
+                        <td class='email-masthead' style='padding: 25px 0;
                 text-align: center;'><a class='email-masthead_name' style='font-size: 16px;
         font-weight: bold;
         color: #839197;
         text-decoration: none;
         text-shadow: 0 1px 0 white;'>gather.owl</a>
-                            </td>
-                        </tr>
-                        <!-- Email Body -->
-                        <tr>
-                            <td class='email-body' width='100%' style='width: 100%;
+                        </td>
+                    </tr>
+                    <!-- Email Body -->
+                    <tr>
+                        <td class='email-body' width='100%' style='width: 100%;
                 margin: 0;
                 padding: 0;
                 border-top: 1px solid #E7EAEC;
                 border-bottom: 1px solid #E7EAEC;
                 background-color: #FFFFFF;'>
-                                <table class='email-body_inner' align='center' width='570' cellpadding='0' cellspacing='0'>
-                                    <!-- Body content -->
-                                    <tr>
-                                        <td class='content-cell' style='padding: 35px;'>
-                                            <h1>Purchased Item Verification</h1>
-                                            <p>Hey " . $nama . ", 
-                                            just so we know you're already sent the desired items to your customer, Please press the button below to redirect you to our page and send the image needed </p>
-                                            <!-- Action -->
-                                            <table class='body-action' align='center' width='100%' cellpadding='0' cellspacing='0' style=' width: 100%;
+                            <table class='email-body_inner' align='center' width='570' cellpadding='0' cellspacing='0'>
+                                <!-- Body content -->
+                                <tr>
+                                    <td class='content-cell' style='padding: 35px;'>
+                                        <h1>Your item has been purchased !</h1>
+                                        <p>Hey " . $nama . "!<br>
+                                            For further information, go to your profile page so you can see what's the
+                                            item they bought. Be sure to send the proof that you have sent the item to
+                                            them and we will verify shortly and updated your balance according to the
+                                            price. </p>
+                                        <!-- Action -->
+                                        <table class='body-action' align='center' width='100%' cellpadding='0'
+                                            cellspacing='0' style=' width: 100%;
                         margin: 30px auto;
                         padding: 0;
                         text-align: center;'>
-                                                <tr>
-                                                    <td align='center'>
-                                                        <div>
-                                                            <!--[if mso]><v:roundrect xmlns:v='urn:schemas-microsoft-com:vml' xmlns:w='urn:schemas-microsoft-com:office:word' href='{{action_url}}' style='height:45px;v-text-anchor:middle;width:200px;' arcsize='7%' stroke='f' fill='t'>
-                                <v:fill type='tile' color='#414EF9' />
-                                <w:anchorlock/>
-                                <center style='color:#ffffff;font-family:sans-serif;font-size:15px;'>Verify</center>
-                                </v:roundrect><![endif]-->
-                                                            <a href='" . base_url() . "Shop/verifikasiItem/" . $idTransaksi . "?idM=" . $idM . " ' style=' display: inline-block;
+                                            <tr>
+                                                <td align='center'>
+                                                    <div>
+                                                        <a href='" . base_url() . "Login'
+                                                            style=' display: inline-block;
                                 width: 200px;
                                 background-color: #d7c13f;
                                 border-radius: 3px;
@@ -283,55 +282,54 @@ class Trans_model extends CI_model
                                 text-align: center;
                                 text-decoration: none;
                                 -webkit-text-size-adjust: none;
-                                mso-hide: all;'>Redirect Me</a>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                            <p>Sincerely,<br>The Morning Owl Team</p>
-                                            <!-- Sub copy -->
-                                            <table class='body-sub' style='  margin-top: 25px;
+                                mso-hide: all;'>Go to gather.owl</a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <p>Cheers,<br> Morning Owl Team.</p>
+                                        <!-- Sub copy -->
+                                        <table class='body-sub' style='  margin-top: 25px;
                         padding-top: 25px;
                         border-top: 1px solid #E7EAEC;'>
-                                                <tr>
-                                                    <td>
-                                                        <p class='sub' style='font-size: 12px;'>Thanks!
-                                                        </p>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <table class='email-footer' align='center' width='570' cellpadding='0' cellspacing='0'>
-                                    <tr>
-                                        <td class='content-cell' style='padding: 35px;'>
-                                            <p class='sub center' style='text-align: center;'>
-                                                Email sent by gather.owl<br> Copyright &copy; 2020 Morning Owl. All rights reserved
-                                            </p>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
-    </body>";
+                                            <tr>
+                                                <td>
+                                                    <p class='sub' style='font-size: 12px;'>Thanks!
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table class='email-footer' align='center' width='570' cellpadding='0' cellspacing='0'>
+                                <tr>
+                                    <td class='content-cell' style='padding: 35px;'>
+                                        <p class='sub center' style='text-align: center;'>
+                                            Email sent by gather.owl<br> Copyright &copy; 2020 Morning Owl. All rights
+                                            reserved
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>";
 
         $this->load->library('email', $config);
         $this->email->set_newline("\r\n");
-        $this->email->from('morningowl.company@gmail.com', 'ADMIN');
+        $this->email->from('morningowl.company@gmail.com', 'Morning Owl Team');
         $this->email->to($email);
-        $this->email->subject('VERIFIKASI ITEM');
+        $this->email->subject('SOMEONE BOUGHT YOUR ITEM');
         $this->email->message($message);
-
-        //$this->email->message('http://localhost/Github/SDP_Proyek/Front/Shop/verifikasi/' . $id);
 
         $this->email->send();
         $this->email->print_debugger();

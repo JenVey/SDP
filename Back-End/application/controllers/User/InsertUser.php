@@ -30,13 +30,10 @@ class InsertUser extends CI_Controller
 	public function index()
 	{
 		$this->load->model('User_model');
-		//$data['judul'] = 'Insert Data User';
 		$this->load->view('templates/header');
 		$this->load->view('templates/navbar');
 		$this->load->view('templates/sidebar');
 		$this->load->view('user/insertUser');
-		//$this->load->view('templates/footer',$data);
-
 	}
 
 	public function insert()
@@ -62,7 +59,7 @@ class InsertUser extends CI_Controller
 		} else {
 			$this->User_model->insertUser();
 			$this->session->set_flashdata('flash', 'Success Insert User !!!');
-			redirect('user/listUser');
+			redirect('User/ListUser');
 		}
 	}
 
@@ -77,7 +74,7 @@ class InsertUser extends CI_Controller
 		}
 
 		if ($ada == true) {
-			$this->form_validation->set_message('username_check', 'Usename sudah ada !!!');
+			$this->form_validation->set_message('username_check', 'Usename is already in use!!!');
 			return false;
 		} else {
 			return true;
@@ -96,7 +93,7 @@ class InsertUser extends CI_Controller
 		}
 
 		if ($ada == true) {
-			$this->form_validation->set_message('email_check', 'Email telah dipakai !!!');
+			$this->form_validation->set_message('email_check', 'Email is already in use !!!');
 			return false;
 		} else {
 			return true;
@@ -108,6 +105,6 @@ class InsertUser extends CI_Controller
 		$this->User_model->deleteUser($id);
 		$this->session->set_flashdata('flash', 'Success Deleted');
 
-		redirect('user/listUser');
+		redirect('User/ListUser');
 	}
 }

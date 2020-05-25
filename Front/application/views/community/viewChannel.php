@@ -391,17 +391,15 @@ foreach ($team as $tim) {
                     <h3 class="yellow">Event</h3>
                     <div id="eventContainer">
                         <div class="createTournamentForm collapse" id="eventForm">
-                            <div class="tourname">
-                                <h5 class="varela">Event Name</h5>
+                            <div class="headerInput" style="align-items: flex-end;color: #ecf0f1;">
+                                <h5 class="varela" style="margin-top: -25px;">Event Name</h5>
+                                <h5 class="varela" style="margin-top: -30px;">Message</h5>
+                                <h5 class="varela">Image</h5>
+                            </div>
+                            <div class="input">
                                 <input type="text" name="eventName" id="tourName">
-                            </div>
-                            <div class="tourname" style="width: 70%;">
-                                <h5 class="varela">Message</h5>
                                 <textarea name="message" id="message" cols="30" rows="10"></textarea>
-                            </div>
-                            <div class="tourname" style="margin-top: 8vh;width: 65%;">
                                 <input type="file" name="imgEvent" id="imgEvent" accept="image/x-png,image/jpg,image/jpeg" hidden>
-                                <h5 class="varela" style="margin-left: 0.5vw;">Image</h5>
                                 <div class="imageShow">
                                     <div class="imageContainer">
                                         <img class="img" style="display: block;" src="" alt="" hidden>
@@ -846,6 +844,14 @@ foreach ($team as $tim) {
     var action4 = false;
 
     $("#action1").click(function() {
+        $.ajax({
+            url: "<?= base_url(); ?>Community/cekTournament",
+            method: "post",
+            data: {},
+            success: function(result) {}
+        });
+
+
         $("#action1").css("outline", "none");
         if (!animated) {
             if (!action1) {
@@ -1303,29 +1309,33 @@ foreach ($team as $tim) {
             // alert(waktu);
             foto = $(".imageContainer").find('img').attr('src');
 
-            if (foto.substring(11, 12) == "j") {
-                foto = foto.substring(23, foto.length);
-            } else {
-                foto = foto.substring(22, foto.length);
-            }
-
-            $.ajax({
-                url: "<?= base_url(); ?>Community/insertEvent",
-                method: "post",
-                data: {
-                    id_channel: channelA,
-                    id_user: userA,
-                    judul: judul,
-                    pesan: desc,
-                    foto: foto
-                },
-                success: function(result) {
-                    $(".createTournamentForm").collapse("hide");
-                    $(".events").html(result);
-                    alertify.success("Success add Event");
-                    createEvent = false;
+            if (judul != "") {
+                if (foto.substring(11, 12) == "j") {
+                    foto = foto.substring(23, foto.length);
+                } else {
+                    foto = foto.substring(22, foto.length);
                 }
-            });
+
+                $.ajax({
+                    url: "<?= base_url(); ?>Community/insertEvent",
+                    method: "post",
+                    data: {
+                        id_channel: channelA,
+                        id_user: userA,
+                        judul: judul,
+                        pesan: desc,
+                        foto: foto
+                    },
+                    success: function(result) {
+                        $(".createTournamentForm").collapse("hide");
+                        $(".events").html(result);
+                        alertify.success("Success add Event");
+                        createEvent = false;
+                    }
+                });
+            } else {
+                alertify.error("Event Name is empty");
+            }
         }
     });
 
@@ -1340,30 +1350,35 @@ foreach ($team as $tim) {
             jumlah_slot = $('[name="slotTour"]').val();
             id_game = $("#TourGame").val();
             tanggal_mulai = $("#tourDate").val();
+            tanggal_mulai = tanggal_mulai.replace("/", "-");
+            tanggal_mulai = tanggal_mulai.replace("/", "-");
             //alert(nama_turnament);
             //alert(jumlah_slot);
             //alert(id_game);
             //alert(tanggal_mulai);
-            jenis_pemain = $("#TourJenis").val();
-            alert(jenis_pemain);
-            $.ajax({
-                url: "<?= base_url(); ?>Community/insertTournament",
-                method: "post",
-                data: {
-                    id_channel: channelA,
-                    id_user: userA,
-                    id_game: id_game,
-                    nama_turnament: nama_turnament,
-                    tanggal_mulai: tanggal_mulai,
-                    jumlah_slot: jumlah_slot,
-                    jenis_pemain: jenis_pemain
-                },
-                success: function(result) {
-                    $(".createTournamentForm").collapse("hide");
-                    $(".tourneys").html(result);
-                    alertify.success("Success add Tournament");
-                }
-            });
+            if (nama_turnament != "") {
+                jenis_pemain = $("#TourJenis").val();
+                $.ajax({
+                    url: "<?= base_url(); ?>Community/insertTournament",
+                    method: "post",
+                    data: {
+                        id_channel: channelA,
+                        id_user: userA,
+                        id_game: id_game,
+                        nama_turnament: nama_turnament,
+                        tanggal_mulai: tanggal_mulai,
+                        jumlah_slot: jumlah_slot,
+                        jenis_pemain: jenis_pemain
+                    },
+                    success: function(result) {
+                        $(".createTournamentForm").collapse("hide");
+                        $(".tourneys").html(result);
+                        alertify.success("Success add Tournament");
+                    }
+                });
+            } else {
+                alertify.error("Tournament name is empty");
+            }
         }
 
     });
@@ -1725,59 +1740,28 @@ foreach ($team as $tim) {
                             ok: {
                                 label: "Join Tournament",
                                 className: 'join',
-                                callback: function() {
-                                    bootbox.prompt({
-                                        title: "Joining Tournament",
-                                        message: "<p>Choose your team</p>",
+                                callback: function(result) {
+                                    namaTeam = result;
+                                    bootbox.confirm({
+                                        message: "Are you sure?",
                                         closeButton: false,
-                                        inputType: 'select',
-                                        inputOptions: [
-                                            <?php
-                                            $ctrTeam2 = 0;
-                                            foreach ($team as $tim) {
-                                                if ($tim['id_user'] == $user['id_user']) {
-                                                    if ($ctrTeam2 == $ctrTeam) {
-                                                        echo "{
-                                                            text: '" . $tim['nama_team'] . "',
-                                                            value: '" . $tim['nama_team'] . "',
-                                                            }";
-                                                    } else {
-                                                        echo "{
-                                                            text: '" . $tim['nama_team'] . "',
-                                                            value: '" . $tim['nama_team'] . "',
-                                                            },";
-                                                    }
-                                                    $ctrTeam2++;
-                                                }
-                                            } ?>
-                                        ],
-                                        required: true,
                                         callback: function(result) {
-                                            namaTeam = result;
                                             if (result) {
-                                                bootbox.confirm({
-                                                    message: "Are you sure?",
-                                                    closeButton: false,
-                                                    callback: function(result) {
-                                                        if (result) {
-                                                            $.ajax({
-                                                                url: "<?= base_url(); ?>Community/joinPertandingan",
-                                                                method: "post",
-                                                                data: {
-                                                                    id_turnament: id_turnament,
-                                                                    id_team: namaTeam,
-                                                                    jumlahPemain: jumlahPemain,
-                                                                    jumlah_slot: jumlahSlot
-                                                                },
-                                                                success: function(result) {
-                                                                    if (result == "joined") {
-                                                                        alertify.error('Already Joined Tournament');
-                                                                    } else {
-                                                                        $(".tourneys").html(result);
-                                                                        alertify.success('Successfully Joined Tournament');
-                                                                    }
-                                                                }
-                                                            });
+                                                $.ajax({
+                                                    url: "<?= base_url(); ?>Community/joinPertandingan",
+                                                    method: "post",
+                                                    data: {
+                                                        id_turnament: id_turnament,
+                                                        id_team: '<?= $user['nama_user'] ?>',
+                                                        jumlahPemain: jumlahPemain,
+                                                        jumlah_slot: jumlahSlot
+                                                    },
+                                                    success: function(result) {
+                                                        if (result == "joined") {
+                                                            alertify.error('Already Joined Tournament');
+                                                        } else {
+                                                            $(".tourneys").html(result);
+                                                            alertify.success('Successfully Joined Tournament');
                                                         }
                                                     }
                                                 });

@@ -156,15 +156,15 @@ class Email extends CI_Controller
 
             $this->load->library('email', $config);
             $this->email->set_newline("\r\n");
-            $this->email->from('morningowl.company@gmail.com', 'ADMIN');
+            $this->email->from('morningowl.company@gmail.com', 'Morning Owl Team');
             $this->email->to($email);
-            $this->email->subject('FORGOT PASSWORD');
+            $this->email->subject('Forgot password link for your account');
             $this->email->message($message);
 
             $this->email->send();
             echo $this->email->print_debugger();
         }
-        // redirect('login');
+        redirect('login');
     }
 
     public function verifikasi($id)
@@ -292,9 +292,9 @@ class Email extends CI_Controller
 
         $this->load->library('email', $config);
         $this->email->set_newline("\r\n");
-        $this->email->from('morningowl.company@gmail.com', 'ADMIN');
+        $this->email->from('morningowl.company@gmail.com', 'Morning Owl Team');
         $this->email->to($email);
-        $this->email->subject('VERIFIKASI EMAIL');
+        $this->email->subject('Email verification');
         $this->email->message($message);
 
         $this->email->send();

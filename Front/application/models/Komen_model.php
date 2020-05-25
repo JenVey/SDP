@@ -12,11 +12,12 @@ class Komen_model extends CI_model
 
     public function getKomenByIdItem($id)
     {
-        $query = "select u.nama_user as 'nama', k.pesan as 'pesan', u.foto as 'foto',k.id_komentar as 'id_komentar'
+        $query = "select u.nama_user as 'nama', k.pesan as 'pesan', u.foto as 'foto',k.id_komentar as 'id_komentar',k.tgl_komentar as 'tgl_komentar'
         from item_komentar k 
         join item i on k.id_item = i.id_item 
         join user u on u.id_user = k.id_user 
-        where k.id_item = '" . $id . "' ";
+        where k.id_item = '" . $id . "' 
+        order by k.tgl_komentar desc";
         $res = $this->db->query($query);
         return $res->result_array();
     }
