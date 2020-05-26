@@ -989,9 +989,10 @@ if ($mchId != "") {
 				price = price.substring(4, price.length);
 				$("#item" + i + "Price").html("IDR " + addCommas(price));
 			}
-			createfirstChart();
+
 			<?php
 			if ($mchNama != "") { ?>
+				createfirstChart();
 				var merchantName = <?php if (isset($mchNama)) {
 										echo "'" . $mchNama . "'";
 									} ?>;

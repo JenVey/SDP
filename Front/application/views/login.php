@@ -1,4 +1,3 @@
-<!doctype html>
 <html>
 
 <head>
@@ -18,6 +17,12 @@
 </head>
 
 <body>
+
+  <?php if ($this->session->flashdata('flash2')) : ?>
+    <div style="width:100%;height:5vh;background-color:#d7c13f;display:flex;justify-content:center;align-items:center">
+      <h5 style="color:#1e2126">We have sent an email verification to your account</h5>
+    </div>
+  <?php endif; ?>
   <nav class="navbar">
     <a class="logo" style="color: #D7C13F;" onclick="location.href='<?= base_url(); ?>'">gather.owl</a>
 

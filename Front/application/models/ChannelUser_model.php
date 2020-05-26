@@ -44,7 +44,6 @@ class ChannelUser_model extends CI_model
     public function insertChannelUser()
     {
         $idUser = $this->session->userdata('id_user');
-
         if (isset($_SESSION['newChannel'])) {
             $idChannel = $this->session->userdata('newChannel');
             $this->session->unset_userdata('newChannel');

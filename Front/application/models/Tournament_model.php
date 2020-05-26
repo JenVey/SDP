@@ -3,7 +3,7 @@ class Tournament_model extends CI_model
 {
     public function getAllTournament()
     {
-        $query = "select t.id_game as 'id_game',t.jenis_pemain as 'jenis_pemain', t.id_turnament as 'id_turnament', t.nama_turnament as 'nama_turnament', t.jumlah_pemain as 'jumlah_pemain', t.tanggal_mulai as 'tanggal_mulai' , t.jumlah_slot as 'jumlah_slot', t.tanggal_mulai as 'tanggal_mulai' ,g.nama_game as 'nama_game', t.status as 'status'
+        $query = "select c.id_channel as 'id_channel', c.nama_channel as 'nama_channel', t.id_game as 'id_game',t.jenis_pemain as 'jenis_pemain', t.id_turnament as 'id_turnament', t.nama_turnament as 'nama_turnament', t.jumlah_pemain as 'jumlah_pemain', t.tanggal_mulai as 'tanggal_mulai' , t.jumlah_slot as 'jumlah_slot', t.tanggal_mulai as 'tanggal_mulai' ,g.nama_game as 'nama_game', t.status as 'status'
         from tournament t
         join channel c on c.id_channel = t.id_channel 
         join game g on g.id_game = t.id_game ";
@@ -20,7 +20,7 @@ class Tournament_model extends CI_model
 
     public function getAllTournamentByIdChannel($id)
     {
-        $query = "select t.id_game as 'id_game', t.jenis_pemain as 'jenis_pemain',t.id_turnament as 'id_turnament', t.nama_turnament as 'nama_turnament', t.jumlah_pemain as 'jumlah_pemain', t.tanggal_mulai as 'tgl_mulai' , t.jumlah_slot as 'jumlah_slot', t.tanggal_mulai as 'tanggal_mulai' ,g.nama_game as 'nama_game', t.status as 'status'
+        $query = "select c.id_channel as 'id_channel', c.nama_channel as 'nama_channel', t.id_game as 'id_game', t.jenis_pemain as 'jenis_pemain',t.id_turnament as 'id_turnament', t.nama_turnament as 'nama_turnament', t.jumlah_pemain as 'jumlah_pemain', t.tanggal_mulai as 'tgl_mulai' , t.jumlah_slot as 'jumlah_slot', t.tanggal_mulai as 'tanggal_mulai' ,g.nama_game as 'nama_game', t.status as 'status'
         from tournament t
         join channel c on c.id_channel = t.id_channel 
         join game g on g.id_game = t.id_game
@@ -81,9 +81,20 @@ class Tournament_model extends CI_model
             "status" => 0
         ];
         $this->db->insert('tournament', $data);
+
+        $data = [
+            "id_turnament" => $generateId,
+        ];
+        $this->db->insert('tournament_standing', $data);
     }
 
-    public function cancelTournament($id)
+    //-1 = cancel
+    //0 = available slot
+    //1 = full
+    //2 = mulai
+    //3 = selesai
+
+    public function cancelTournament()
     {
         $id = $this->input->post('id_turnament');
         $data = [

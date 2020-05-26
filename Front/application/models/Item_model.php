@@ -200,7 +200,7 @@ class Item_model extends CI_model
         $harga = $this->input->post('price');
 
         //BIAYA ADMIN
-        $admin = $harga * 2 / 100;
+        $admin = 1000;
         $harga += $admin;
 
         $data = [

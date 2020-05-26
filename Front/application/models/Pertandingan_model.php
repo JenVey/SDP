@@ -73,11 +73,6 @@ class Pertandingan_model extends CI_model
     public function joinPertandingan()
     {
 
-        //STATUS
-        // 0 = masih ada slot
-        // 1 = penuh
-        // 2 = sedang mulai
-        // 3 = SELESAI
 
         $idTurnament = $this->input->post('id_turnament');
         $idTeam = $this->input->post('id_team');
@@ -166,6 +161,7 @@ class Pertandingan_model extends CI_model
                 $this->db->query($query);
             }
 
+            //TAMBAH JUMLAH PEMAIN
             $query = $this->db->query("select * from tournament");
             foreach ($query->result_array() as $row) {
                 if ($row['id_turnament'] == $idTurnament) {
@@ -179,6 +175,21 @@ class Pertandingan_model extends CI_model
 
             $this->db->where('id_turnament', $idTurnament);
             $this->db->update('tournament', $data);
+
+
+            //UPDATE STATUS FULL (1)
+            $query = $this->db->query("select * from tournament");
+            foreach ($query->result_array() as $row) {
+                if ($row['jumlah_pemain'] == $row['jumlah_slot']) {
+                    $data = [
+                        "status" => 1
+                    ];
+
+                    $this->db->where('id_turnament', $idTurnament);
+                    $this->db->update('tournament', $data);
+                }
+            }
+
 
             redirect('Community/refreshTournament');
         } else {
@@ -214,5 +225,46 @@ class Pertandingan_model extends CI_model
                 }
             }
         }
+    }
+
+    public function updateSkor()
+    {
+        //0 = belum selesai
+        //1 = tim1 menang
+        //2 = tim2 menang
+
+        $idMatch = $this->input->post('idMatch');
+
+        $data = [
+            "skor_1" => $this->input->post('skor1'),
+            "skor_2" => $this->input->post('skor2'),
+            "status" => $this->input->post('status')
+        ];
+
+        $this->db->where('id_match', $idMatch);
+        $this->db->update('pertandingan', $data);
+    }
+
+    public function updateTeamPertandingan()
+    {
+        $idTurney = $this->input->post("id_turnament");
+        $bagian = $this->input->post('bagian');
+        $side = $this->input->post('side');
+        if ($side == "team1") {
+            $data = [
+                "team_1" => $this->input->post('nama_team')
+            ];
+        } else {
+            $data = [
+                "team_2" => $this->input->post('nama_team')
+            ];
+        }
+
+        echo $bagian;
+
+
+        $this->db->where('bagian', $bagian);
+        $this->db->where('id_turnament', $idTurney);
+        $this->db->update('pertandingan', $data);
     }
 }

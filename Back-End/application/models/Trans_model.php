@@ -40,7 +40,7 @@ class Trans_model extends CI_model
             $this->db->update('transaksi', $data);
 
             if ($status == -1) {
-                echo "masuk";
+                //echo "masuk";
                 $total = 0;
                 $query = $this->db->query("select * from transaksi_item where id_transaksi = '" . $idTransaksi . "' ");
                 foreach ($query->result_array() as $row3) {
