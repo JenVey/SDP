@@ -274,7 +274,7 @@ if ($mchId != "") {
 					<path id="Icon_awesome-fire" data-name="Icon awesome-fire" d="M15.188,1.678a1.691,1.691,0,0,0-3.1-.917C3.375,13.489,15.75,14.063,15.75,20.25a4.5,4.5,0,1,1-9-.067V14.171a1.688,1.688,0,0,0-2.913-1.16A14.059,14.059,0,0,0,0,22.5a13.5,13.5,0,0,0,27,0C27,10.526,15.188,8.93,15.188,1.678Z" fill="#ee511f" />
 				</svg>
 				<span style="margin-left: 5px;color: #EE511F;">HOT </span>Games</h2>
-			<h4 style="font-family: Roboto;font-weight: lighter;color: #ecf0f1;text-align: left;margin-top: 5px;">Top 5 Most Sold Items</h4>
+			<h4 style="font-family: Roboto;font-weight: lighter;color: #ecf0f1;text-align: left;margin-top: 5px;">Top 6 Most Sold Items</h4>
 			<div class="hotgamesContainer">
 				<?php $ctrG = 0;
 				foreach ($games as $game) {
@@ -1112,7 +1112,7 @@ if ($mchId != "") {
 				email = $("#emailProfile").val();
 				$.ajax({
 					method: 'POST',
-					url: '<?= base_url() ?>Midtrans/snap2/token',
+					url: '<?= base_url() ?>Midtrans/Snap2/token',
 					data: {
 						gross_amount: gross_amount,
 						price: gross_amount,
@@ -1131,8 +1131,8 @@ if ($mchId != "") {
 						function changeResult(type, data) {
 							$("#result-type").val(type);
 							$("#result-data").val(JSON.stringify(data));
-							//resultType.innerHTML = type;
-							//resultData.innerHTML = JSON.stringify(data);
+							// resultType.innerHTML = type;
+							// resultData.innerHTML = JSON.stringify(data);
 						}
 
 						snap.pay(data, {

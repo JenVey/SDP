@@ -22,11 +22,8 @@ class Promo extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        // $this->load->model('User_model');
-        // $this->load->model('Trans_model');
-        // $this->load->model('TransItem_model');
-        // $this->load->model('Merchant_model');
-        // $this->load->model('Item_model');
+
+        $this->load->model('TransItem_model');
         $this->load->model('Promo_model');
         $this->load->library('form_validation');
     }
@@ -35,7 +32,7 @@ class Promo extends CI_Controller
     {
 
         $data['promo'] = $this->Promo_model->getAllPromo();
-
+        $data['transItem'] = $this->TransItem_model->getAllTransItem();
         $this->load->view('templates/header', $data);
         $this->load->view('templates/navbar', $data);
         $this->load->view('templates/sidebar', $data);
@@ -45,6 +42,7 @@ class Promo extends CI_Controller
     public function editPromo($idPromo)
     {
         $data['promo'] = $this->Promo_model->getPromoById($idPromo);
+        $data['transItem'] = $this->TransItem_model->getAllTransItem();
         $this->load->view('templates/header', $data);
         $this->load->view('templates/navbar', $data);
         $this->load->view('templates/sidebar', $data);
@@ -53,6 +51,7 @@ class Promo extends CI_Controller
 
     public function insertPromo()
     {
+        $data['transItem'] = $this->TransItem_model->getAllTransItem();
         $data['promo'] = $this->Promo_model->getAllPromo();
         $this->load->view('templates/header', $data);
         $this->load->view('templates/navbar', $data);

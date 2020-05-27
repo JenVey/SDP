@@ -23,9 +23,10 @@ class History_model extends CI_model
     {
         $idUser = $this->session->userdata('id_user');
         $saldo = $this->input->post('gross_amount');
+        $saldo = intval($saldo);
         $tgl = date("Y-m-d H:i:s");
         $data = [
-            "id_history" => $id,
+            "id_history" => strval($id),
             "id_user" => $idUser,
             "saldo" => $saldo,
             "date" => $tgl,

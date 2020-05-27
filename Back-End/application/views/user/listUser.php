@@ -62,6 +62,8 @@
                           echo '<span class="badge bg-danger">Offline</span>';
                         } else if ($usr['status'] == 1) {
                           echo '<span class="badge bg-success">Online</span>';
+                        } else if ($usr['status'] == -1) {
+                          echo '<span class="badge bg-warning">Verification</span>';
                         }
                         ?>
                       </td>

@@ -49,24 +49,24 @@
                                 </thead>
                                 <tbody>
                                     <?php $ctr = 1;
-                                    foreach ($transaksiItem as $transItem) :
-                                        if ($transItem['status'] == 1 || $transItem['status'] == 2 || $transItem['status'] == -1 || $transItem['status'] == -2) { ?>
+                                    foreach ($transItem as $transItemm) :
+                                        if ($transItemm['status'] == 1 || $transItemm['status'] == 2 || $transItemm['status'] == -1 || $transItemm['status'] == -2) { ?>
                                             <tr>
-                                                <td> <?= $transItem['id_transaksi'] ?> </td>
+                                                <td> <?= $transItemm['id_transaksi'] ?> </td>
                                                 <td> <?php foreach ($item as $itm) {
-                                                            if ($transItem['id_item'] == $itm['id_item']) {
+                                                            if ($transItemm['id_item'] == $itm['id_item']) {
                                                                 foreach ($merchant as $mch) {
                                                                     if ($itm['id_merchant'] == $mch['id_merchant']) {
-                                                                        echo $itm['nama_item'] . "<b> (" . $mch['nama_merchant'] . ") </b> / " . $transItem['jumlah'] . "x";
+                                                                        echo $itm['nama_item'] . "<b> (" . $mch['nama_merchant'] . ") </b> / " . $transItemm['jumlah'] . "x";
                                                                     }
                                                                 }
                                                             }
                                                         }
                                                         ?> </td>
-                                                <td>IDR <?= number_format(ceil($transItem['subtotal']), 0, ".", ".")  ?> </td>
+                                                <td>IDR <?= number_format(ceil($transItemm['subtotal']), 0, ".", ".")  ?> </td>
                                                 <td> <?php
                                                         foreach ($transaksi as $trans) {
-                                                            if ($transItem['id_transaksi'] == $trans['id_transaksi']) {
+                                                            if ($transItemm['id_transaksi'] == $trans['id_transaksi']) {
                                                                 foreach ($user as $usr) {
                                                                     if ($usr['id_user'] == $trans['id_user']) {
                                                                         echo $usr['nama_user'];
@@ -75,23 +75,23 @@
                                                             }
                                                         }
                                                         ?></td>
-                                                <td> <img id="bukti<?= $ctr ?>" src="data:image/jpeg;base64,<?= base64_encode($transItem['foto']) ?>" style="width: 150px;height: 150px;" alt="" /> </td>
-                                                <td> <?php if ($transItem['status'] == 1) {
+                                                <td> <img id="bukti<?= $ctr ?>" src="data:image/jpeg;base64,<?= base64_encode($transItemm['foto']) ?>" style="width: 150px;height: 150px;" alt="" /> </td>
+                                                <td> <?php if ($transItemm['status'] == 1) {
                                                             echo "<span class='badge bg-warning'>Pending</span>";
-                                                        } else if ($transItem['status'] == 2) {
+                                                        } else if ($transItemm['status'] == 2) {
                                                             echo "<span class='badge bg-success'>Approve</span>";
                                                         } else {
                                                             echo "<span class='badge bg-danger'>Cancel</span>";
                                                         }
                                                         ?> </td>
                                                 <td>
-                                                    <?php if ($transItem['status'] == 1) { ?>
-                                                        <a class=" btn btn-success btn-sm approve" idTrans="<?= $transItem['id_transaksi'] ?>" idItem="<?= $transItem['id_item'] ?>" harga="<?= $transItem['subtotal'] ?>" jumlah="<?= $transItem['jumlah'] ?>">
+                                                    <?php if ($transItemm['status'] == 1) { ?>
+                                                        <a class=" btn btn-success btn-sm approve" idTrans="<?= $transItemm['id_transaksi'] ?>" idItem="<?= $transItemm['id_item'] ?>" harga="<?= $transItemm['subtotal'] ?>" jumlah="<?= $transItemm['jumlah'] ?>">
                                                             <i class="fas fa-check">
                                                             </i>
                                                             Approve
                                                         </a>
-                                                        <a href="" class="btn btn-danger btn-sm cancel" idTrans="<?= $transItem['id_transaksi'] ?>" idItem="<?= $transItem['id_item'] ?>" harga="<?= $transItem['subtotal'] ?>" jumlah="<?= $transItem['jumlah'] ?>" onclick="return confirm('Yakin?'); ">
+                                                        <a href="" class="btn btn-danger btn-sm cancel" idTrans="<?= $transItemm['id_transaksi'] ?>" idItem="<?= $transItemm['id_item'] ?>" harga="<?= $transItemm['subtotal'] ?>" jumlah="<?= $transItemm['jumlah'] ?>" onclick="return confirm('Yakin?'); ">
                                                             <i class="fas fa-times">
                                                             </i>
                                                             Cancel
@@ -101,7 +101,7 @@
                                                             </i>
                                                             View foto
                                                         </a>
-                                                    <?php } else if ($transItem['status'] == 2) { ?>
+                                                    <?php } else if ($transItemm['status'] == 2) { ?>
                                                         <a class="btn btn-primary btn-sm" id="download<?= $ctr ?>" download>
                                                             <i class=" fas fa-download">
                                                             </i>

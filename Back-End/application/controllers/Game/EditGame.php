@@ -24,6 +24,7 @@ class EditGame extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('Game_model');
+		$this->load->model('TransItem_model');
 		$this->load->library('form_validation');
 	}
 
@@ -31,10 +32,10 @@ class EditGame extends CI_Controller
 	{
 		$this->load->model('Game_model');
 		$data['game'] = $this->Game_model->getGameById($id);
-
+		$data['transItem'] = $this->TransItem_model->getAllTransItem();
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/navbar');
-		$this->load->view('templates/sidebar');
+		$this->load->view('templates/sidebar', $data);
 		$this->load->view('game/editGame', $data);
 	}
 
@@ -52,7 +53,7 @@ class EditGame extends CI_Controller
 		} else {
 			$this->Game_model->editGame($id);
 			$this->session->set_flashdata('flash', 'Edited');
-			redirect('game/listGame');
+			redirect('Game/ListGame');
 		}
 	}
 }

@@ -23,6 +23,7 @@ class ListSub extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('Sub_model');
+		$this->load->model('TransItem_model');
 		$this->load->model('Merchant_model');
 	}
 
@@ -31,7 +32,7 @@ class ListSub extends CI_Controller
 		$this->load->model('Sub_model');
 		$data['sub'] = $this->Sub_model->getAllSub();
 		$data['merchant'] = $this->Merchant_model->getAllMerchant();
-
+		$data['transItem'] = $this->TransItem_model->getAllTransItem();
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/navbar', $data);
 		$this->load->view('templates/sidebar', $data);

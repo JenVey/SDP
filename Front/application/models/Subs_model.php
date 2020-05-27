@@ -51,9 +51,6 @@ class Subs_model extends CI_model
         $data = [
             "banner" => $foto
         ];
-
-        //echo $foto;
-
         $this->db->where('id_sub', $idSub);
         $this->db->update('subscribers', $data);
     }

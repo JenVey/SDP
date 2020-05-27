@@ -45,7 +45,7 @@ class Shop extends CI_Controller
     {
         //PAGINATION
         $this->load->library('pagination');
-        $config['base_url'] = "http://localhost/Github/SDP_Proyek/Front/Shop/index";
+        $config['base_url'] = base_url() . "Shop/index";
         $config['total_rows'] = $this->Item_model->countAllItem();
         $config['per_page'] = 9;
 
@@ -162,7 +162,7 @@ class Shop extends CI_Controller
     {
         //PAGINATION
         $this->load->library('pagination');
-        $config['base_url'] = "http://localhost/Github/SDP_Proyek/Front/Shop/index";
+        $config['base_url'] = base_url() . "Shop/index";
         $config['total_rows'] = $this->Item_model->countAllItem();
         $config['per_page'] = 10;
 

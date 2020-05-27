@@ -69,7 +69,6 @@ class Merchant_model extends CI_model
     public function insertMerchant()
     {
         $id = $this->session->userdata('id_user');
-
         $ctr = 1;
         $query = $this->db->query("select * from merchant");
         $newId = $this->input->post('name');

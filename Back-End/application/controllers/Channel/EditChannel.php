@@ -1,8 +1,9 @@
 	
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class EditChannel extends CI_Controller {
+class EditChannel extends CI_Controller
+{
 
 	/**
 	 * Index Page for this controller.
@@ -19,44 +20,40 @@ class EditChannel extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
-    public function __construct()
-    {
-        parent::__construct();
+	public function __construct()
+	{
+		parent::__construct();
 		$this->load->model('Channel_model');
+		$this->load->model('TransItem_model');
 		$this->load->library('form_validation');
-    }
-    
+	}
+
 	public function index($id)
 	{
 		$this->load->model('Channel_model');
 		$data['channel'] = $this->Channel_model->getChannelById($id);
-
-		$this->load->view('templates/header',$data);
+		$data['transItem'] = $this->TransItem_model->getAllTransItem();
+		$this->load->view('templates/header', $data);
 		$this->load->view('templates/navbar');
 		$this->load->view('templates/sidebar');
-		$this->load->view('channel/editChannel',$data);
-	
+		$this->load->view('channel/editChannel', $data);
 	}
 
 	public function edit($id)
 	{
-		
-		$data['channel'] = $this->Channel_model->getChannelById($id);
-		$this->form_validation->set_rules('nameChannel','Nama','required');
 
-		if( $this->form_validation->run() == FALSE){
-			$this->load->view('templates/header',$data);
+		$data['channel'] = $this->Channel_model->getChannelById($id);
+		$this->form_validation->set_rules('nameChannel', 'Nama', 'required');
+
+		if ($this->form_validation->run() == FALSE) {
+			$this->load->view('templates/header', $data);
 			$this->load->view('templates/navbar');
 			$this->load->view('templates/sidebar');
-			$this->load->view('channel/editChannel',$data);
-		}else{
+			$this->load->view('channel/editChannel', $data);
+		} else {
 			$this->Channel_model->editChannel($id);
-			$this->session->set_flashdata('flash','Edited');
-			redirect('channel/listChannel');
-		}	
+			$this->session->set_flashdata('flash', 'Edited');
+			redirect('Channel/ListChannel');
+		}
 	}
-
-	
-		
 }
- 

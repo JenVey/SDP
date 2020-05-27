@@ -870,7 +870,9 @@ if (isset($teamA)) {
                         }
                     });
                 },
-                function() {}
+                function() {
+
+                }
             ).set('labels', {
                 ok: 'Kick',
                 cancel: 'Cancel'

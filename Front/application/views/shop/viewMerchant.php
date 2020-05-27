@@ -336,7 +336,7 @@ if (!empty($rating)) {
 
     </div>
 
-    <script src="<?= base_url(); ?>/asset/Js/select.js"></script>
+    <script src="<?= base_url(); ?>asset/Js/select.js"></script>
     <script>
         var filter = 0;
         var follow = $(".merchantFollow").attr("follow");
@@ -451,10 +451,9 @@ if (!empty($rating)) {
 
         $(".searchButton").click(function() {
             idM = $(".merchantName").attr("idMerchant");
-            alert(idM);
             isi = $(".Searchinput").val();
             if (isi == "") {
-                alert('Search input belum diisi');
+                alertify.error('Search input is empty');
             } else {
 
                 if (filter == 1) {

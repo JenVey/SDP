@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class EditTeam extends CI_Controller {
+class EditTeam extends CI_Controller
+{
 
 	/**
 	 * Index Page for this controller.
@@ -18,42 +19,40 @@ class EditTeam extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
-    public function __construct()
-    {
-        parent::__construct();
+	public function __construct()
+	{
+		parent::__construct();
 		$this->load->model('Team_model');
+		$this->load->model('TransItem_model');
 		$this->load->library('form_validation');
-    }
-    
+	}
+
 	public function index($id)
 	{
 		$this->load->model('Team_model');
 		$data['team'] = $this->Team_model->getTeamById($id);
-
-		$this->load->view('templates/header',$data);
+		$data['transItem'] = $this->TransItem_model->getAllTransItem();
+		$this->load->view('templates/header', $data);
 		$this->load->view('templates/navbar');
-		$this->load->view('templates/sidebar');
-		$this->load->view('team/editTeam',$data);
-	
+		$this->load->view('templates/sidebar', $data);
+		$this->load->view('team/editTeam', $data);
 	}
 
 	public function edit($id)
 	{
-		
-		$data['team'] = $this->Team_model->getTeamById($id);
-		$this->form_validation->set_rules('nameTeam','Nama','required');
 
-		if( $this->form_validation->run() == FALSE){
-			$this->load->view('templates/header',$data);
+		$data['team'] = $this->Team_model->getTeamById($id);
+		$this->form_validation->set_rules('nameTeam', 'Nama', 'required');
+
+		if ($this->form_validation->run() == FALSE) {
+			$this->load->view('templates/header', $data);
 			$this->load->view('templates/navbar');
 			$this->load->view('templates/sidebar');
-			$this->load->view('team/editTeam',$data);
-		}else{
+			$this->load->view('team/editTeam', $data);
+		} else {
 			$this->Team_model->editTeam($id);
-			$this->session->set_flashdata('flash','Susccess Edited');
-			redirect('team/listTeam');
-		}	
+			$this->session->set_flashdata('flash', 'Susccess Edited');
+			redirect('Team/ListTeam');
+		}
 	}
-	
 }
- 

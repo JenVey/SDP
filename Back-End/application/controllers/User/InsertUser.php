@@ -24,15 +24,16 @@ class InsertUser extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('User_model');
+		$this->load->model('TransItem_model');
 		$this->load->library('form_validation');
 	}
 
 	public function index()
 	{
-		$this->load->model('User_model');
+		$data['transItem'] = $this->TransItem_model->getAllTransItem();
 		$this->load->view('templates/header');
 		$this->load->view('templates/navbar');
-		$this->load->view('templates/sidebar');
+		$this->load->view('templates/sidebar', $data);
 		$this->load->view('user/insertUser');
 	}
 
@@ -104,7 +105,6 @@ class InsertUser extends CI_Controller
 	{
 		$this->User_model->deleteUser($id);
 		$this->session->set_flashdata('flash', 'Success Deleted');
-
 		redirect('User/ListUser');
 	}
 }

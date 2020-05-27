@@ -24,15 +24,17 @@ class InsertTeam extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('Team_model');
+		$this->load->model('TransItem_model');
 		$this->load->library('form_validation');
 	}
 
 	public function index()
 	{
+		$data['transItem'] = $this->TransItem_model->getAllTransItem();
 		$this->load->model('Team_model');
 		$this->load->view('templates/header');
 		$this->load->view('templates/navbar');
-		$this->load->view('templates/sidebar');
+		$this->load->view('templates/sidebar', $data);
 		$this->load->view('team/insertTeam');
 		//$this->load->view('templates/footer',$data);
 
@@ -52,7 +54,7 @@ class InsertTeam extends CI_Controller
 		} else {
 			$this->Team_model->insertTeam();
 			$this->session->set_flashdata('flash', 'Success Insert Team !!!');
-			redirect('team/listTeam');
+			redirect('Team/ListTeam');
 		}
 	}
 
@@ -60,6 +62,6 @@ class InsertTeam extends CI_Controller
 	{
 		$this->Team_model->deleteTeam($id);
 		$this->session->set_flashdata('flash', 'Success Deleted');
-		redirect('team/listTeam');
+		redirect('Team/ListTeam');
 	}
 }

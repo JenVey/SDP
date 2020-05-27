@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class ListPesan extends CI_Controller {
+class ListPesan extends CI_Controller
+{
 
 	/**
 	 * Index Page for this controller.
@@ -18,21 +19,21 @@ class ListPesan extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
-    public function __construct()
-    {
-        parent::__construct();
-        $this->load->model('Pesan_model');
-    }
-    
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->model('Pesan_model');
+		$this->load->model('TransItem_model');
+	}
+
 	public function index()
-	{   
-        $this->load->model('Pesan_model');
+	{
+		$this->load->model('Pesan_model');
 		$data['pesan'] = $this->Pesan_model->getAllPesan();
-		
-		$this->load->view('templates/header',$data);
-		$this->load->view('templates/navbar',$data);
-		$this->load->view('templates/sidebar',$data);
-		$this->load->view('pesan/listPesan',$data);
-        //$this->load->view('templates/footer');
+		$data['transItem'] = $this->TransItem_model->getAllTransItem();
+		$this->load->view('templates/header', $data);
+		$this->load->view('templates/navbar', $data);
+		$this->load->view('templates/sidebar', $data);
+		$this->load->view('pesan/listPesan', $data);
 	}
 }

@@ -24,15 +24,17 @@ class InsertGame extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('Game_model');
+		$this->load->model('TransItem_model');
 		$this->load->library('form_validation');
 	}
 
 	public function index()
 	{
+		$data['transItem'] = $this->TransItem_model->getAllTransItem();
 		$this->load->model('Game_model');
 		$this->load->view('templates/header');
 		$this->load->view('templates/navbar');
-		$this->load->view('templates/sidebar');
+		$this->load->view('templates/sidebar', $data);
 		$this->load->view('game/insertGame');
 		//$this->load->view('templates/footer',$data);
 
@@ -52,7 +54,7 @@ class InsertGame extends CI_Controller
 		} else {
 			$this->Game_model->insertGame();
 			$this->session->set_flashdata('flash', 'Success Insert Game !!!');
-			redirect('game/listGame');
+			redirect('Game/ListGame');
 		}
 	}
 
@@ -61,6 +63,6 @@ class InsertGame extends CI_Controller
 		$this->Game_model->deleteGame($id);
 		$this->session->set_flashdata('flash', 'Success Deleted');
 
-		redirect('game/listGame');
+		redirect('Game/ListGame');
 	}
 }

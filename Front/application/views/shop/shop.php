@@ -254,7 +254,7 @@
             Copyright MorningOwl
         </div>
     </div>
-    <script src="<?= base_url(); ?>/asset/Js/select.js"></script>
+    <script src="<?= base_url(); ?>asset/Js/select.js"></script>
     <script>
         var filter = 0;
         var addCart = 0;
@@ -345,6 +345,7 @@
         $(".addtoCart").click(function() {
             addCart = 1;
             id = $(this).attr('idItem');
+
             $.ajax({
                 url: "<?= base_url(); ?>Shop/addCart",
                 method: "post",
@@ -377,7 +378,7 @@
 
             isi = $(".Searchinput").val();
             if (isi == "") {
-                alert('Search input belum diisi');
+                alertify.error('Search input is empty');
             } else {
 
                 if (filter == 1) {

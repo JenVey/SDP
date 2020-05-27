@@ -67,17 +67,6 @@ class Item_model extends CI_model
         $this->db->where('i.jumlah_item >', 0);
         $this->db->limit($limit, $start);
         return  $this->db->get()->result_array();
-
-        // $query = "SELECT * FROM ITEM I 
-        // JOIN MERCHANT M ON M.ID_MERCHANT = I.ID_MERCHANT 
-        // JOIN GAME G ON G.ID_GAME = I.ID_GAME 
-        // WHERE I.ID_GAME= '" . $idG . "' 
-        // AND I.JUMLAH_ITEM > 0
-        // ORDER BY I.TANGGAL_UPLOAD DESC";
-
-
-        // $res = $this->db->query($query);
-        // return $res->result_array();
     }
 
     public function getItemBySearch($keyword)
@@ -251,8 +240,6 @@ class Item_model extends CI_model
         $this->db->where('id_item', $id);
         $this->db->update('item', $data);
     }
-
-
 
     public function countAllItem()
     {

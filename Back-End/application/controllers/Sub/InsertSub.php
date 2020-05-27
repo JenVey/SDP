@@ -25,6 +25,7 @@ class InsertSub extends CI_Controller
 		parent::__construct();
 		$this->load->model('Sub_model');
 		$this->load->model('Merchant_model');
+		$this->load->model('TransItem_model');
 		$this->load->library('form_validation');
 	}
 
@@ -32,6 +33,7 @@ class InsertSub extends CI_Controller
 	{
 		$this->load->model('Sub_model');
 		$data['merchant'] = $this->Merchant_model->getAllMerchant();
+		$data['transItem'] = $this->TransItem_model->getAllTransItem();
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/navbar', $data);
 		$this->load->view('templates/sidebar', $data);
@@ -49,11 +51,11 @@ class InsertSub extends CI_Controller
 			$this->load->view('templates/header');
 			$this->load->view('templates/navbar');
 			$this->load->view('templates/sidebar');
-			$this->load->view('sub/insertSub');
+			$this->load->view('sub/insertSub', $data);
 		} else {
 			$this->Sub_model->insertSub();
 			$this->session->set_flashdata('flash', 'Success Insert Subscription !!!');
-			redirect('sub/listSub');
+			redirect('Sub/ListSub');
 		}
 	}
 
@@ -61,6 +63,6 @@ class InsertSub extends CI_Controller
 	{
 		$this->Sub_model->deleteSub($id);
 		$this->session->set_flashdata('flash', 'Success Deleted');
-		redirect('sub/listSub');
+		redirect('Sub/ListSub');
 	}
 }

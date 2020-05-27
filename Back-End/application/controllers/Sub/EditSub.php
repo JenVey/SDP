@@ -24,6 +24,7 @@ class EditSub extends CI_Controller
 		parent::__construct();
 		$this->load->model('Sub_model');
 		$this->load->model('Merchant_model');
+		$this->load->model('TransItem_model');
 		$this->load->library('form_validation');
 	}
 
@@ -32,9 +33,10 @@ class EditSub extends CI_Controller
 		$this->load->model('Sub_model');
 		$data['sub'] = $this->Sub_model->getSubById($id);
 		$data['merchant'] = $this->Merchant_model->getAllMerchant();
+		$data['transItem'] = $this->TransItem_model->getAllTransItem();
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/navbar');
-		$this->load->view('templates/sidebar');
+		$this->load->view('templates/sidebar', $data);
 		$this->load->view('sub/editSub', $data);
 	}
 
@@ -53,7 +55,7 @@ class EditSub extends CI_Controller
 		} else {
 			$this->Sub_model->editSub($id);
 			$this->session->set_flashdata('flash', 'Susccess Edited');
-			redirect('sub/listSub');
+			redirect('Sub/ListSub');
 		}
 	}
 }

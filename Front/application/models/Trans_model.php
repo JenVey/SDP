@@ -101,7 +101,7 @@ class Trans_model extends CI_model
             $this->session->set_userdata(array('cashback' => $cashback));
         } else {
             $promo = '';
-            $cashback = '';
+            $cashback = 0;
         }
 
         $data = [
@@ -118,7 +118,7 @@ class Trans_model extends CI_model
 
         $idmerchant = array();
         for ($i = 0; $i < count($cart); $i++) {
-            echo "masuk" . $i;
+            //echo "masuk" . $i;
             // KIRIM EMAIL KE MERCHANT
             $query2 = $this->db->query("select * from item");
             foreach ($query2->result_array() as $row2) {
@@ -132,9 +132,11 @@ class Trans_model extends CI_model
             $data = [
                 "id_transaksi" => $generateId,
                 "id_item" => $cart[$i]['id'],
-                "jumlah" => $cart[$i]['quantity'],
-                "subtotal" => $cart[$i]['subtotal'],
-                "keterangan" => "*Upload your proof(s) and press the update button"
+                "jumlah" => intval($cart[$i]['quantity']),
+                "subtotal" => intval($cart[$i]['subtotal']),
+                "keterangan" => "*Upload your proof(s) and press the update button",
+                "status" => 0,
+                "foto" => ""
             ];
             $this->db->insert('transaksi_item', $data);
         }
@@ -153,7 +155,6 @@ class Trans_model extends CI_model
                 $change = false;
             }
         }
-
 
         if ($change) {
             $status = -1;

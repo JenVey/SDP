@@ -35,7 +35,6 @@ class Tournament_model extends CI_model
     {
         //GENERATE ID
         date_default_timezone_set('Asia/Jakarta');
-        $idUser = $this->session->userdata('id_user');
         $ctr = 1;
         $query = $this->db->query("select * from tournament");
         $newId = $this->input->post('nama_turnament');
@@ -59,7 +58,7 @@ class Tournament_model extends CI_model
 
         $tgl = $this->input->post('tanggal_mulai');
         $tgl = strtotime($tgl);
-        $tgl = date("Y-m-d H:i", $tgl);
+        $tgl = date("Y-m-d", $tgl);
 
         $jenis = $this->input->post('jenis_pemain');
         if ($jenis == "Team") {

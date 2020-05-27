@@ -133,7 +133,9 @@
                 ctr++;
             } else if (realprize == "" && ctr == 3 && $(this).children("img").length) {
                 var prize = $(this).children("img").attr("src");
+                //alert("https://gatherowl.000webhostapp.com/asset/Images/gacha/2k.png".substring(55, 56));
                 while (prize.substring(substr, substr2) != ".") {
+
                     realprize += prize.substring(substr, substr2);
                     substr++;
                     substr2++;
@@ -148,7 +150,6 @@
 
                         onclose: function() {
                             $(".footer").html('Try again next week! :)');
-                            //alert(total);
                             $.ajax({
                                 url: "<?= base_url(); ?>Shop/updateSaldoG/tambah",
                                 method: "post",
@@ -156,7 +157,7 @@
                                     total: total
                                 },
                                 success: function(result) {
-                                    window.location.href = '<?= base_url(); ?>Shop';
+                                    // window.location.href = '<?= base_url(); ?>Shop';
                                 }
                             });
                         }
@@ -165,14 +166,14 @@
                     alertify.alert('Prize', 'CONGRATULATIONS! You just got THE BIG WIN').set({
                         onclose: function() {
                             $(".footer").html('Try again next week! :)');
-                            window.location.href = '<?= base_url(); ?>Shop';
+                            // window.location.href = '<?= base_url(); ?>Shop';
                         }
                     });
                 } else {
                     alertify.alert('Prize', "Oopsies! You just got ZONK").set({
                         onclose: function() {
                             $(".footer").html('Try again next week! :)');
-                            window.location.href = '<?= base_url(); ?>Shop';
+                            //window.location.href = '<?= base_url(); ?>Shop';
                         }
                     });
                 }

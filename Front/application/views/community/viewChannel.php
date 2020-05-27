@@ -598,7 +598,6 @@ foreach ($team as $tim) {
             foto = foto.substring(22, foto.length);
         }
 
-        alert(nama_channel);
         $.ajax({
             url: "<?= base_url(); ?>Community/insertChannel",
             method: "post",
@@ -1261,7 +1260,7 @@ foreach ($team as $tim) {
 
     $(".listMember").on("click", ".request", function() {
         idUser = $(this).attr("idUser");
-        alert(idUser);
+        //alert(idUser);
         alertify.confirm('Confirmation', 'Accept or Decline ?',
             function() {
                 $.ajax({

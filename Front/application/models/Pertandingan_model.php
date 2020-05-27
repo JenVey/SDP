@@ -33,17 +33,13 @@ class Pertandingan_model extends CI_model
             $generateId = $cekNewId . $ctr;
         }
 
-
-
-        // $tgl = date("Y-m-d H:i:s");
         $data = [
             "id_match" => $generateId,
             "id_turnament" => $idTurnament,
-            "waktu_mulai" => '',
             "bagian" => $bagian,
             "status" =>  0,
-            "skor_1" =>  '',
-            "skor_2" =>  '',
+            "skor_1" =>  0,
+            "skor_2" =>  0,
             "team_1" =>  '',
             "team_2" =>  ''
         ];
@@ -259,9 +255,6 @@ class Pertandingan_model extends CI_model
                 "team_2" => $this->input->post('nama_team')
             ];
         }
-
-        echo $bagian;
-
 
         $this->db->where('bagian', $bagian);
         $this->db->where('id_turnament', $idTurney);

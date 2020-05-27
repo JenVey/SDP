@@ -24,7 +24,7 @@ class Cart_model extends CI_model
     {
         $ada = false;
         $id = $this->session->userdata('id_user');
-        $cekQuery = $this->db->query("select * from USER_CART");
+        $cekQuery = $this->db->query("select * from user_cart");
         $amount = 1;
 
         foreach ($cekQuery->result_array() as $row) {

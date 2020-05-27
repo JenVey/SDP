@@ -1,4 +1,14 @@
 <!-- Main Sidebar Container -->
+<?php
+
+$notif = 0;
+foreach ($transItem as $trans) {
+  if ($trans['status'] == 1) {
+    $notif++;
+  }
+}
+
+?>
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
   <a href="index3.html" class="brand-link">
@@ -35,10 +45,27 @@
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <li class="nav-item">
-          <a href="<?= base_url(); ?>Channel/ListChannel" class="nav-link">
-            <i class="nav-icon fa fa-satellite-dish"></i>
+          <a href="<?= base_url(); ?>Game/ListGame" class="nav-link">
+            <i class="nav-icon fa fa-gamepad"></i>
             <p>
-              List Channel
+              List Game
+            </p>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+
+
+    <nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <li class="nav-item">
+          <a href="<?= base_url(); ?>Transaksi" class="nav-link">
+            <i class="nav-icon fa fa-receipt"></i>
+            <p>
+              List Transaksi <span class="badge bg-danger" style="margin-left: 20px;"><?php if ($notif != 0) {
+                                                                                        echo $notif;
+                                                                                      } ?></span>
             </p>
           </a>
         </li>
@@ -58,6 +85,36 @@
         </li>
       </ul>
     </nav>
+
+
+
+    <nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <li class="nav-item">
+          <a href="<?= base_url(); ?>Promo" class="nav-link">
+            <i class="nav-icon fa fa-percentage"></i>
+            <p>
+              List Promo
+            </p>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+
+    <nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <li class="nav-item">
+          <a href="<?= base_url(); ?>Channel/ListChannel" class="nav-link">
+            <i class="nav-icon fa fa-satellite-dish"></i>
+            <p>
+              List Channel
+            </p>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
 
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -85,45 +142,6 @@
       </ul>
     </nav>
 
-    <nav class="mt-2">
-      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-        <li class="nav-item">
-          <a href="<?= base_url(); ?>Game/ListGame" class="nav-link">
-            <i class="nav-icon fa fa-gamepad"></i>
-            <p>
-              List Game
-            </p>
-          </a>
-        </li>
-      </ul>
-    </nav>
-
-    <nav class="mt-2">
-      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-        <li class="nav-item">
-          <a href="<?= base_url(); ?>Transaksi" class="nav-link">
-            <i class="nav-icon fa fa-receipt"></i>
-            <p>
-              List Transaksi
-            </p>
-          </a>
-        </li>
-      </ul>
-    </nav>
-
-
-    <nav class="mt-2">
-      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-        <li class="nav-item">
-          <a href="<?= base_url(); ?>Promo" class="nav-link">
-            <i class="nav-icon fa fa-percentage"></i>
-            <p>
-              List Promo
-            </p>
-          </a>
-        </li>
-      </ul>
-    </nav>
 
   </div>
   <!-- /.sidebar -->

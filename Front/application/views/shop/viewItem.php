@@ -241,7 +241,7 @@ if ($ada == false) {
         </div>
     </div>
     </div>
-    <script src="<?= base_url(); ?>/asset/Js/select.js"></script>
+    <script src="<?= base_url(); ?>asset/Js/select.js"></script>
     <script>
         var filter = 0;
         textFit($(".titleGame"));
@@ -316,7 +316,7 @@ if ($ada == false) {
         $(".searchButton").click(function() {
             isi = $(".Searchinput").val();
             if (isi == "") {
-                alert('Search input belum diisi');
+                alertify.error('Search input is empty');
             } else {
                 if (filter == 1) {
                     setFilter = $('#filters').val();

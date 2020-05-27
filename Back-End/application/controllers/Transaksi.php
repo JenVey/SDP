@@ -32,7 +32,7 @@ class Transaksi extends CI_Controller
     public function index()
     {
 
-        $data['transaksiItem'] = $this->TransItem_model->getAllTransItem();
+        $data['transItem'] = $this->TransItem_model->getAllTransItem();
         $data['transaksi'] = $this->Trans_model->getAllTrans();
         $data['merchant'] = $this->Merchant_model->getAllMerchant();
         $data['item'] = $this->Item_model->getAllItem();
@@ -57,6 +57,6 @@ class Transaksi extends CI_Controller
     public function changeStatus($status)
     {
         $this->TransItem_model->changeStatus($status);
-        //redirect("Transaksi");
+        redirect("Transaksi");
     }
 }

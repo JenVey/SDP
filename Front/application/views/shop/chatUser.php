@@ -7,7 +7,7 @@
     <link rel="icon" href="<?php echo base_url(); ?>asset/Images/android-chrome-512x512.png">
     <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/bootstrap.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/Ours.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/chatmerchantCSS.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/chatMerchantCSS.css">
     <link rel=" stylesheet" href="<?php echo base_url(); ?>asset/CSS/animation.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/alerts.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>asset/CSS/alertify.css">

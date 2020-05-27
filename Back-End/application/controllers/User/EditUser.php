@@ -24,6 +24,7 @@ class EditUser extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('User_model');
+		$this->load->model('TransItem_model');
 		$this->load->library('form_validation');
 	}
 
@@ -31,10 +32,10 @@ class EditUser extends CI_Controller
 	{
 		$this->load->model('User_model');
 		$data['user'] = $this->User_model->getUserById($id);
-
+		$data['transItem'] = $this->TransItem_model->getAllTransItem();
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/navbar');
-		$this->load->view('templates/sidebar');
+		$this->load->view('templates/sidebar', $data);
 		$this->load->view('user/editUser', $data);
 	}
 
@@ -56,7 +57,7 @@ class EditUser extends CI_Controller
 		} else {
 			$this->User_model->editUser($id);
 			$this->session->set_flashdata('flash', 'Susccess Edited');
-			redirect('user/listUser');
+			redirect('User/ListUser');
 		}
 	}
 }

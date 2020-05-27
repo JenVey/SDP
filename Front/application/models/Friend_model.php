@@ -27,7 +27,7 @@ class Friend_model extends CI_model
     public function likeMerchant($idM)
     {
         $id = $this->session->userdata('id_user');
-        $query = "insert into friend(id_user1,id_user2) values('" . $id . "' , '" . $idM . "' )";
+        $query = "insert into friend(id_user1,id_user2,status) values('" . $id . "' , '" . $idM . "', 0 )";
         $this->db->query($query);
     }
 

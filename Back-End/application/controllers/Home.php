@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Home extends CI_Controller {
+class Home extends CI_Controller
+{
 
 	/**
 	 * Index Page for this controller.
@@ -20,10 +21,13 @@ class Home extends CI_Controller {
 	 */
 	public function index()
 	{
+		$this->load->model('TransItem_model');
+		$data['transItem'] = $this->TransItem_model->getAllTransItem();
+
 		$this->load->view('templates/header');
 		$this->load->view('templates/navbar');
-		$this->load->view('templates/sidebar');
-        $this->load->view('home');
-        $this->load->view('templates/footer');
+		$this->load->view('templates/sidebar', $data);
+		$this->load->view('home');
+		$this->load->view('templates/footer');
 	}
 }

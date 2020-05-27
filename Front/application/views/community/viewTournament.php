@@ -646,8 +646,6 @@ $idTurney = $_SESSION['idTournament'];
         <button class="createButton">Update Bracket</button>
     </div>
     <div class="bgblur"></div>
-    <script src="Js/jquery-min.js"></script>
-    <script src="Js/alertify.js"></script>
     <script>
         <?php if ($turneyStatus == 2) { ?>
             var mulai = true; // <= Check mulai
