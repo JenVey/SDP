@@ -77,22 +77,25 @@ class Item_model extends CI_model
             join game g on g.id_game = i.id_game 
             where i.nama_item like '%" . $keyword . "%' 
             and i.jumlah_item > 0
-            order by case when i.nama_item like '" . $keyword . "%' then 0 else 1 end ";
+            order by ";
 
             if ($_SESSION['filter'] == "newest") {
-                $query = $query . ", i.tanggal_upload desc";
+                $query = $query . "i.tanggal_upload desc, ";
             } else if ($_SESSION['filter'] == "oldest") {
-                $query = $query . ", i.tanggal_upload asc";
+                $query = $query . "i.tanggal_upload asc, ";
             } else if ($_SESSION['filter'] == "cheapest") {
-                $query = $query . ", i.harga_item asc";
+                $query = $query . "i.harga_item asc, ";
             } else {
-                $query = $query . ", i.harga_item desc";
+                $query = $query . "i.harga_item desc, ";
             }
+
+            $query = $query . "case when i.nama_item like '" . $keyword . "%' then 0 else 1 end";
         } else {
             $query = "select * from item i 
             join merchant m on m.id_merchant = i.id_merchant 
             join game g on g.id_game = i.id_game 
             where i.nama_item like '%" . $keyword . "%' 
+            and i.jumlah_item > 0 
             order by case when i.nama_item like '" . $keyword . "%' then 0 else 1 end, i.nama_item";
         }
 
@@ -110,23 +113,26 @@ class Item_model extends CI_model
             where i.nama_item like '%" . $keyword . "%' 
             and m.id_merchant = '" . $idM . "'
             and i.jumlah_item > 0
-            order by case when i.nama_item like '" . $keyword . "%' then 0 else 1 end ";
+            order by ";
 
             if ($_SESSION['filter'] == "newest") {
-                $query = $query . ", i.tanggal_upload desc";
+                $query = $query . "i.tanggal_upload desc, ";
             } else if ($_SESSION['filter'] == "oldest") {
-                $query = $query . ", i.tanggal_upload asc";
+                $query = $query . "i.tanggal_upload asc, ";
             } else if ($_SESSION['filter'] == "cheapest") {
-                $query = $query . ", i.harga_item asc";
+                $query = $query . "i.harga_item asc, ";
             } else {
-                $query = $query . ", i.harga_item desc";
+                $query = $query . "i.harga_item desc, ";
             }
+
+            $query = $query . "case when i.nama_item like '" . $keyword . "%' then 0 else 1 end";
         } else {
             $query = "select * from item i 
             join merchant m on m.id_merchant = i.id_merchant 
             join game g on g.id_game = i.id_game 
             where i.nama_item like '%" . $keyword . "%' 
-            and m.id_merchant = '" . $idM . "'
+            and m.id_merchant = '" . $idM . "' 
+            and i.jumlah_item > 0 
             order by case when i.nama_item like '" . $keyword . "%' then 0 else 1 end, i.nama_item";
         }
 

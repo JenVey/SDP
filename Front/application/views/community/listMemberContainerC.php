@@ -51,7 +51,7 @@
 <h3 style="margin: 4vh 0;color: #ecf0f1;">User Requests</h3>
 <div class="members">
     <?php foreach ($channelU as $chnU) {
-        if ($chnU['jenis'] == -1) { ?>
+        if ($chnU['id_channel'] == $channelA['id_channel'] && $chnU['jenis'] == -1) { ?>
             <div class="memberItem request" idUser="<?= $chnU['id_user'] ?>">
                 <div class="memberImg">
                     <img src="data:image/jpeg;base64,<?= base64_encode($chnU['foto']) ?>" alt="">

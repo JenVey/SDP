@@ -96,7 +96,6 @@ class TransItem_model extends CI_model
                 }
             }
         }
-        //UPDATE `transaksi_item` SET `status`= 0 WHERE `id_transaksi` = 'TR0001'
 
         $this->db->where('id_transaksi', $idTrans);
         $this->db->where('id_item', $idItem);

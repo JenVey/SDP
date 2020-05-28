@@ -225,6 +225,7 @@ if (!empty($rating)) {
                 </div>
             </div>
         </div>
+
         <?php if (!empty($rating)) {
             foreach ($rating as $rate) { ?>
                 <div class="rate" style="margin-left: 19vw;margin-top: 8vh; display: none;">
@@ -457,11 +458,15 @@ if (!empty($rating)) {
             } else {
 
                 if (filter == 1) {
+
+
                     setFilter = $('#filters').val();
                     window.location.href = '<?= base_url(); ?>Shop/setMerchantF/'.concat(setFilter.concat("/")).concat(isi.concat("/")).concat(idM);
 
                 } else {
                     window.location.href = '<?= base_url(); ?>Shop/setMerchant/'.concat(idM.concat("/")).concat(isi);
+
+
                 }
 
             }

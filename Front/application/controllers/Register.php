@@ -39,7 +39,7 @@ class Register extends CI_Controller
 		$this->form_validation->set_rules('regName', 'Nama', 'required');
 		$this->form_validation->set_rules('regEmail', 'Email', 'callback_username_check');
 		$this->form_validation->set_rules('regEmail', 'Email', 'required|valid_email');
-		$this->form_validation->set_rules('regPass', 'Password', 'required');
+		$this->form_validation->set_rules('regPass', 'Password', 'required|min_length[8]');
 		$this->form_validation->set_rules('regCPass', 'Password Confirmation', 'required|matches[regPass]');
 		$this->form_validation->set_rules('regPhone', 'Nomor HP', 'required');
 		$this->form_validation->set_rules('regPhone', 'Nomor HP', 'callback_username_check');

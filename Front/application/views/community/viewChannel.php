@@ -107,16 +107,20 @@ foreach ($team as $tim) {
             </div>
         </div>
         <div class="accItemContainer">
-            <?php foreach ($channel as $chn) { ?>
-                <div class="accItem listChannel" idChannel="<?= $chn['id_channel'] ?>" <?php if (isset($channelA)) {
-                                                                                            if ($chn['id_channel'] == $channelA['id_channel']) {
-                                                                                                echo "id='active'";
-                                                                                            }
-                                                                                        } ?>>
-                    <div class="profileImg" style="margin-left: 0;"><img src="data:image/jpeg;base64,<?= base64_encode($chn['foto_channel']) ?>" width="50" height="50" alt="" /></div>
-                    <h6 class="profileName"><?= $chn['nama_channel'] ?></h6>
-                </div>
-            <?php } ?>
+            <?php foreach ($channel as $chn) {
+                foreach ($channelU as $chnU) {
+                    if ($chnU['id_channel'] == $chn['id_channel'] && $chnU['id_user'] == $user['id_user'] && $chnU['jenis'] != -1) { ?>
+                        <div class="accItem listChannel" idChannel="<?= $chn['id_channel'] ?>" <?php if (isset($channelA)) {
+                                                                                                    if ($chn['id_channel'] == $channelA['id_channel']) {
+                                                                                                        echo "id='active'";
+                                                                                                    }
+                                                                                                } ?>>
+                            <div class="profileImg" style="margin-left: 0;"><img src="data:image/jpeg;base64,<?= base64_encode($chn['foto_channel']) ?>" width="50" height="50" alt="" /></div>
+                            <h6 class="profileName"><?= $chn['nama_channel'] ?></h6>
+                        </div>
+            <?php }
+                }
+            } ?>
         </div>
     </div>
     <div class="profile">
@@ -512,7 +516,7 @@ foreach ($team as $tim) {
                             <h3 style="margin: 4vh 0;color: #ecf0f1;">User Requests</h3>
                             <div class="members">
                                 <?php foreach ($channelU as $chnU) {
-                                    if ($chnU['jenis'] == -1) { ?>
+                                    if ($chnU['id_channel'] == $channelA['id_channel'] && $chnU['jenis'] == -1) { ?>
                                         <div class="memberItem request" idUser="<?= $chnU['id_user'] ?>">
                                             <div class="memberImg">
                                                 <img src="data:image/jpeg;base64,<?= base64_encode($chnU['foto']) ?>" alt="">
@@ -1181,78 +1185,95 @@ foreach ($team as $tim) {
     });
 
     <?php if (isset($_SESSION['master'])) { ?>
-
         $(".listMember").on("click", ".admin", function() {
             idUser = $(this).attr("idUser");
-            alertify.confirm('Confirmation', 'Demote or Kick ?',
-                function() {
-                    $.ajax({
-                        url: "<?= base_url(); ?>Community/demoteAdmin",
-                        method: "post",
-                        data: {
-                            idChannel: channelA,
-                            idUser: idUser
-                        },
-                        success: function(result) {
-                            $(".listMember").html(result);
-                            alertify.success('Demoted!');
+            bootbox.dialog({
+                title: 'Confirmation',
+                message: "<p>Demote or Kick ?</p>",
+                buttons: {
+                    noclose: {
+                        label: "Kick",
+                        className: 'back',
+                        callback: function() {
+                            $.ajax({
+                                url: "<?= base_url(); ?>Community/decMember",
+                                method: "post",
+                                data: {
+                                    idChannel: channelA,
+                                    idUser: idUser
+                                },
+                                success: function(result) {
+                                    $(".listMember").html(result);
+                                    alertify.error('Kicked!');
+                                }
+                            });
                         }
-                    });
-                },
-                function() {
-                    $.ajax({
-                        url: "<?= base_url(); ?>Community/decMember",
-                        method: "post",
-                        data: {
-                            idChannel: channelA,
-                            idUser: idUser
-                        },
-                        success: function(result) {
-                            $(".listMember").html(result);
-                            alertify.error('Kicked!');
+                    },
+                    ok: {
+                        label: "Demote",
+                        className: 'join',
+                        callback: function() {
+                            $.ajax({
+                                url: "<?= base_url(); ?>Community/demoteAdmin",
+                                method: "post",
+                                data: {
+                                    idChannel: channelA,
+                                    idUser: idUser
+                                },
+                                success: function(result) {
+                                    $(".listMember").html(result);
+                                    alertify.success('Demoted!');
+                                }
+                            });
                         }
-                    });
+                    }
                 }
-            ).set('labels', {
-                ok: 'Demote',
-                cancel: 'Kick'
             });
         });
 
         $(".listMember").on("click", ".regular", function() {
             idUser = $(this).attr("idUser");
-            alertify.confirm('Confirmation', 'Promote or Kick ?',
-                function() {
-                    $.ajax({
-                        url: "<?= base_url(); ?>Community/promoteMember",
-                        method: "post",
-                        data: {
-                            idChannel: channelA,
-                            idUser: idUser
-                        },
-                        success: function(result) {
-                            $(".listMember").html(result);
-                            alertify.success('Prmoted!');
+            bootbox.dialog({
+                title: 'Confirmation',
+                message: "<p>Promote or Kick ?</p>",
+                buttons: {
+                    noclose: {
+                        label: "Kick",
+                        className: 'back',
+                        callback: function() {
+                            $.ajax({
+                                url: "<?= base_url(); ?>Community/decMember",
+                                method: "post",
+                                data: {
+                                    idChannel: channelA,
+                                    idUser: idUser
+                                },
+                                success: function(result) {
+                                    $(".listMember").html(result);
+                                    alertify.error('Kicked!');
+                                }
+                            });
                         }
-                    });
-                },
-                function() {
-                    $.ajax({
-                        url: "<?= base_url(); ?>Community/decMember",
-                        method: "post",
-                        data: {
-                            idChannel: channelA,
-                            idUser: idUser
-                        },
-                        success: function(result) {
-                            $(".listMember").html(result);
-                            alertify.error('Kicked!');
+                    },
+                    ok: {
+                        label: "Promote",
+                        className: 'join',
+                        callback: function() {
+                            $.ajax({
+                                url: "<?= base_url(); ?>Community/promoteMember",
+                                method: "post",
+                                data: {
+                                    idChannel: channelA,
+                                    idUser: idUser
+                                },
+                                success: function(result) {
+                                    $(".listMember").html(result);
+                                    alertify.success('Promoted!');
+                                }
+                            });
                         }
-                    });
+                    }
                 }
-            ).set('labels', {
-                ok: 'Promote',
-                cancel: 'Kick'
             });
         });
 
@@ -1260,41 +1281,49 @@ foreach ($team as $tim) {
 
     $(".listMember").on("click", ".request", function() {
         idUser = $(this).attr("idUser");
-        //alert(idUser);
-        alertify.confirm('Confirmation', 'Accept or Decline ?',
-            function() {
-                $.ajax({
-                    url: "<?= base_url(); ?>Community/accMember",
-                    method: "post",
-                    data: {
-                        idChannel: channelA,
-                        idUser: idUser
-                    },
-                    success: function(result) {
-                        $(".listMember").html(result);
-                        alertify.success('Accepted!');
+        bootbox.dialog({
+            title: 'Member request',
+            message: "<p>Accept or Decline ?</p>",
+            buttons: {
+                noclose: {
+                    label: "Decline",
+                    className: 'back',
+                    callback: function() {
+                        $.ajax({
+                            url: "<?= base_url(); ?>Community/decMember",
+                            method: "post",
+                            data: {
+                                idChannel: channelA,
+                                idUser: idUser
+                            },
+                            success: function(result) {
+                                $(".listMember").html(result);
+                                alertify.error('Declined!');
+                            }
+                        });
                     }
-                });
-
-            },
-            function() {
-                $.ajax({
-                    url: "<?= base_url(); ?>Community/decMember",
-                    method: "post",
-                    data: {
-                        idChannel: channelA,
-                        idUser: idUser
-                    },
-                    success: function(result) {
-                        $(".listMember").html(result);
-                        alertify.error('Declined!');
+                },
+                ok: {
+                    label: "Accept",
+                    className: 'join',
+                    callback: function() {
+                        $.ajax({
+                            url: "<?= base_url(); ?>Community/accMember",
+                            method: "post",
+                            data: {
+                                idChannel: channelA,
+                                idUser: idUser
+                            },
+                            success: function(result) {
+                                $(".listMember").html(result);
+                                alertify.success('Accepted!');
+                            }
+                        });
                     }
-                });
+                }
             }
-        ).set('labels', {
-            ok: 'Accept',
-            cancel: 'Decline'
         });
+
     });
 
     var createEvent = false;

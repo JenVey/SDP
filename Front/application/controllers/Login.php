@@ -32,8 +32,7 @@ class Login extends CI_Controller
 		//$this->session->unset_userdata($data_session);
 
 		$this->User_model->updateStatus(0);
-
-		//$this->session->sess_destroy();
+		$this->session->sess_destroy();
 		$this->load->view('login');
 	}
 

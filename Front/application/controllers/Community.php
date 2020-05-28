@@ -89,7 +89,10 @@ class Community extends CI_Controller
 
     public function searchChannel()
     {
+        $id = $this->session->userdata('id_user');
+        $data['user'] = $this->User_model->getUserById($id);
         $data['channelA'] = $this->Channel_model->getChannelById();
+        $data['channelU'] = $this->ChannelUser_model->getAllChannelUser();
         $data['channel'] =  $this->Channel_model->searchChannel();
         $this->load->view('community/accItemContainerC', $data);
     }
@@ -418,6 +421,7 @@ class Community extends CI_Controller
 
         if (isset($_SESSION['idChannel'])) {
             $data['channelA'] = $this->Channel_model->getChannelById();
+            $data['channelU'] = $this->ChannelUser_model->getAllChannelUser();
             $data['channel'] = $this->Channel_model->getAllChannelByIdUser($id);
             $this->load->view('community/accItemContainerC', $data);
         }
