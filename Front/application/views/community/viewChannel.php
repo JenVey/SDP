@@ -1641,6 +1641,7 @@ foreach ($team as $tim) {
                                                         message: "Are you sure?",
                                                         closeButton: false,
                                                         callback: function(result) {
+
                                                             if (result) {
                                                                 $.ajax({
                                                                     url: "<?= base_url(); ?>Community/joinPertandingan",
@@ -1775,6 +1776,8 @@ foreach ($team as $tim) {
                                         closeButton: false,
                                         callback: function(result) {
                                             if (result) {
+                                                alert(jumlahPemain);
+                                                alert(jumlahSlot);
                                                 $.ajax({
                                                     url: "<?= base_url(); ?>Community/joinPertandingan",
                                                     method: "post",

@@ -103,10 +103,10 @@ foreach ($pesan as $psn) {
     </div>
     <div class="profile">
         <div class="wrapProfile" style="display: flex;overflow: hidden; height:100%;width: 100%; align-items: center;">
-            <div class="profileImg"><img class="profileImg" src="data:image/jpeg;base64,<?= base64_encode($user['foto']) ?>" width="50" height="50" alt="" /></div>
+            <div class="profileImg"><img class="profileImg" src="data:image/jpeg;base64,<?= base64_encode($mchFoto) ?>" width="50" height="50" alt="" /></div>
             <div class="profileStats">
                 <!-- Max Line 10 -->
-                <h5 class="profileName"><?= $user['nama_user'] ?></h5>
+                <h5 class="profileName"><?= $mchNama ?></h5>
                 <h6 class="profileBalance">GP <?= number_format(ceil($user['saldo']), 0, ".", ".") ?></h6>
             </div>
         </div>

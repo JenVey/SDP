@@ -44,6 +44,16 @@ class Transaksi extends CI_Controller
         $this->load->view('transaksi/listTransaksi', $data);
     }
 
+    public function viewFoto($idTrans, $idItem)
+    {
+        $this->session->set_userdata(array('id_item' => $idItem));
+        $this->session->set_userdata(array('id_transaksi' => $idTrans));
+
+        $data['transItem'] = $this->TransItem_model->getAllTransItem();
+        $this->load->view('templates/header', $data);
+        $this->load->view('transaksi/viewFoto', $data);
+    }
+
     public function editTransaksi()
     {
         $data['transaksi'] = $this->Trans_model->getAllUser();

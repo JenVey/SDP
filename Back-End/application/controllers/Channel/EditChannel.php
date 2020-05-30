@@ -30,7 +30,6 @@ class EditChannel extends CI_Controller
 
 	public function index($id)
 	{
-		$this->load->model('Channel_model');
 		$data['channel'] = $this->Channel_model->getChannelById($id);
 		$data['transItem'] = $this->TransItem_model->getAllTransItem();
 		$this->load->view('templates/header', $data);
@@ -42,10 +41,11 @@ class EditChannel extends CI_Controller
 	public function edit($id)
 	{
 
-		$data['channel'] = $this->Channel_model->getChannelById($id);
 		$this->form_validation->set_rules('nameChannel', 'Nama', 'required');
 
 		if ($this->form_validation->run() == FALSE) {
+			$data['channel'] = $this->Channel_model->getChannelById($id);
+			$data['transItem'] = $this->TransItem_model->getAllTransItem();
 			$this->load->view('templates/header', $data);
 			$this->load->view('templates/navbar');
 			$this->load->view('templates/sidebar');

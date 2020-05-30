@@ -188,12 +188,14 @@ if ($mchId != "") {
 			<button class="homeButton">
 				<h1 class="yellow varela">gather.owl</h1>
 			</button>
-			<div class="navsContainer">
-				<h5 class="yellow navItem merchant" style="margin:0 2vw;">My Merchant</h5>
-				<h5 class="yellow navItem pending" style="margin:0 2vw;">Transaction</h5>
-				<h5 class="yellow navItem rating" style="margin:0 2vw;">Ratings</h5>
-				<h5 class="yellow navItem stash" style="margin:0 2vw;">Stash Box</h5>
-			</div>
+			<?php if (count($merchant) > 0) { ?>
+				<div class="navsContainer">
+					<h5 class="yellow navItem merchant" style="margin:0 2vw;">My Merchant</h5>
+					<h5 class="yellow navItem pending" style="margin:0 2vw;">Transaction</h5>
+					<h5 class="yellow navItem rating" style="margin:0 2vw;">Ratings</h5>
+					<h5 class="yellow navItem stash" style="margin:0 2vw;">Stash Box</h5>
+				</div>
+			<?php } ?>
 		</div>
 		<div class="navBarFix">
 			<button class="homeButton">

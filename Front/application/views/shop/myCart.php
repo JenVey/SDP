@@ -547,7 +547,7 @@
 								},
 								success: function(result) {
 									alertify.success("Success buy item");
-									//window.location.href = '<?= base_url(); ?>Shop/viewCart';
+									window.location.href = '<?= base_url(); ?>Shop/viewCart';
 								}
 							});
 						} else {

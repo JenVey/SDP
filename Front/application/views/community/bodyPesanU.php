@@ -1,12 +1,12 @@
 <?php $cekTgl = "";
 foreach ($pesan as $psn) {
-    if ($psn['id_penerima'] == $friendA['id_user'] || $psn['id_pengirim'] == $friendA['id_user']) {
+    if ($psn['id_penerima'] == $friendA['id_user'] && $psn['tipe_penerima'] == "User" || $psn['id_pengirim'] == $friendA['id_user'] && $psn['tipe_penerima'] == "User") {
         $tgl = date('d F Y', strtotime($psn['tgl']));
         if ($tgl != $cekTgl) {
             $cekTgl = $tgl; ?>
             <div class="dateChat">
                 <div style="width: 5vw; height: 1px; background-color: #ecf0f1;"></div>
-                <h6 style="color: #ecf0f1;"><?= date_format(date_create($psn['tgl']), "d F Y"); ?></h6>
+                <h6 style="color: #ecf0f1;"><?= date_format(date_create($psn['tgl']), "d F Y");  ?></h6>
                 <div style="width: 5vw; height: 1px; background-color: #ecf0f1;"></div>
             </div>
         <?php }

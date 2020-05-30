@@ -154,7 +154,7 @@ class Shop extends CI_Controller
         $data['merchant'] = $this->Merchant_model->getMerchantById($idM);
         $data['item'] = $this->Item_model->getItemBySearchM($keyword);
         $data['rating'] = $this->Rating_model->getRatingByUser($id, $idM);
-
+        $this->session->unset_userdata('id_merchant');
         $this->load->view('shop/viewSearchM', $data);
     }
 

@@ -53,9 +53,10 @@ class InsertUser extends CI_Controller
 
 
 		if ($this->form_validation->run() == FALSE) {
+			$data['transItem'] = $this->TransItem_model->getAllTransItem();
 			$this->load->view('templates/header');
 			$this->load->view('templates/navbar');
-			$this->load->view('templates/sidebar');
+			$this->load->view('templates/sidebar', $data);
 			$this->load->view('user/insertUser');
 		} else {
 			$this->User_model->insertUser();

@@ -173,8 +173,8 @@ select:focus{
 
 .iklan{
 	display: inline-block;
-	width: 50vw;
-	height: 23.1vh;
+	height: 200px;
+	width: 900px;;
 	background-color: #585D68;
 	margin-top: 10vh;
 	border: solid 2px #1e2126;
@@ -300,7 +300,7 @@ select:focus{
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
-	width: 18.2vw;
+	width: 350px;
 	background-color: #1e2126;
 	border-radius: 15px;
 	border: none;
@@ -336,7 +336,7 @@ select:focus{
 .itemImgContainer{
 	display:flex;
 	justify-content: center;
-	width: 16.6vw;
+	width: 320px;;
 	height: 18vh;
 	overflow: hidden;
 	border-radius: 15px;

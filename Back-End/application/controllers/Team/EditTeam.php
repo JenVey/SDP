@@ -45,9 +45,12 @@ class EditTeam extends CI_Controller
 		$this->form_validation->set_rules('nameTeam', 'Nama', 'required');
 
 		if ($this->form_validation->run() == FALSE) {
+			$this->load->model('Team_model');
+			$data['team'] = $this->Team_model->getTeamById($id);
+			$data['transItem'] = $this->TransItem_model->getAllTransItem();
 			$this->load->view('templates/header', $data);
 			$this->load->view('templates/navbar');
-			$this->load->view('templates/sidebar');
+			$this->load->view('templates/sidebar', $data);
 			$this->load->view('team/editTeam', $data);
 		} else {
 			$this->Team_model->editTeam($id);

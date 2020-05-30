@@ -42,17 +42,19 @@ class EditUser extends CI_Controller
 
 	public function edit($id)
 	{
-
-		$data['user'] = $this->User_model->getUserById($id);
+		//$data['user'] = $this->User_model->getUserById($id);
 		$this->form_validation->set_rules('nameUser', 'Nama', 'required');
 		$this->form_validation->set_rules('passUser', 'Password', 'required');
 		$this->form_validation->set_rules('emailUser', 'Email', 'required|valid_email');
 		$this->form_validation->set_rules('passUser', 'Password', 'required');
 
 		if ($this->form_validation->run() == FALSE) {
+			$this->load->model('User_model');
+			$data['user'] = $this->User_model->getUserById($id);
+			$data['transItem'] = $this->TransItem_model->getAllTransItem();
 			$this->load->view('templates/header', $data);
 			$this->load->view('templates/navbar');
-			$this->load->view('templates/sidebar');
+			$this->load->view('templates/sidebar', $data);
 			$this->load->view('user/editUser', $data);
 		} else {
 			$this->User_model->editUser($id);

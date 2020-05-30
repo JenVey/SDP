@@ -68,10 +68,12 @@ class Promo extends CI_Controller
         $this->form_validation->set_rules('tglKadaluwarsa', 'Tanggal Kadaluwarsa', 'required');
 
         if ($this->form_validation->run() == FALSE) {
-            $this->load->view('templates/header');
-            $this->load->view('templates/navbar');
-            $this->load->view('templates/sidebar');
-            $this->load->view('promo/insertPromo');
+            $data['transItem'] = $this->TransItem_model->getAllTransItem();
+            $data['promo'] = $this->Promo_model->getAllPromo();
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/navbar', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('promo/insertPromo', $data);
         } else {
             $this->Promo_model->insertPromo();
             $this->session->set_flashdata('flash', 'Success Insert Promo !!!');

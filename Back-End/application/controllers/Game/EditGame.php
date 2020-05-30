@@ -30,7 +30,6 @@ class EditGame extends CI_Controller
 
 	public function index($id)
 	{
-		$this->load->model('Game_model');
 		$data['game'] = $this->Game_model->getGameById($id);
 		$data['transItem'] = $this->TransItem_model->getAllTransItem();
 		$this->load->view('templates/header', $data);
@@ -46,9 +45,11 @@ class EditGame extends CI_Controller
 		$this->form_validation->set_rules('nameGame', 'Nama', 'required');
 
 		if ($this->form_validation->run() == FALSE) {
+			$data['game'] = $this->Game_model->getGameById($id);
+			$data['transItem'] = $this->TransItem_model->getAllTransItem();
 			$this->load->view('templates/header', $data);
 			$this->load->view('templates/navbar');
-			$this->load->view('templates/sidebar');
+			$this->load->view('templates/sidebar', $data);
 			$this->load->view('game/editGame', $data);
 		} else {
 			$this->Game_model->editGame($id);

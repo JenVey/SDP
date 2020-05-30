@@ -43,14 +43,16 @@ class EditSub extends CI_Controller
 	public function edit($id)
 	{
 
-		$data['sub'] = $this->Sub_model->getSubById($id);
-		$data['merchant'] = $this->Merchant_model->getAllMerchant();
 		$this->form_validation->set_rules('tglAkhir', 'Tanggal Kadaluawarsa', 'required');
 
 		if ($this->form_validation->run() == FALSE) {
+			$this->load->model('Sub_model');
+			$data['sub'] = $this->Sub_model->getSubById($id);
+			$data['merchant'] = $this->Merchant_model->getAllMerchant();
+			$data['transItem'] = $this->TransItem_model->getAllTransItem();
 			$this->load->view('templates/header', $data);
 			$this->load->view('templates/navbar');
-			$this->load->view('templates/sidebar');
+			$this->load->view('templates/sidebar', $data);
 			$this->load->view('sub/editSub', $data);
 		} else {
 			$this->Sub_model->editSub($id);

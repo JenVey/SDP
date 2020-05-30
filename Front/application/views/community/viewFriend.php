@@ -227,7 +227,7 @@ date_default_timezone_set('Asia/Jakarta');
                     <div class="chatField">
                         <?php $cekTgl = "";
                         foreach ($pesan as $psn) {
-                            if ($psn['id_penerima'] == $friendA['id_user'] || $psn['id_pengirim'] == $friendA['id_user']) {
+                            if ($psn['id_penerima'] == $friendA['id_user'] && $psn['tipe_penerima'] == "User" || $psn['id_pengirim'] == $friendA['id_user'] && $psn['tipe_penerima'] == "User") {
                                 $tgl = date('d F Y', strtotime($psn['tgl']));
                                 if ($tgl != $cekTgl) {
                                     $cekTgl = $tgl; ?>

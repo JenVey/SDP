@@ -96,13 +96,13 @@
                                                             </i>
                                                             Cancel
                                                         </a>
-                                                        <a class="btn btn-primary btn-sm download " id="<?= $ctr ?>" download>
+                                                        <a href="<?= base_url(); ?>Transaksi/viewFoto/<?= $transItemm['id_transaksi'] ?>/<?= $transItemm['id_item'] ?>" class="btn btn-primary btn-sm view" target="_blank">
                                                             <i class=" fas fa-download">
                                                             </i>
                                                             View foto
                                                         </a>
                                                     <?php } else if ($transItemm['status'] == 2) { ?>
-                                                        <a class="btn btn-primary btn-sm" id="download<?= $ctr ?>" download>
+                                                        <a class="btn btn-primary btn-sm view" href="<?= base_url(); ?>Transaksi/viewFoto/<?= $transItemm['id_transaksi'] ?>/<?= $transItemm['id_item'] ?>" target="_blank">
                                                             <i class=" fas fa-download">
                                                             </i>
                                                             View foto
@@ -157,19 +157,6 @@
             });
         });
 
-        $(document).ready(function() {
-
-        });
-
-        $(".download").click(function() {
-            var canvas = $("#bukti" + $(this).attr("id")).attr("src");
-            alert(canvas);
-            canvas.toBlob(function(blob) {
-                saveAs(blob, "bukti.png");
-            });
-
-            //FileSaver.saveAs(canvas, "bukti.png");
-        });
 
         $(".approve").click(function() {
             idTransksi = $(this).attr("idTrans");

@@ -68,13 +68,9 @@ class Pertandingan_model extends CI_model
 
     public function joinPertandingan()
     {
-
-
         $idTurnament = $this->input->post('id_turnament');
         $idTeam = $this->input->post('id_team');
         $slot =  $this->input->post('jumlah_slot');
-
-
 
         $join = false;
         $query = $this->db->query("select * from pertandingan");
@@ -176,11 +172,10 @@ class Pertandingan_model extends CI_model
             //UPDATE STATUS FULL (1)
             $query = $this->db->query("select * from tournament");
             foreach ($query->result_array() as $row) {
-                if ($row['jumlah_pemain'] == $row['jumlah_slot']) {
+                if ($row['jumlah_pemain'] == $row['jumlah_slot'] && $row['id_turnament'] == $idTurnament) {
                     $data = [
                         "status" => 1
                     ];
-
                     $this->db->where('id_turnament', $idTurnament);
                     $this->db->update('tournament', $data);
                 }

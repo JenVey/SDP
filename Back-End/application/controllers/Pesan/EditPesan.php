@@ -29,7 +29,6 @@ class EditPesan extends CI_Controller
 
 	public function index($id)
 	{
-		$this->load->model('Pesan_model');
 		$data['pesan'] = $this->Pesan_model->getPesanById($id);
 		$data['transItem'] = $this->TransItem_model->getAllTransItem();
 		$this->load->view('templates/header', $data);
@@ -40,15 +39,14 @@ class EditPesan extends CI_Controller
 
 	public function edit($id)
 	{
-
-		$data['pesan'] = $this->Pesan_model->getPesanById($id);
 		$this->form_validation->set_rules('statusPesan', 'Status Pesan', 'required');
-
 		if ($this->form_validation->run() == FALSE) {
+			$data['pesan'] = $this->Pesan_model->getPesanById($id);
+			$data['transItem'] = $this->TransItem_model->getAllTransItem();
 			$this->load->view('templates/header', $data);
 			$this->load->view('templates/navbar');
-			$this->load->view('templates/sidebar');
-			$this->load->view('pesan/editPesan', $data);
+			$this->load->view('templates/sidebar', $data);
+			$this->load->view('Pesan/EditPesan', $data);
 		} else {
 			$this->Pesan_model->editPesan($id);
 			$this->session->set_flashdata('flash', 'Susccess Edited');

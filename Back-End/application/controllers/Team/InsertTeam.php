@@ -36,8 +36,6 @@ class InsertTeam extends CI_Controller
 		$this->load->view('templates/navbar');
 		$this->load->view('templates/sidebar', $data);
 		$this->load->view('team/insertTeam');
-		//$this->load->view('templates/footer',$data);
-
 	}
 
 	public function insert()
@@ -47,10 +45,12 @@ class InsertTeam extends CI_Controller
 		$this->form_validation->set_rules('nameTeam', 'Nama', 'required');
 
 		if ($this->form_validation->run() == FALSE) {
+			$data['transItem'] = $this->TransItem_model->getAllTransItem();
+			$this->load->model('Team_model');
 			$this->load->view('templates/header');
 			$this->load->view('templates/navbar');
-			$this->load->view('templates/sidebar');
-			$this->load->view('team/insertTeam');
+			$this->load->view('templates/sidebar', $data);
+			$this->load->view('team/insertTeam');;
 		} else {
 			$this->Team_model->insertTeam();
 			$this->session->set_flashdata('flash', 'Success Insert Team !!!');
