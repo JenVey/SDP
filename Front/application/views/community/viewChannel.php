@@ -1418,37 +1418,98 @@ foreach ($team as $tim) {
         jumlahPemain = $(this).attr("jumlahPemain");
         jumlahSlot = $(this).attr("jumlahSlot");
 
-        if (statusTurney == 1) {
-            dialog = bootbox.dialog({
-                title: "Action",
-                message: "<p>Slot is full, what are you going to do?</p>",
-                closeButton: false,
-                buttons: {
-                    cancel: {
-                        label: "Nothing",
-                        className: 'back',
-                        callback: function() {
+        if (statusTurney == 1 || statusTurney == 2 || statusTurney == 3) {
+            <?php if (isset($_SESSION['admin']) || isset($_SESSION['master'])) { ?>
+                dialog = bootbox.dialog({
+                    title: "Action",
+                    message: "<p>What are you going to do?</p>",
+                    closeButton: false,
+                    size: "large",
+                    buttons: {
+                        cancel: {
+                            label: "Nothing",
+                            className: 'back',
+                            callback: function() {
 
-                        }
-                    },
-                    noclose: {
-                        label: "View Bracket",
-                        className: 'view',
-                        callback: function() {
-                            $.ajax({
-                                url: "<?= base_url(); ?>Community/setTournament",
-                                method: "post",
-                                data: {
-                                    id_turnament: id_turnament
-                                },
-                                success: function(result) {
-                                    window.location.href = '<?= base_url(); ?>Community/viewTournament';
-                                }
-                            });
+                            }
+                        },
+                        cancelTourney: {
+                            label: "Cancel Tournament",
+                            className: 'back',
+                            callback: function() {
+                                bootbox.confirm({
+                                    message: "Are you sure?",
+                                    closeButton: false,
+                                    callback: function(result) {
+                                        if (result) {
+                                            $.ajax({
+                                                url: "<?= base_url(); ?>Community/cancelTournament",
+                                                method: "post",
+                                                data: {
+                                                    id_turnament: id_turnament
+                                                },
+                                                success: function(result) {
+                                                    $(".tourneys").html(result);
+                                                    alertify.success("Successfully Cancelled Tournament");
+                                                }
+                                            });
+                                        }
+                                    }
+                                });
+                            }
+
+                        },
+                        noclose: {
+                            label: "View Bracket",
+                            className: 'view',
+                            callback: function() {
+                                //ViewTournament
+                                $.ajax({
+                                    url: "<?= base_url(); ?>Community/setTournament",
+                                    method: "post",
+                                    data: {
+                                        id_turnament: id_turnament
+                                    },
+                                    success: function(result) {
+                                        window.location.href = '<?= base_url(); ?>Community/viewTournament';
+                                    }
+                                });
+                            }
                         }
                     }
-                }
-            });
+                });
+            <?php } else { ?>
+                dialog = bootbox.dialog({
+                    title: "Action",
+                    message: "<p>Slot is full, what are you going to do?</p>",
+                    closeButton: false,
+                    buttons: {
+                        cancel: {
+                            label: "Nothing",
+                            className: 'back',
+                            callback: function() {
+
+                            }
+                        },
+                        noclose: {
+                            label: "View Bracket",
+                            className: 'view',
+                            callback: function() {
+                                $.ajax({
+                                    url: "<?= base_url(); ?>Community/setTournament",
+                                    method: "post",
+                                    data: {
+                                        id_turnament: id_turnament
+                                    },
+                                    success: function(result) {
+                                        window.location.href = '<?= base_url(); ?>Community/viewTournament';
+                                    }
+                                });
+                            }
+                        }
+                    }
+                });
+            <?php } ?>
         } else {
             if ($(this).attr("jenis") == "team") {
                 if (adaTeam == 'true') {

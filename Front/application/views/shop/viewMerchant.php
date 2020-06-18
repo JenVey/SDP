@@ -209,7 +209,6 @@ if (!empty($rating)) {
                         echo "</button>";
                     }
 
-
                     ?>
 
                     <button class="merchantChat">

@@ -1463,10 +1463,8 @@ if ($mchId != "") {
 						$(".changeProfileText").css("color", "#ECF0F1");
 						$("#profileIcon").attr("hidden", true);
 						$("input").attr("readonly", true);
-
 						alertify.success("SUCCESS EDIT PROFILE !!!!");
 					}
-
 
 				});
 
@@ -1722,7 +1720,6 @@ if ($mchId != "") {
 				idTrans = $(this).parent().parent().attr("idTrans");
 				idItem = $(this).parent().parent().attr("idItem");
 				foto = $(this).parent().siblings(".Date").children(".inputfile").val();
-
 				foto = $(this).parent().siblings(".fotobukti").find('img').attr('src');
 
 				if (foto != null) {
